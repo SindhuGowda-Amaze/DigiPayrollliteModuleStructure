@@ -24,6 +24,15 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { LookAndFeelDashComponent } from './Configuration/look-and-feel-dash/look-and-feel-dash.component';
 import { LeaveConfigDashComponent } from './Configuration/leave-config-dash/leave-config-dash.component';
 import { AttendanceConfigDashComponent } from './Configuration/attendance-config-dash/attendance-config-dash.component';
+import { MonthlyReportComponent } from './Reports/Payroll/monthly-report/monthly-report.component';
+import { PayrollSummaryReportComponent } from './Reports/Payroll/payroll-summary-report/payroll-summary-report.component';
+import { MonthlyAmmortizationReportComponent } from './Reports/Payroll/monthly-ammortization-report/monthly-ammortization-report.component';
+import { YTDReportComponent } from './Reports/Payroll/ytdreport/ytdreport.component';
+import { YTDReportAdjustmentComponent } from './Reports/Payroll/ytdreport-adjustment/ytdreport-adjustment.component';
+import { PayslipReportComponent } from './Reports/Payroll/payslip-report/payslip-report.component';
+import { SSSR5ReportComponent } from './Reports/SSS/sssr5-report/sssr5-report.component';
+import { SSSML1ReportComponent } from './Reports/SSS/sssml1-report/sssml1-report.component';
+import { SSSRL1ReportComponent } from './Reports/SSS/sssrl1-report/sssrl1-report.component';
 @NgModule({
   declarations: [
     HrComponent,
@@ -41,7 +50,16 @@ import { AttendanceConfigDashComponent } from './Configuration/attendance-config
     GovernmentComponent,
     LookAndFeelDashComponent,
     LeaveConfigDashComponent,
-    AttendanceConfigDashComponent
+    AttendanceConfigDashComponent,
+    MonthlyReportComponent,
+    PayrollSummaryReportComponent,
+    MonthlyAmmortizationReportComponent,
+    YTDReportComponent,
+    YTDReportAdjustmentComponent,
+    PayslipReportComponent,
+    SSSR5ReportComponent,
+    SSSML1ReportComponent,
+    SSSRL1ReportComponent
   ],
   imports: [
     CommonModule,

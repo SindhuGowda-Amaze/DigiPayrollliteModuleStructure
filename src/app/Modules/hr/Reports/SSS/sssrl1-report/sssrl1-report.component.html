@@ -1,0 +1,516 @@
+<div class="container-fluid">
+    <div class="card">
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="taxtable">R1-A</p>
+                <hr><br>
+            </div>
+
+
+            <div class="container">
+
+                <div class="row FilterClass data">
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-3">
+
+                        <p class="data"> Select Date Coverage:</p>
+                    </div>
+                    <div class="col-lg-2 ">
+                        <div class="dropdown">
+                            <select class="form-control inputfield" id="Month" name="Month" [(ngModel)]="month"><br />
+                                <option style="color:#0C275A" value="">Select Month </option>
+                                <option style="color:#0C275A" value="1">January </option>
+                                <option style="color:#0C275A" value="2">February </option>
+                                <option style="color:#0C275A" value="3">March </option>
+                                <option style="color:#0C275A" value="4">April </option>
+                                <option style="color:#0C275A" value="5">May </option>
+                                <option style="color:#0C275A" value="6">June </option>
+                                <option style="color:#0C275A" value="7">July</option>
+                                <option style="color:#0C275A" value="8">August </option>
+                                <option style="color:#0C275A" value="8" value="9">September </option>
+                                <option style="color:#0C275A" value="8" value="10">October </option>
+                                <option style="color:#0C275A" value="8" value="11">November </option>
+                                <option style="color:#0C275A" value="8" value="12">December </option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-lg-2">
+                        <div class="dropdown">
+                            <select class="form-control " id="Year" name="Year" [(ngModel)]="year"><br />
+                                <option style="color:#0C275A" value="8" value="">Select Year </option>
+                                <option style="color:#0C275A" value="8" value="2022">2022 </option>
+                                <option style="color:#0C275A" value="8" value="2021">2021 </option>
+                                <option style="color:#0C275A" value="8" value="2020">2020 </option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3"></div>
+                </div>
+                <br />
+
+                <div class="row FilterClass fontheading data">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                        <p>Signatory Person</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dropdown">
+                            <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                                <option style="color:#0C275A" value="8" value="">Select</option>
+                                <!-- <option style="color:#0C275A" value="8" value="Admin">Admin</option> -->
+                                <option style="color:#0C275A" value="8" value="HR">HR</option>
+                                <!-- <option style="color:#0C275A" value="8" value="Finance">Finance</option> -->
+                            </select>
+                        </div>
+                    </div>
+                </div> <br>
+                <br />
+                <div class="row">
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-4">
+                        <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                        <button class="AddButton" (click)="showpdf()">GENERATE</button>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<div class="row" *ngIf="showleaseforprint==1" id="downloadaplication">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-10">
+        <!-- <button class="button1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                aria-hidden="true"></i></button>
+        <br />
+        <br /> -->
+
+        <div class="row">
+            <div class="col-lg-7">
+            </div>
+            <div class="col-lg-5">
+                <button class="AddButton" (click)="convetToPDF1()">EXPORT TO PDF <i class="fa fa-download"
+                        aria-hidden="true"></i></button>
+            </div>
+        </div><br>
+
+        <div class="Container-fluid"  *ngFor="let item of uniquelistchnuk;let i = index">
+            <div class="container"  style="background-color: white;">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <img src="assets/images/R1-A.PNG"><BR>
+                        COV - 01229(12-2015)
+                    </div>
+                    <div class="col-lg-8">
+                        <!-- <p class="Heading1">Republic of the Philippines</p>
+                            <p class="heading1">SOCIAL SECURITY SYSTEM</p>
+                            <p class="heading2">EMPLOYMENT REPORT</p> -->
+                        <p style="text-align: center;">
+                            <span style="font-size: 12px; margin: 0px;">Republic of the Philippines</span><br>
+                            <span style="font-size: 18px; margin: 0px;">SOCIAL SECURITY SYSTEM</span><br>
+                            <span style="font-size: 30px; margin: 0px;">EMPLOYMENT REPORT</span>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label style="padding-left: 122px; padding-right: 122px; border: 3px solid black;">THIS FORM MAY
+                            BE
+                            REPRODUCED AND IS NOT FOR SALE. THIS CAN ALSO BE DOWNLOADED THRU THE SSS
+                            WEBSITE AT www.sss.govt.ph.</label>
+                        <label>PLEASE READ THE INSTRUCTION AT THE BACK BEFORE FILLING OUT THE FORM.PRINT ALL INFORMATION
+                            IN
+                            CAPITAL LETTERS
+                            AND USE BLACK INK ONLY
+                        </label>
+                        <label style="padding-left: 400px; padding-right: 417px; border: 3px solid black;">PART-1 TO BE
+                            FILLED
+                            OUT BY THE EMPLOYER</label>
+                    </div>
+                </div>
+
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+
+                    <div class="col-lg-2" style="border: 2px solid black; ">
+                        <label>EMPLOYER ID NUMBER</label><br>
+                        <!-- <input> -->{{companyid}}
+                    </div>
+                    <div class="col-lg-4" style="border: 2px solid black;">
+                        <label>EMPLOYER NAME</label><br>
+                        <!-- <input> -->{{companyname}}
+                    </div>
+                    <div class="col-lg-3" style="border: 2px solid black;">
+                        <label>TYPE OF EMPLOYER</label><br>
+                        <input type="checkbox" style="margin-bottom: 20px;" checked>&nbsp;Business
+                        &nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox">&nbsp;Household
+                    </div>
+                    <div class="col-lg-3" style="border: 2px solid black;">
+                        <label>TYPE OF REPORT</label><br>
+                        <input type="checkbox">&nbsp;Initial &nbsp;&nbsp;&nbsp;&nbsp; <input
+                            type="checkbox">&nbsp;Subsequent
+                    </div>
+
+                </div>
+
+
+
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+
+                    <div class="col-lg-10" style="border: 2px solid black; ">
+                        <label>ADDRESS
+                            <span style="font-size: 10px;"> (RM./FLIRIUNIT NO. & BLDG.
+                                NAME)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                (HOUSEILOT & BLK NO)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                (STREET
+                                NAME)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                (SUBDIVISION)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                (BARANGAYANSTRICT/LOCAL/TY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                (CITY/MUNICIPALITY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                (PROVINCE)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span></label>
+                        <br><br>
+                        {{Address}} {{province}} {{cityname}}
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <label>ZIPCODE</label><br>
+                        {{zipcode}}
+                        <!-- <input style="margin-bottom: 10px;"> -->
+                    </div>
+                </div>
+
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+
+                    <div class="col-lg-10" style="border: 2px solid black; ">
+                        <label>FOREIGN ADDRESS (IF APPLICABLE)</label><br>
+                        <!-- <input style="margin-bottom: 10px;"> -->
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <label>COUNTRY</label><br>
+                        <!-- <input style="margin-bottom: 10px;"> -->
+                    </div>
+                </div>
+
+
+                <div class="row Fontsize" style=" margin-left: 1px; margin-right: 6px;">
+
+                    <div class="col-lg-2" style="border: 2px solid black; ">
+                        <label>TELEPHONE NO.(AREA CODE.TEL NO)</label><br><br>
+                        <!-- <input> -->
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <label>MOBILEICELLPHONE NUMBER</label><br><br>
+                        {{Phone}}
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <label>E-MAIL ADDRESS</label><br><br>
+                        <!-- <input> --><label style="margin-left:-10px">{{email}}</label>
+                    </div>
+                    <div class="col-lg-4" style="border: 2px solid black;">
+                        <label>WEBSITE it ANY</label><br><br>
+                        <!-- <input> -->
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <label>TAX IDENTIFICATIONNUMBER</label><br><br>
+                        {{tin}}
+                        <!-- <input> -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table-border">
+                            <tr>
+                                <th class="table-border">SS NUMBER</th>
+                                <th class="table-border">NAME OF EMPLOYEE<br>
+                                    (LAST NAME) &nbsp; &nbsp;
+                                    (FIRST NAME) &nbsp; &nbsp;
+                                    (MIDDLE NAME) &nbsp; &nbsp;
+                                    (SUFFIX) &nbsp; &nbsp;
+                                </th>
+                                <th class="table-border">DATE OF BIRTH</th>
+                                <th class="table-border">DATE OF EMPLOYMENT</th>
+                                <th class="table-border">DATE OF SEPARATION</th>
+                                <th class="table-border">MONTHLY COMPENSATION</th>
+                                <th class="table-border">POSITION/NATURE OF WORK</th>
+                                <th class="table-border">FOR SSS USE</th>
+                            </tr>
+
+                            <tr *ngFor="let item of uniquelistchnuk[i]">
+                                <td class="table-border">{{item.sssno}}</td>
+                                <td class="table-border">{{item.staffname}}</td>
+                                <td class="table-border">{{item.dob}} </td>
+                                <td class="table-border">{{item.joiningDate}} </td>
+                                <td class="table-border">NA</td>
+                                <td class="table-border">{{item.monthlyGrossSalary}}</td>
+                                <td class="table-border">{{item.role}}</td>
+
+
+                            </tr>
+                            <!-- <tr *ngFor="let item of employeelist">
+                                    <td class="table-border">{{item.staffname}}</td>
+                                    <td class="table-border">{{item.staffname}}</td>
+                                    <td class="table-border">{{item.staffname}}</td>
+                                    <td class="table-border">{{item.staffname}} </td>
+                                    <td class="table-border">{{item.staffname}} </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-border">1 1 1 1 1 1 1 1 1</td>
+                                    <td class="table-border">3.</td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-border">1 1 1 1 1 1 1 1 1</td>
+                                    <td class="table-border">4.</td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-border">1 1 1 1 1 1 1 1 1</td>
+                                    <td class="table-border">5.</td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr> -->
+                            <!-- <tr>
+                                    <td class="table-border">1 1 1 1 1 1 1 1 1</td>
+                                    <td class="table-border">6.</td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-border">1 1 1 1 1 1 1 1 1</td>
+                                    <td class="table-border">7.</td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-border">1 1 1 1 1 1 1 1 1</td>
+                                    <td class="table-border">8.</td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-border">1 1 1 1 1 1 1 1 1</td>
+                                    <td class="table-border">9.</td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-border">1 1 1 1 1 1 1 1 1</td>
+                                    <td class="table-border">10.</td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border">1 1 1 1 1 1 1 </td>
+                                    <td class="table-border"> </td>
+                                    <td class="table-border"></td>
+                                    <td class="table-border"></td>
+                                </tr> -->
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+
+                    <div class="col-lg-9" style="border: 2px solid black; ">
+                        <div class="row">
+                            <div class="col-lg-2 border">
+                                <label class="Fontsize">TOTAL NUMBER OF REPORTEDEMPLOYEES</label>
+                                <p>{{uniquelistchnuk[i].length}}</p>
+                            </div>
+                            <div class="col-lg-4 border">
+                                <label class="Fontsize">NAME OF OWNER/MANAGING PARTNER/PRESIDENT/CHAIRMAN/CORPORATE
+                                    SECRETARY</label>
+                            </div>
+                            <div class="col-lg-5 border">
+                                <label class="Fontsize">certify that the information provided in this form are true and
+                                    correct<br>
+                                    {{signname}} &nbsp; &nbsp; &nbsp; <img src="{{signature1}}" style="width: 26%;
+                                        width: 26%;margin-left: 63px;" /> &nbsp; &nbsp;&nbsp;&nbsp; {{sign}}&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;<br />
+
+                                    PRINTED NAME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SIGNATURE &nbsp; &nbsp; &nbsp;&nbsp;
+                                    &nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp; POSITION &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp; &nbsp; </label>
+                            </div>
+                            <div class="col-lg-1 border">
+                                <label class="Fontsize">PAGE_OFF_</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 border">
+                                <p style="text-align: center;">PART-II TO BE FILLED
+                                    OUT BY SSS</p>
+                            </div>
+                        </div>
+
+                        <div class="row" style="font-size: 10PX;">
+                            <div class="col-lg-2 ">
+                                <div class="row">
+                                    <div class="col-lg-12 border"><label>BATCH NUMBER</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 border"><label>NO OF OUTPUT <br>(ER/EE)</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 border">
+                                <label>SCREENING AND RECEIVING RESULTS</label><br>
+                                <input type="checkbox">Correctauthorized signatory per SS Form L-501<br>
+                                <input type="checkbox">Unauthorizedsignatory per SS Form L-501<br>
+                                <input type="checkbox">Others:_______________________________<br>__________________<br>
+                            </div>
+                            <div class="col-lg-5 border">
+                                <div class="row">
+                                    <div class="col-lg-12 border">
+                                        <label>SCREENED AND RECIEVED BY<br>
+                                            _____________ &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                            &nbsp;
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                            _____________ &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                            _____________ <br>
+                                            SIGNATURE OVER PRINTED NAME &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; BRANCH
+                                            &nbsp;
+                                            &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; DATE & TIME </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 border">
+                                        <label>PROCESSED BY<br>
+                                            _____________ &nbsp; &nbsp; _____________
+                                            SIGNATURE OVER PRINTED NAME &nbsp; &nbsp; &nbsp; DATE & TIME </label>
+                                    </div>
+                                    <div class="col-lg-6 border">
+                                        <label>REVIEWED BY<br>
+                                            _____________ &nbsp; &nbsp; _____________
+                                            SIGNATURE OVER PRINTED NAME &nbsp; &nbsp; &nbsp; DATE & TIME </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 " style="border: 2px solid black; font-size: 7px;">
+                        <p style="text-align: center;">Legend</p>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label>NO SSMNo - SS Number<br>
+                                    NO NAME-No EE Name<br>
+                                    NO DOB-No Dale of Birth<br>
+                                    NO DoENo Oats of Emlabelloyment<br>
+                                    NO me- No Monthly Comlabelensation<br>
+                                    NO labeltrii-No labelosition/Nature of Work<br>
+                                    DOB INT DOE-Date of Birth Interchanged<br>
+                                    *Rh Date of EmlabelIoyment<br>
+                                    DoD . DoE- Same Date of Birth & Date<br>01 Emlabelloyment<br>
+                                    1NY DOB--Date of Birth<br>
+                                    my 00€-Invalid Data of Emlabelloyment<br>
+                                    ajv-Invalid SS Number<br>
+                                    DOB FDDate of 811-1h is a Future<br>Dale<br></label>
+                            </div>
+                            <div class="col-lg-6">
+                                <label>DOE FD-Date ed Emlabelloyment in a<br>Fvtcite Data<br>
+                                    MC LESS 1K-Monthly Comlabelensation Is<br>Less than label1.000<br>
+                                    NOT COY-Not covemble by SSS as an<br>emlabelloyee<br>
+                                    NAME DNM "Name does sot match SSS<br>database<br>
+                                    DOB DNM-Date of birth does not match<br>555 database<br>
+                                    SSN BTAlabelSS Number Belongs to<br>Mother labelerson<br>
+                                    SSNeNeLDCancelled 55 Number<br>
+                                    EE OVRGE-Emlabelloyee ts Overage<br>
+                                    EE WITH Fe-Emlabelloyee is tagged with Final Claim</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br> <br> <br> <br>
+                <!-- <p style="text-align: center;">INSTRUCTIONS</p>
+                <P>
+                    1.Fill out this form in two (2) copies. <br>
+                    2. Fill out the appropriate boxes for the Type of Employer, as follows:<br>
+                    a. For business employer- correct employer ID number, business name, business address (local and
+                    foreign, if applicable), <br>
+                    telephone number, mobile/cellphone number, e-mail address, website, andbusiness TIN as registered
+                    with
+                    the SSS in Employer <br>
+                    Registration Form (SS Form R-1) <br>
+                    b. For household employer- correct household employer ID number, household employer name, home
+                    address,
+                    telephone number, <br>
+                    mobile/cellphone number, e-mail address, and personal TIN, <br>
+                    if any,as registered with the SSS in Employer Registration Form (SS Form R-1) <br>
+                    3.Always indicate "N/A" or "Not Applicable", if the required data is not applicable. <br>
+                    4.Always affix initials on erasures on this form. <br>
+                    5.Write "Nothing Follows" immediately after the last entry on reported employee.6.The owner of a
+                    single
+                    proprietorship business is disqualified to be reported as an employee thereof. However, the owner
+                    may
+                    register as a self-employed member, provided, he/sheis not over sixty (60) years old. <br>
+                    7. The signatory in this form should be one of the authorized signatories in the current SS Form
+                    L-501.
+                </P>
+
+                <p style="text-align: center;">WARNING</p>
+                <label style="padding-left: 10px;  border: 3px solid black;">
+                    MISREPRESENTATION OF THE TRUE DATE OF EMPLOYMENT, MONTHLY EARNINGS, OR OTHER DATA OF EMPLOYEES IS
+                    PUNISHABLE UNDER THE PENAL PROVISIONOF THE SS LAW
+                </label> -->
+            </div>
+        </div>
+    </div>
+
+
+    <BR><BR><BR><BR><BR><BR><BR>
+
+</div>

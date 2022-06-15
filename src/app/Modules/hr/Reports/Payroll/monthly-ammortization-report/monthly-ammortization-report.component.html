@@ -1,0 +1,235 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="Heading1">Monthly Ammortization Report</p>
+        </div>
+    </div>
+
+<div class="card">
+    <div class="row ">
+        <div class="col-lg-1 space">
+            <p style="color:#0C275A">Filter By</p>
+        </div>
+        <div class="col-lg-4">
+            <p>Search
+                <input class="form-control" type="search" [(ngModel)]="term"
+                    style="color:#0C275A;font-family: 'Poppins'" 
+                    placeholder="Search for Staff...">
+        </div>
+        <div class="col-lg-2">
+            <p>Role
+                <br> <select class="form-control" id="RoleType" name="RoleType" 
+                    [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                    <option value="">Select Role</option>
+                    <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
+                    </option>
+                </select>
+            </p>
+        </div>
+        <div class="col-lg-2">
+            <p>Department
+                <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                    (change)="filterByDepartment()">
+                    <option value="">Select Department</option>
+                    <option value="{{item.department_name}}" *ngFor="let item of Departmentlist">
+                        {{item.department_name}}
+                    </option>
+                </select>
+            </p>
+        </div>
+    </div>
+    
+</div>
+
+<br/>
+    <div class="row">
+        <ul>
+            <li><a class="active fontheading" (click)="selectALL(true)" data-toggle="collapse" data-target="#demo13">Select ALL</a></li>
+                    <!-- <li><a class="active fontheading">Uncheck ALL</a></li>  -->
+            
+        </ul>
+        <div class="col-lg-3">
+
+        </div>
+       
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            
+            <table class="table table-bordered fonttxt">
+                <thead>
+                    <tr class="newFont">
+                        <th class="SelectData">&nbsp; Select</th>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uniquelist1|filter:term |paginate: { itemsPerPage: count1, currentPage: p}">
+                        <td class="SelectData"><input type="checkbox"  value="item.value" [(ngModel)]="item.checked" data-toggle="collapse" data-target="#demo"
+                                (click)="getemployee(item.id)"></td>
+                        <td style="color:#0C275A;">000{{item.id}}</td>
+                        <td style="color:#0C275A;">{{item.staffname}} {{item.lastName}}</td>
+                        <td style="color:#0C275A;">{{item.department_name}}</td>
+                        <td style="color:#0C275A;">{{item.role}}</td>
+                        <td style="color:#0C275A;">Active</td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <br>
+            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+        </div>
+
+        <div class="container-fluid">
+            
+
+            <div class="container-fluid" id="demo" class="collapse" *ngIf="selectone==true">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <p class="Heading1 title">Monthly Ammortization Details </p>
+                    </div>
+                    <div class="col-lg-4">
+                        <br />
+                        <button class="AddButton" (click)="exportexcel()">Export to Excel</button>
+                    </div>
+                    <!-- <ul>
+                                    <li><a class="active fontheading">Salary Details of Employee in selected Period</a></li>
+                                    <li><button class="AddButton" (click)="exportexcel()">Export to Excel</button></li>
+                                </ul> -->
+                </div>
+                <br />
+                <div class="container-fluid" id="demo" class="collapse">
+                    <div class="row" class="rowwidth">
+                        <div class="col-lg-12" style="overflow:auto;">
+                            <table class="table table-bordered fonttxt" id="download">
+                                <thead>
+                                    <tr class="newFont">
+
+                                        <th>Employee ID</th>
+                                        <th>Last Name</th>
+                                        <th>First Name</th>
+                                       
+                                        <th>Department</th>
+                                        
+                                        <th>Adjustment Name</th>
+                                        <th>Loan Amount</th>
+                                        <th>Payment Terms</th>
+                                       
+                                        <th>Approved Date</th>
+                                        <th>Adjustment Effective Date</th>
+                                       <th>Ammortization Per Pay Period </th>
+                                        <th>Paid Amount</th>
+                                        <th>Remaining Balance</th>
+                                        
+                                      
+                                    </tr>
+                                    <tr *ngFor="let item of uniquelist2">
+
+                                        <td>000{{item.staffID}}</td>
+                                        <td>{{item.last_Name}}</td>
+                                        <td>{{item.name}}</td>
+                                       
+                                        <td>{{item.department_name}}</td>
+                                        <td>{{item.loanType}}</td>
+                                        <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                        <td>{{item.period}}Months</td>
+                                      
+                                        
+                                        
+                                        <td>{{item.approvedDate|date}}</td>
+                                        <td>{{item.loanstartdate|date}}</td>
+                                        <td>{{item.adjustmentamount/2|number:'1.2-2'}}  </td>
+                                        <td>{{item.paidamount|number:'1.2-2'}}</td>
+                                        <td>{{item.loanAmount-item.paidamount|number:'1.2-2'}}</td>
+                                       
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid" id="demo13" class="collapse" *ngIf="selecallbtn==true">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <p class="Heading1 title">Monthly Ammortization Details </p>
+                    </div>
+                    <div class="col-lg-4">
+                        <br />
+                        <button class="AddButton" (click)="exportexcel()">Export to Excel</button>
+                    </div>
+                    <!-- <ul>
+                                    <li><a class="active fontheading">Salary Details of Employee in selected Period</a></li>
+                                    <li><button class="AddButton" (click)="exportexcel()">Export to Excel</button></li>
+                                </ul> -->
+                </div>
+                <br />
+                <div class="container-fluid" id="demo13" class="collapse">
+                    <div class="row" class="rowwidth">
+                        <div class="col-lg-12" style="overflow:auto;">
+                            <table class="table table-bordered fonttxt" id="download">
+                                <thead>
+                                    <tr class="newFont">
+
+                                        <th>Employee ID</th>
+                                        <th>Last Name</th>
+                                        <th>First Name</th>
+                                       
+                                        <th>Department</th>
+                                        
+                                        <th>Adjustment Name</th>
+                                        <th>Loan Amount</th>
+                                        <th>Payment Terms</th>
+                                       
+                                        <th>Approved Date</th>
+                                        <th>Adjustment Effective Date</th>
+                                       <th>Ammortization Per Pay Period </th>
+                                        <th>Paid Amount</th>
+                                        <th>Remaining Balance</th>
+                                        
+                                      
+                                    </tr>
+                                    <tr *ngFor="let item of uniquelist2">
+
+                                        <td>000{{item.staffID}}</td>
+                                        <td>{{item.last_Name}}</td>
+                                        <td>{{item.name}}</td>
+                                       
+                                        <td>{{item.department_name}}</td>
+                                        <td>{{item.loanType}}</td>
+                                        <td>{{item.loanAmountWithInterest|number:'1.2-2'}}</td>
+                                        <td>{{item.period}}Months</td>
+                                      
+                                        
+                                        
+                                        <td>{{item.approvedDate|date}}</td>
+                                        <td>{{item.loanstartdate|date}}</td>
+                                        <td>{{item.emiAmount/2|number:'1.2-2'}}  </td>
+                                        <td>{{item.paidamount|number:'1.2-2'}}</td>
+                                        <td>{{item.loanAmountWithInterest-item.paidamount|number:'1.2-2'}}</td>
+                                       
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+
+</div>

@@ -1,0 +1,139 @@
+.generate {
+    margin-left: 36px;
+    height: 38px;
+    border-radius: 7px;
+    background: #3247D5;
+    color: white;
+    border: none;
+    width: 100px;
+ }
+ 
+ .generate1{
+    border-radius: 8px;
+    background: #3247D5;
+    color: white;
+    width: 200px;
+    margin-left: -10px;
+    border: none;
+    padding: 8px;
+    margin-left: 10px;
+ }
+ 
+ 
+ .generate2{
+     height: 39px;
+     border-radius: 23px;
+     background: #3247D5;
+     color: white;
+     width: 297px;
+     margin-left: -36px;
+     border:none;
+ }
+ 
+ .government{  
+    background: #3247D5;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color:white;
+ }
+ 
+ .save{
+    border-radius: 5px;
+    background: #3247D5;
+    color:white;
+    width:80%;
+    margin-left: 10%;
+    border:none;
+    font-size: 15px;
+    font-weight: bold;
+ }
+   
+ .delete{
+    border-radius: 10px;
+    background: #3247D5;
+    color:white;
+    width:80%;
+    margin-left: 10%;
+    border:none;
+ 
+ }
+ .background{
+    background-color:whitesmoke;
+ }
+ .text{
+    color:black;
+    font-weight: bold;
+    font-family:sans-serif;
+    font-size: 15px;
+ }
+ 
+ .text1{
+    color:black;
+    font-weight: bold;
+    font-family:sans-serif;
+    text-align: center;
+    font-size: 15px;
+ }
+ 
+ .taxtable{
+   
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color:#3247D5
+  
+ }
+ .input{
+    padding: 10px;
+ }
+ .FilterClass{
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+  }
+ 
+  
+ .generate5{
+    height: 34px;
+    border-radius: 8px;
+    background: #3247D5;
+    color: white;
+    width: 170px;
+    border: none;
+   
+ }
+ .fetch{
+    height: 34px;
+     border-radius: 8px;
+     background: #3247D5;
+     color: white;
+     width: 178px;
+     margin-left: 1100px;
+     border: none;
+ }
+ 
+ .table, td {
+    background-color: white;
+ }
+ .count{
+    margin-top:10px;
+    font-size: 15px;
+    font-weight: bold;
+  
+ }
+ .tablemargin{
+    margin-left: 10px;
+    margin-right: 20px;
+ }
+ 
+ .card{
+    
+    width:100%;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+ }
+ .data{
+    margin-left: 20px;
+ }

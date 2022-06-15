@@ -1,0 +1,146 @@
+
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div></div>
+                    <div class="col-lg-12">
+                        <p class="Heading1" style="text-align: center;">Payroll adjustments YTD Report</p>
+                        <hr class="HrLine">
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-2" style="text-align: right;">
+                            <P>Select Year:</P>
+                        </div>
+                        <div class="col-lg-2">
+                            <select class="form-control" [(ngModel)]="year">
+                                <option value="">Select</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <button class="AddButton" data-toggle="collapse" data-target="#demo"
+                            (click)="getemployee()">FETCH</button>
+                    </div>
+                    <div class="col-lg-4"></div>
+                </div>
+                <br><br>
+                <div class="container-fluid" *ngIf="showtable==1" >
+
+                    <div class="card">
+                        <div class="row ">
+                            <div class="col-lg-1 space">
+                                <p style="color:#0C275A">Filter By</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <p>Search
+                                    <input class="form-control" type="search" [(ngModel)]="term"
+                                        style="color:#0C275A;font-family: 'Poppins'" 
+                                        placeholder="Search for Staff...">
+                            </div>
+                            <div class="col-lg-2">
+                                <p>Role
+                                    <br> <select class="form-control" id="RoleType" name="RoleType" 
+                                        [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                                        <option value="">Select Role</option>
+                                        <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
+                                        </option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="col-lg-2">
+                                <p>Department
+                                    <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                                        (change)="filterByDepartment()">
+                                        <option value="">Select Department</option>
+                                        <option value="{{item.department_name}}" *ngFor="let item of Departmentlist">
+                                            {{item.department_name}}
+                                        </option>
+                                    </select>
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <br/>
+                    <div class="row View">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <!-- <a class="active fontheading">Employees in selected Period</a> -->
+                            <p class="Heading1">Employees in selected Period</p>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <button class="AddButton" (click)="exportexcel()">EXPORT TO EXCEL</button>
+                        </div>
+                        <!-- <div class="col-lg-4">
+                            <button class="AddButton" (click)="convetToPDF1()">EXPORT TO PDF</button>    
+                        </div>  -->
+                    </div>
+
+                    <br>
+                    <div class="row" *ngIf="showtable==1">
+                        <div class="col-lg-12">
+                            <table class="table table-bordered fonttxt" id="downloadaplication">
+                                <thead>
+                                    <tr class="newFont">
+                                        <th>Employee ID</th>
+                                        <th>Employee Name</th>
+                                        <th>Department</th>
+                                        <th>Role</th>
+                                        <th>Month</th>
+
+                                        <th>Manager</th>
+                                        <th>Adjustment Type</th>
+                                        <th>Loan Availed</th>
+                                        <th>Tenure</th>
+                                        <th>EMI Amount Paid Till Date</th>
+                                        <!-- <th>Adjustment Remarks</th> -->
+                                        <!-- <th>Apply Before Tax</th>
+                                        <th>IsTaxable</th> -->
+                                    </tr>
+                                    <tr *ngFor="let item of uniquelist13|filter:term">
+                                        <td>00{{item.staffID}}</td>
+                                        <td>{{item.name}} {{item.last_Name}}</td>
+                                        <td>{{item.department_name}}</td>
+                                        <td>{{item.role}}</td>
+                                        <td>{{item.month}}</td>
+                                        <td>  {{item.manager}}</td>
+                                        <td>{{item.loanType}}</td>
+                                        
+                                        <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                        <td>{{item.period}}Months</td>
+                                      
+                                        <td>{{item.paidamount|number:'1.2-2'}}</td>
+                                        <!-- <td>{{item.comments}}</td> -->
+                                        <!-- <td>NO</td>
+                                        <td>NO</td> -->
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                  
+                      
+                    </div>
+                </div>
+                <div>
+                </div><br>
+            </div>
+        </div>
+    </div>
+
+</div>
