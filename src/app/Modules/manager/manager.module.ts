@@ -16,7 +16,7 @@ import { GaugeModule } from 'angular-gauge';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 @NgModule({
   declarations: [
     ManagerComponent,
@@ -34,11 +34,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     CommonModule,
     ManagerRoutingModule,
     SharedModule,
-    GaugeModule.forRoot(),
-    NgxDropzoneModule,
-    NgxPaginationModule,
-    Ng2SearchPipeModule,
-    NgMultiSelectDropDownModule.forRoot(),
+
   ]
 })
 export class ManagerModule { }

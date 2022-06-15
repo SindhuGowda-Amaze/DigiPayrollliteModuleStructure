@@ -12,6 +12,7 @@ import { SidebarComponent } from './Pages/CommonPages/sidebar/sidebar.component'
 import { LoginComponent } from './Pages/login/login.component';
 import { AmountToWordPipe } from './amount-to-word.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { AmountToWordPipe } from './amount-to-word.pipe';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+
 
   ],
   providers: [

@@ -16,8 +16,10 @@ import { PayslipComponent } from './Reports/payslip/payslip.component';
 import { ContributioncertificateComponent } from './Reports/contributioncertificate/contributioncertificate.component';
 import { CertificateofloanComponent } from './Reports/certificateofloan/certificateofloan.component';
 import { EmploymentcertificateComponent } from './Reports/employmentcertificate/employmentcertificate.component';
+
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 @NgModule({
   declarations: [

@@ -309,7 +309,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 26;
     localStorage.setItem('clickname', 'LEAVES')
-    this.router.navigate(['/LeaveListDashboard']);
+    this.router.navigate(['/employee/Leaves']);
   }
   public Appliedloans() {
     debugger
@@ -366,7 +366,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 21;
     localStorage.setItem('clickname', 'ATTENDANCE')
-    this.router.navigate(['#/manager/AttendenceDetails']);
+    this.router.navigate(['/employee/Attendance']);
   }
   public LeaveDashboard() {
     debugger
@@ -385,13 +385,13 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 23;
     localStorage.setItem('clickname', 'LOANS')
-    this.router.navigate(['/Appliedloans']);
+    this.router.navigate(['/employee/Loans']);
   }
   public OTREQUEST() {
     debugger
     this.active = 24;
     localStorage.setItem('clickname', 'OT REQUEST')
-    this.router.navigate(['#/manager/MyOverTimeDetails']);
+    this.router.navigate(['/employee/OTrequest']);
   }
 
 
@@ -512,7 +512,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 1147;
     localStorage.setItem('clickname', 'Expenses')
-    this.router.navigate(['/manager/MyExpenseList']);
+    this.router.navigate(['/employee/Expense']);
   }
 
 
@@ -664,13 +664,13 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 30;
     localStorage.setItem('clickname', 'CERTIFICATE OF CONTRIBUTION')
-    this.router.navigate(['/CertificateOfContribution']);
+    this.router.navigate(['/employee/Contributioncertificate']);
   }
   public CertificateOfLoan() {
     debugger
     this.active = 31;
     localStorage.setItem('clickname', 'CERTIFICATION OF LOAN')
-    this.router.navigate(['/CertificateOfLoan']);
+    this.router.navigate(['/employee/Certificateofloan']);
   }
 
 
@@ -821,14 +821,14 @@ export class SidebarComponent implements OnInit {
   public EmployeePayslip() {
     this.active = 230;
     localStorage.setItem('clickname', 'PAYSLIP')
-    this.router.navigate(['/EmployeePayslip']);
+    this.router.navigate(['/employee/Payslip']);
 
   }
 
   public EmployeeCertificate() {
     this.active = 'Employment';
     localStorage.setItem('clickname', 'EMPLOYMENT CERTIFICATE')
-    this.router.navigate(['/EmploymentCertificate']);
+    this.router.navigate(['/employee/Employmentcertificate']);
 
   }
 
@@ -976,14 +976,15 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'Adjustment';
     localStorage.setItem('clickname', 'SALARY ADJUSTMENT')
-    this.router.navigate(['manager/SalaryAdjustmentDash']);
+    this.router.navigate(['/employee/Salaryadjustment']);
+
   }
   
 
   public EmployeeResignation() {
     this.active = 'Resignation';
     localStorage.setItem('clickname', 'Employee Resignation')
-    this.router.navigate(['/EmployeeResignation']);
+    this.router.navigate(['/employee/Resignation']);
 
   }
 

@@ -9,6 +9,8 @@ import { SupportTicketDashboardComponent } from './support-ticket-dashboard/supp
 import { GaugeModule } from 'angular-gauge';
 
 import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -24,13 +26,19 @@ import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.compone
     CommonModule,
     FormsModule,
     SharedRoutingModule,
-   // GaugeModule.forRoot(),
+   GaugeModule.forRoot(),
+   NgxDropzoneModule,
+   NgxPaginationModule,
+   Ng2SearchPipeModule
 
   ],
   exports: [
     FormsModule,
     LoaderComponent,
-    
+    NgxDropzoneModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
+    GaugeModule
  
  
   ],
