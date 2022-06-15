@@ -1,0 +1,1618 @@
+<div class="row" *ngIf="temp=='1'">
+    <div class="col-md-2 sidenav" style="height: 90vh;margin-top: 75px;position: fixed;overflow-y: scroll;">
+
+        <a (click)="SETUP()" *ngIf="roleid=='1'" data-toggle="collapse" class="togglebtn"
+            data-target="#userapplications">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'SETUP' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'SETUP' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+            &nbsp;
+            <span [ngClass]="active == 'SETUP' ? 'Active1' : 'Active3'"> SETUP</span>
+
+        </a>
+
+
+        <div id="userapplications" class="collapse" style="padding-left: 7%;">
+            <a (click)="COMPANY()" routerLink="/userapplications" data-toggle="collapse" class="togglebtn"
+                data-target="#company">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active != 'COMPANY' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active == 'COMPANY' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                &nbsp;
+                <span [ngClass]="active == 'COMPANY' ? 'Active1' : 'Active3'"> COMPANY</span>
+
+                <!-- <i class="fa fa-briefcase icon28 " style="width: 20px;    margin-right: 17px;"
+                    data-toggle="collapse"></i>
+                &nbsp; COMPANY -->
+            </a>
+            <div id="company" class="collapse" style="padding-left: 7%;">
+                <a (click)="Profile()">
+                    <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Job History.png"
+                        [ngClass]="active != 1 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Job History.png"
+                        [ngClass]="active == 1 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                    &nbsp;
+                    <span [ngClass]="active == 1 ? 'Active1' : 'Active3'"> PROFILE</span>
+
+                </a>
+
+                <a (click)="highlight($event)" (click)="Department()" class="nonactive">
+                    <img src="assets/images/64/ATTENDANCE/Report/masters/Department Master.png"
+                        [ngClass]="active != 2 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Department Master.png"
+                        [ngClass]="active == 2 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    &nbsp;
+                    <span [ngClass]="active == 2 ? 'Active1' : 'Active3'"> DEPARTMENTS</span>
+
+                </a>
+                <a (click)="highlight($event)" (click)="Bank()" class="nonactive">
+                    <img src="assets/images/64/ATTENDANCE/Report/masters/City Master.png"
+                        [ngClass]="active != 3 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/City Master.png"
+                        [ngClass]="active == 3 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    &nbsp;
+                    <span [ngClass]="active == 3 ? 'Active1' : 'Active3'"> BANK</span>
+
+                </a>
+                <a (click)="highlight($event)" (click)="PayGroup()" class="nonactive">
+                    <img src="assets/images/64/ATTENDANCE/attendance.png"
+                        [ngClass]="active != 4 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/attendance.png"
+                        [ngClass]="active == 4 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    &nbsp;
+                    <span [ngClass]="active == 4 ? 'Active1' : 'Active3'"> PAYGROUP</span>
+
+                </a>
+
+            </div>
+
+
+            <!-- <a data-toggle="collapse" class="togglebtn button" data-target="#payroll">
+
+                <i class="fa fa-calendar-check-o icon28" style="width: 20px;    margin-right: 17px;"></i>
+                &nbsp;PAYROLL
+            </a>
+            <div id="payroll" class="collapse" style="padding-left: 7%;">
+                <a (click)="highlight($event)" (click)="OtRates()" class="nonactive">
+                    <img src="assets/images/64/ATTENDANCE/OVER TIME DETAILS.png"
+                        [ngClass]="active != 5 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/OVER TIME DETAILS.png"
+                        [ngClass]="active == 5 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 5 ? 'Active1' : 'Active3'"> OT RATES</span>
+
+                </a>
+
+
+            </div> -->
+            <!-- <a data-toggle="collapse" class="togglebtn button" data-target="#references">
+
+                <i class="    fa fa-table icon28" style="width: 20px;    margin-right: 17px;"></i>
+                &nbsp;REFERENCES
+            </a>
+            <div id="references" class="collapse" style="padding-left: 7%;">
+                <a (click)="highlight($event)" (click)="TaxTable()" class="nonactive">
+                  <img src="assets/images/64/ATTENDANCE/REGULARIZATION   REQUESTS.png"  [ngClass]="active != 6 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                  <img src="assets/images/64 Blue/ATTENDANCE/REGULARIZATION.png"  [ngClass]="active == 6 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                  <span [ngClass]="active == 6 ? 'Active1' : 'Active3'">  TAX TABLE</span>
+                
+                </a>
+                <a (click)="highlight($event)" (click)="AnnualTaxtable()" class="nonactive">
+                   <img src="assets/images/64/ATTENDANCE/Reports.png" [ngClass]="active != 7 ? 'Active1' : 'Active2'"  style="width: 13%;  margin-right: 17px;"/>
+                   <img src="assets/images/64 Blue/ATTENDANCE/Reports.png" [ngClass]="active == 7 ? 'Active1' : 'Active2'"  style="width: 13%;  margin-right: 17px;"/>
+                   <span [ngClass]="active == 7 ? 'Active1' : 'Active3'">  ANNUAL TAX TABLE</span>
+                 ;
+                </a>
+              
+                <a (click)="SSS()" (click)="highlight($event)" class="nonactive">
+                  <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png" [ngClass]="active != 9 ? 'Active1' : 'Active2'"  style="width: 13%;  margin-right: 17px;"/>
+                  <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png" [ngClass]="active == 9 ? 'Active1' : 'Active2'"  style="width: 13%;  margin-right: 17px;"/>
+                  <span [ngClass]="active == 9 ? 'Active1' : 'Active3'">  SSS</span>
+                 
+                </a>
+
+
+            </div> -->
+
+        </div>
+
+
+
+        <a *ngIf="roleid=='2' || roleid=='9' || roleid=='17' || roleid=='8' || roleid=='6' || roleid=='17'"
+            (click)="ManagerDashboard()" (click)="highlight($event)">
+            <img src="assets/images/64/home.png" [ngClass]="active != 'DASHBOARD' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/home.png" [ngClass]="active == 'DASHBOARD' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'DASHBOARD' ? 'Active1' : 'Active3'"> DASHBOARD </span>
+
+        </a>
+
+        <a (click)="Employee()" *ngIf="roleid=='9' || roleid=='2'" data-toggle="collapse" class="togglebtn" data-target="#Employeee">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'Employee1' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'Employee1' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+            &nbsp;
+            <span [ngClass]="active == 'Employee1' ? 'Active1' : 'Active3'"> Employees</span>
+
+        </a>
+
+        <div id="Employeee" class="collapse" style="padding-left: 7%;">
+            <a *ngIf="roleid=='1' || roleid=='9'" (click)="EmployeeDashboard()" (click)="highlight($event)">
+                <img src="assets/images/64/Staff.png " [ngClass]="active != 10 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/Staff.png " [ngClass]="active == 10 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 10 ? 'Active1' : 'Active3'"> EMPLOYEES</span>
+
+                <!-- <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> -->
+            </a>
+
+            <a (click)="swal()" *ngIf="roleid=='9' || roleid=='17'" data-toggle="collapse" class="togglebtn"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active != 12 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active == 12 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 12 ? 'Active1' : 'Active3'"> STAFF SALARY </span>
+
+            </a>
+            <a (click)="EmployeeJobHistory()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee_benefits.png"
+                    [ngClass]="active != 216 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee_benefits.png"
+                    [ngClass]="active == 216 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 216 ? 'Active1' : 'Active3'"> EMPLOYEE JOB HISTORY </span>
+
+            </a>
+
+            <a (click)="EmployeeTransition()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee_benefits.png"
+                    [ngClass]="active != 'transition' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee_benefits.png"
+                    [ngClass]="active == 'transition' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'transition' ? 'Active1' : 'Active3'"> EMPLOYEE TRANSITION </span>
+
+            </a>
+            <a (click)="Exitformality()" class="nonactive" *ngIf="roleid!=6" (click)="openCity($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active != 'exitformality' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active == 'exitformality' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                &nbsp; <span [ngClass]="active == 21 ? 'Active1' : 'Active3'"> Exit Formality
+                </span>
+                <!-- <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> -->
+            </a>
+
+        </div>
+
+
+
+
+        <a (click)="REQUESTS()" *ngIf="roleid=='6' || roleid=='2' || roleid=='8' ||roleid=='9' " data-toggle="collapse"
+            class="togglebtn" data-target="#requests23">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'REQUESTS' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'REQUESTS' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+            &nbsp;
+            <span [ngClass]="active == 'REQUESTS' ? 'Active1' : 'Active3'"> REQUESTS</span>
+        </a>
+
+
+        <div id="requests23" class="collapse" style="padding-left: 7%;">
+
+            <a *ngIf="roleid=='6' || roleid=='2' ||roleid=='9'" (click)="LeaveDashboard()" (click)="highlight($event)">
+                <img src="assets/images/64/leave.png" [ngClass]="active != 22 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leave.png" [ngClass]="active == 22 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 22 ? 'Active1' : 'Active3'"> LEAVES </span>
+
+            </a>
+            <!-- <a routerLink="/LeaveencashmentDashboard"  >
+    <img src="assets/images/Vector.png" style="width: 20px;    margin-right: 17px;" /> &nbsp;LEAVES ENCASH
+</a> -->
+
+            <a *ngIf="roleid=='6' || roleid=='2' || roleid=='8' ||roleid=='9'" (click)="LOANS()"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active != 'Appliedloans' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active == 'Appliedloans' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Appliedloans' ? 'Active1' : 'Active3'"> LOANS </span>
+
+            </a>
+
+
+
+            <a *ngIf="roleid=='2'  || roleid=='17' || roleid=='6'||roleid=='9' " (click)="OTREQUEST()"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active != 24 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active == 24 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                <span [ngClass]="active == 24 ? 'Active1' : 'Active3'"> OT REQUEST </span>
+
+            </a>
+
+             <a *ngIf="roleid=='6' || roleid=='2' || roleid=='8' || roleid=='9'" (click)="salaryadjustment()" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active != 163 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active == 163 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 163 ? 'Active1' : 'Active3'"> Salary Adjustment </span>
+
+            </a> 
+
+
+            <a *ngIf="roleid=='6' || roleid=='2' || roleid=='8' || roleid=='9'" (click)="Expenses()" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active != 1147 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active == 1147 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 1147 ? 'Active1' : 'Active3'"> Expense </span>
+
+            </a>
+            <!-- <a (click)="grievance()" (click)="highlight($event)">
+            <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
+                [ngClass]="active != 18 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png"
+                [ngClass]="active == 18 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 18 ? 'Active1' : 'Active3'"> Grievance
+                Request </span>
+
+        </a>
+
+        <a (click)="Helpdeskdash()" (click)="highlight($event)">
+            <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
+                [ngClass]="active != 19 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png"
+                [ngClass]="active == 19 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 19 ? 'Active1' : 'Active3'"> Helpdesk
+                Request </span>
+
+        </a> -->
+            <a *ngIf="roleid=='6' || roleid=='2' || roleid=='9'" (click)="EmployeeResignation()"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active != 'Resignation' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active == 'Resignation' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Resignation' ? 'Active1' : 'Active3'"> Resignation </span>
+
+            </a>
+
+
+        </div>
+
+
+        <!-- <a *ngIf="roleid=='6' || roleid=='2' " (click)="AttendenceDetails()"
+    (click)="highlight($event)">
+    <img src="assets/images/64/ATTENDANCE/ATTENDANCE DETAILS.png"
+        [ngClass]="active != 21 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+    <img src="assets/images/64 Blue/ATTENDANCE/ATTENDANCE DETAILS.png"
+        [ngClass]="active == 21 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+    <span [ngClass]="active == 21 ? 'Active1' : 'Active3'"> Attendance </span>
+
+
+</a> -->
+
+        <a (click)="attendance12()" *ngIf="roleid!='1'" data-toggle="collapse" class="togglebtn"
+            data-target="#attendance">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'Attendance1' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'Attendance1' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+            &nbsp;
+            <span [ngClass]="active == 'Attendance1' ? 'Active1' : 'Active3'"> Attendance</span>
+
+        </a>
+        <div id="attendance" class="collapse" style="padding-left: 7%;">
+            <a *ngIf="roleid=='6'||  roleid=='9' || roleid=='17' ||  roleid=='2'" (click)="AttendenceDetails()"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/ATTENDANCE DETAILS.png"
+                    [ngClass]="active != 21 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/ATTENDANCE DETAILS.png"
+                    [ngClass]="active == 21 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 21 ? 'Active1' : 'Active3'"> Attendance </span>
+
+
+            </a>
+
+            <a (click)="UploadAttendence()" *ngIf="roleid=='9' || roleid=='17' || roleid=='2' "
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 94 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 94 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 94 ? 'Active1' : 'Active3'"> UPLOAD ATTENDANCE </span>
+
+            </a>
+
+            <!-- <a (click)="REGULARIZATION()" *ngIf="roleid=='2' || roleid=='6'"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 'Regularize' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 'Regularize' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Regularize' ? 'Active1' : 'Active3'">REGULARIZATION</span>
+
+            </a> -->
+
+
+            <a (click)="ShiftDetails()" *ngIf="roleid=='9' || roleid=='17' || roleid=='2'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 'weeklyshift' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 'weeklyshift' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'weeklyshift' ? 'Active1' : 'Active3'">Staff Shift </span>
+
+            </a>
+        </div>
+
+        <a *ngIf="roleid=='9' || roleid=='17' " (click)="PreliminaryReport()" (click)="highlight($event)">
+            <img src="assets/images/64/Attendance Report.png"
+                [ngClass]="active != 'PRELIMINARY' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/Attendance Report.png"
+                [ngClass]="active == 'PRELIMINARY' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'PRELIMINARY' ? 'Active1' : 'Active3'"> PRELIMINARY PAYROLL</span>
+
+        </a>
+        <a *ngIf="roleid=='9' || roleid=='17'" (click)="PayRoll()" (click)="highlight($event)">
+            <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                [ngClass]="active != 29 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                [ngClass]="active == 29 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+            <span [ngClass]="active == 29 ? 'Active1' : 'Active3'">PAYROLL RUNS</span>
+
+            <!-- <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> -->
+        </a>
+        <a *ngIf="roleid=='17' || roleid=='9'" (click)="PayrollDashboard()" (click)="highlight($event)">
+            <img src="assets/images/64/Staff.png " [ngClass]="active != 'PayrollDash' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/Staff.png " [ngClass]="active == 'PayrollDash' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'PayrollDash' ? 'Active1' : 'Active3'">PAYROLL DASH</span>
+
+            <!-- <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> -->
+        </a>
+
+
+        <a *ngIf="roleid=='9' || roleid=='17' " (click)="Bankadvicelist()" (click)="highlight($event)">
+            <img src="assets/images/64/Attendance Report.png" [ngClass]="active != 410 ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/Attendance Report.png" [ngClass]="active == 410 ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 410 ? 'Active1' : 'Active3'"> BANK ADVICE LIST</span>
+
+        </a>
+
+
+        <!-- <a *ngIf="roleid=='2'" (click)="Onboardingstatus()" (click)="highlight($event)">
+            <img src="assets/images/64/Staff.png " [ngClass]="active != 'Onboardingstatus' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/Staff.png " [ngClass]="active == 'Onboardingstatus' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'Onboardingstatus' ? 'Active1' : 'Active3'"> Onboarding Status</span>
+
+         
+        </a> -->
+        <a *ngIf="roleid=='9' || roleid=='17'" (click)="Government()" (click)="highlight($event)">
+            <img src="assets/images/64/ATTENDANCE/Report/masters/City Master.png"
+                [ngClass]="active != 25 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/City Master.png"
+                [ngClass]="active == 25 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 25 ? 'Active1' : 'Active3'"> GOVT OR RECORDS </span>
+
+            <!-- <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> -->
+        </a>
+
+
+        <a (click)="REPORTS()" *ngIf="roleid=='9' || roleid=='17' || roleid=='6'" data-toggle="collapse"
+            class="togglebtn" data-target="#reports">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'REPORTS' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'REPORTS' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+            &nbsp;
+            <span [ngClass]="active == 'REPORTS' ? 'Active1' : 'Active3'"> REPORTS</span>
+
+        </a>
+
+
+
+
+        <div id="reports" class="collapse" style="padding-left: 7%;">
+
+
+
+
+            <a *ngIf="roleid=='6'" (click)="EmployeePayslip()" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/Leave report.png"
+                    [ngClass]="active != 230 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Leave report.png"
+                    [ngClass]="active == 230 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 230 ? 'Active1' : 'Active3'"> Payslip </span>
+
+            </a>
+
+
+            <!-- <a data-toggle="collapse" *ngIf="roleid=='9' || roleid=='17'" class="togglebtn" data-target="#payrollreprt">
+
+            <i class="	fa fa-money icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp; PAYROLL
+        </a> -->
+
+
+            <a (click)="PAYROLL()" data-toggle="collapse" *ngIf="roleid=='9' || roleid=='17'" class="togglebtn"
+                data-target="#payrollreprt">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active != 'PAYROLL' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active == 'PAYROLL' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                &nbsp;
+                <span [ngClass]="active == 'PAYROLL' ? 'Active1' : 'Active3'"> PAYROLL</span>
+
+            </a>
+
+
+
+
+
+            <div id="payrollreprt" class="collapse" style="padding-left: 7%;">
+
+                <!-- <a *ngIf="roleid!='6'" (click)="PreliminaryReport()" (click)="highlight($event)">
+                <img src="assets/images/64/Attendance Report.png" [ngClass]="active != 40 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/Attendance Report.png"
+                    [ngClass]="active == 40 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 40 ? 'Active1' : 'Active3'"> PRELIMINARY </span>
+             
+            </a> -->
+                <a *ngIf="roleid!='6'" (click)="MonthlySummaryReport()" (click)="highlight($event)">
+                    <img src="assets/images/64/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active != 42 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active == 42 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 42 ? 'Active1' : 'Active3'"> MONTHLY
+                        REPORT </span>
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;MONTHLY
+                REPORT -->
+                </a>
+                <a *ngIf="roleid!='6'" (click)="PayrollSummaryReport()" (click)="highlight($event)">
+                    <img src="assets/images/64/ATTENDANCE/Reports.png" [ngClass]="active != 41 ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/POLICIES.png"
+                        [ngClass]="active == 41 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 41 ? 'Active1' : 'Active3'"> PAYROLL SUMMARY </span>
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;PAYROLL
+                SUMMARY -->
+                </a>
+                <a *ngIf="roleid!='6'" (click)="Ammortization()" (click)="highlight($event)">
+                    <img src="assets/images/64/ATTENDANCE/Report/Leave report.png"
+                        [ngClass]="active != 'Ammortization' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Leave report.png"
+                        [ngClass]="active == 'Ammortization' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'Ammortization' ? 'Active1' : 'Active3'"> LOAN REPORT</span>
+
+                </a>
+
+
+                <!-- <a *ngIf="roleid!='6'" (click)="AdjustmentGenerateReport()" (click)="highlight($event)">
+
+                <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                    [ngClass]="active != 43 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                    [ngClass]="active == 43 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 43 ? 'Active1' : 'Active3'"> ADJUSTMENTS </span>
+
+                
+            </a> -->
+                <a *ngIf="roleid!='6'" (click)="YTDReport()" (click)="highlight($event)">
+
+
+                    <img src="assets/images/64/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active != 45 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active == 45 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 45 ? 'Active1' : 'Active3'"> YTD REPORT </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;YTD REPORT -->
+                </a>
+                <a *ngIf="roleid!='6'" (click)="YTDReportAdjustment()" (click)="highlight($event)">
+
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 'YTD' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 'YTD' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'YTD' ? 'Active1' : 'Active3'"> YTD
+                        ADJUSTMENTS </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;YTD
+                ADJUSTMENTS -->
+                </a>
+                <a *ngIf="roleid=='9' || roleid=='17' || roleid=='6'" (click)="PaySlipReport()"
+                    (click)="highlight($event)">
+
+
+                    <img src="assets/images/64/leave.png" [ngClass]="active != 44 ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/leave.png" [ngClass]="active == 44 ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 44 ? 'Active1' : 'Active3'"> PAYSLIP </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp; PAYSLIP -->
+                </a>
+                <a *ngIf="roleid!='6'" (click)="expensereport()" (click)="highlight($event)">
+
+
+                    <img src="assets/images/64/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active != 'expensereport' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active == 'expensereport' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'expensereport' ? 'Active1' : 'Active3'"> EXPENSE REPORT</span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;YTD REPORT -->
+                </a>
+                <a *ngIf="roleid!='6'||roleid!=2" (click)="ModifiedAttendance()" (click)="highlight($event)">
+
+
+                    <img src="assets/images/64/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active != 'ModifiedAttendance' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active == 'ModifiedAttendance' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'ModifiedAttendance' ? 'Active1' : 'Active3'"> MODIFIED ATTENDANCE</span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;YTD REPORT -->
+                </a>
+                <a *ngIf="roleid!='6'" (click)="Overtimesummaryperemployee()" (click)="highlight($event)">
+
+
+                    <img src="assets/images/64/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active != 'Overtimesummaryperemployee' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active == 'Overtimesummaryperemployee' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'Overtimesummaryperemployee' ? 'Active1' : 'Active3'"> OVERTIME SUMMARY BREAK DOWN</span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;YTD REPORT -->
+                </a>
+                <a *ngIf="roleid!='6'" (click)="Overtimesummary()" (click)="highlight($event)">
+
+
+                    <img src="assets/images/64/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active != 'overtimesummary' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Exit Formality.png"
+                        [ngClass]="active == 'overtimesummary' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'overtimesummary' ? 'Active1' : 'Active3'"> OVERTIME SUMMARY </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;YTD REPORT -->
+                </a>
+                <a *ngIf="roleid!='6'" (click)="Generalledger()" (click)="highlight($event)">
+                    <img src="assets/images/64/ATTENDANCE/Reports.png"
+                        [ngClass]="active != 'Generalledger' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/POLICIES.png"
+                        [ngClass]="active == 'Generalledger' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'Generalledger' ? 'Active1' : 'Active3'"> GENERAL LEDGER </span>
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;PAYROLL
+                SUMMARY -->
+                </a>
+
+
+
+
+            </div>
+
+
+            <a (click)="SSSREPORT()" data-toggle="collapse" class="togglebtn" data-target="#sss" *ngIf="roleid!='6'">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active != 'SSS' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active == 'SSS' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                &nbsp;
+                <span [ngClass]="active == 'SSS' ? 'Active1' : 'Active3'">SSS</span>
+
+            </a>
+
+
+
+
+
+
+            <div id="sss" class="collapse" style="padding-left: 7%;">
+
+                <a (click)="sssbreakdown()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/Attendance Report.png" [ngClass]="active != 'sssbreakdown' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/Attendance Report.png"
+                        [ngClass]="active == 'sssbreakdown' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'sssbreakdown' ? 'Active1' : 'Active3'"> SSS Breakdown</span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i>&nbsp;R-5 -->
+                </a>
+                <a (click)="SSSR5Report()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/Attendance Report.png" [ngClass]="active != 48 ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/Attendance Report.png"
+                        [ngClass]="active == 48 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 48 ? 'Active1' : 'Active3'"> R-5</span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i>&nbsp;R-5 -->
+                </a>
+
+                <a (click)="R3Report()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/Attendance Report.png"
+                        [ngClass]="active != 'eee' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/Attendance Report.png"
+                        [ngClass]="active == 'eee' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'eee' ? 'Active1' : 'Active3'"> R-3 </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp; R1-A -->
+                </a>
+
+                <a (click)="SSSML1Report()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 49 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 49 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 49 ? 'Active1' : 'Active3'"> ML-1 </span>
+
+
+                </a>
+                <a (click)="SSSRL1Report()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/Attendance Report.png" [ngClass]="active != 50 ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/Attendance Report.png"
+                        [ngClass]="active == 50 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 50 ? 'Active1' : 'Active3'"> R1-A </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp; R1-A -->
+                </a>
+            </div>
+            <!-- <a data-toggle="collapse" class="togglebtn" data-target="#philhealth" *ngIf="roleid!='6'">
+
+            <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                style="width: 13%;  margin-right: 17px;" />
+            <span> PHILHEALTH </span>
+         <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;PHILHEALTH 
+        </a> -->
+
+
+
+            <a (click)="PHILHEALTH()" data-toggle="collapse" class="togglebtn" data-target="#philhealth"
+                *ngIf="roleid!='6'">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active != 'PHILHEALTH' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active == 'PHILHEALTH' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+
+                &nbsp;
+                <span [ngClass]="active == 'PHILHEALTH' ? 'Active1' : 'Active3'"> PHILHEALTH</span>
+
+            </a>
+
+
+
+
+            <div id="philhealth" class="collapse" style="padding-left: 7%;">
+                <a (click)="ER2()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 53 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 53 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 53 ? 'Active1' : 'Active3'"> ER-2 </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;ER-2 -->
+                </a>
+
+                <a (click)="RFreport()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 54 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 54 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 54 ? 'Active1' : 'Active3'"> RF-1 DATA </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;RF-1 DATA -->
+                </a>
+                <a (click)="RF1PDF()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 55 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 55 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 55 ? 'Active1' : 'Active3'"> RF-1 PDF </span>
+
+                </a>
+
+            </div>
+
+            <a (click)="PAG_IBIG()" data-toggle="collapse" class="togglebtn" data-target="#pagibig" *ngIf="roleid!='6'">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active != 'PAG-IBIG' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active == 'PAG-IBIG' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                &nbsp;
+                <span [ngClass]="active == 'PAG-IBIG' ? 'Active1' : 'Active3'"> PAG-IBIG</span>
+
+            </a>
+
+
+            <div id="pagibig" class="collapse" style="padding-left: 7%;">
+                <a (click)="M1mcrf()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 56 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 56 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 56 ? 'Active1' : 'Active3'"> M1-1(MCRF) </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;M1-1(MCRF) -->
+                </a>
+                <a (click)="M1excel()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 57 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 57 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 57 ? 'Active1' : 'Active3'">M1-1 EXCEL </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;M1-1 EXCEL -->
+                </a>
+                <a (click)="PagibigSTLRF()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 58 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 58 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 58 ? 'Active1' : 'Active3'">STLRF </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp; STLRF -->
+                </a>
+                <a (click)="PagibigSTLRFExcel()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 59 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 59 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 59 ? 'Active1' : 'Active3'"> STLRF EXCEL </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;STLRF EXCEL -->
+                </a>
+
+            </div>
+
+
+            <a (click)="BIR()" data-toggle="collapse" class="togglebtn" data-target="#BIR" *ngIf="roleid!='6'">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active != 'BIR' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                    [ngClass]="active == 'BIR' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                &nbsp;
+                <span [ngClass]="active == 'BIR' ? 'Active1' : 'Active3'">BIR</span>
+
+            </a>
+
+
+
+
+
+            <div id="BIR" class="collapse" style="padding-left: 7%;">
+                <a (click)="Bir1601C()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 60 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 60 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 60 ? 'Active1' : 'Active3'"> 1601-c </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;1601-c -->
+                </a>
+                <!-- <a (click)="Bir1601EQ()" (click)="highlight($event)">
+
+                <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                    [ngClass]="active != 61 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                    [ngClass]="active == 61 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 61 ? 'Active1' : 'Active3'"> 1601-EQ </span>
+
+                
+            </a> -->
+                <a (click)="Bir1604C()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 62 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 62 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 62 ? 'Active1' : 'Active3'">1604-C </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp; 1604-C -->
+                </a>
+                <a (click)="Bir1604CF()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 63 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 63 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 63 ? 'Active1' : 'Active3'"> 1604-CF </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;1604-CF -->
+                </a>
+                <a (click)="Bir2316()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 64 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 64 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 64 ? 'Active1' : 'Active3'"> 2316 </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;2316 -->
+                </a>
+
+                <a (click)="BirAlphalist()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 'alphalist' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 'alphalist' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'alphalist' ? 'Active1' : 'Active3'"> Alphalist 7 </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;1601-c -->
+                </a>
+                <a (click)="Bir1603()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != '1603' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == '1603' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == '1603' ? 'Active1' : 'Active3'">BIR 1603 </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;1601-c -->
+                </a>
+                <a (click)="Bir1604F()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != '1604F' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == '1604F' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == '1604F' ? 'Active1' : 'Active3'"> BIR 1604-F </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;1601-c -->
+                </a>
+
+                <a (click)="Bir1700()" (click)="highlight($event)">
+
+                    <img src="assets/images/64/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active != 'BIR1700' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
+                        [ngClass]="active == 'BIR1700' ? 'Active1' : 'Active2'"
+                        style="width: 13%;  margin-right: 17px;" />
+                    <span [ngClass]="active == 'BIR1700' ? 'Active1' : 'Active3'"> BIR 1700 </span>
+
+                    <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;1601-c -->
+                </a>
+
+            </div>
+
+            <a *ngIf="roleid=='9' || roleid=='17' || roleid=='6'" (click)="CertificateOfContribution()"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/Leave report.png"
+                    [ngClass]="active != 30 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Leave report.png"
+                    [ngClass]="active == 30 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span style="font-size: 11px;" [ngClass]="active == 30 ? 'Active1' : 'Active3'"> CONTRIBUTION
+                    CERTIFICATE</span>
+
+            </a>
+            <a *ngIf="roleid=='9' || roleid=='17' || roleid=='6'" (click)="CertificateOfLoan()"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/ATTENDANCE DETAILS.png"
+                    [ngClass]="active != 31 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/ATTENDANCE DETAILS.png"
+                    [ngClass]="active == 31 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 31 ? 'Active1' : 'Active3'"> Certificate of Loan </span>
+
+            </a>
+
+            <a *ngIf="roleid=='6'" (click)="EmployeeCertificate()">
+                <img src="assets/images/64/ATTENDANCE/Report/Leave report.png"
+                    [ngClass]="active != 'Employment' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Leave report.png"
+                    [ngClass]="active == 'Employment' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Employment' ? 'Active1' : 'Active3'"> Employment Certificate </span>
+
+            </a>
+
+
+
+        </div>
+
+        <a (click)="CONFIGURATION()" *ngIf=" roleid=='9' || roleid=='17'" data-toggle="collapse" class="togglebtn"
+            data-target="#config">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'CONFIGURATION' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'CONFIGURATION' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+
+            &nbsp;
+            <span [ngClass]="active == 'CONFIGURATION' ? 'Active1' : 'Active3'"> CONFIGURATION</span>
+
+        </a>
+
+        <div id="config" class="collapse" style="padding-left: 7%;">
+            <a (click)="lookandfeel()" *ngIf="roleid=='1' || roleid=='9' || roleid=='17'" (click)="highlight($event)">
+                <img src="assets/images/64/leaves.png" [ngClass]="active != 91 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leaves.png" [ngClass]="active == 91 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 91 ? 'Active1' : 'Active3'">LOOK AND FEEL </span>
+
+
+            </a>
+            <a (click)="Leaveconfig()" *ngIf="roleid=='1' || roleid=='9' || roleid=='17'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active != 92 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active == 92 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 92 ? 'Active1' : 'Active3'"> LEAVE CONFIG </span>
+
+            </a>
+            <a (click)="Attendenceconfig()" *ngIf="roleid=='1' || roleid=='9' || roleid=='17'"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 93 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 93 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 93 ? 'Active1' : 'Active3'"> ATTENDANCE CONFIG</span>
+
+            </a>
+
+            <!-- <a *ngIf="roleid=='1' || roleid=='9' || roleid=='17'" (click)="OverTimeConfig()"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active != 408 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active == 408 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                <span [ngClass]="active == 408? 'Active1' : 'Active3'"> OT CONFIGURATION </span>
+
+            </a> -->
+            <!-- <a *ngIf="roleid=='1' || roleid=='9' || roleid=='17'" (click)="LoanConfig()" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active != 'loanconfig' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active == 'loanconfig' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+
+                <span [ngClass]="active == 'loanconfig'? 'Active1' : 'Active3'"> LOAN CONFIGURATION </span>
+
+            </a> -->
+            <a (click)="CUTOFFconfig()" *ngIf="roleid=='1' || roleid=='9' || roleid=='17'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 'cutoff' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 'cutoff' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'cutoff' ? 'Active1' : 'Active3'"> CUTOFF CONFIG</span>
+
+            </a>
+
+
+            <a *ngIf="roleid=='1' || roleid=='9' || roleid=='17'" (click)="Remittance()" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active != 408 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active == 408 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                <span [ngClass]="active == 408? 'Active1' : 'Active3'"> REMITTANCE CONFIG </span>
+
+            </a>
+
+
+        </div>
+
+
+
+        <a (click)="MASTER()" *ngIf="roleid=='1' ||  roleid=='9' || roleid=='17'" data-toggle="collapse"
+            class="togglebtn" data-target="#master">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'MASTER' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'MASTER' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+            &nbsp;
+            <span [ngClass]="active == 'MASTER' ? 'Active1' : 'Active3'"> MASTER</span>
+
+        </a>
+
+
+
+        <div id="master" class="collapse" style="padding-left: 7%;">
+            <a (click)="LeaveTypeDashboard()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+                <img src="assets/images/64/leaves.png" [ngClass]="active != 11 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leaves.png" [ngClass]="active == 11 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 11 ? 'Active1' : 'Active3'"> Leave Type </span>
+
+
+            </a>
+            <a (click)="Announcement()" *ngIf="roleid!='Announcement'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 'Announcement' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 'Announcement' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Announcement' ? 'Active1' : 'Active3'">Announcement </span>
+
+            </a>
+            <!-- <a (click)="vaccinationdash()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+    <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+        [ngClass]="active != 'vaccinationdash' ? 'Active1' : 'Active2'"
+        style="width: 13%;  margin-right: 17px;" />
+    <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+        [ngClass]="active == 'vaccinationdash' ? 'Active1' : 'Active2'"
+        style="width: 13%;  margin-right: 17px;" />
+    <span [ngClass]="active == 'vaccinationdash' ? 'Active1' : 'Active3'">Vaccination Details</span>
+
+</a> -->
+<a (click)="deptmasterdash()" *ngIf="roleid!='9'" (click)="highlight($event)">
+    <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+        [ngClass]="active != 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+    <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+        [ngClass]="active == 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+    <span [ngClass]="active == 14 ? 'Active1' : 'Active3'"> DEPARTMENT MASTER </span>
+
+</a>
+<a (click)="Positionmasterdash()" *ngIf="roleid!='9'" (click)="highlight($event)">
+    <img src="assets/images/64/leaves.png"
+        [ngClass]="active != 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+    <img src="assets/images/64 Blue/holiday.png"
+        [ngClass]="active == 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+    <span [ngClass]="active == 14 ? 'Active1' : 'Active3'"> POSITION MASTER </span>
+
+</a>
+            <a (click)="CountryMasterDash()" *ngIf="roleid!='9'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 13 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 13 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 13 ? 'Active1' : 'Active3'"> COUNTRY MASTER </span>
+
+            </a>
+          
+            <a (click)="StateMasterDash()" *ngIf="roleid!='9'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 14 ? 'Active1' : 'Active3'"> PROVINCE MASTER </span>
+
+            </a>
+
+            <a (click)="CityMasterDash()" *ngIf="roleid!='9'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/City Master.png"
+                    [ngClass]="active != 15 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/City Master.png"
+                    [ngClass]="active == 15 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 15 ? 'Active1' : 'Active3'"> CITY MASTER </span>
+
+            </a>
+            <a (click)="BarangayMaster()" *ngIf="roleid!='9'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/City Master.png"
+                    [ngClass]="active != 'BarangayMaster' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/City Master.png"
+                    [ngClass]="active == 'BarangayMaster' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'BarangayMaster' ? 'Active1' : 'Active3'"> Barangay MASTER </span>
+
+            </a>
+            <a (click)="LoanMasterDash()" *ngIf="roleid!='9'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 'LoanMasterDash' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 'LoanMasterDash' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'LoanMasterDash' ? 'Active1' : 'Active3'"> LOAN MASTER </span>
+
+            </a>
+            <a (click)="ShiftMaster()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active != 'SHIFT' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active == 'SHIFT' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'SHIFT' ? 'Active1' : 'Active3'"> SHIFT MASTER </span>
+
+            </a>
+
+            <a (click)="SeparationType()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+                <img src="assets/images/64/leaves.png" [ngClass]="active !='Separation' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leaves.png" [ngClass]="active == 'Separation' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Separation' ? 'Active1' : 'Active3'"> Separation Type </span>
+
+
+            </a>
+
+            <!-- <a (click)="BenefitDashboard()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Employee_benefits.png"
+                    [ngClass]="active != 16 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee_benefits.png"
+                    [ngClass]="active == 16 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 16 ? 'Active1' : 'Active3'"> BENEFITS Master</span>
+
+            </a> -->
+            <!-- <a (click)="DeminimsDashboard()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active != 17 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Deniminis _master.png"
+                    [ngClass]="active == 17 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 17 ? 'Active1' : 'Active3'"> DEMINIMS MASTER </span>
+
+            </a> -->
+            <!-- <a (click)="EmployeeBenefits()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+
+                <img src="assets/images/64/ATTENDANCE/Report/masters/employee_benefits_mapping.png"
+                    [ngClass]="active != 18 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/employee_benefits_mapping.png"
+                    [ngClass]="active == 18 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 18 ? 'Active1' : 'Active3'"> BENEFITS Mapping </span>
+
+                &nbsp;
+            </a> -->
+
+
+
+
+        </div>
+
+        <a *ngIf="roleid=='9' || roleid=='1'" (click)="Holidays()" class="nonactive" (click)="highlight($event)">
+            <img src="assets/images/64/holiday.png" style="width: 13%;  margin-right: 17px;"
+                [ngClass]="active != 404 ? 'Active1' : 'Active2'" />
+            <img src="assets/images/64 Blue/holiday.png" style="width: 13%;  margin-right: 17px;"
+                [ngClass]="active == 404 ? 'Active1' : 'Active2'" />
+            &nbsp; <span [ngClass]="active == 404 ? 'Active1' : 'Active3'"> HOLIDAYS</span>
+            <!-- <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> -->
+        </a>
+
+
+
+
+
+
+
+
+
+        <!-- <a *ngIf="roleid=='9'" data-toggle="collapse" class="togglebtn" data-target="#onboarding">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'SETUP' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'SETUP' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+            &nbsp;
+            <span [ngClass]="active == 'SETUP' ? 'Active1' : 'Active3'"> Employee Onboarding</span>
+
+        </a> -->
+
+
+        <!-- <div id="onboarding" class="collapse" style="padding-left: 7%;">
+            <a (click)="CheckList()" (click)="highlight($event)">
+                <img src="assets/images/64/leave.png" [ngClass]="active != 'Checklist' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leave.png" [ngClass]="active == 'Checklist' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Checklist' ? 'Active1' : 'Active3'"> Check List </span>
+
+            </a>
+            <a (click)="AssetTypeDashboard()" (click)="highlight($event)">
+                <img src="assets/images/64/leave.png" [ngClass]="active != 'AssetType' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leave.png" [ngClass]="active == 'AssetType' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'AssetType' ? 'Active1' : 'Active3'"> Assets </span>
+
+            </a>
+            <a (click)="NewJoinees()" (click)="highlight($event)">
+                <img src="assets/images/64/leave.png" [ngClass]="active != 'NewJoinees' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leave.png" [ngClass]="active == 'NewJoinees' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'NewJoinees' ? 'Active1' : 'Active3'"> New Joinees </span>
+
+            </a>
+            <a (click)="Orientaiondocumnets()" (click)="highlight($event)">
+                <img src="assets/images/64/leave.png"
+                    [ngClass]="active != 'Orientaiondocumnets' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leave.png"
+                    [ngClass]="active == 'Orientaiondocumnets' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Orientaiondocumnets' ? 'Active1' : 'Active3'"> Orientation Docs</span>
+
+            </a>
+
+            <a (click)="Orientation()" (click)="highlight($event)">
+                <img src="assets/images/64/leave.png" [ngClass]="active != 'Orientation' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leave.png" [ngClass]="active == 'Orientation' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Orientation' ? 'Active1' : 'Active3'">ORIENTATION PLAN</span>
+
+            </a>
+            <a (click)="OrientationSession()" (click)="highlight($event)">
+                <img src="assets/images/64/leave.png" [ngClass]="active != 'OrientationSession' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leave.png"
+                    [ngClass]="active == 'OrientationSession' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'OrientationSession' ? 'Active1' : 'Active3'">ORIENTATION Session</span>
+
+            </a>
+        </div> -->
+
+        <!-- <a (click)="SERVICE()" *ngIf="roleid=='9'" data-toggle="collapse"
+        class="togglebtn" data-target="#Service">
+    
+        <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+            [ngClass]="active != 'SERVICE' ? 'Active1' : 'Active2'"
+            style="width: 13%;  margin-right: 17px;" />
+        <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+            [ngClass]="active == 'SERVICE' ? 'Active1' : 'Active2'"
+            style="width: 13%;  margin-right: 17px;" />
+    
+        <span [ngClass]="active == 'SERVICE' ? 'Active1' : 'Active3'"> Award Details</span>
+       </a>
+        <div id="Service" class="collapse" style="padding-left: 7%;">
+         
+            <a (click)="ServiceAward()" *ngIf="roleid=='9'" (click)="highlight($event)" >
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 'ServiceAward' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 'ServiceAward' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'ServiceAward' ? 'Active1' : 'Active3'"> Award Master </span>
+    
+            </a>
+    
+            <a (click)="ServiceAwardList()" *ngIf="roleid=='9'" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active != 'ServiceAwardList' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                    [ngClass]="active == 'ServiceAwardList' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'ServiceAwardList' ? 'Active1' : 'Active3'">Service Award List </span>
+            </a>
+        </div> -->
+
+
+        <!-- <a *ngIf="roleid=='2'" (click)="ManagerDashboard()" (click)="highlight($event)">
+            <img src="assets/images/64/home.png" [ngClass]="active != 20 ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/home.png" [ngClass]="active == 20 ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 20 ? 'Active1' : 'Active3'"> DASHBOARD </span>
+           
+        </a> -->
+
+
+
+
+
+
+        <a *ngIf="roleid=='17'" data-toggle="collapse" class="togglebtn" data-target="#requests">
+            <img src="assets/images/64/ATTENDANCE/OVER TIME DETAILS.png" style="width: 13%;  margin-right: 17px;" />
+            Requests
+            <!-- <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> -->
+        </a>
+        <div id="requests" class="collapse" style="padding-left: 7%;">
+            <a (click)="LeaveListDashboard()" (click)="highlight($event)">
+                <img src="assets/images/64/leave.png" [ngClass]="active != 26 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leave.png" [ngClass]="active == 26 ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 26 ? 'Active1' : 'Active3'"> LEAVES </span>
+
+            </a>
+
+            <a (click)="Appliedloans()" (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active != 'Appliedloans' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png"
+                    [ngClass]="active == 'Appliedloans' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'Appliedloans' ? 'Active1' : 'Active3'"> LOAN REQUEST </span>
+
+            </a>
+
+            <a *ngIf="roleid=='2' || roleid=='9' || roleid=='17'" (click)="MyOverTimeDetails()"
+                (click)="highlight($event)">
+                <img src="assets/images/64/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active != 28 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/ATTENDANCE/OVER TIME DETAILS.png"
+                    [ngClass]="active == 28 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+
+                <span [ngClass]="active == 28 ? 'Active1' : 'Active3'"> OT Details </span>
+
+            </a>
+
+
+        </div>
+
+        <a (click)="vaccinationdash()" (click)="highlight($event)" *ngIf="roleid!='1'">
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Deniminis _master.png"
+                [ngClass]="active != 'vaccinationdash' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Deniminis _master.png"
+                [ngClass]="active == 'vaccinationdash' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'vaccinationdash' ? 'Active1' : 'Active3'"> VACCINATION </span>
+
+        </a>
+
+
+
+
+
+
+
+
+
+
+        <!-- 
+    <a *ngIf="roleid=='9' || roleid=='17'" (click)="Attendanceconfig()" (click)="highlight($event)">
+        <img src="assets/images/64/ATTENDANCE/Report/masters/City Master.png" [ngClass]="active != 91 ? 'Active1' : 'Active2'"  style="width: 13%;  margin-right: 17px;"/>
+        <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/City Master.png" [ngClass]="active == 91 ? 'Active1' : 'Active2'"  style="width: 13%;  margin-right: 17px;"/>
+        <span [ngClass]="active == 91 ? 'Active1' : 'Active3'">   Attendanceconfiguration   </span>
+        
+        <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;">
+    </a> -->
+
+
+
+
+
+        <!-- <a *ngIf="roleid=='6'" (click)="Employeetiledashboard()" (click)="highlight($event)">
+            <img src="assets/images/64/home.png" [ngClass]="active != 'DASHBOARD' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/home.png" [ngClass]="active == 'DASHBOARD' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'DASHBOARD' ? 'Active1' : 'Active3'"> DASHBOARD </span>
+
+           
+        </a> -->
+
+        <!-- <a *ngIf="roleid=='2'" (click)="ManagerDashboard()" (click)="highlight($event)">
+            <img src="assets/images/64/home.png" [ngClass]="active != 20 ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/home.png" [ngClass]="active == 20 ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 20 ? 'Active1' : 'Active3'"> DASHBOARD </span>
+            <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> 
+        </a> -->
+
+
+        <!-- <a *ngIf="roleid=='2'" (click)="Teamleavedetails()" (click)="highlight($event)">
+            <img src="assets/images/64/ATTENDANCE/ATTENDANCE DETAILS.png"
+                [ngClass]="active != 'Teamleavedetails' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/ATTENDANCE DETAILS.png"
+                [ngClass]="active == 'Teamleavedetails' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'Teamleavedetails' ? 'Active1' : 'Active3'"> Team Leave Balance </span>
+
+
+        </a> -->
+        <!-- <a (click)="leaveelection()" (click)="highlight($event)">
+            <img src="assets/images/64/ATTENDANCE/ATTENDANCE DETAILS.png"
+                [ngClass]="active != 'leaveelection' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/ATTENDANCE DETAILS.png"
+                [ngClass]="active == 'leaveelection' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'leaveelection' ? 'Active1' : 'Active3'"> Leave Election </span>
+
+
+        </a> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- <a (click)="UploadLeaveDetails()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                [ngClass]="active != 'UploadLeaveDetails' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                [ngClass]="active == 'UploadLeaveDetails' ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'UploadLeaveDetails' ? 'Active1' : 'Active3'"> UPLOAD Leave Details </span>
+
+        </a> -->
+
+        <!-- <a (click)="ServiceAward()" *ngIf="roleid=='9'" (click)="highlight($event)">
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
+                [ngClass]="active != 'ServiceAward' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
+                [ngClass]="active == 'ServiceAward' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 'ServiceAward' ? 'Active1' : 'Active3'"> Service Awards </span>
+
+        </a> -->
+
+
+
+
+
+
+        <a (click)="REFERENCES()" *ngIf="roleid=='1'" data-toggle="collapse" class="togglebtn" data-target="#otrates">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'REFERENCES' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'REFERENCES' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            &nbsp;
+            <span [ngClass]="active == 'REFERENCES' ? 'Active1' : 'Active3'">REFERENCES</span>
+
+        </a>
+
+        <div id="otrates" class="collapse" style="padding-left: 7%;">
+            <a (click)="OTRATES()" *ngIf="roleid=='1'" (click)="highlight($event)">
+                <img src="assets/images/64/leaves.png" [ngClass]="active != 'OTRATES' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leaves.png" [ngClass]="active == 'OTRATES' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'OTRATES' ? 'Active1' : 'Active3'">OT RATES </span>
+            </a>
+            <a (click)="TAXTABLE()" *ngIf="roleid=='1'" (click)="highlight($event)">
+                <img src="assets/images/64/leaves.png" [ngClass]="active != 'TaxTable' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <img src="assets/images/64 Blue/leaves.png" [ngClass]="active == 'TaxTable' ? 'Active1' : 'Active2'"
+                    style="width: 13%;  margin-right: 17px;" />
+                <span [ngClass]="active == 'TaxTable' ? 'Active1' : 'Active3'">Tax Table </span>
+            </a>
+        </div>
+
+
+
+        <a (click)="Adminhelp()" class="nonactive" (click)="highlight($event)">
+            <img src="assets/images/64/holiday.png" style="width: 13%;  margin-right: 17px;"
+                [ngClass]="active != 'Admin' ? 'Active1' : 'Active2'" />
+            <img src="assets/images/64 Blue/holiday.png" style="width: 13%;  margin-right: 17px;"
+                [ngClass]="active == 'Admin' ? 'Active1' : 'Active2'" />
+            &nbsp; <span [ngClass]="active == 'Admin' ? 'Active1' : 'Active3'"> HELP MANUAL</span>
+            <!-- <img src="assets/images/downarrow.png" style="width: 20px;margin-left: 104px;"> -->
+        </a>
+        <a (click)="SUPPORT()" data-toggle="collapse">
+
+            <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active != 'SUPPORT' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Employee Transition.png"
+                [ngClass]="active == 'SUPPORT' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+            &nbsp;
+            <span [ngClass]="active == 'SUPPORT' ? 'Active1' : 'Active3'">SUPPORT</span>
+
+        </a>
+
+
+    </div>
+
+    <!-- <a *ngIf="roleid=='1' " data-toggle="collapse" class="togglebtn" data-target="#requests">
+        <img src="assets/images/64/ATTENDANCE/OVER TIME DETAILS.png" style="width: 13%;  margin-right: 17px;" />
+        References
+     
+    </a>
+    <div id="requests" class="collapse" style="padding-left: 7%;">
+        <a (click)="LeaveListDashboard()" (click)="highlight($event)">
+            <img src="assets/images/64/leave.png" [ngClass]="active != 26 ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <img src="assets/images/64 Blue/leave.png" [ngClass]="active == 26 ? 'Active1' : 'Active2'"
+                style="width: 13%;  margin-right: 17px;" />
+            <span [ngClass]="active == 26 ? 'Active1' : 'Active3'"> LEAVES </span>
+
+        </a>
+    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

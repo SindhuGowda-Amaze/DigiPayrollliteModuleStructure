@@ -1,0 +1,172 @@
+<!-- <div class="container-fluid bg fullscreen">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10 maindiv" >
+            <div class="inndercard">
+                <img src="assets/images/Logo_digiOffice_Colored.png">
+                <input type="text" class="inputclass" placeholder="Company Code" [(ngModel)]="companycode"
+                    (ngModelChange)="getcompanycode()" name="companycode">
+
+                <select class="inputclass" (change)="getroleid($event)">
+                    <option selected>Select</option>
+                    <option value="1">Admin</option>
+                    <option value="2">Manager</option>
+                    <option value="6">Employee</option>
+                    <option value="9">HR</option> -->
+<!-- <option value="8">Finance</option> -->
+<!-- <option value="4">HR</option>
+                <option value="5">Finance</option>
+                <option value="5">Recruitment </option> -->
+<!-- </select>
+
+                <input type="text" class="inputclass" placeholder="Username" [(ngModel)]="username" name="username">
+
+                <input *ngIf="showpassword==0" type="password" class="inputclass" placeholder="Password"
+                    [(ngModel)]="password" name="password" />
+                <input *ngIf="showpassword==1" type="text" class="inputclass" placeholder="Password"
+                    [(ngModel)]="password" name="password" />
+                <span class="fa fa-fw fa-eye field-icon toggle-password" (click)="Showhidepassword()"></span>
+                <div class="btnalign">
+                    <a>Forgot Password</a>
+                    <button type="button" class="loginbtn" (click)="login()">Login</button>
+                </div>
+
+            </div>
+            <div class="imgdiv">
+                <img src="assets/images/Mask Group.png">
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div> -->
+
+<div class="container-fluid bg fullscreen">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="maindiv">
+                <div class="inndercard">
+                    <img src="assets/images/PureGoLogotype - Green.png" style="width: 40%;margin-bottom: 5%;">
+                    <!-- <div class="input-group ">
+
+                        <input type="text" class="inputclass" [(ngModel)]="companycode"
+                            (ngModelChange)="getcompanycode()" name="companycode">
+
+                        <span class="highlight"></span>
+
+                        <span class="bar"></span>
+
+                        <label class="placeholder">Company Code</label>
+
+                    </div> -->
+                    <!-- <div class="input-group ">
+
+                        <select class="inputclass" (change)="getCompanyDetails($event)">
+                            <option selected>Select Company</option>
+                            <option value="1001">Ayala Land</option>
+                            <option value="1002">Avida Land Corp</option>
+                            <option value="1003">Avida Sales Corp</option>
+                            <option value="1004">Ayala Land Premier, Inc</option>
+                            <option value="1005">Ayala Land Sales Inc</option>
+                            <option value="1006">Ayala Land Offices, Inc</option>
+                        </select>
+
+                    </div> -->
+                    <div class="input-group ">
+
+                        <select class="inputclass" (change)="getroleid($event)">
+                            <option selected>Select</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Manager</option>
+                            <option value="6">Employee</option>
+                            <option value="9">HR</option>
+                            <!-- <option value="8">Finance</option> -->
+                            <option value="17">Payroll Manager</option>
+                            <!-- <option value="5">Finance</option>
+                        <option value="5">Recruitment </option>  -->
+                        </select>
+
+                    </div>
+
+                    <div class="input-group ">
+
+                        <input type="text" class="inputclass" [(ngModel)]="username" name="username">
+                        <span class="highlight"></span>
+
+                        <span class="bar"></span>
+
+                        <label class="placeholder">Username</label>
+
+                    </div>
+                    <div class="input-group ">
+
+                        <input *ngIf="showpassword==0" type="password" class="inputclass" [(ngModel)]="password"
+                            name="password" />
+                        <input *ngIf="showpassword==1" type="text" class="inputclass" [(ngModel)]="password"
+                            name="password" />
+                        <span class="fa fa-fw fa-eye field-icon toggle-password" style="color: #3247D5;
+                        margin-left: -224px;
+                        margin-top: 18px;" (click)="Showhidepassword()"></span>
+
+                        <span class="highlight"></span>
+
+                        <span class="bar"></span>
+
+                        <label class="placeholder">Password</label>
+
+                    </div>
+
+
+
+                    <div class="btnalign">
+                        <a style=" color: #3247D5;" data-toggle="modal" data-target="#forgotpassword"> Forgot
+                            Password</a>
+                        <button type="button" class="loginbtn" (click)="login()">Login</button>
+                    </div>
+
+                </div>
+                <div class="imgdiv">
+                    <img src="assets/images/Mask Group.png">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="modal fade" id="forgotpassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p>Email:</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="text" id="Email" class="form-control" name="Email" [(ngModel)]="Email"
+                           (change)="getpassword()" placeholder="Enter Your Email">
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="Save()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
