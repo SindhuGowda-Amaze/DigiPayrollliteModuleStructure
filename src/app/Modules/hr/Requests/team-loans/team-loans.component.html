@@ -1,0 +1,1185 @@
+
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-2" *ngIf="roledid==9 || roledid==2 || roledid==17 || roledid==8">
+                    <p class="Heading1" routerLink="/Appliedloans">My Loans</p>
+                </div>
+                <div class="col-lg-2" *ngIf="roledid==2">
+                    <p class="Heading1 Heading2"><u>My Team Loans</u> </p>
+                </div>
+                <div class="col-lg-2" *ngIf="roledid==9 ||  roledid==17 || roledid==8">
+                    <p class="Heading1 Heading2"><u>All Staff Loans</u> </p>
+                </div>
+
+            </div>
+            <br>
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>Filter By</p>
+                    </div>
+                    <div class="col-md-2" *ngIf="roledid!=6">
+                        <br/>
+                        <button class="form-control requestbtn" style="    font-family: Poppins;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 16px;
+                        background-color: #3247d5;
+                        line-height: 11px;color:white" (click)="filterByMonth()">Current Month</button>
+
+                        <!-- <p>Date
+                            <input class="form-control" type="date" placeholder="Duration" id="date" name="date"
+                                [(ngModel)]="date"> -->
+                    </div>
+                    <div class="col-lg-2" *ngIf="roledid!=6">
+                        <p>Role
+                            <br> <select class="form-control" id="RoleType" name="RoleType"
+                                (change)='getRoleType($event)' [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                                <option value="">Select Role</option>
+                                <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
+                                </option>
+                            </select>
+                        </p>
+                    </div>
+                    <!-- <div class="col-lg-2" *ngIf="this.roledid!=6">
+                        <p>Department
+                            <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                                (change)="filterByDepartment()">
+                                <option value="">Select Department</option>
+                                <option value="{{item.id}}" *ngFor="let item of Departmentlist">
+                                    {{item.department_name}}
+                                </option>
+                            </select>
+                        </p>
+                    </div> -->
+                    <div class="col-md-4">
+                        <p>Search
+                            <input class="form-control" type="search" [(ngModel)]="term" placeholder="Search... "
+                                (ngModelChange)="filterStaff()">
+                    </div>
+                    
+                </div>
+            </div>
+            <br>
+
+
+            <br>
+             
+            <div class="row">
+                <div class="col-md-2">
+                    <p  *ngIf="approved==1" class="show3res" style="color: #3247d5;">SHOWING <span style="color: #3247d5;"> {{stafflistapproved.length}} </span>RESULTS
+                   </p>
+                   <p *ngIf="approved==0" class="show3res" style="color: #3247d5;">SHOWING <span style="color: #3247d5;"> {{stafflistnewrequest.length}} </span>RESULTS
+                   </p>
+                   </div>
+              
+            </div>
+
+            
+
+            <div class="row">
+                <br />
+                <div class="col-lg-12 dashbutton bttn">
+                    <div class="tab-slider--nav">
+                        <ul class="tab-slider--tabs">
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" (click)="Pending()" rel="tab1"
+                                (click)="viewMode ='tab1'" >
+                                New Request {{stafflistnewrequest.length}}</li>
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" (click)="Approved()" rel="tab2"
+                                (click)="viewMode ='tab2'" >Approved {{stafflistapproved.length}}</li>
+                        </ul>
+        
+                    </div>
+                </div>
+        
+            </div>
+            <br/>
+            <div class="tab-slider--container" [ngSwitch]="viewMode">
+                <div *ngSwitchCase="'tab1'" id="tab1">
+            <div class="row" *ngIf="roledid==2">
+
+
+
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12" style="width: 78%;
+                        overflow: auto;">
+                    <table class="table" id="lvs"
+                        *ngIf="(stafflistnewrequest | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th *ngIf="roledid!=6">Employee Id</th>
+                                <th>Employee Name</th>
+                                <th *ngIf="roledid!=6">Role</th>
+                              
+                                <th *ngIf="roledid!=6">Phone Number</th>
+                                <th *ngIf="roledid!=6">Email ID</th>
+                                <th>Loan Approved Date</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan End Date</th>
+                                <th>Loan Type</th>
+                                <th>Loan Amount</th>
+                                <th>Comments</th>
+                                 <!-- <th>Reason</th> --> 
+                                <!-- <th>Attachments</th> -->
+                                <th>Manager Comments</th>
+                                <th>HR Comments</th>
+                                <th>Finance Comments</th>
+                                <th>Payroll Comments</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of stafflistnewrequest |paginate: { itemsPerPage: count1, currentPage: p}|filter:date">
+                                <td>{{item.modifiedDate|date}}</td>
+                                <td *ngIf="roledid!=6">000{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td *ngIf="roledid!=6">{{item.role}}</td>
+                              
+                                <td *ngIf="roledid!=6">{{item.mobile}}</td>
+                                <td *ngIf="roledid!=6">{{item.emailID}}</td>
+
+                                <td>
+                                    <p *ngIf="item.approvedDate==null">Yet To Approve</p>
+                                    <p *ngIf="item.approvedDate!=null"> {{item.approvedDate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanstartdate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanstartdate!=null"> {{item.loanstartdate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanenddate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanenddate!=null"> {{item.loanenddate|date}}</p>
+                                </td>
+                                <td>{{item.loanType}}</td>
+                                <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                <td>{{item.comments}}</td>
+                              
+                                 <!-- <td>{{item.reason}}</td> -->
+                                 <!-- <td>
+                                    <p *ngIf="item.attachment==null">No Attachment</p>
+                                    <a href="{{item.attachment}}" target="blank"> <img *ngIf="item.attachment!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td> -->
+                                <td>
+                                    <p *ngIf="item.managerComments==null">NA</p>
+                                    <p *ngIf="item.managerComments!=null">{{item.managerComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hrComments==null">NA</p>
+                                    <p *ngIf="item.hrComments!=null">{{item.hRComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hrComments==null">NA</p>
+                                    <p *ngIf="item.hrComments!=null">{{item.financeComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.payrollComments==null">NA</p>
+                                    <p *ngIf="item.payrollComments!=null">{{item.payrollComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.status==null">NA</p>
+                                    <p *ngIf="item.status!=null">{{item.status}}</p>
+                                </td>
+                               
+                                <!-- data-toggle="modal" data-target="#Approveloan" -->
+                                <td>
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Pending,HR Pending,Payroll Pending,Finance Pending' || item.status=='Manager Pending' ) "
+                                        (click)="Reject(item)" data-toggle="modal"
+                                        data-target="#Rejectloan">Reject</button>&nbsp;&nbsp;
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Pending,HR Pending,Payroll Pending,Finance Pending' || item.status=='Manager Pending' ) && roledid=='2'"
+                                        (click)="Approve(item)" data-toggle="modal"
+                                        data-target="#Approveloan">Approve</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="roledid==9">
+
+
+
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12" style="width: 78%;
+                overflow: auto;">
+                    <table class="table" id="lvs"
+                        *ngIf="(stafflistnewrequest | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th *ngIf="roledid!=6">Employee Id</th>
+                                <th>Employee Name</th>
+                                <th *ngIf="roledid!=6">Role</th>
+                                <th *ngIf="roledid!=6">Department</th>
+                                <th *ngIf="roledid!=6">Phone Number</th>
+                                <th *ngIf="roledid!=6">Email ID</th>
+                                <th>Loan Approved Date</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan End Date</th>
+                                <th>Loan Type</th>
+                                <th>Loan Amount</th>
+                                <th>Comments</th>
+                                <!-- <th>Reason</th> -->
+                                <!-- <th>Attachments</th> -->
+                                <th>Manager Comments</th>
+                                <th>HR Comments</th>
+                                <th>Finance Comments</th>
+                                <th>Payroll Comments</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of stafflistnewrequest |paginate: { itemsPerPage: count1, currentPage: p}|filter:date">
+                                <td>{{item.modifiedDate|date}}</td>
+                                <td *ngIf="roledid!=6">000{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td *ngIf="roledid!=6">{{item.role}}</td>
+                                <td *ngIf="roledid!=6">{{item.department_name}}</td>
+                                <td *ngIf="roledid!=6">{{item.mobile}}</td>
+                                <td *ngIf="roledid!=6">{{item.emailID}}</td>
+
+                                <td>
+                                    <p *ngIf="item.approvedDate==null">Yet To Approve</p>
+                                    <p *ngIf="item.approvedDate!=null"> {{item.approvedDate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanstartdate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanstartdate!=null"> {{item.loanstartdate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanenddate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanenddate!=null"> {{item.loanenddate|date}}</p>
+                                </td>
+                                <td>{{item.loanType}}</td>
+                                <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                <td>{{item.comments}}</td>
+                                 <!-- <td>{{item.reason}}</td> -->
+                                 <!-- <td>
+                                    <p *ngIf="item.attachment==null">No Attachment</p>
+                                    <a href="{{item.attachment}}" target="blank"> <img *ngIf="item.attachment!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td> -->
+                                <td>
+                                    <p *ngIf="item.managerComments==null">NA</p>
+                                    <p *ngIf="item.managerComments!=null">{{item.managerComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hrComments==null">NA</p>
+                                    <p *ngIf="item.hrComments!=null">{{item.hrComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.financeComments==null">NA</p>
+                                    <p *ngIf="item.financeComments!=null">{{item.financeComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.payrollComments==null">NA</p>
+                                    <p *ngIf="item.payrollComments!=null">{{item.payrollComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.status==null">NA</p>
+                                    <p *ngIf="item.status!=null">{{item.status}}</p>
+                                </td>
+                                <!-- data-toggle="modal" data-target="#Approveloan" -->
+                                <td>
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Pending,Payroll Pending,Finance Pending' || item.status=='HR Pending') "
+                                        (click)="Reject(item)" data-toggle="modal"
+                                        data-target="#Rejectloan">Reject</button>&nbsp;&nbsp;
+
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Pending,Payroll Pending,Finance Pending' ||  item.status=='HR Pending' ) "
+                                        (click)="Approve(item)" data-toggle="modal"
+                                        data-target="#Approveloan">Approve</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="roledid==17">
+
+
+
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12" style="width: 78%;
+                overflow: auto;">
+                    <table class="table" id="lvs"
+                        *ngIf="(stafflistnewrequest | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th *ngIf="roledid!=6">Employee Id</th>
+                                <th>Employee Name</th>
+                                <th *ngIf="roledid!=6">Role</th>
+                                <th *ngIf="roledid!=6">Department</th>
+                                <th *ngIf="roledid!=6">Phone Number</th>
+                                <th *ngIf="roledid!=6">Email ID</th>
+                                <th>Loan Approved Date</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan End Date</th>
+                                <th>Loan Type</th>
+                                <th>Loan Amount</th>
+                               
+                                <th>Comments</th>
+                                <!-- <th>Reason</th> -->
+                                <!-- <th>Attachments</th> -->
+                                <th>Manager Comments</th>
+                                <th>HR Comments</th>
+                                <th>Finance Comments</th>
+                                <th>Payroll Comments</th>
+                                
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of stafflistnewrequest |paginate: { itemsPerPage: count1, currentPage: p}|filter:date">
+                                <td>{{item.modifiedDate|date}}</td>
+                                <td *ngIf="roledid!=6">000{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td *ngIf="roledid!=6">{{item.role}}</td>
+                                <td *ngIf="roledid!=6">{{item.department_name}}</td>
+                                <td *ngIf="roledid!=6">{{item.mobile}}</td>
+                                <td *ngIf="roledid!=6">{{item.emailID}}</td>
+
+                                <td>
+                                    <p *ngIf="item.approvedDate==null">Yet To Approve</p>
+                                    <p *ngIf="item.approvedDate!=null"> {{item.approvedDate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanstartdate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanstartdate!=null"> {{item.loanstartdate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanenddate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanenddate!=null"> {{item.loanenddate|date}}</p>
+                                </td>
+                                <td>{{item.loanType}}</td>
+                                <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                <td>{{item.comments}}</td>
+                                 <!-- <td>{{item.reason}}</td> -->
+                                  <!-- <td>
+                                    <p *ngIf="item.attachment==null">No Attachment</p>
+                                    <a href="{{item.attachment}}" target="blank"> <img *ngIf="item.attachment!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td> --> 
+                                <td>
+                                    <p *ngIf="item.managerComments==null">NA</p>
+                                    <p *ngIf="item.managerComments!=null">{{item.managerComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hrComments==null">NA</p>
+                                    <p *ngIf="item.hrComments!=null">{{item.hrComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.financeComments==null">NA</p>
+                                    <p *ngIf="item.financeComments!=null">{{item.financeComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.payrollComments==null">NA</p>
+                                    <p *ngIf="item.payrollComments!=null">{{item.payrollComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.status==null">NA</p>
+                                    <p *ngIf="item.status!=null">{{item.status}}</p>
+                                </td>
+                                <!-- data-toggle="modal" data-target="#Approveloan" -->
+                                <td>
+                                    <button class="edit"
+                                    *ngIf="(item.status==null || item.status=='Manager Approved,HR Approved,Payroll Pending,Finance Pending' ||  item.status=='Payroll Pending') "
+                                    (click)="Reject(item)" data-toggle="modal"
+                                    data-target="#Rejectloan">Reject</button>&nbsp;&nbsp;
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Approved,Payroll Pending,Finance Pending'  ||  item.status=='Payroll Pending') "
+                                        (click)="Approve(item)" data-toggle="modal"
+                                        data-target="#Approveloan">Approve</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="roledid==8">
+
+
+
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12" style="width: 78%;
+            overflow: auto;">
+                    <table class="table" id="lvs"
+                        *ngIf="(stafflistnewrequest | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th *ngIf="roledid!=6">Employee Id</th>
+                                <th>Employee Name</th>
+                                <th *ngIf="roledid!=6">Role</th>
+                                <th *ngIf="roledid!=6">Department</th>
+                                <th *ngIf="roledid!=6">Phone Number</th>
+                                <th *ngIf="roledid!=6">Email ID</th>
+                                <th>Loan Approved Date</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan End Date</th>
+                                <th>Loan Type</th>
+                                <th>Loan Amount</th>
+                                <!-- <th>Attachments</th> -->
+                                <th>Comments</th>
+                                <!-- <th>Reason</th> -->
+                                <th>Manager Comments</th>
+                                <th>HR Comments</th>
+                                <th>Finance Comments</th>
+                                <th>Payroll Comments</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of stafflistnewrequest |paginate: { itemsPerPage: count1, currentPage: p}|filter:date">
+                                <td>{{item.modifiedDate|date}}</td>
+                                <td *ngIf="roledid!=6">000{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td *ngIf="roledid!=6">{{item.role}}</td>
+                                <td *ngIf="roledid!=6">{{item.department_name}}</td>
+                                <td *ngIf="roledid!=6">{{item.mobile}}</td>
+                                <td *ngIf="roledid!=6">{{item.emailID}}</td>
+
+                                <td>
+                                    <p *ngIf="item.approvedDate==null">Yet To Approve</p>
+                                    <p *ngIf="item.approvedDate!=null"> {{item.approvedDate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanstartdate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanstartdate!=null"> {{item.loanstartdate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanenddate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanenddate!=null"> {{item.loanenddate|date}}</p>
+                                </td>
+                                <td>{{item.loanType}}</td>
+                                <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                <td>{{item.comments}}</td>
+                                 <!-- <td>{{item.reason}}</td> -->
+                                 <!-- <td>
+                                    <p *ngIf="item.attachment==null">No Attachment</p>
+                                    <a href="{{item.attachment}}" target="blank"> <img *ngIf="item.attachment!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td> -->
+                                <td>
+                                    <p *ngIf="item.managerComments==null">NA</p>
+                                    <p *ngIf="item.managerComments!=null">{{item.managerComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hRComments==null">NA</p>
+                                    <p *ngIf="item.hRComments!=null">{{item.hRComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.financeComments==null">NA</p>
+                                    <p *ngIf="item.financeComments!=null">{{item.financeComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.payrollComments==null">NA</p>
+                                    <p *ngIf="item.payrollComments!=null">{{item.payrollComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.status==null">NA</p>
+                                    <p *ngIf="item.status!=null">{{item.status}}</p>
+                                </td>
+                                <!-- data-toggle="modal" data-target="#Approveloan" -->
+                                <td>
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Approved,Payroll Approved,Finance Pending' ||  item.status=='Finance Pending') "
+                                        (click)="Reject(item)" data-toggle="modal"
+                                        data-target="#Rejectloan">Reject</button>&nbsp;&nbsp;
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Approved,Payroll Approved,Finance Pending' ||  item.status=='Finance Pending') "
+                                        (click)="Approve(item)" data-toggle="modal"
+                                        data-target="#Approveloan">Approve</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            <div class="tab-slider--container" [ngSwitch]="viewMode">
+                <div *ngSwitchCase="'tab2'" id="tab2">
+            <div class="row" *ngIf="roledid==2">
+
+
+
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12" style="width: 78%;
+                        overflow: auto;">
+                    <table class="table" id="lvs"
+                        *ngIf="(stafflistapproved | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th *ngIf="roledid!=6">Employee Id</th>
+                                <th>Employee Name</th>
+                                <th *ngIf="roledid!=6">Role</th>
+                                <!-- <th *ngIf="roledid!=6">Department</th> -->
+                                <th *ngIf="roledid!=6">Phone Number</th>
+                                <th *ngIf="roledid!=6">Email ID</th>
+                                <th>Loan Approved Date</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan End Date</th>
+                                <th>Loan Type</th>
+                                <th>Loan Amount</th>
+                                <th>Comments</th>
+                                 <!-- <th>Reason</th> --> 
+                                <!-- <th>Attachments</th> -->
+                                <th>Manager Comments</th>
+                                <th>HR Comments</th>
+                                <th>Finance Comments</th>
+                                <th>Payroll Comments</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of stafflistapproved |paginate: { itemsPerPage: count1, currentPage: p}|filter:date">
+                                <td>{{item.modifiedDate|date}}</td>
+                                <td *ngIf="roledid!=6">000{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td *ngIf="roledid!=6">{{item.role}}</td>
+                                <!-- <td *ngIf="roledid!=6">{{item.department_name}}</td> -->
+                                <td *ngIf="roledid!=6">{{item.mobile}}</td>
+                                <td *ngIf="roledid!=6">{{item.emailID}}</td>
+
+                                <td>
+                                    <p *ngIf="item.approvedDate==null">Yet To Approve</p>
+                                    <p *ngIf="item.approvedDate!=null"> {{item.approvedDate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanstartdate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanstartdate!=null"> {{item.loanstartdate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanenddate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanenddate!=null"> {{item.loanenddate|date}}</p>
+                                </td>
+                                <td>{{item.loanType}}</td>
+                                <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                <td>{{item.comments}}</td>
+                              
+                                 <!-- <td>{{item.reason}}</td> -->
+                                 <!-- <td>
+                                    <p *ngIf="item.attachment==null">No Attachment</p>
+                                    <a href="{{item.attachment}}" target="blank"> <img *ngIf="item.attachment!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td> -->
+                                <td>
+                                    <p *ngIf="item.managerComments==null">NA</p>
+                                    <p *ngIf="item.managerComments!=null">{{item.managerComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hrComments==null">NA</p>
+                                    <p *ngIf="item.hrComments!=null">{{item.hRComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hrComments==null">NA</p>
+                                    <p *ngIf="item.hrComments!=null">{{item.financeComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.payrollComments==null">NA</p>
+                                    <p *ngIf="item.payrollComments!=null">{{item.payrollComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.status==null">NA</p>
+                                    <p *ngIf="item.status!=null">{{item.status}}</p>
+                                </td>
+                               
+                                <!-- data-toggle="modal" data-target="#Approveloan" -->
+                                <td>
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Pending,HR Pending,Payroll Pending,Finance Pending' || item.status=='Manager Pending' ) "
+                                        (click)="Reject(item)" data-toggle="modal"
+                                        data-target="#Rejectloan">Reject</button>&nbsp;&nbsp;
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Pending,HR Pending,Payroll Pending,Finance Pending' || item.status=='Manager Pending' ) && roledid=='2'"
+                                        (click)="Approve(item)" data-toggle="modal"
+                                        data-target="#Approveloan">Approve</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="roledid==9">
+
+
+
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12" style="width: 78%;
+                overflow: auto;">
+                    <table class="table" id="lvs"
+                        *ngIf="(stafflistapproved | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th *ngIf="roledid!=6">Employee Id</th>
+                                <th>Employee Name</th>
+                                <th *ngIf="roledid!=6">Role</th>
+                                <th *ngIf="roledid!=6">Department</th>
+                                <th *ngIf="roledid!=6">Phone Number</th>
+                                <th *ngIf="roledid!=6">Email ID</th>
+                                <th>Loan Approved Date</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan End Date</th>
+                                <th>Loan Type</th>
+                                <th>Loan Amount</th>
+                                <th>Comments</th>
+                                <!-- <th>Reason</th> -->
+                                <!-- <th>Attachments</th> -->
+                                <th>Manager Comments</th>
+                                <th>HR Comments</th>
+                                <th>Finance Comments</th>
+                                <th>Payroll Comments</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of stafflistapproved |paginate: { itemsPerPage: count1, currentPage: p}|filter:date">
+                                <td>{{item.modifiedDate|date}}</td>
+                                <td *ngIf="roledid!=6">000{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td *ngIf="roledid!=6">{{item.role}}</td>
+                                <td *ngIf="roledid!=6">{{item.department_name}}</td>
+                                <td *ngIf="roledid!=6">{{item.mobile}}</td>
+                                <td *ngIf="roledid!=6">{{item.emailID}}</td>
+
+                                <td>
+                                    <p *ngIf="item.approvedDate==null">Yet To Approve</p>
+                                    <p *ngIf="item.approvedDate!=null"> {{item.approvedDate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanstartdate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanstartdate!=null"> {{item.loanstartdate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanenddate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanenddate!=null"> {{item.loanenddate|date}}</p>
+                                </td>
+                                <td>{{item.loanType}}</td>
+                                <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                <td>{{item.comments}}</td>
+                                 <!-- <td>{{item.reason}}</td> -->
+                                 <!-- <td>
+                                    <p *ngIf="item.attachment==null">No Attachment</p>
+                                    <a href="{{item.attachment}}" target="blank"> <img *ngIf="item.attachment!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td> -->
+                                <td>
+                                    <p *ngIf="item.managerComments==null">NA</p>
+                                    <p *ngIf="item.managerComments!=null">{{item.managerComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hrComments==null">NA</p>
+                                    <p *ngIf="item.hrComments!=null">{{item.hrComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.financeComments==null">NA</p>
+                                    <p *ngIf="item.financeComments!=null">{{item.financeComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.payrollComments==null">NA</p>
+                                    <p *ngIf="item.payrollComments!=null">{{item.payrollComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.status==null">NA</p>
+                                    <p *ngIf="item.status!=null">{{item.status}}</p>
+                                </td>
+                                <!-- data-toggle="modal" data-target="#Approveloan" -->
+                                <td>
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Pending,Payroll Pending,Finance Pending' || item.status=='HR Pending') "
+                                        (click)="Reject(item)" data-toggle="modal"
+                                        data-target="#Rejectloan">Reject</button>&nbsp;&nbsp;
+
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Pending,Payroll Pending,Finance Pending' ||  item.status=='HR Pending' ) "
+                                        (click)="Approve(item)" data-toggle="modal"
+                                        data-target="#Approveloan">Approve</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="roledid==17">
+
+
+
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12" style="width: 78%;
+                overflow: auto;">
+                    <table class="table" id="lvs"
+                        *ngIf="(stafflistapproved | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th *ngIf="roledid!=6">Employee Id</th>
+                                <th>Employee Name</th>
+                                <th *ngIf="roledid!=6">Role</th>
+                                <th *ngIf="roledid!=6">Department</th>
+                                <th *ngIf="roledid!=6">Phone Number</th>
+                                <th *ngIf="roledid!=6">Email ID</th>
+                                <th>Loan Approved Date</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan End Date</th>
+                                <th>Loan Type</th>
+                                <th>Loan Amount</th>
+                               
+                                <th>Comments</th>
+                                <!-- <th>Reason</th> -->
+                                <!-- <th>Attachments</th> -->
+                                <th>Manager Comments</th>
+                                <th>HR Comments</th>
+                                <th>Finance Comments</th>
+                                <th>Payroll Comments</th>
+                                
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of stafflistapproved |paginate: { itemsPerPage: count1, currentPage: p}|filter:date">
+                                <td>{{item.modifiedDate|date}}</td>
+                                <td *ngIf="roledid!=6">000{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td *ngIf="roledid!=6">{{item.role}}</td>
+                                <td *ngIf="roledid!=6">{{item.department_name}}</td>
+                                <td *ngIf="roledid!=6">{{item.mobile}}</td>
+                                <td *ngIf="roledid!=6">{{item.emailID}}</td>
+
+                                <td>
+                                    <p *ngIf="item.approvedDate==null">Yet To Approve</p>
+                                    <p *ngIf="item.approvedDate!=null"> {{item.approvedDate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanstartdate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanstartdate!=null"> {{item.loanstartdate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanenddate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanenddate!=null"> {{item.loanenddate|date}}</p>
+                                </td>
+                                <td>{{item.loanType}}</td>
+                                <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                <td>{{item.comments}}</td>
+                                 <!-- <td>{{item.reason}}</td> -->
+                                  <!-- <td>
+                                    <p *ngIf="item.attachment==null">No Attachment</p>
+                                    <a href="{{item.attachment}}" target="blank"> <img *ngIf="item.attachment!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td> --> 
+                                <td>
+                                    <p *ngIf="item.managerComments==null">NA</p>
+                                    <p *ngIf="item.managerComments!=null">{{item.managerComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hrComments==null">NA</p>
+                                    <p *ngIf="item.hrComments!=null">{{item.hrComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.financeComments==null">NA</p>
+                                    <p *ngIf="item.financeComments!=null">{{item.financeComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.payrollComments==null">NA</p>
+                                    <p *ngIf="item.payrollComments!=null">{{item.payrollComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.status==null">NA</p>
+                                    <p *ngIf="item.status!=null">{{item.status}}</p>
+                                </td>
+                                <!-- data-toggle="modal" data-target="#Approveloan" -->
+                                <td>
+                                    <button class="edit"
+                                    *ngIf="(item.status==null || item.status=='Manager Approved,HR Approved,Payroll Pending,Finance Pending' ||  item.status=='Payroll Pending') "
+                                    (click)="Reject(item)" data-toggle="modal"
+                                    data-target="#Rejectloan">Reject</button>&nbsp;&nbsp;
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Approved,Payroll Pending,Finance Pending'  ||  item.status=='Payroll Pending') "
+                                        (click)="Approve(item)" data-toggle="modal"
+                                        data-target="#Approveloan">Approve</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="roledid==8">
+
+
+
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12" style="width: 78%;
+            overflow: auto;">
+                    <table class="table" id="lvs"
+                        *ngIf="(stafflistapproved | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th *ngIf="roledid!=6">Employee Id</th>
+                                <th>Employee Name</th>
+                                <th *ngIf="roledid!=6">Role</th>
+                                <th *ngIf="roledid!=6">Department</th>
+                                <th *ngIf="roledid!=6">Phone Number</th>
+                                <th *ngIf="roledid!=6">Email ID</th>
+                                <th>Loan Approved Date</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan End Date</th>
+                                <th>Loan Type</th>
+                                <th>Loan Amount</th>
+                                <!-- <th>Attachments</th> -->
+                                <th>Comments</th>
+                                <!-- <th>Reason</th> -->
+                                <th>Manager Comments</th>
+                                <th>HR Comments</th>
+                                <th>Finance Comments</th>
+                                <th>Payroll Comments</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of stafflistapproved |paginate: { itemsPerPage: count1, currentPage: p}|filter:date">
+                                <td>{{item.modifiedDate|date}}</td>
+                                <td *ngIf="roledid!=6">000{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td *ngIf="roledid!=6">{{item.role}}</td>
+                                <td *ngIf="roledid!=6">{{item.department_name}}</td>
+                                <td *ngIf="roledid!=6">{{item.mobile}}</td>
+                                <td *ngIf="roledid!=6">{{item.emailID}}</td>
+
+                                <td>
+                                    <p *ngIf="item.approvedDate==null">Yet To Approve</p>
+                                    <p *ngIf="item.approvedDate!=null"> {{item.approvedDate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanstartdate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanstartdate!=null"> {{item.loanstartdate|date}}</p>
+                                </td>
+
+                                <td>
+                                    <p *ngIf="item.loanenddate==null">Yet To Approve</p>
+                                    <p *ngIf="item.loanenddate!=null"> {{item.loanenddate|date}}</p>
+                                </td>
+                                <td>{{item.loanType}}</td>
+                                <td>{{item.loanAmount|number:'1.2-2'}}</td>
+                                <td>{{item.comments}}</td>
+                                 <!-- <td>{{item.reason}}</td> -->
+                                 <!-- <td>
+                                    <p *ngIf="item.attachment==null">No Attachment</p>
+                                    <a href="{{item.attachment}}" target="blank"> <img *ngIf="item.attachment!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td> -->
+                                <td>
+                                    <p *ngIf="item.managerComments==null">NA</p>
+                                    <p *ngIf="item.managerComments!=null">{{item.managerComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.hRComments==null">NA</p>
+                                    <p *ngIf="item.hRComments!=null">{{item.hRComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.financeComments==null">NA</p>
+                                    <p *ngIf="item.financeComments!=null">{{item.financeComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.payrollComments==null">NA</p>
+                                    <p *ngIf="item.payrollComments!=null">{{item.payrollComments}}</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="item.status==null">NA</p>
+                                    <p *ngIf="item.status!=null">{{item.status}}</p>
+                                </td>
+                                <!-- data-toggle="modal" data-target="#Approveloan" -->
+                                <td>
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Approved,Payroll Approved,Finance Pending' ||  item.status=='Finance Pending') "
+                                        (click)="Reject(item)" data-toggle="modal"
+                                        data-target="#Rejectloan">Reject</button>&nbsp;&nbsp;
+                                    <button class="edit"
+                                        *ngIf="(item.status==null || item.status=='Manager Approved,HR Approved,Payroll Approved,Finance Pending' ||  item.status=='Finance Pending') "
+                                        (click)="Approve(item)" data-toggle="modal"
+                                        data-target="#Approveloan">Approve</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div id="Approveloan" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Approve Loan</h5>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-3">
+                            Comments
+                        </div>
+                        <div class="col-md-4">
+                            <textarea class="form-control" rows="4" id="Comments" name="Comments" [(ngModel)]="Comments"
+                                placeholder="Comments"></textarea>
+                        </div>
+                    </div>
+                    <br />
+
+                    <br>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-4">
+
+                        </div>
+                        <div class="col-lg-5">
+                            <button class="upload" (click)="ApproveEmployeeloan()">Submit</button>
+                        </div>
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Rejectloan" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Reject Loan</h5>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-3">
+                            Comments
+                        </div>
+                        <div class="col-md-4">
+                            <textarea class="form-control" rows="4" id="Comments" name="Comments" [(ngModel)]="Comments"
+                                placeholder="Comments"></textarea>
+                        </div>
+                    </div>
+                    <br />
+
+                    <br>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-4">
+
+                        </div>
+                        <div class="col-lg-5">
+                            <button class="upload" (click)="RejectEmployeeloan()">Reject</button>
+                        </div>
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />

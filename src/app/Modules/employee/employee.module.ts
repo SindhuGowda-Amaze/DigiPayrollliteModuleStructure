@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { LeavesComponent } from './EmployeeRequest/leaves/leaves.component';
 import { LoansComponent } from './EmployeeRequest/loans/loans.component';
 import { OTrequestComponent } from './EmployeeRequest/otrequest/otrequest.component';
@@ -16,9 +16,9 @@ import { PayslipComponent } from './Reports/payslip/payslip.component';
 import { ContributioncertificateComponent } from './Reports/contributioncertificate/contributioncertificate.component';
 import { CertificateofloanComponent } from './Reports/certificateofloan/certificateofloan.component';
 import { EmploymentcertificateComponent } from './Reports/employmentcertificate/employmentcertificate.component';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -42,9 +42,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     EmployeeRoutingModule,
     SharedModule,
     FormsModule ,
+    NgxDropzoneModule,
     NgxPaginationModule,
-    NgxDropzoneModule
-
+    Ng2SearchPipeModule
   ]
 })
 export class EmployeeModule { }

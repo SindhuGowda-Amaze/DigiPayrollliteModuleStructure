@@ -40,6 +40,7 @@ export class ManagerDashboardComponent implements OnInit {
   approvedotcount:any;
   roleid:any;
   loader:any;
+  
   ngOnInit(): void {
     this.loader=true
     this.getDetails();

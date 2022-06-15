@@ -1,0 +1,627 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="Heading1"> Payroll </p>
+        </div>
+    </div>
+    <div class="card">
+
+        <div class="row FilterClass fontheading" style="color:#0C275A">
+
+            <div class="col-lg-1">
+                <p>Filter By</p>
+            </div>
+
+            <div class="col-lg-2">
+                <select name="Month" id="Month" class="form-control" (change)="filteremployee()" [(ngModel)]="Duration">
+                    <option value="">Select Month </option>
+                    <option value="1">January </option>
+                    <option value="2">February </option>
+                    <option value="3">March </option>
+                    <option value="4">April </option>
+                    <option value="5">May </option>
+                    <option value="6">June </option>
+                    <option value="7">July</option>
+                    <option value="8">August </option>
+                    <option value="9">September </option>
+                    <option value="10">October </option>
+                    <option value="11">November </option>
+                    <option value="12">December </option>
+                </select>
+                <!-- <input style="color:#0C275A" class="form-control" type="date" placeholder="Duration"
+                    [(ngModel)]="Duration" (ngModelChange)="filteremployee()"> -->
+            </div>
+            <div class="col-lg-3" style="color:#0C275A">
+                <input class="form-control search" type="search" [(ngModel)]="Search" (ngModelChange)="Filterjobs()"
+                    placeholder="Search for date , Type or Code">
+            </div>
+            <div class="col-md-3">
+                <button class="form-control CancelBTN" type="button" (click)="currentmonth()">Current Month
+                </button>
+            </div>
+            <div class="col-md-3">
+                <button class="form-control CancelBTN" type="button" (click)="exportexcel()">Export To Excel
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+    <br>
+   
+    <div class="row">
+        <div class="col-lg-6 dashbutton bttn">
+            <!-- <div class="tab-slider--nav">
+                        <ul class="tab-slider--tabs">
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
+                                (click)="viewMode ='tab1'">
+                                Normal Payroll</li>
+                           
+                        </ul>
+                    </div> -->
+        </div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2">
+
+        </div>
+
+        <!-- <div class="col-lg-2">
+          
+            <button class="form-control  CancelBTN" style="width:80%;" *ngIf="selectrun==1" routerLink='/RunPayroll'>Run Payroll</button>
+
+            <button class="form-control  CancelBTN" style="width:80%;" *ngIf="thirteenthrunpayroll2==1" routerLink='/ThirtheenMonthPayroll'>13th Payroll</button>
+
+            <button class="form-control  CancelBTN" style="width:80%;" *ngIf="finalpayroll==1" routerLink='/FinalPayroll'>Final Payroll</button>
+        </div> -->
+    </div><br>
+    <div class="row">
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-5">
+            
+        </div>
+        <div class="col-lg-3">
+            <p>Total Amount: {{totalamount|number:'1.2-2'}} </p>
+        </div>
+
+    </div>
+    <div class="row">
+        <br />
+        <div class="col-lg-12 dashbutton bttn">
+            <div class="tab-slider--nav">
+                <ul class="tab-slider--tabs">
+                    <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
+                        (click)="viewMode ='tab1'" (click)="runpayroll()">
+                        Normal Payroll</li>
+                    <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
+                        (click)="viewMode ='tab2'" (click)="thirteenthrunpayroll()">13th Month Payroll</li>
+                    <li class="tab-slider--trigger" [class.active]="viewMode == 'tab3'" rel="tab3"
+                        (click)="viewMode ='tab3'" (click)="FinalPayroll()">Final Payroll</li>
+                </ul>
+
+            </div>
+        </div>
+        
+
+    </div>
+
+    
+    <div class="row smalltable">
+
+        <div class="tab-slider--container" [ngSwitch]="viewMode">
+            <div *ngSwitchCase="'tab1'" id="tab1">
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 ">
+                    <table class="table" id="lvs"
+                        *ngIf="(employeelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults" >
+                        <thead>
+                            <tr>
+                                <!-- <th>Check Box</th> -->
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Employee Name</th>
+                                <th>Gross Salary</th>
+                                <th>Deminimis</th>
+                                <th>Gross Salary For Period</th>
+                                <th>SSS Rate</th>
+                                <th>Pag-IBIG Rate</th>
+                                <th>PhilHealth Contribution</th>
+                                <th>Tax</th>
+                                <th>Lop Days</th>
+                                <th>Lop Amount</th>
+                                <th>Loan Payout</th>
+                                <th>Net Pay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of employeelist |filter:Search |paginate: { itemsPerPage: count1, currentPage: p }  | filter: Duration">
+                                <td style="color:#0C275A">{{item.startdate|date}}</td>
+                                <td style="color:#0C275A">{{item.enddate|date}}</td>
+                                <td style="color:#0C275A">{{item.staffname}}</td>
+                                <td style="color:#0C275A">{{item.grossSalary}}</td>
+                                <td style="color:#0C275A"> {{item.deniminimis_amount}}</td>
+                                <td style="color:#0C275A"> {{item.monthlysalaryperperiod}}</td>
+                                <td style="color:#0C275A">{{item.contribution}}</td>
+                                <td style="color:#0C275A">{{item.pagBig}}</td>
+                                <td style="color:#0C275A">{{item.philHealthContribution}}</td>
+                                <td style="color:#0C275A">{{item.tax}}</td>
+                                <td style="color:#0C275A">{{item.lopdays}}</td>
+                                <td style="color:#0C275A">{{item.lopamount}}</td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.loanpayout!=null">{{item.loanpayout}}</p>
+                                    <p *ngIf="item.loanpayout==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">{{item.netMonthSalary}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="text-left">
+                    <br>
+                    <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                </div>
+                <ng-template #noResults>
+                    <div class="card">
+                        <p class="NoResultShow"> No results found</p>
+                    </div>
+                </ng-template>
+                <br>
+            </div>
+            
+            <div *ngSwitchCase="'tab2'" id="tab2">
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="row">
+                  
+                <div class="col-lg-12 ">
+                    <table class="table" id="lvs" style="width: 145%;"   *ngIf="(thirteenthlist |paginate: { itemsPerPage: count1, currentPage: p}).length" >
+                        <thead>
+                            <tr>
+                                <!-- <th>Check Box</th> -->
+                              
+                                <th>Employee Name</th>
+                                <th>Department</th>
+
+                                <th>Role</th>
+                                <th>Year</th>
+                                <th>Basic Salary</th>
+                                <th *ngIf="ComputationDeminimis==true">Deminimis Amount</th>
+                                
+                                <th>Net Pay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of thirteenthlist">
+                               <td>{{item.firstName}}</td>
+                               <td>{{item.department_name}}</td>
+                               <td>{{item.emprole}}</td>
+                               <td>{{item.year}}</td>
+                               <td>{{item.basicsalary}}</td>
+                               <td *ngIf="ComputationDeminimis==true" >{{item.deminimsamount}}</td>
+                              <td><p *ngIf="ComputationDeminimis==true">
+                                {{item.monthlysalary}}
+                              </p>
+                              <p *ngIf="ComputationDeminimis==false">
+                                {{item.basicsalary}}
+                              </p>
+                            </td>
+                               
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+                </div>
+                </div>
+            </div>
+
+
+
+            <div *ngSwitchCase="'tab3'" id="tab3">
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-lg-12 ">
+                    <table class="table" id="lvs" *ngIf="(finalist |paginate: { itemsPerPage: count1, currentPage: p}).length" >
+                        <thead>
+                            <tr>
+                                <!-- <th>Check Box</th> -->
+                                
+                                <th>Employee Name</th>
+                               <th>Department</th>
+                               <th>Role</th>
+                                <th>Gross Salary</th>
+                                <th>Deminimis</th>
+                                
+                                <th>SSS Rate</th>
+                                <th>Pag-IBIG Rate</th>
+                                <th>PhilHealth Contribution</th>
+                                <th>Tax</th>
+                                <th>Leave-EncashPayout</th>
+                                <th>Benefits</th>
+                                
+                                <th>Net Pay</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of finalist">
+                               
+                                <td style="color:#0C275A">{{item.name}}</td>
+                                <td style="color:#0C275A">{{item.department_name}}</td>
+                                <td style="color:#0C275A">{{item.emprole}}</td>
+                                <td style="color:#0C275A">{{item.grossSal}}</td>
+                                <td style="color:#0C275A"> {{item.deminimsamount}}</td>
+                               
+                                <td style="color:#0C275A">{{item.contribution}}</td>
+                                <td style="color:#0C275A">{{item.pagBig}}</td>
+                                <td style="color:#0C275A">{{item.philHealthContribution}}</td>
+                                <td style="color:#0C275A">{{item.tax}}</td>
+                                <td style="color:#0C275A">{{item.leaveencashpayout}} </td>
+                                <td style="color:#0C275A">{{item.benefits}} </td>
+                                <td style="color:#0C275A">{{item.netSalary}}</td>
+                               
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!-- <div class="container-fluid">
+                <div class="row ">
+                    <div class="col-lg-12">
+                        <table class="table" id="lvs">
+                            <thead>
+                                <tr>
+                                   
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Employee Name</th>
+                                    <th>Gross Salary</th>
+                                    <th>SSS Rate</th>
+                                    <th>Pag big Rate</th>
+                                    <th>PhilHealth Contribution</th>
+                                    <th>Tax</th>
+                                    <th>Lop Days</th>
+                                    <th>Lop Amount</th>
+                                    <th>Net Pay</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of employeelist">
+                                    <td>{{item.startdate|date}}</td>
+                                    <td>{{item.enddate|date}}</td>
+                                    <td>{{item.staffname}}</td>
+                                    <td>{{item.grossSalary}}</td>
+                                    <td>{{item.contribution}}</td>
+                                    <td>{{item.pagBig}}</td>
+                                    <td>{{item.philHealthContribution}}</td>
+                                    <td>{{item.tax}}</td>
+                                    <td>{{item.lopdays}}</td>
+                                    <td>{{item.lopamount}}</td>
+                                    <td>{{item.netMonthSalary}}</td>
+    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div id="payroll" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Run PayRoll</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            Filter By
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="date" placeholder="startdate" id="startdate"
+                                name="startdate" [(ngModel)]="startdate">
+                        </div>
+                        <div class=" col-md-4">
+                            <input class="form-control" type="date" placeholder="enddate" id="enddate" name="enddate"
+                                [(ngModel)]="enddate" (change)="getdate($event)">
+                        </div>
+                        <!-- <select name="cars" id="Month" class="form-control">
+                                 <option value="Select">Select</option> 
+                                <option value="2021">Select</option>
+                                <option value="2021">Albert</option>
+                                <option value="2020">Alfonso</option>
+                                                                   
+                              </select> -->
+                        <br />
+                        <button data-toggle="collapse" data-target="#employee">Fetch</button>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+
+                <!-- <div class="container-fluid" id="employee" class="collapse">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table class="table table-bordered fonttxt">
+                                        <thead>
+                                            <tr class="newFont">
+
+                                                <th>Employee ID</th>
+                                                <th>Name</th>
+                                                <th>Status</th>
+                                                <th>Net Pay</th>
+                                            </tr>
+                                            <tr>
+
+                                                <td>21042</td>
+                                                <td>Tan, Marina Ela Navarro</td>
+                                                <td>Active</td>
+                                                <td>10500</td>
+                                            </tr>
+
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> -->
+
+                <div class="container-fluid" id="employee" class="collapse">
+                    <br />
+                   
+                    <div class="row rowwidth">
+                        <div class="col-lg-12">
+
+                            <table class="table table-bordered fonttxt" id="downloadaplication">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Employee Id</th>
+                                        <th>Employee Name</th>
+                                        <th>Role</th>
+                                        <th>Phone Number</th>
+                                        <th>Email</th>
+                                        <th>Date Of Joining</th>
+                                        <th>Manager</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of stafflist">
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="item.checked"
+                                                [value]="item.value">&nbsp;
+                                        </td>
+
+                                        <td>000{{item.id}}</td>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.role}}</td>
+                                        <td>{{item.mobile}}</td>
+                                        <td>{{item.emailID}}</td>
+                                        <td>{{item.joiningDate|date}}</td>
+                                        <td>
+                                            <p *ngIf="item.manager==null">
+                                                NA
+                                            </p>
+                                            <p *ngIf="item.manager!=null">
+                                                {{item.manager}}
+                                            </p>
+                                        </td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-2">
+                        <button (click)="SelectAll()" class="form-control requestbtn" type="button" id="btn_button">Run
+                            Payroll</button>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+        </div>
+        <br>
+    </div>
+
+
+
+
+    <div id="payroll1" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Bank Advice List</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label class="Text">Year :</label><br /><br />
+                            <label class="Text">Month:</label><br /><br /><br />
+                            <label class="Text">Pay Period :</label><br /><br />
+
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control  " id="Year" name="Year" [(ngModel)]="year"><br />
+                                <option value="Select">Select Year </option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                            </select>
+                            <br />
+                            <select name="cars" id="Month" class="form-control" [(ngModel)]="Month">
+                                <option value="Select">Select Month </option>
+                                <option value="1">January </option>
+                                <option value="2">February </option>
+                                <option value="3">March </option>
+                                <option value="4">April </option>
+                                <option value="5">May </option>
+                                <!-- <option value="6">June </option>
+                                    <option value="7">July</option>
+                                    <option value="8">August </option>
+                                    <option value="9">September </option>
+                                    <option value="10">October </option>
+                                    <option value="11">November </option>
+                                    <option value="12">December </option> -->
+                            </select>
+                            <br />
+                            <select name="cars" id="Month" class="form-control" [(ngModel)]="PayrollType">
+                                <option value="Select">Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+
+                            </select>
+                            <br />
+                            <br />
+                            <button class="edit" data-toggle="modal" data-target="#payroll5"
+                                (click)="getbankadvicelist()">Generate</button>
+                            <br />
+                            <br />
+                            <div id="payroll5" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Bank Advice List</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-4">
+                                                    <p style="margin-left: 83px;"></p>
+                                                </div>
+
+                                            </div>
+                                            <table class="table table-bordered fonttxt" id="downloadaplication">
+                                                <thead>
+                                                    <tr class="newFont">
+                                                        <th>Select <input type="checkbox" checked> </th>
+                                                        <th>Employee ID</th>
+                                                        <th>Name</th>
+                                                        <th>Role</th>
+                                                        <th>Department</th>
+                                                        <th>Account No</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                    <tr *ngFor="let bank of employeelist">
+                                                        <td class="SelectData"><input type="checkbox" checked></td>
+                                                        <td>{{bank.id}}</td>
+                                                        <td>{{bank.staffname}} {{bank.lastName}}</td>
+                                                        <td>{{bank.role }}</td>
+                                                        <td>{{bank.department_name}}</td>
+                                                        <td>{{bank.bankAccountNumber}}</td>
+                                                        <td>{{bank.netMonthSalary}}</td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                    <td class="SelectData"><input type="checkbox" checked></td>
+                                                    <td>21043</td>
+                                                    <td>Rac,Lyla Gonzales</td>
+                                                    <td>Assistant</td>
+                                                    <td>Rank and File</td>
+                                                    <td>RCD43243488799</td>
+                                                    <td>20,244.15</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="SelectData"><input type="checkbox" checked></td>
+                                                    <td>21048</td>
+                                                    <td>Cadillo,Lucita Montero</td>
+                                                    <td>Assistant Manager</td>
+                                                    <td>Officer</td>
+                                                    <td>FSRV4559930009</td>
+                                                    <td>25,544.10</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="SelectData"><input type="checkbox" checked></td>
+                                                    <td>21049</td>
+                                                    <td>Gumapac,Glenn Eddie Coronel</td>
+                                                    <td>Superviser</td>
+                                                    <td>Rank and File Deployed</td>
+                                                    <td>UDG84734780022</td>
+                                                    <td>24,644.15</td>
+
+                                                </tr> -->
+
+                                                </thead>
+                                            </table>
+
+                                            <div class="row">
+                                                <div class="col-lg-5"></div>
+                                                <div class="col-lg-2">
+                                                    <button class="edit" (click)="convetToPDF1()">Download
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div> <br>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>

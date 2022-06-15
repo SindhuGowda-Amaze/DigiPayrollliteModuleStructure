@@ -17,7 +17,8 @@ import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.compone
   declarations: [
     SharedComponent,
     AdminHelpMenuComponent,
-    SupportTicketDashboardComponent
+    SupportTicketDashboardComponent,
+    LoaderComponent
 
   ],
   imports: [
@@ -29,7 +30,8 @@ import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.compone
   ],
   exports: [
     FormsModule,
-    //GaugeModule
+    LoaderComponent,
+    
  
  
   ],

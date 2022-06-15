@@ -1,0 +1,339 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <br>
+        <div class="col-lg-12">
+            <p class="Heading1">Preliminary Report</p>
+        </div>
+    </div>
+    <div class="card ">
+        <div class="row">
+
+            <div class="col-lg-2">
+                <p>Start Date
+                    <input class="form-control" type="date" placeholder="startdate" id="startdate" name="startdate"
+                        [(ngModel)]="startdate">
+            </div>
+            <div class=" col-lg-2">
+                <p>End Date
+                    <input class="form-control" type="date" placeholder="enddate" id="enddate" name="enddate"
+                        [(ngModel)]="enddate" (change)="getdate($event)">
+            </div>
+            <div class=" col-lg-3">
+                <p>Search
+                    <input class="form-control" placeholder="Search" type="text" [(ngModel)]="Search"
+                        (ngModelChange)="filterPreliminary()">
+            </div>
+            <div class="col-lg-3">
+                <button class="form-control CancelBTN" style="width: 70%;margin-top:20px;" data-toggle="collapse"
+                    data-target="#employee" (click)="getemployeedetails()">Fetch Employees</button>
+            </div>
+            <!-- <div class="col-lg-2">
+                
+                <button (click)="SelectAll()" class="form-control CancelBTN" style="width: 70%;" type="button" id="btn_button"
+                    *ngIf="selecallbtn==true">Run Payroll</button>
+                <button (click)="Accept()" class="form-control CancelBTN" style="width: 70%;" type="button" id="btn_button"
+                    *ngIf="seleconebtn==true">Run Payroll</button>
+            </div> -->
+
+            <!-- <div class="col-lg-2">
+                <button class="form-control CancelBTN" data-toggle="modal" data-target="#paygroup123"
+                    style="width: 100%;margin-top:20px;" type="button" *ngIf="seleconebtn==true">View Preliminary
+                </button>
+                <button class="form-control CancelBTN" data-toggle="modal" data-target="#paygroupall"
+                    style="width: 100%;margin-top:20px;" type="button" (click)="viewpreliminary()"
+                    *ngIf="selecallbtn==true">View Preliminary </button>
+
+            </div> -->
+
+            <!-- <div class="col-md-6">
+                <input class="form-control" type="search" [(ngModel)]="term"
+                    placeholder="search for Staff , Date of joining or Role">
+            </div> -->
+        </div>
+
+        <div class="row" >
+            <div class="col-lg-2">
+                <p>Role
+                    <br> <select class="form-control" id="RoleType" name="RoleType" (change)='getRoleType($event)'
+                        [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                        <option value="">Select Role</option>
+                        <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
+                        </option>
+                    </select>
+                </p>
+            </div>
+            <div class="col-lg-2">
+                <p>Department
+                    <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                        (change)="filterByDepartment()">
+                        <option value="">Select Department</option>
+                        <option value="{{item.department_name}}" *ngFor="let item of Departmentlist">
+                            {{item.department_name}}
+                        </option>
+                    </select>
+                </p>
+            </div>
+            <div class="col-lg-7"></div>
+            <div class="col-lg-1 ">
+                <p class="active">Count:{{count}}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <p style="margin-left: 83px;">Grand Total:1,01,076.55</p>
+        </div>
+        
+    </div> -->
+    <br />
+    <br />
+    <div class="row rowwidth collapse" id="employee" style="height:500px;">
+        <div class="col-lg-12">
+            <table class="table table-bordered fonttxt" id="downloadaplication" style="height:300px;"
+                *ngIf="(uniquelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"  data-toggle="collapse"
+                            data-target="#demo2" (click)="selectALL(true)"  ></th>
+                        <th>Employee Id</th>
+                        <th>Employee Name</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Weekend Days</th>
+
+                        <th>No Of Days Worked</th>
+                        <th>Total Days</th>
+                        <th>Leave Days</th>
+                        <th>Lop</th>
+                        <th>Date Of Joining</th>
+                        <th>Manager</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uniquelist|paginate: { itemsPerPage: count1, currentPage: p }">
+                        <td>
+                            <input type="checkbox" data-toggle="collapse"
+                            data-target="#demo1"  [(ngModel)]="item.checked" [value]="item.value"
+                                (click)="getCheckbocdetails(item)" (click)="SinglePreliminary(item.name,item.id)">&nbsp;
+                        </td>
+
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.role}}</td>
+                        <td>{{item.department_name}}</td>
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.emailID}}</td>
+                        <td>{{item.weekenddays}}</td>
+                        <td>{{item.daysworked}}</td>
+                        <td>{{item.workingdays}}</td>
+                        <td>{{item.leavedays}}</td>
+                        <td>{{item.lopdays}}</td>
+                        <td>{{item.joiningDate|date}}</td>
+
+                        <td>
+                            <p *ngIf="item.manager==null">
+                                NA
+                            </p>
+                            <p *ngIf="item.manager!=null">
+                                {{item.manager}}
+                            </p>
+                        </td>
+
+
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noResults>
+                <div class="card">
+                    <p class="NoResultShow"> No results found </p>
+                </div>
+            </ng-template>
+            <div class="text-right">
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+
+    <br />
+    <br />
+
+
+</div>
+<!-- id="paygroup123" class="modal fade" -->
+<div   id="demo1" class="collapse">
+<h4 class="modal-title">Preliminary Report</h4>
+               <div class="row">
+                   <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12" style="overflow:auto;">
+                                <table class="table table-bordered" id="downloadaplication">
+                                    <thead>
+                                        <tr class="newFont">
+                                            <th>Employee Id</th>
+                                            <th>Employee Name</th>
+                                            <th>Tax Status</th>
+                                            <th>Basic Salary</th>
+                                            <th>Deminimis Benifits </th>
+                                            <th>Total Monthly Salary</th>
+                                            <th>Semi Monthly Basic Salary </th>
+                                            <th>Basic/Day</th>
+                                            <th>Basic/Hr</th>
+
+
+
+                                            <th>Tax</th>
+                                            <th>SSS</th>
+                                            <th>PHIL</th>
+                                            <th>Pag-IBIG</th>
+                                            <th>LOP Amount</th>
+
+                                            <!-- <th>Total Deduction</th> 
+                                            <th>Benefits</th>                               -->
+                                            <th>Net Pay</th>
+                                        </tr>
+                                        <tr *ngFor="let item of StaffSalaryReports">
+                                            <td>{{empid}}</td>
+                                            <td>{{name}}</td>
+                                            <td>ME 2</td>
+                                            <td>{{item.taxableIncome}}</td>
+                                            <td>{{item.deniminimis_amount}}</td>
+                                            <td>{{item.taxableIncome+item.deniminimis_amount}}</td>
+                                            <td>{{item.monthlysalary}}</td>
+                                            <td>{{item.taxableIncome/31|number:'1.2-2'}}</td>
+                                            <td>{{(item.taxableIncome/31)/8|number:'1.2-2'}}</td>
+
+
+                                            <td>{{item.tax/2}}</td>
+                                            <td>{{item.contribution}}</td>
+                                            <td>{{item.philHealthContribution|number:'1.2-2'}}</td>
+                                            <td>{{item.pagBig/2}}</td>
+                                            <td>{{item.lopAmount}}</td>
+                                            <td>{{item.netMonthSalary}}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                         <td>{{id}}</td>
+                                         <td>{{fullname}}</td>
+                                         <td>ME 1</td>
+                                         <td>{{BaseSalary}}</td>
+                                         <td>{{deniminimis_amount}}</td>
+                                         <td>{{GrossSalary}}</td>
+                                         <td>{{semimonthly}}</td>
+                                         <td>{{basicday}}</td>
+                                         <td>{{basichour}}</td>
+                                         <td>0.00</td>
+                                        
+                                         <td>{{semimonthly}}</td>
+                                         <td>{{tax}}</td>
+                                         <td>{{SSS}}</td>
+                                         <td>{{philHealthContribution}}</td>
+                                         <td>{{pagBig}}</td>
+                                         <td>{{lopamount}}</td>
+                                         <td>{{ssssalaryloan}}</td>
+                                         <td>{{ssscalamity}}</td>
+                                      
+                                         <td>{{hdmfcalamityloan}}</td>
+                                         <td>{{hdmfsalaryloan}}</td>
+                                         <td>{{companyloan}}</td>
+                                         
+                                         <td>{{deductions}}</td>
+                                         <td>{{benefits}}</td>
+                                         <td>{{netMonthSalary}}</td>
+                                        
+                                        </tr> -->
+
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+</div>
+
+<!-- 
+id="paygroupall" class="modal fade"  -->
+<div  id="demo2" class="collapse">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h4 class="modal-title">Preliminary Report</h4>          
+                    </div>
+                    <div class="col-lg-6">
+
+                    </div>
+                    <div class="col-lg-2">
+                        Total Amount : {{totalamount}}
+                    </div>
+                </div>
+               
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12" style="overflow:auto;">
+                                <table class="table table-bordered" id="downloadaplication">
+                                    <thead>
+                                        <tr class="newFont">
+                                            <th>Employee Id</th>
+                                            <th>Employee Name</th>
+                                            <th>Tax Status</th>
+                                            <th>Basic Salary</th>
+                                            <th>Monthly Deminimis Benifits </th>
+                                            <!-- <th>Total Monthly Salary</th> -->
+                                            <th>Semi Monthly Basic Salary </th>
+                                            <th>Basic/Day</th>
+                                            <th>Basic/Hr</th>
+
+
+
+                                            <th>Tax</th>
+                                            <th>SSS</th>
+                                            <th>PHIL</th>
+                                            <th>Pag-IBIG</th>
+                                            <th>LOP Amount</th>
+
+                                            <!-- <th>Total Deduction</th> 
+                                            <th>Benefits</th>                               -->
+                                            <th>Net Pay</th>
+                                        </tr>
+                                        <tr *ngFor="let item of alluniquelist">
+                                            <td>{{item.staffID}}</td>
+                                            <td>{{item.staffname}}</td>
+                                            <td>ME 1</td>
+                                            <td>{{item.grossSalary}}</td>
+                                            <td>{{item.deniminimis_amount}}</td>
+                                            <!-- <td>{{item.monthlysalary}}</td> -->
+                                            <td>{{item.monthlySalaryPerPeriod}}</td>
+                                            <td>{{item.basicperday|number:'1.2-2'}}</td>
+                                            <td>{{item.basichour|number:'1.2-2'}}</td>
+
+
+                                            <td>{{item.tax/2}}</td>
+                                            <td>{{item.contribution}}</td>
+                                            <td>{{item.philHealthContribution|number:'1.2-2'}}</td>
+                                            <td>{{item.pagBig}}</td>
+                                            <td>{{item.lopamount}}</td>
+                                            <td>{{item.netMonthSalary}}</td>
+                                        </tr>
+                                   </thead>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+</div>
