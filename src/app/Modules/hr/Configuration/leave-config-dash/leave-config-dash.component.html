@@ -1,0 +1,106 @@
+
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-11">
+                    <p class="Heading1">Leave Configuration</p>
+                </div>
+            </div>
+
+            <!-- <div>
+                    <div>
+                        <ul>
+                            <li><a class="active"> <h3>Holiday Dashboard</h3></a></li>
+    
+                        </ul>
+                    </div>
+                </div>
+                <hr> -->
+            <div class="row">
+                <div class="col-lg-10">
+
+                </div>
+                <div class="col-lg-2">
+                    <button class="form-control requestbtn" routerLink="/Leaveconfiguration">Add New</button>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!-- <table class="table table-bordered"> -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <th>Leave</th>
+                                <th>Gender</th>
+                                <th>Maritial Status</th>
+                                <th>Max Children</th>
+                                <th>Allowed During Notice Period</th>
+                                <th>Monthly Limit</th>
+                                <th>Yearly Limit</th>
+                                <th>Is Cashable</th>
+                                <th>Monthly Capping</th>
+                                <th>Allow for Next Year</th>
+                                <th>Approval</th>
+                                <th>Is Sick Leave Eligible</th>
+                                <th>Is Tenure Leave Eligible</th>
+                                <th>Is Annual Leave Eligible</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let holiday of holidaylist|filter:term">
+                                <td>{{holiday.leavetype}}</td>
+                                <td>{{holiday.gender1}}</td>
+                                <td>{{holiday.maritalStatus1}}</td>
+                                <td>{{holiday.maxChildren}}</td>
+                                <td>{{holiday.allowedDuringNotice}}</td>
+                                <td>{{holiday.monthlyLimit}}</td>
+                                <td>{{holiday.yearlyLimit}}</td>
+
+                                <td>{{holiday.isCashable}}</td>
+                                <td>{{holiday.monthlyCapping1}}</td>
+                                <td>{{holiday.allowForNextYear1}}</td>
+                                <td>{{holiday.autoApproval}}</td>
+                                <td>{{holiday.isSickLeaveEligible1}}</td>
+                                <td>{{holiday.isTenureLeaveEligible1}}</td>
+                                <td>{{holiday.isAnnualLeaveEligible1}}</td>
+
+                                <td> <button class="upload"
+                                        [routerLink]="['/Leaveconfiguration',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="upload" (click)="DeleteHolidays(holiday.id)">Delete</button>
+                                </td>
+
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+                <div class="col-md-1"></div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

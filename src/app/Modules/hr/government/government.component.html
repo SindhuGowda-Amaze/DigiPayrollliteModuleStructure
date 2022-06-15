@@ -1,0 +1,265 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+      
+        <div class="col-lg-12">
+            <p class="taxtable">Government OR Records</p>
+          
+            <div class="card">
+               
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p >Department</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <p >Employee Name</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <p >Type</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <p >SBR/OR Number</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <p >Amount</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <p >Attachment</p>
+                    </div>
+                   
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        
+                            <select class="form-control" id="Department1" name="Department1" [(ngModel)]="Department1"
+                                (change)="changeDepartment()">
+                                <option value="">Select Department</option>
+                                <option value="{{item.id}}" *ngFor="let item of Departmentlist">
+                                    {{item.department_name}}
+                                </option>
+                            </select>
+                      
+                    </div>
+
+                    <div class="col-lg-2">
+                        <!-- <input class="form-control input" [(ngModel)]="staffName" id="staffID" name="staffID"><br> -->
+
+                        <ng-multiselect-dropdown [placeholder]="'Select Name'" [settings]="dropdownSettings"
+                            [data]="employeelist34" [(ngModel)]="staffId1" (onSelect)="onItemSelect($event)" class="fonttxt">
+                        </ng-multiselect-dropdown>
+
+
+                        <!-- <select class="form-control input" [(ngModel)]="staffID">
+                            <option class="form-control input" *ngFor="let application of employeelist"  value="application.ID">{{application.name}}</option>
+                        </select> -->
+                    </div>
+                    <div class="col-lg-2 text">
+
+                        <select class="form-control input" [(ngModel)]="Type">
+                            <option class="form-control input" value="">Select Type</option>
+                            <option class="form-control input" value="SSS">SSS</option>
+                            <option class="form-control input" value="SSS Loan">SSS Loan</option>
+                            <option class="form-control input" value="SSS Calamity Loan">SSS Calamity Loan
+                            </option>
+                            <option class="form-control input" value="PhilHealth">PhilHealth</option>
+                            <option class="form-control input" value="HDMF">HDMF</option>
+                            <option class="form-control input" value="HDMF Loan">HDMF Loan</option>
+                            <option class="form-control input" value="Hdmp Calamity Loan">HDMF Calamity Loan
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <input class="form-control input" [(ngModel)]="SBRORNumber" placeholder="SBR OR Number"><br>
+                    </div>
+                    <div class="col-lg-2">
+                        <input class="form-control input" [(ngModel)]="Amount" placeholder="Amount"><br>
+                    </div>
+                    <div class="col-lg-2">
+                        <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p > Date Paid </p>
+                        <input class="form-control input fonttxt" type="date" [(ngModel)]="DatePaid"><br>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <p>Month</p>
+                        <select name="month" id="Month" class="form-control input" [(ngModel)]="month" >
+                            <option value="">Select</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>                       
+                          </select>
+                </div>
+                <div class="col-lg-2">
+                    <p>Payperiod</p>
+                    <select name="payrolltype" id="payrolltype" class="form-control input" [(ngModel)]="payrolltype" >
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                                           
+                      </select>
+            </div>
+            </div>
+            </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-2">
+                        <button class="save input" (click)="save()">Save</button> <br>
+                    </div>
+                </div>
+                <br>
+           
+        </div>
+       
+    </div>
+</div>
+<hr>
+<br>
+
+<br>
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-1">
+                <p>Filter By</p>
+            </div>
+            <div class="col-lg-2">
+                <p>Staff
+           <input type="text" class="form-control" placeholder="Search" [(ngModel)]="Search" />
+         </div>
+         <div class="col-lg-2">
+            <p>Role
+                <br> <select class="form-control" id="RoleType" name="RoleType"
+                    [(ngModel)]="RoleType" (change)="FilterRoleType($event)">
+                    <option value="">Select Role</option>
+                    <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
+                    </option>
+                </select>
+            </p>
+        </div>
+        <div class="col-lg-2">
+            <p>Department
+                <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                    (change)="filterByDepartment($event)">
+                    <option value="">Select Department</option>
+                    <option value="{{item.id}}" *ngFor="let item of Departmentlist">
+                        {{item.department_name}}
+                    </option>
+                </select>
+            </p>
+        </div>
+        <div class="col-lg-2">
+           
+            <div class="dropdown" style="color:#0C275A">
+                <p>Month
+              <select class="form-control " id="Month" name="Month" [(ngModel)]="Month" (change)="getmonth()"><br />
+                <option style="color:#0C275A" value="">Select Month </option>
+                <option style="color:#0C275A" value="1">January </option>
+                <option style="color:#0C275A" value="2">February </option>
+                <option style="color:#0C275A" value="3">March </option>
+                <option style="color:#0C275A" value="4">April </option>
+                <option style="color:#0C275A" value="5">May </option>
+                <option style="color:#0C275A" value="6">June </option>
+                <option style="color:#0C275A" value="7">July</option>
+                <option style="color:#0C275A" value="8">August </option>
+                <option style="color:#0C275A" value="9">September </option>
+                <option style="color:#0C275A" value="10">October </option>
+                <option style="color:#0C275A" value="11">November </option>
+                <option style="color:#0C275A" value="12">December </option>
+              </select>
+              </p>
+            </div>
+           
+          </div>
+          <div class="col-lg-2">
+             
+            <div class="dropdown">
+                <p>Year
+              <select class="form-control  " id="Year" name="Year" [(ngModel)]="Year" (change)="getyear()"><br />
+                <option style="color:#0C275A" value="">Select Year </option>
+                <option style="color:#0C275A" value="2022">2022</option>
+                <option style="color:#0C275A" value="2021">2021</option>
+                <option style="color:#0C275A" value="2020">2020</option>
+              </select>
+            </p>
+            </div>
+       
+          </div>
+       
+        <!-- <div class="col-lg-2 active">Count:{{count}}</div> -->
+        </div>
+     </div>
+</div>
+<br>
+<div class="container-fluid">
+    <div class="row rowwidth">
+        
+        <div class="col-lg-12">
+            <table class="table table-bordered fonttxt">
+                <thead>
+                    <tr>
+                        <!-- <th class="SelectData"><input type="checkbox">&nbsp; Select</th> -->
+                        <th>Staff Name</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Type</th>
+                        <th>SBR/OR Number</th>
+                        <th>Amount</th>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Payperiod</th>
+                        <th>Date Paid</th>
+                        <th>Attachment</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="newFont" *ngFor="let application of results |filter:Search| paginate: { itemsPerPage: count1, currentPage: p }">
+                        <td>{{application.name}}</td>
+                        <td>{{application.role}}</td>
+                        <td>{{application.department_name}}</td>
+                        <td>{{application.ltype}}</td>
+                        <td>{{application.sbrorNumber}}</td>
+                        <td>{{application.amount}}</td>
+                        <td>{{application.year}}</td>
+                        <td>{{application.month}}</td>
+                        <td>{{application.payrolltype}}</td>
+                        <td>{{application.datePaid|date}}</td>
+                      
+                        <td ><img src="assets/images/pdf.png" style="width: 30px;"
+                        (click)="GetOfferLetter(application.attachment)"> </td>
+                        <td><img class="imgcancel" src="assets/cancel (1).png" (click)="delete(application.sbrorNumber)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <br>
+            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+        </div>  
+        <span *ngIf="results.length==0">No data found.</span>
+        <br>
+        <div class="col-lg-1"></div>
+    </div>
+</div>

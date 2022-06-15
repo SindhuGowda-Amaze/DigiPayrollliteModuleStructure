@@ -1,0 +1,267 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="col-lg-12 dashbutton bttn">
+    <div class="tab-slider--nav">
+        <ul class="tab-slider--tabs">
+            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1" (click)="viewMode ='tab1'"
+                (click)="runpayroll()">
+                Normal Payroll</li>
+            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2" (click)="viewMode ='tab2'"
+                (click)="thirteenthrunpayroll()">13th Month Payroll</li>
+        </ul>
+
+    </div>
+</div>
+<br/>
+<div class="tab-slider--container" [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'tab1'" id="tab1">
+        <div class="container-fluid" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title Heading1">Bank Advice List</p>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="Text">Year :</label><br /><br />
+                                <label class="Text">Month:</label><br /><br /><br />
+                                <label class="Text">Pay Period :</label><br /><br />
+
+                            </div>
+                            <div class="col-lg-3">
+                                <select class="form-control  " id="year" name="year" (change)="Getyear($event)"
+                                    [(ngModel)]="year"><br />
+                                    <option value="0">Select Year </option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                                <br />
+                                <select name="Month" id="Month" class="form-control" (change)="Getmonth($event)" [(ngModel)]="Month">
+                                    <option value="0">Select Month </option>
+                                    <option value="1">January </option>
+                                    <option value="2">February </option>
+                                    <option value="3">March </option>
+                                    <option value="4">April </option>
+                                    <option value="5">May </option>
+                                    <option value="6">June </option>
+                                    <option value="7">July</option>
+                                    <option value="8">August </option>
+                                    <option value="9">September </option>
+                                    <option value="10">October </option>
+                                    <option value="11">November </option>
+                                    <option value="12">December </option>
+                                </select>
+                                <br />
+                                <select name="PayrollType" id="PayrollType" (change)="Getpayrolltype($event)" class="form-control"
+                                    [(ngModel)]="PayrollType">
+                                    <option value="0">Select</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+
+                                </select>
+                                <br />
+                                <br />
+                                <button class="edit" (click)="getbankadvicelist()">Generate</button>
+                                <br />
+                                <br />
+
+
+                            </div>
+
+                        </div> <br>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div *ngSwitchCase="'tab2'" id="tab2">
+        <div class="container-fluid" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <div class="row">
+                    <br />
+
+
+                </div>
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title Heading1">Bank Advice List</p>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="Text">Year :</label><br /><br />
+
+                            </div>
+                            <div class="col-lg-3">
+                                <select class="form-control  " id="Year" name="Year" [(ngModel)]="year"><br />
+                                    <option value="">Select Year </option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                                <br />
+
+                                <br />
+                                <br />
+                                <button class="edit" (click)="getthirteenthbankadvicelist()">Generate</button>
+                                <br />
+                                <br />
+
+
+                            </div>
+
+                        </div> <br>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<button id="payroll11" hidden class="edit" data-toggle="modal" data-target="#payroll5"></button>
+
+
+<button id="payroll13" hidden class="edit" data-toggle="modal" data-target="#payroll12"></button>
+
+<div id="payroll5" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Bank Advice List</h4>
+                <!-- <button class="button" (click)="convetToPDF1()">Download
+                </button> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-2">
+                        <button class="edit" (click)="convetToPDF1()">Download
+                        </button>
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="edit" (click)="exportexcel1()">Export to Excel</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4">
+                        <p style="margin-left: 83px;"></p>
+                    </div>
+
+                </div>
+                <table class="table table-bordered fonttxt" id="downloadaplication">
+                    <thead>
+                        <tr class="newFont">
+
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Phone Number</th>
+                            <th>Account No</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr *ngFor="let bank of employeelist">
+
+                            <td>{{bank.id}}</td>
+                            <td>{{bank.staffname}} {{bank.lastName}}</td>
+                            <td>{{bank.role }}</td>
+                            <td>{{bank.department_name}}</td>
+                            <td>{{bank.phoneNo}}</td>
+                            <td>{{bank.bankAccountNumber}}</td>
+                            <td>{{bank.netMonthSalary}}</td>
+                        </tr>
+                    </thead>
+                </table>
+                <span *ngIf="employeelist.length==0">No data found.</span>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="payroll12" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Bank Advice List</h4>
+                <!-- <button class="button" (click)="convetToPDF1()">Download
+                </button> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-2">
+                        <button class="edit" (click)="convetToPDF1()">Download
+                        </button>
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="edit" (click)="exportexcel()">Export to Excel</button>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4">
+                        <p style="margin-left: 83px;"></p>
+                    </div>
+
+                </div>
+                <table class="table table-bordered fonttxt" id="downloadaplication13">
+                    <thead>
+                        <tr class="newFont">
+
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Account No</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr *ngFor="let bank of employeelist">
+
+                            <td>{{bank.staffID}}</td>
+                            <td>{{bank.firstName}} {{bank.lastName}}</td>
+                            <td>{{bank.emprole }}</td>
+                            <td>{{bank.department_name}}</td>
+                            <td>{{bank.bankAccountNumber}}</td>
+                            <td>
+                                <p *ngIf="ComputationDeminimis==true">
+                                    {{bank.monthlysalary}}
+                                </p>
+                                <p *ngIf="ComputationDeminimis==false">
+                                    {{bank.basicsalary}}
+                                </p>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+                <span *ngIf="employeelist.length==0">No data found.</span>
+
+            </div>
+
+        </div>
+    </div>
+</div>

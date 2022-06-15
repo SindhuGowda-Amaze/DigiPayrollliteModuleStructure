@@ -1,0 +1,76 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="Heading1">Attendance Configuration Dashboard</p>
+        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="card">
+
+        <div class="row">
+            <div class="col-lg-1">
+                <p class="filter">Filter By </p>
+            </div>
+
+            <div class="col-lg-5 search">
+                <input type="text" placeholder="Search" id="term" [(ngModel)]="Search" class="form-control">
+            </div>
+            <div class="col-lg-3" style="text-align: center;">
+            </div>
+        </div>
+    </div> <br>
+    <div class="row">
+        <div class="col-md-10">
+
+        </div>
+        <div class="col-md-2">
+            <button class=" form-control requestbtn " routerLink="/Attendenceconfig">Add New</button>
+        </div>
+    </div>
+    <br>
+    <div class="row" style="margin-left: -99px;">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="table" *ngIf="(AttendConfiglist | filter: Search |filter:date).length > 0; else noResults">
+                <thead class="head">
+                    <tr>
+                        <th>Shift</th>
+                        <th>Office Start Time</th>
+                        <th>Office End Time</th>
+                        <th>Early Checkin Time</th>
+                        <th>Grace Period</th>
+                        <th>Under Time</th>
+                        <th>Regularization</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let AttendConfig of AttendConfiglist|filter:Search">
+                        
+                        <td>{{AttendConfig.name}}</td>
+                        <td>{{AttendConfig.startingTime1}}</td>
+                        <td>{{AttendConfig.endTime1}}</td>
+                        <td>{{AttendConfig.earlyCheckInTime1}}</td>
+                        <td >{{AttendConfig.gracePeriod}}</td>
+                        <td>{{AttendConfig.underTime}}</td>
+                        <td>{{AttendConfig.regularization}}</td>
+                        <td> <button class="upload"
+                                [routerLink]="['/Attendenceconfig',AttendConfig.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="upload"
+                                (click)="DeleteAttendanceConfiguration(AttendConfig.id)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noResults>
+                <div class="card">
+                    <p class="NoResultShow"> No results found for "{{Search}}" </p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
