@@ -1,0 +1,537 @@
+<!-- <app-spinner *ngIf="loader"></app-spinner> -->
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="row">
+            <div class="col-md-7">
+                <ul>
+                    <li><a class="Heading"><u>My Leave Details</u>
+                        </a></li>&nbsp;&nbsp;&nbsp;
+                    <!-- <li><a class="active Heading" routerLink="/LeaveListDashboard" ><u>My Leave Details</u> </a></li> -->
+                    <li *ngIf="roledid==2"><a class="Heading " routerLink="/MyTeamLeaveDetails">My Team Leave
+                            Details</a></li>
+                    <li *ngIf="roledid==9"><a class="Heading " routerLink="/Hrleaverequest">All Staff Leave Details</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <a style="font-family: Poppins;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 11px;
+                /* identical to box height, or 72% */
+                
+                
+                color: #3247d5;">Leave Balance</a>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row FilterClass">
+            <div class="col-lg-7">
+                <div class="card">
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <p class="">START DATE:</p>
+
+                            <input class="form-control" id="date" name="date" [(ngModel)]="startdate" type="date"
+                                placeholder="Duration">
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="">END DATE:</p>
+
+                            <input class="form-control" id="date" name="date" [(ngModel)]="enddate"
+                                (change)="getenddate($event)" type="date" placeholder="Duration">
+                        </div>
+                        <div class="col-lg-6" style="font-family: 'Poppins';margin-top: 40px;">
+
+                            <input class="form-control" [(ngModel)]="term" type="search"
+                                placeholder="Search for date , Leave Type or Status">
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="show3res">SHOWING <span> {{staffleaves.length}} </span>RESULTS
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="col-lg-4">
+                                    <select class="inputclass" (change)="changeStatus($event)">
+                                        <option value="2">Calendar</option>
+                                        <option value="1">List View</option>
+                                    </select>
+                                    <!-- <label class="switch">
+                                       
+                                        <input type="checkbox" checked (change)="changeStatus($event)">
+                                        <span class="slider round"></span>
+                                    </label> -->
+                                </div>
+                                <div class="col-lg-4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="form-control requestbtn" style="    font-family: Poppins;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 11px;color:white" (click)="newlevae()">Apply Leave</button>
+                    </div>
+                </div><br>
+            </div>
+            <div class="col-lg-5" *ngFor="let item of Staffleaveenitilment">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card med">
+                            <p class="para"> <b class="number">{{item.vacationLeaveremaining}}
+                                </b>
+                                Vacation Leave </p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card med">
+                            <p class="para"> <b class="number">{{item.sickLeaveremaining}}</b>
+                                Sick Leave</p>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-6" *ngIf="item.awardname != 'No Award'">
+                        <div class="card med">
+                            <p class="para"> <b class="number">{{item.serviceIncentiveLeaveremaining}}</b>
+                                Service Incentive Leave</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6" *ngIf="item.gender == 'Female'">
+                        <div class="card med">
+                            <p class="para"> <b class="number">{{item.gynecologicalLeaveremaining}}</b>
+                                Gynecological leave</p>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-6" *ngIf="item.gender == 'Female' && item.status == 'Married'">
+                        <div class="card med">
+                            <p class="para"> <b class="number">{{item.maternitityLeaveremaining}}</b>
+                                Maternity Leave</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6" *ngIf="item.gender == 'Male' && item.status == 'Married'">
+                        <div class="card med">
+                            <p class="para"> <b class="number">{{item.paternitityLeaveremaining}}</b>
+                                Paternity Leave</p>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6" *ngIf="item.is_Solo_Parent == 1">
+                        <div class="card med">
+                            <p class="para"> <b class="number">{{item.soloParentLeaveremaining}}</b>
+                                Solo Parent Leave</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6" *ngIf="item.gender == 'Female'">
+                        <div class="card med">
+                            <p class="para"> <b class="number">{{item.violenceLeaveremaining}}</b>
+                                Violence Against Women Leave</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- <div class="card filtercard">
+                <div class="row">
+                    <div class="col-md-1">
+                        Filter By
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" id="date" name="date" [(ngModel)]="date" (change)="getdate($event)"
+                            type="date" placeholder="Duration">
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" [(ngModel)]="term" type="search"
+                            placeholder="search for date , Leave Type or Status">
+                    </div>
+                </div>
+            </div>
+            <br> -->
+
+
+        <div class="shadow p-3 mb-5 bg-white rounded  maincard " [hidden]="showorhidecontent">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row callendernavButtons">
+                        <div class="col-lg-4">
+                            <a (click)="previousmonth()">
+                                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            </a>
+                        </div>
+
+
+
+                        <div class="col-lg-4">
+                            <strong>{{callenderMonth}}</strong> {{callenderyear}}
+
+                        </div>
+                        <div class="col-lg-4">
+                            <a (click)="nextmonth()">
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="row callenderdiv">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-2 callenderboxes"
+                                    *ngFor="let calday of callenderdaysdount;let i = index">
+                                    {{calday.date}} {{calday.day}}
+                                    <div *ngIf="calday.mantainenceHtml!=null" class="event_Pending"
+                                        [innerHtml]='calday.mantainenceHtml'
+                                        style="overflow-y: auto; border-bottom: solid 6px white;;height: 126px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" [hidden]="!showorhidecontent">
+            <div class="col-md-12">
+                <table class="table" *ngIf="(staffleaves | filter: term).length > 0; else noResults">
+                    <thead>
+                        <tr>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Leave Type</th>
+                            <th>Leave Reason</th>
+                            <th>Leave Days Count</th>
+                            <th>Attachment </th>
+                            <th>Stage & Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of staffleaves|filter: term">
+                            <td>{{list.sDateOfLeave}} </td>
+                            <td>{{list.eDateOfLeave}} </td>
+                            <td>{{list.leavetype}}<br>
+                            <td>{{list.leaveReason}}<br>
+                            <td>{{list.noOfDays}}<br>
+                            <td>
+                                <p *ngIf="list.medicalUrl==null">No Attachment</p>
+                                <a *ngIf="list.filetype=='pdf' && list.medicalUrl!=null" href="{{list.medicalUrl}}"
+                                    target="_blank"> <img src="assets/images/pdf.png" alt="pdf.img"
+                                        style=" width: 50px; height: 50px;"></a>
+                                <img *ngIf="list.medicalUrl!=null && list.filetype!='pdf'" src="{{list.medicalUrl}}"
+                                    (click)="getmedicalurl(list)" alt="medical.img" data-toggle="modal"
+                                    data-target="#Allocate" style=" width: 50px;">
+                            </td>
+                            <td>{{list.status}}</td>
+                            <td>
+                                <button
+                                    *ngIf="list.status=='Manager Pending HR Pending' || list.status=='Manager Pending' || list.status=='HR Pending'"
+                                    class="button" (click)="CancelLeave(list)">Cancel</button>&nbsp;&nbsp;
+                                    <button
+                                    *ngIf="list.status=='Manager Approved' && maxdate<CutOffDate"
+                                    data-toggle="modal"
+                                    data-target="#Reason" class="button" (click)="CancelLeave1(list)">Cancel</button>&nbsp;&nbsp;
+
+                                    
+                            </td>
+                        </tr>
+                        <!-- <tr>
+
+                                <td>10 Aug 2021 </td>
+                                <td>10 Aug 2021 </td>
+                                <td>Medical Leave<br>
+                                    <span style="color: silver;font-size: 12px;">Going For Vacination</span>
+                                </td>
+                                <td>1</td>
+                                <td>
+                                    <img src="assets/Images/medical.JPG" alt="medical.img" data-toggle="modal"
+                                        data-target="#Allocate" style=" width: 50px;">
+                                </td>
+                                <td>Manager Approval<br>
+                                    <span style="color: #4282be;">Approved</span>
+                                </td>
+                                <td style="color: #4282be;"><img src="assets/Images/eye.png" data-toggle="modal"
+                                        data-target="#bigimg17"> view details</td>
+                                <td>
+                                    <div class="col-md-1 dropdown-container" tabindex="-1">
+                                        <div class="three-dots"></div>
+                                        <div class="dropdown">
+                                            <a href="#" data-toggle="modal" data-target="#bigimg20">
+                                                <div>Revert</div>
+                                            </a><br>
+                                            <a href="#">
+                                                <div>Cancel</div>
+                                            </a>
+                                        </div>
+
+
+
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td>10 Sep 2021 </td>
+                                <td>10 Sep 2021 </td>
+
+                                <td>Sick leave<br>
+                                    <span style="color: silver;font-size: 12px;">Fever</span>
+                                </td>
+                                <td>1</td>
+                                <td>
+                                    <img src="assets/Images/medical.JPG" alt="medical.img" data-toggle="modal"
+                                        data-target="#Allocate" style=" width: 50px;">
+                                </td>
+                                <td>Manager Approval<br>
+                                    <span style="color: #4282be;">Approved</span>
+                                </td>
+                                <td style="color: #4282be;"><img src="assets/Images/eye.png" data-toggle="modal"
+                                        data-target="#bigimg18">view details</td>
+                                <td>
+                                    <div class="col-md-1 dropdown-container" tabindex="-1">
+                                        <div class="three-dots"></div>
+                                        <div class="dropdown">
+                                            <a href="#" data-toggle="modal" data-target="#bigimg20">
+                                                <div>Revert</div>
+                                            </a><br>
+                                            <a href="#">
+                                                <div>Cancel</div>
+                                            </a>
+                                        </div>
+
+
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>15 Dec 2021 </td>
+                                <td>15 Dec 2021 </td>
+                                <td>Casual Leave<br>
+                                    <span style="color: silver;font-size: 12px;">Going For Vacation</span>
+                                </td>
+                                <td>2</td>
+                                <td>
+                                    <img src="assets/Images/medical.JPG" alt="medical.img" data-toggle="modal"
+                                        data-target="#Allocate" style=" width: 50px;">
+                                </td>
+                                <td>Manager Approval<br>
+                                    <span style="color: #4282be;">Pending</span>
+                                </td>
+                                <td style="color: #4282be;"><img src="assets/Images/eye.png" data-toggle="modal"
+                                        data-target="#bigimg19"> view details</td>
+                                <td>
+                                    <div class="col-md-1 dropdown-container" tabindex="-1">
+                                        <div class="three-dots"></div>
+                                        <div class="dropdown">
+                                            <a href="#" data-toggle="modal" data-target="#bigimg20">
+                                                <div>Revert</div>
+                                            </a><br>
+                                            <a href="#">
+                                                <div>Cancel</div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr> -->
+                    </tbody>
+                </table>
+
+                <ng-template #noResults>
+                    <div class="card">
+                        <p class="NoResultShow"> No Data found </p>
+                    </div>
+                </ng-template><br>
+            </div>
+
+            <!-- <div class="card">
+                <div>
+                    <p class="Heading1 ">Leave Balance</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="container-fluid">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Leave Type</th>
+                                        <th>Annual Quota</th>
+                                        <th>Entitlement Till Date</th>
+                                        <th>Availed Till Date</th>
+                                        <th>Current Balance</th>
+
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of Staffleaveenitilment">
+                                <tr>
+                                    <td>1</td>
+                                    <td>Medical Leave</td>
+                                    <td>{{item.medicalLeaveEntitlement}}</td>
+                                    <td>{{item.medicalLeaveEntitlement-item.medicalLeaveTaken}}</td>
+                                    <td>{{item.medicalLeaveTaken}}</td>
+                                    <td>{{item.medicalLeaveEntitlement-item.medicalLeaveTaken}}</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Marriage Leave</td>
+                                    <td>{{item.marriageLeaveEntitlement}}</td>
+                                    <td>{{item.marriageLeaveEntitlement-item.marriageLeaveTaken}}</td>
+                                    <td>{{item.marriageLeaveTaken}}</td>
+                                    <td>{{item.marriageLeaveEntitlement-item.marriageLeaveTaken}}</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Maternity leave</td>
+                                    <td>{{item.maternitityLeaveEntitlement}}</td>
+                                    <td>{{item.maternitityLeaveEntitlement-item.maternitityLeaveTaken}}</td>
+                                    <td>{{item.maternitityLeaveTaken}}</td>
+                                    <td>{{item.maternitityLeaveEntitlement-item.maternitityLeaveTaken}}</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Casual leave</td>
+                                    <td>{{item.compassionateLeaveEntitlement}}</td>
+                                    <td>{{item.compassionateLeaveEntitlement-item.compassionateLeaveTaken}}</td>
+                                    <td>{{item.compassionateLeaveTaken}}</td>
+                                    <td>{{item.compassionateLeaveEntitlement-item.compassionateLeaveTaken}}</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>LOP</td>
+                                    <td>30</td>
+                                    <td>30</td>
+                                    <td>{{item.lopleavetaken}}</td>
+                                    <td>{{30-item.lopleavetaken}}</td>
+                                </tr>
+                            </tbody>
+
+
+                               
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div> -->
+
+            <div class="col-md-1"></div>
+        </div>
+
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+
+<div id="Reason" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Reason</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+               
+                
+               
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label class="Text">Reason For Cancelling Approved Leave:</label>
+                    </div>
+                    <div class="col-lg-5">
+                        <textarea class="form-control" rows="5" placeholder="Write here.."  [(ngModel)]="message" ></textarea>
+                    </div>
+                </div><br>
+                
+    
+                <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-2">
+                        <button class="form-control edit" (click)="CancelApproved()" >Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <hr>
+                <div class="col-lg-2">
+                    <button class="edit">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+<div id="Allocate" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Attachment</h1>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-3">
+
+                        </div>
+                        <img src="{{medicalurl}}" alt="medical.img" style="height: 410px">
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+.AddButton1{
+    text-transform: uppercase;
+    font-weight: initial;
+    text-shadow: initial;
+    letter-spacing: 0.5px;
+    background-color: #3247d5;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    width: 95%;
+    float: right;
+    margin-right: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: -5px;
+}
