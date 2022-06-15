@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ManagerRoutingModule } from './manager-routing.module';
 import { ManagerComponent } from './manager.component';
 import { SharedModule } from '../shared/shared.module';
@@ -13,8 +12,11 @@ import { TeamVaccinationDetailsComponent } from './TeamRequest-Team Attandence/t
 import { TeamExpenseListComponent } from './ManagerRequest/team-expense-list/team-expense-list.component';
 import { WeeklyShiftComponent } from './TeamRequest-Team Attandence/weekly-shift/weekly-shift.component';
 import { MyTeamSalaryAdjustmentComponent } from './TeamRequest-Team Attandence/my-team-salary-adjustment/my-team-salary-adjustment.component';
-
-
+import { GaugeModule } from 'angular-gauge';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   declarations: [
     ManagerComponent,
@@ -31,7 +33,12 @@ import { MyTeamSalaryAdjustmentComponent } from './TeamRequest-Team Attandence/m
   imports: [
     CommonModule,
     ManagerRoutingModule,
-    SharedModule
+    SharedModule,
+    GaugeModule.forRoot(),
+    NgxDropzoneModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ]
 })
 export class ManagerModule { }
