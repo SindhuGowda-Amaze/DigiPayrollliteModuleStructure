@@ -4,16 +4,28 @@ import { CommonModule } from '@angular/common';
 import { HrRoutingModule } from './hr-routing.module';
 import { HrComponent } from './hr.component';
 import { SharedModule } from '../shared/shared.module';
-
-
+import { EmployeeDashboardComponent } from './employees/employee-dashboard/employee-dashboard.component';
+import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SalaryDetailsDashComponent } from './employees/salary-details-dash/salary-details-dash.component';
+import { EmploymentJobHistoryComponent } from './employees/employment-job-history/employment-job-history.component';
+import { DatePipe } from '@angular/common';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
-    HrComponent
+    HrComponent,
+    EmployeeDashboardComponent,
+    SalaryDetailsDashComponent,
+    EmploymentJobHistoryComponent
   ],
   imports: [
     CommonModule,
     HrRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule
+   
   ]
 })
 export class HrModule { }

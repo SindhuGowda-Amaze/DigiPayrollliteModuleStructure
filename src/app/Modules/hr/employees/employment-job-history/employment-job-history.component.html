@@ -1,0 +1,164 @@
+
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="Heading1">Employee Job History</p>
+        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+
+
+    <br>
+    <div class="card">
+        <div class="row">
+            <div class="col-md-1">
+                <p>Filter By</p>
+            </div>
+            <div class="col-md-6">
+                <input class="form-control" type="search" [(ngModel)]="term"
+                    placeholder="Search for Staff , Date of joining or Role" (ngModelChange)="Filterstaff()">
+            </div>
+        </div>
+
+    </div>
+    <!-- <div class="col-md-6">
+        <input class="form-control" type="search" [(ngModel)]="term"
+            placeholder="search for Staff , Date of joining or Role">
+    </div> -->
+    <br>
+
+    <div class="row">
+        <div class="col-md-10">
+            <p class="show3res">SHOWING <span style="color: black;">{{stafflist.length}}</span>&nbsp;RESULTS
+            </p>
+        </div>
+        <div class="col-md-2" *ngIf="roledid==9">
+            <button class="button" routerLink="/Addjobhistory">Add New</button>
+        </div>
+    </div>
+    <br>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table" id="lvs"
+                *ngIf="(stafflist | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                <thead>
+                    <tr>
+                        <!-- <th>Check Box</th> -->
+                        <th>Employee Id</th>
+                        <th>Employee Name</th>
+                        <th>Department</th>
+                        <th>Role</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Date Of Joining</th>
+                        <th>Manager</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of stafflist| paginate: { itemsPerPage: count1, currentPage: p}">
+
+                        <td>000{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.department_name}}</td>
+                        <td>{{item.role}}</td>
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.emailID}}</td>
+                        <td>{{item.joiningDate|date}}</td>
+                        <td>
+                            <p *ngIf="item.manager==null">
+                                NA
+                            </p>
+                            <p *ngIf="item.manager!=null">
+                                {{item.manager}}
+                            </p>
+                        </td>
+                        <td>
+                            <button class="upload" data-toggle="modal" (click)="GetStaffDetails(item)"
+                                data-target="#Report">Job History
+                            </button>&nbsp;
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-left">
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+            </div>
+            <ng-template #noResults>
+                <div class="card">
+                    <p class="NoResultShow"> No results found</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<div id="Report" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width: 1000px;height:auto;overflow: auto;width: 1000px;
+        height: auto;
+        overflow: auto;
+        margin-top: 75px;
+        margin-left: -110px;">
+            <div class="modal-body " id="contentToConvert456">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table" id="lvs">
+                                <thead>
+                                    <tr>
+                                        <th>Company Name</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Salary</th>
+                                        <th>De-minimis</th>
+                                        <th>Tax </th>
+                                        <th>SSS</th>
+                                        <th>Loans </th>
+                                        <th>Pag-IBIG </th>
+                                        <th>Phil-Health</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of stafflist1|filter:term">
+                                        <td>{{item.comapanyName}}</td>
+                                        <td>{{item.startDate|date}}</td>
+                                        <td>{{item.endDate|date}}</td>
+                                        <td>{{item.salary}}</td>
+                                        <td>{{item.deminimis}}</td>
+                                        <td>{{item.tax}}</td>
+                                        <td>{{item.sss}}</td>
+                                        <td>{{item.loan}}</td>
+                                        <td>{{item.deminimis}}</td>
+                                        <td>{{item.deminimis}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
