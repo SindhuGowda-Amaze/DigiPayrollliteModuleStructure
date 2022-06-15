@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { HrRoutingModule } from './hr-routing.module';
 import { HrComponent } from './hr.component';
 import { SharedModule } from '../shared/shared.module';
@@ -12,6 +11,7 @@ import { EmploymentJobHistoryComponent } from './employees/employment-job-histor
 import { DatePipe } from '@angular/common';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { HRDashboardComponent } from './hrdashboard/hrdashboard.component';
+import { GaugeModule } from 'angular-gauge';
 @NgModule({
   declarations: [
     HrComponent,
@@ -26,7 +26,8 @@ import { HRDashboardComponent } from './hrdashboard/hrdashboard.component';
     SharedModule,
     FormsModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    GaugeModule.forRoot(),
    
   ]
 })

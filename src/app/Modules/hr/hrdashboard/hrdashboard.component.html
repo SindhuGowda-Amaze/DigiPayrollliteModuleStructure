@@ -1,1 +1,729 @@
-<p>hrdashboard works!</p>
+
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="dashcard">
+                <div class="innercard">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/editicon.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Attendance Tracker</label>
+                    </div>
+
+                    <label class="mainlabel1">Always Register Your Attendance</label>
+                </div>
+                <div style="display: flex;">
+
+                    <button *ngIf="punchintime==null" class="emptybtn" (click)="punchin()"> <img class="pnchin"
+                            src="assets/images/punchin.png">&nbsp; PUNCH
+                        IN</button>
+                    <button *ngIf="punchintime!=null" class="fullbtn" (click)="punchin()"> <img class="pnchin"
+                            src="assets/images/punchin.png">&nbsp; PUNCHED
+                        IN</button>
+
+                    <button *ngIf="punchouttime==null" class="emptybtn" (click)="punchout()"> &nbsp; PUNCH
+                        OUT</button>
+                    <button *ngIf="punchouttime!=null" class="fullbtn" (click)="punchout()"> &nbsp; PUNCHED
+                        OUT</button>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12" style="    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;">
+                        <div class="punchintimess">
+                            <label class="punclabel">Punch in time
+                            </label> <span class="punchintime"> {{punchintime|date:'shortTime'}}</span>
+                        </div>
+                        <div class="punchintimess">
+                            <label class="punclabel"> Punch out time
+                            </label><span class="punchintime"> {{punchouttime|date:'shortTime'}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="dashcard">
+                <div class="innercard2">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/leaveicon.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Leaves</label>
+                    </div>
+                    <label class="mainlabel1">Always file your leaves on time</label>
+                </div>
+                <br />
+                <div style="display: flex;">
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{pendingcount1}} </p>
+                        <span class="countext">Pending</span>
+                    </button>
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{Rejectedcount1}} </p> <span class="countext">Rejected</span>
+                    </button>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{CancelledCount}} </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{approvedcount1}}
+                        </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-lg-3">
+            <div class="dashcard">
+                <div class="innercard3">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/atreport.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Attendance Report</label>
+                    </div>
+
+                    <label class="mainlabel1">Always Register Your Attendance</label>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn2">
+                        <p class="numbercount">0 </p>
+                        <span class="countext1">Pending</span>
+                    </button>
+
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">0 </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">0 </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div> -->
+        
+        <div class="col-lg-3">
+            <div class="dashcard11">
+                <div class="row">
+                    <div class="col-lg-1">
+
+                    </div>
+                    <div class="col-lg-1">
+                        <br />
+                        <img src="assets/images/wish.png">
+                    </div>
+                    <div class="col-lg-9">
+                        <br />
+                        <p class="holiday">Wish</p>
+                        <p class="text4">Stay informed with the wishlist.</p>
+
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-12" style="display: flex;">
+                        <button class="anniversary" [ngClass]="Anniversery?'acct':'bluebtn28'"
+                            (click)="changeAnniversary()">Anniversary
+                        </button>
+                        <button class="birthday" [ngClass]="Birthday?'acct':'bluebtn28'"
+                            (click)="changebirthday()">Birthday
+                        </button>
+                        <button (click)="changenewjoinee()" [ngClass]="NewJoinee?'acct':'bluebtn28'"
+                            class="newjoinee">Joinee
+                        </button>
+                    </div>
+
+
+                    <div class="row" *ngIf="NewJoinee==true">
+                        <br />
+                        <div style="    display: flex;
+                        flex-direction: column;
+                        /* justify-content: flex-start; */
+                        align-items: center;
+                        /* align-content: center; */
+                        position: relative;
+                        "  *ngIf="Anniverserylist.length==0 && Anniverserylist2.length==0"><br>
+                            <img src="assets/images/norecord.png">
+                            <label class="norecord">
+                                No
+                                Records Found </label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-2">
+
+                            </div>
+                            <div class="col-lg-10" >
+                                <table class="wishtbl" *ngIf="Anniverserylist2.length!=0">
+                                    <thead class="thead">
+                                        <tr style="height: 30px;">
+                                            <th><label style="text-align: center;" class="din-regular23">Name</label>
+                                            </th>
+                                            <th><label style="text-align: center;" class="din-regular23">Phone
+                                                    Number</label></th>
+                                            <th><label style="text-align: center;" class="din-regular23">Email</label>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tr style="height: 30px;" *ngFor="let holiday of Anniverserylist2">
+                                        <td><label style="text-align: center;" class="din-regular23">
+                                                {{holiday.name}} {{holiday.middle_Name}}</label></td>
+                                        <td><label style="text-align: center;"
+                                                class="din-regular23">{{holiday.mobile}}</label></td>
+                                        <td><label style="text-align: center;"
+                                                class="din-regular23">{{holiday.emailID}}</label></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="Birthday==true">
+                        <br /><br>
+                        <div style="    display: flex;
+                        flex-direction: column;
+                        /* justify-content: flex-start; */
+                        align-items: center;
+                        /* align-content: center; */
+                        position: relative;
+                        " *ngIf="Anniverserylist.length==0 && Anniverserylist1.length==0">
+                            <img src="assets/images/norecord.png">
+                            <label class="norecord" >
+                                No
+                                Records Found </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                                <table class="wishtbl" *ngIf="Anniverserylist1.length!=0">
+                                    <thead class="thead">
+                                        <tr style="height: 30px;">
+                                            <th><label style="text-align: center;" class="din-regular23">Name</label>
+                                            </th>
+                                            <th><label style="text-align: center;" class="din-regular23">Phone
+                                                    Number</label></th>
+                                            <th><label style="text-align: center;" class="din-regular23">Email</label>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tr style="height: 30px;" *ngFor="let holiday of Anniverserylist1">
+                                        <td><label style="text-align: center;" class="din-regular23">
+                                                {{holiday.name}} {{holiday.middle_Name}}</label></td>
+                                        <td><label style="text-align: center;"
+                                                class="din-regular23">{{holiday.mobile}}</label></td>
+                                        <td><label style="text-align: center;"
+                                                class="din-regular23">{{holiday.emailID}}</label></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="empty" *ngIf="Anniversery==true">
+                        <br />
+                        <div style="    display: flex;
+                        flex-direction: column;
+                        /* justify-content: flex-start; */
+                        align-items: center;
+                        /* align-content: center; */
+                        position: relative;
+                       "  *ngIf="Anniverserylist.length==0">
+                            <img src="assets/images/norecord.png">
+                            <label class="norecord">
+                                No
+                                Records Found </label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                                <table class="wishtbl" *ngIf="Anniverserylist.length!=0">
+                                    <thead class="thead">
+                                        <tr style="height: 30px;">
+                                            <th><label style="text-align: center;" class="din-regular23">Name</label>
+                                            </th>
+                                            <th><label style="text-align: center;" class="din-regular23">Phone
+                                                    Number</label></th>
+                                            <th><label style="text-align: center;" class="din-regular23">Email</label>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tr style="height: 30px;" *ngFor="let holiday of Anniverserylist">
+                                        <td><label style="text-align: center;" class="din-regular23">
+                                                {{holiday.name}} {{holiday.middle_Name}}</label></td>
+                                        <td><label style="text-align: center;"
+                                                class="din-regular23">{{holiday.mobile}}</label></td>
+                                        <td><label style="text-align: center;"
+                                                class="din-regular23">{{holiday.emailID}}</label></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="dashcard2">
+                <br />
+                <br />
+                <br />
+
+
+                <div class="row">
+                    <div class="col-lg-4">
+
+                    </div>
+                    <div class="col-lg-8">
+                        <img src="assets/images/profileimg.png">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+
+                    </div>
+                    <div class="col-lg-8">
+                        <br />
+                        <br />
+
+                        <label class="title">{{ username
+                            }} </label><br />
+                        <label class="email">{{ email
+                            }} </label><br />
+                        <label></label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+
+                    </div>
+                    <div class="col-lg-8">
+                        <br />
+                        <br />
+                        <mwl-gauge style="    margin-top: -54px;
+                        margin-left: -30px;" [max]="100" [dialStartAngle]="-90" [dialEndAngle]="-90.001"
+                            [value]="profilepercentage" [animated]="true" [animationDuration]="1">
+                        </mwl-gauge>
+
+                    </div>
+
+                </div>
+                <div class="row" style="margin-top: -18px;">
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-9">
+                        <button type="button" class="whitebtn6" (click)="Profilecompletion()">Profile
+                            Completion</button>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="band">
+            <div class="band-1">
+                <p class="text1">Stay Home. Save Lives</p>
+
+
+                <div class="joinclass">
+                    <p class="text2">Be in the known</p>
+                    <button class="joinbtn">Join Now</button>
+                </div>
+                <p class="text28">Join us for a special webinar on how to help stop coronavirus.</p>
+            </div>
+            <div class="band-2">
+                <img src="assets/images/Bannermain.png">
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <br>
+    <div class="row" *ngIf="roleid==2 || roleid==9">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-3">
+            <h4>My Team Requests</h4>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <br/>
+    <br/>
+    <div class="row" *ngIf="roleid==2 || roleid==9">
+        <div class="col-lg-3">
+            <div class="dashcard">
+                <div class="innercard7">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/leaveicon.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Leaves</label>
+                    </div>
+                    <label class="mainlabel1">Always Approve your Team leaves</label>
+                </div>
+                <br />
+                <div style="display: flex;">
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{pendingcount}} </p>
+                        <span class="countext">Pending</span>
+                    </button>
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{Rejectedcount}} </p> <span class="countext">Rejected</span>
+                    </button>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{CancelledCount}} </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{approvedcount}}
+                        </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="dashcard">
+                <div class="innercard6">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/leaveicon.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Loans</label>
+                    </div>
+                    <label class="mainlabel1">Always Approve your team loans </label>
+                </div>
+                <br />
+                <div style="display: flex;">
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{newrquestloancount}} </p>
+                        <span class="countext">Pending</span>
+                    </button>
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{rejectedloancount}} </p> <span class="countext">Rejected</span>
+                    </button>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{rejectedloancount}} </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{approvedloancount}}
+                        </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" *ngIf="roleid!=9">
+            <div class="dashcard">
+                <div class="innercard">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/leaveicon.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Expense</label>
+                    </div>
+                    <label class="mainlabel1">Always Approve your Expenses on time</label>
+                </div>
+                <br />
+                <div style="display: flex;">
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{pendingteamexpensecount}} </p>
+                        <span class="countext">Pending</span>
+                    </button>
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{Rejectedteamexpnesecount}} </p> <span class="countext">Rejected</span>
+                    </button>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{Rejectedteamexpnesecount}} </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{approvedteamexpnescount}}
+                        </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" *ngIf="roleid!=9">
+            <div class="dashcard">
+                <div class="innercard5">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/leaveicon.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Overtime</label>
+                    </div>
+                    <label class="mainlabel1">Always file your Overtime on time</label>
+                </div>
+                <br />
+                <div style="display: flex;">
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{pendingotcount}} </p>
+                        <span class="countext">Pending</span>
+                    </button>
+
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{Rejectedotcount}} </p> <span class="countext">Rejected</span>
+                    </button>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{Rejectedotcount}} </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">{{approvedotcount}}
+                        </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-lg-3">
+            <div class="dashcard">
+                <div class="innercard3">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/atreport.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Attendance Report</label>
+                    </div>
+
+                    <label class="mainlabel1">Always Register Your Attendance</label>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn2">
+                        <p class="numbercount">0 </p>
+                        <span class="countext1">Pending</span>
+                    </button>
+
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">0 </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">0 </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div> -->
+        
+        
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="dashcars2 dashcard1">
+                        <div class="holidaydiv">
+                            <div style="display: flex;flex-direction: row;">
+                                <img src="assets/images/holiday.png" style="width: 5%;">
+                                <p class="holiday" style="margin-top: 5px;margin-left: 5px;">Holidays</p>
+                            </div>
+
+                            <p class="text4">These are the upcoming holidays</p>
+                            <img src="{{tpholidayattachment}}">
+                            <p class="holidayname">{{topholidayname}}</p>
+                            <p class="holidaydate">{{topholidaydate|date}}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-9">
+
+                            </div>
+                            <div  class="col-lg-3">
+                                <button class="form-control fullbtn" routerLink="/HolidayDashboard">View More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+
+                </div>
+                <div class="col-lg-6" style="height: 300px; width: 90%;
+                overflow-y:clip;">
+                    <div>
+                        <div class="row" *ngFor="let holiday of holidaylist1" style="display: flex;
+                        margin-left: 15%;
+                        flex-direction: row;
+                        margin-top: 46px;">
+                            <div class="col-lg-3">
+                                <img src="{{holiday.attachment}}" style="width:80px;">
+                            </div>
+                            <div class="col-lg-9" style="margin-left: 0px;
+                        position: relative;
+                        left: 48px;">
+                                <div class="name1"> {{holiday.holiday}}</div>
+                                <div class="name2"> {{holiday.holidayDate|date}}</div>
+                            </div>
+
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-lg-1">
+            <p>
+        </div>
+       
+        <div class="col-lg-3">
+            <div class="dashcard11">
+                <div class="row">
+                    <div class="col-lg-1">
+
+                    </div>
+                    <div class="col-lg-1">
+                        <br />
+                        <img src="assets/images/Vaccinegray.png">
+                    </div>
+                    <div class="col-lg-9">
+                        <br />
+                        <p class="holiday1">Covid Vaccination</p>
+                        <p class="text4">Upload vaccination details</p>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-1">
+                        <p>1st DOSE</p>
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-3" *ngIf="FirstDoseDate==null">
+                        <p class="records">No Records Found</p>
+
+                    </div>
+                    <div class="col-lg-3" *ngIf="FirstDoseDate!=null">
+                        <p class="records">{{FirstDoseDate|date}}</p>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="{{certificate_url}}" target="blank"><button class="bluebtn28"
+                                *ngIf="certificate_url!=null">View File</button></a>
+                        <button *ngIf="certificate_url==null" class="whitebtn3"
+                            routerLink='/VaccineForm'>Upload</button>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-1">
+                        <p>2nd DOSE</p>
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-3" *ngIf="SecondDoseDate==null">
+                        <p class="records">No Records Found</p>
+
+                    </div>
+                    <div class="col-lg-3" *ngIf="SecondDoseDate!=null">
+                        <p class="records">{{SecondDoseDate|date}}</p>
+
+                    </div>
+                    <div class="col-lg-4">
+
+                        <a href="{{certificate_url}}" target="blank"><button class="bluebtn28"
+                                *ngIf="certificate_url!=null">View File</button></a>
+                        <button *ngIf="certificate_url==null" class="whitebtn3"
+                            routerLink='/VaccineForm'>Upload</button>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-1">
+                        <p>Booster</p>
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-3" *ngIf="BoosterName==null">
+                        <p class="records">No Records Found</p>
+
+                    </div>
+                    <div class="col-lg-3" *ngIf="BoosterName!=null">
+                        <p class="records">{{BoosterDoseDate|date}}</p>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="{{certificate_url}}" target="blank"><button class="bluebtn28"
+                                *ngIf="certificate_url!=null">View File</button></a>
+                        <button *ngIf="certificate_url==null" class="whitebtn3"
+                            routerLink='/VaccineForm'>Upload</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
