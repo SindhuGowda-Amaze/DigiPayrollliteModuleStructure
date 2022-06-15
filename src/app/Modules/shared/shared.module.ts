@@ -5,6 +5,9 @@ import { SharedComponent } from './shared.component';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { AdminHelpMenuComponent } from './admin-help-menu/admin-help-menu.component';
+import { SupportTicketDashboardComponent } from './support-ticket-dashboard/support-ticket-dashboard.component';
+import { GaugeModule } from 'angular-gauge';
 
 import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.component';
 
@@ -13,24 +16,24 @@ import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.compone
 @NgModule({
   declarations: [
     SharedComponent,
-    LoaderComponent
+    AdminHelpMenuComponent,
+    SupportTicketDashboardComponent
+
   ],
   imports: [
     CommonModule,
     FormsModule,
     SharedRoutingModule,
-    NgxPaginationModule,
-   
-  
+   // GaugeModule.forRoot(),
+
   ],
   exports: [
     FormsModule,
-    NgxPaginationModule
-  
-   
+    //GaugeModule
+ 
  
   ],
- 
+  
   providers: [
     // {
     //   provide: ConnectionServiceOptionsToken,

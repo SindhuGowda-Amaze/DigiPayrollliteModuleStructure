@@ -1,0 +1,299 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row"  style="margin-left: -37px;">
+                
+                    <ul>
+                        <span><a class="Heading1" routerLink="/MyExpenseList"> My Expense Details </a></span>&nbsp;
+                        <span *ngIf="roleid==2"><a class="Heading1" routerLink="/ManagerExpensesList"><u>My Team Expense</u>
+                                Details</a></span>
+
+                    </ul>
+               
+                
+            </div>
+     
+            <div class="card filtercard">
+                <div class="row">
+                    <div class="col-md-1">
+                        Filter By
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" (change)="Getdate($event)" type="date" placeholder="Duration">
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" type="search" id="term" name="term" [(ngModel)]="term"
+                            placeholder="Search for date , Expense or Status">
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-4">
+                    <p class="show3res">SHOWING <span style="color: black;"> {{projectlist.length}} </span>RESULTS
+                    </p>
+                </div>
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-2">
+                    <a><button *ngIf="selecallbtn" class="form-control AddExpense" (click)="Approveall()">Approve
+                            All</button></a>
+                </div>
+              
+            </div>
+          
+            <div class="row">
+                <br />
+                <div class="col-lg-12 dashbutton bttn">
+                    <div class="tab-slider--nav">
+                        <ul class="tab-slider--tabs">
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
+                                (click)="viewMode ='tab1'" >
+                                New Request {{projectlist1.length}}</li>
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
+                                (click)="viewMode ='tab2'" >Approved {{projectlist.length}}</li>
+                        </ul>
+        
+                    </div>
+                </div>
+        
+            </div>
+           <br/>
+            <div class="tab-slider--container" [ngSwitch]="viewMode">
+            <div *ngSwitchCase="'tab1'" id="tab1">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Select All <input type="checkbox" name="select-all" id="select-all"
+                                        (click)="selectALL(true)"></th>
+                                <th>Employee Name</th>
+                                <th>Expense Amount</th>
+                                <th>Expense Head</th>
+                                <!-- <th>Project Name</th> -->
+                                <th>Submitted Date</th>
+                                <th>Expense Location</th>
+
+                                <th>Status</th>
+                                <th>Comments</th>
+                                <th>Attachments</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of projectlist1|filter:term">
+                                <td><input *ngIf="project.approvalStatus==null" type="checkbox"
+                                        (click)="getCheckbocdetails(project)">
+                                </td>
+                                <td>{{project.name}}</td>
+                                <td>{{project.expenceAmount}}</td>
+                                <td>{{project.expencesName}}</td>
+                                <!-- <td>{{project.project}}</td> -->
+                                <td>{{project.date|date}}</td>
+                                <td>{{project.expenceLocation}}</td>
+                                <td>
+                                    <p *ngIf="project.approvalStatus==null || project.approvalStatus=='Manager Pending Finance Pending'">Manager Pending Finance Pending</p>
+                                    <p *ngIf="project.approvalStatus!='Manager Pending Finance Pending'"> {{project.approvalStatus}}</p>
+                                </td>
+                                <td>{{project.comments}}</td>
+                                <td><a href="{{project.invoiceURL}}" target="blank"> <img
+                                            *ngIf="project.invoiceURL!=null" src="../../assets/images/attachment (1).png"
+                                            style="width:40px;margin-left:10px"></a> </td>
+                                <td>
+                                    <p *ngIf="project.approvalStatus==null || project.approvalStatus=='Manager Pending Finance Pending'">
+                                        <img class="img" (click)="UpdateExpencesApproveBySupervisor(project.id)" style="width: 20px;"
+                                            src="assets/images/check-mark.png">
+                                        <img class="imgcancel" (click)="getid(project.id)" style="width: 20px;"
+                                            src="assets/images/cancel (1).png" data-toggle="modal"
+                                            data-target="#Reject">
+                                    </p>
+                                   
+
+                                </td> 
+                            </tr>
+
+
+                            <!-- <td><input type="checkbox" id="horns" name="horns"></td>
+                                <td>Michel Floki</td>
+                                <td>550</td>
+                                <td>Cab Allowance</td>
+                                <td>Digi Clinic</td>
+                                <td>15 Sept 2020</td>
+                                <td>Miami</td>
+                               
+                                <td>Pending</td>
+                                <td>Pending for Credits</td>
+                                <td>
+                                    <img src="assets/Images/bill.JPG" alt="Bill.img" data-toggle="modal"
+                                        data-target="#Allocate" style=" width: 100px;">
+                                </td>
+                                -->
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+            <div *ngSwitchCase="'tab2'" id="tab2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Select All <input type="checkbox" name="select-all" id="select-all"
+                                            (click)="selectALL(true)"></th>
+                                    <th>Employee Name</th>
+                                    <th>Expense Amount</th>
+                                    <th>Expense Head</th>
+                                    <!-- <th>Project Name</th> -->
+                                    <th>Submitted Date</th>
+                                    <th>Expense Location</th>
+    
+                                    <th>Status</th>
+                                    <th>Comments</th>
+                                    <th>Attachments</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let project of projectlist|filter:term">
+                                    <td><input *ngIf="project.approvalStatus==null" type="checkbox"
+                                            (click)="getCheckbocdetails(project)">
+                                    </td>
+                                    <td>{{project.name}}</td>
+                                    <td>{{project.expenceAmount}}</td>
+                                    <td>{{project.expencesName}}</td>
+                                    <!-- <td>{{project.project}}</td> -->
+                                    <td>{{project.date|date}}</td>
+                                    <td>{{project.expenceLocation}}</td>
+                                    <td>
+                                        <p *ngIf="project.approvalStatus==null || project.approvalStatus=='Manager Pending Finance Pending'">Manager Pending Finance Pending</p>
+                                        <p *ngIf="project.approvalStatus!='Manager Pending Finance Pending'"> {{project.approvalStatus}}</p>
+                                    </td>
+                                    <td>{{project.comments}}</td>
+                                    <td><a href="{{project.invoiceURL}}" target="blank"> <img
+                                                *ngIf="project.invoiceURL!=null" src="../../assets/images/attachment (1).png"
+                                                style="width:40px;margin-left:10px"></a> </td>
+                                    <td>
+                                        <p *ngIf="project.approvalStatus=='Manager Pending Finance Pending'">
+                                            <img class="img" (click)="UpdateExpencesApproveBySupervisor(project.id)" style="width: 20px;"
+                                                src="assets/images/check-mark.png">
+                                            <img class="imgcancel" (click)="getid(project.id)" style="width: 20px;"
+                                                src="assets/images/cancel (1).png" data-toggle="modal"
+                                                data-target="#Reject">
+                                        </p>
+                                       
+    
+                                    </td> 
+                                </tr>
+    
+    
+                                <!-- <td><input type="checkbox" id="horns" name="horns"></td>
+                                    <td>Michel Floki</td>
+                                    <td>550</td>
+                                    <td>Cab Allowance</td>
+                                    <td>Digi Clinic</td>
+                                    <td>15 Sept 2020</td>
+                                    <td>Miami</td>
+                                   
+                                    <td>Pending</td>
+                                    <td>Pending for Credits</td>
+                                    <td>
+                                        <img src="assets/Images/bill.JPG" alt="Bill.img" data-toggle="modal"
+                                            data-target="#Allocate" style=" width: 100px;">
+                                    </td>
+                                    -->
+    
+    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+          
+              
+              
+            
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+<br><br>
+<div id="Allocate" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Attachment</h1>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-3">
+
+                        </div>
+                        <img src="assets/Images/bill.JPG" alt="Bill.img" style="height: 410px">
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Reject" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Reject Notes</h5>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-3">
+                            Notes
+                        </div>
+                        <div class="col-lg-7">
+                            <textarea rows="3" type="text" [(ngModel)]="Notes"  id="Notes" name="Notes"
+                                class="form-control" placeholder="Notes"></textarea>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-4">
+
+                        </div>
+                        <div class="col-lg-5">
+                            <button class="upload" (click)="UpdateExpencesReject()">Submit</button>
+                        </div>
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
