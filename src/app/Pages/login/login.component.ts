@@ -140,7 +140,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('email', temp[0].official_Email);
           sessionStorage.setItem('temp', '1')
           localStorage.setItem('Pagename', 'Company Dashboard')
-          this.router.navigate(['/CompanyDashboard']).then(() => {
+          this.router.navigate(['/admin/CompanyDashboard']).then(() => {
             location.reload();
           });
         }

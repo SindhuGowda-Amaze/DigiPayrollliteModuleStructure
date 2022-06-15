@@ -50,12 +50,12 @@ export class SidebarComponent implements OnInit {
   }
 
 
-
   active: any
+  
   public Profile() {
     debugger
     localStorage.setItem('clickname', 'PROFILE')
-    this.router.navigate(['/CompanyDashboard']);
+    this.router.navigate(['/admin/CompanyDashboard']);
     this.active = 1;
   }
 
@@ -83,12 +83,12 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  public Department() {
-    debugger
-    this.active = 2;
-    localStorage.setItem('clickname', 'DEPARTMENT')
-    this.router.navigate(['/Department']);
-  }
+  // public Department1() {
+  //   debugger
+  //   this.active = 2;
+  //   localStorage.setItem('clickname', 'DEPARTMENT')
+  //   this.router.navigate(['/admin/Department']);
+  // }
 
   public ShiftDetails() {
     debugger
@@ -109,7 +109,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'LoanMasterDash';
     localStorage.setItem('clickname', 'LOAN MASTER')
-    this.router.navigate(['/LoanMasterDash']);
+    this.router.navigate(['/admin/LoanMasterDash']);
   }
   public CheckList() {
     debugger
@@ -164,14 +164,14 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 3;
     localStorage.setItem('clickname', 'BANK')
-    this.router.navigate(['/Bank']);
+    this.router.navigate(['/admin/Bank']);
   }
 
   public PayGroup() {
     debugger
     this.active = 4;
     localStorage.setItem('clickname', 'PAYGROUP')
-    this.router.navigate(['/PayGroup']);
+    this.router.navigate(['/admin/PayGroup']);
   }
   public UploadLeaveDetails() {
     debugger
@@ -196,7 +196,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'BarangayMaster';
     localStorage.setItem('clickname', 'BARANGAY MASTER')
-    this.router.navigate(['/BarangayDash']);
+    this.router.navigate(['/admin/BarangayDash']);
 
   }
   public AnnualTaxtable() {
@@ -240,19 +240,19 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 13;
     localStorage.setItem('clickname', 'COUNTRY MASTER')
-    this.router.navigate(['/CountryMasterDash']);
+    this.router.navigate(['/admin/CountryMasterDash']);
   }
   public StateMasterDash() {
     debugger
     this.active = 14;
     localStorage.setItem('clickname', 'PROVINCE MASTER')
-    this.router.navigate(['/StateMasterDash']);
+    this.router.navigate(['/admin/StateMasterDash']);
   }
   public CityMasterDash() {
     debugger
     this.active = 15;
     localStorage.setItem('clickname', 'CITY MASTER')
-    this.router.navigate(['/CityMasterDash']);
+    this.router.navigate(['/admin/CityMasterDash']);
   }
   public BenefitDashboard() {
     debugger
@@ -879,7 +879,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 19;
     localStorage.setItem('clickname', 'Positionmasterdash')
-    this.router.navigate(['/PositionDash']);
+    this.router.navigate(['/admin/PositionDash']);
 
   }
 
@@ -888,7 +888,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 19;
     localStorage.setItem('clickname', 'deptmasterdash')
-    this.router.navigate(['/Department']);
+    this.router.navigate(['/admin/Department']);
 
   }
 
@@ -990,7 +990,7 @@ export class SidebarComponent implements OnInit {
   public Announcement() {
     this.active = 'Announcement';
     localStorage.setItem('clickname', 'Announcement')
-    this.router.navigate(['/AnnouncementDashboard']);
+    this.router.navigate(['/admin/AnnouncementDashboard']);
 
   }
 

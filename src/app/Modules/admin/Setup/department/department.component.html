@@ -1,0 +1,109 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="Heading1">Department</p>
+            <!-- <hr class="HrLine"> -->
+        </div>
+    </div>
+    <!-- <div class="row FilterClass">
+                <div class="col-lg-2">
+                    Filter By
+                </div>
+                <div class="col-lg-2">
+                    <input class="form-control" type="date" placeholder="Duration">
+                </div>
+                <div class="col-lg-6">
+                    <input class="form-control" type="search" placeholder="Search for date , Type or Code">
+                </div>
+            </div><br> -->
+    <div class="row">
+        <div class="col-lg-8 View">
+            <ul>
+                <!-- <li><a class="active">View</a></li>
+                        <li><a (click)="update()">Modify</a></li> -->
+            </ul>
+        </div>
+
+        <div class="col-lg-4">
+            <button class="AddButton" routerLink="/admin/DepartmentFrom">Add</button>
+        </div>
+    </div> <br>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table">
+                <!-- <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Remarks</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                <tr>
+                                    <td>Testing</td>
+                                    <td>0098</td>
+                                    <td>This department responsible for testing</td>
+                                    <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                                </tr>
+                                <tr>
+                                    <td>Development</td>
+                                    <td>0096</td>
+                                    <td>This department responsible for WebsiteDevelopment</td>
+                                    <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                                </tr>
+                            </thead> -->
+                <thead>
+                    <tr>
+                        <!-- <th>Select</th> -->
+                        <th>Name</th>
+                        <!-- <th>Code</th> -->
+                        <!-- <th>Remarks</th> -->
+                        <th>Description</th>
+                        <th>Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr class="newFont" *ngFor="let details of result">
+                        <!-- <td class="SelectData" (click)="GetId(details.id)"><input type="checkbox"></td> -->
+                        <td style="color:#0C275A">{{details.department_name}}</td>
+                        <!-- <td style="color:#0C275A">{{details.code}}</td>
+                                    <td style="color:#0C275A">{{details.remarks}}</td> -->
+                        <td style="color:#0C275A">{{details.department_Desc}}</td>
+                        <td style="color:#0C275A"><img class="imgcancel" (click)="Ondelete(details.id)"
+                                src="assets/cancel (1).png"></td>
+                    </tr>
+                    <!-- <tr  class="newFont">
+                                    <td class="SelectData"><input type="checkbox"></td>
+                                    <td>Production Dept.</td>
+                                    <td>DP002</td>
+                                    <td>Company Staff</td>
+                                    <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                                </tr>
+                                <tr  class="newFont">
+                                    <td class="SelectData"><input type="checkbox"></td>
+                                    <td>Deployeement Dept.</td>
+                                    <td>DP003</td>
+                                    <td>Contract Employees</td>
+                                    <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                                </tr>
+                                <tr  class="newFont">
+                                    <td class="SelectData"><input type="checkbox"></td>
+                                    <td>Managers Dept.</td>
+                                    <td>DP004</td>
+                                    <td>Company Staff</td>
+                                    <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                                </tr>
+                                <tr  class="newFont">
+                                    <td class="SelectData"><input type="checkbox"></td>
+                                    <td>Entry Level Dept.</td>
+                                    <td>DP005</td>
+                                    <td>Outsourced Employees</td>
+                                    <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                                </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div><br>
+</div>

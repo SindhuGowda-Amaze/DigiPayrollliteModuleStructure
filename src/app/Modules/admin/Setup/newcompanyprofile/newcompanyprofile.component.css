@@ -1,0 +1,282 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+  }
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    color: #494949;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  li a:hover {
+    text-decoration: 3px solid rgb(28, 32, 94) underline;
+  }
+
+  .requestbtn{
+      background-color: #4282be;
+      color: white;
+      font-weight: bold;
+      border-left: solid 1px #f5f5f5;
+      font-size: 15px;
+      line-height: 12px;
+      text-align: center;
+      white-space: nowrap;
+  }
+
+
+  /* .btnhover:hover{
+      background-color: #2F87CC;
+      color: white;
+  } */
+.applyleavetxt{
+    padding: 0px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+  /* .container-fluid{
+    padding: 0px;
+    margin: 0px;
+  } */
+
+  td{
+    background-color: rgb(247, 242, 242);
+    color: #494949;
+}
+  .show3res{
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5;
+    color: #777;
+    text-transform: uppercase;
+    padding: 10px 0 5px;
+  }
+  .leavebalance{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #404040;
+    font-size: 20px;
+  }
+  .leavereq{
+    padding-left: 10px;
+    background-color: #fff;
+  }
+  .inputfield{
+      background-color: rgb(238, 234, 234);
+  }
+  .table{
+      border-color: black;
+  }
+
+
+  .BackEnt{
+    margin-top: -10px;
+    font-size: x-large;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .BACK{
+    margin-top: 10px;
+    text-decoration: none;
+  }
+  /* .submitbtn{
+    background-color: #2F87CC;
+    color: white;
+} */
+
+.newrequest{
+  background-color: #21a4da;
+  color: white;
+}
+
+.card{
+  padding: 20px;
+}
+.legend{
+  font-size: 10px;
+  padding: 2px;
+}
+.tiles{
+  background-color: whitesmoke;
+}
+.dropdown-toggle{
+  text-align: left;
+}
+.LocDashboard{
+  /* padding-top: 10px; */
+  margin: 0px;
+  background-color: #e4e5e6;
+}
+
+
+.requestbtn{
+    background-color: #4282be;
+    color: white;
+    font-weight: bold;
+    border-left: solid 1px #f5f5f5;
+    font-size: 15px;
+    line-height: 12px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.leavelist{
+  padding: 0px 20px;
+}
+/* .btnhover:hover{
+    background-color: #2F87CC;
+    color: white;
+} */
+
+
+th{
+    background-color: #e4e5e6;
+}
+
+.show3res{
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5;
+  color: #777;
+  text-transform: uppercase;
+  padding: 10px 0 5px;
+}
+.leavebalance{
+  padding-top: 10px;
+  font-weight: bold;
+  color: #404040;
+  font-size: 20px;
+}
+.leavereq{
+  padding-left: 10px;
+}
+.inputfield{
+    background-color: #f2f2f2;
+}
+.table{
+    border-color: black;
+}
+
+
+.BackEnt{
+  margin-top: -10px;
+  font-size: x-large;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.BACK{
+  margin-top: 10px;
+  text-decoration: none;
+}
+/* .submitbtn{
+  background-color: #2F87CC;
+  color: white;
+} */
+
+.negative-padding{
+  padding: 0px;
+}
+
+
+
+/* .container-fluid{
+  background-color: rgb(226, 224, 224);
+  font-family: Dinn Bold;
+} */
+.container{
+  background-color: white;
+}
+.bandtxt{
+  font-weight: 700;
+  font-size: 18px;
+  background-color:rgb(214, 208, 208);
+  text-align: center;
+  padding-bottom: 2px;
+  font-weight: 900;
+  padding-top: 12px;
+}
+
+.formtxt{
+  font-weight: 700;
+  font-size: 18px;
+  background-color: gainsboro;
+  text-align: left;
+  padding: 4px;
+}
+.formheading{
+  font-weight: 700;
+  font-size: 18px;
+  background-color: rgb(7, 106, 119);;
+  text-align: left;
+  padding: 10px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.companyinfo{
+  font-weight: bold;
+  font-size: 14px;
+  background:#02CFFF;
+  text-align: left;
+  padding: 10px;
+  color:white;
+}
+.btn{
+  background-color:  #3247D5;
+  /* background-color: #404040; */
+  color: #fff;
+  padding: 10px;
+  border-radius: 20px;
+  width: 100%;
+  font-weight: 700;
+  font-size: 12px;
+}
+.btn:hover{
+  background-color: silver;
+  color: rgb(7, 106, 119);;
+}
+
+.negative-padding{
+  padding: 0px;
+}
+.form-control{
+  margin-bottom: 20px;
+}
+label{
+  padding-left: 10px;
+  
+
+}
+.profilelogo{
+  width: 50%;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.checkboxtxt{
+  font-size: 14px;
+}
+.icon{
+  height:fit-content;
+}
+.newFont{
+  font-size:12px;
+  font-weight: bold;
+  font-family: "Poppins" !important;
+  color:#0C275A;
+}
+
