@@ -43,7 +43,7 @@ export class SidebarComponent implements OnInit {
 
   public Adminhelp() {
     localStorage.setItem('clickname', 'PROFILE')
-    this.router.navigate(['/shared/HelpMenu']);
+    this.router.navigate(['#/shared/HelpMenu']);
     this.active = 'Admin';
 
     // location.href='https://digipayrolllite.amazeone.co/DigiPayrollliteapi/Images/ProjectAttachments/USER MANUAL-digiPayroll-Lite-Admin_V1.0_200322.docx'
@@ -100,7 +100,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'SUPPORT';
     localStorage.setItem('clickname', 'SUPPORT')
-    this.router.navigate(['/shared/SupportTicketDashboard']);
+    this.router.navigate(['#/shared/SupportTicketDashboard']);
   }
 
 
@@ -360,19 +360,19 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'DASHBOARD';
     localStorage.setItem('clickname', 'DASHBOARD')
-    this.router.navigate(['/manager/ManagerDashboard']);
+    this.router.navigate(['#/manager/ManagerDashboard']);
   }
   public AttendenceDetails() {
     debugger
     this.active = 21;
     localStorage.setItem('clickname', 'ATTENDANCE')
-    this.router.navigate(['/manager/AttendenceDetails']);
+    this.router.navigate(['#/manager/AttendenceDetails']);
   }
   public LeaveDashboard() {
     debugger
     this.active = 22;
     localStorage.setItem('clickname', 'LEAVE DASHBOARD')
-    this.router.navigate(['/manager/LeaveListDashboard']);
+    this.router.navigate(['#/manager/LeaveListDashboard']);
   }
 
   public PayrollDashboard() {
@@ -391,7 +391,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 24;
     localStorage.setItem('clickname', 'OT REQUEST')
-    this.router.navigate(['/manager/MyOverTimeDetails']);
+    this.router.navigate(['#/manager/MyOverTimeDetails']);
   }
 
 
@@ -787,7 +787,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'vaccinationdash';
     localStorage.setItem('clickname', 'VACCINATION DETAILS')
-    this.router.navigate(['/manager/Vaccinedashboard']);
+    this.router.navigate(['#/manager/Vaccinedashboard']);
   }
 
   public Leaveconfig() {
@@ -808,7 +808,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 94;
     localStorage.setItem('clickname', 'UPLOAD ATTENDANCE')
-    this.router.navigate(['manager/UploadAttendence']);
+    this.router.navigate(['#/manager/UploadAttendence']);
   }
 
   public EmployeeJobHistory() {
