@@ -1,0 +1,663 @@
+<div class="container-fluid">
+    <div class="card">
+            <div class="row">
+                    <div class="col-lg-12">
+                            <p class="Heading1" style="text-align: center;">Certificate of Contribution</p>
+                            <hr class="HrLine">
+                    </div>
+            </div>
+            <div class="row FilterClass ">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-3">
+                            <p style="text-align: center;"> Select Start Month & Year</p>
+                    </div>
+                    <div class="col-lg-2">
+                            <select name="cars" id="Month" class="form-control" [(ngModel)]="month">
+                                    <option value="">Select</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                            </select>
+                    </div>
+                    <div class="col-lg-2">
+                            <select name="cars" id="Month" class="form-control" [(ngModel)]="year">
+                                    <option value="">Select</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                            </select>
+                    </div>
+            </div><br>
+            <div class="row FilterClass fontheading">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                            <p>Signatory Person</p>
+                    </div>
+                    <div class="col-lg-2">
+                            <select name="cars" id="Month" class="form-control" [(ngModel)]="sign"
+                                    (change)="getsign()">
+                                    <option value="">Select</option>
+                                    <option value="HR">HR</option>
+                                    <!-- <option value="Admin">Admin</option>
+                    <option value="Finance">Finance</option> -->
+                            </select>
+                    </div>
+            </div>
+
+
+
+            <br />
+            <div class="row FilterClass fontheading" *ngIf="roleid!='6'">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                            <p>Search</p>
+                    </div>
+                    <div class="col-lg-2">
+                            <input type="text" class="form-control" placeholder="Search" [(ngModel)]="search" />
+                    </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                            <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                            <button style="margin-right: -7px;" class="AddButton" data-toggle="collapse" data-target="#demo"
+                                    (click)="getorrecords()">Fetch</button>
+                    </div>
+            </div>
+            <div class="row">
+                    <!-- 
+            <div class="col-lg-4">
+                <a href="/PayRollForm"><button class="button fontheading">Add</button> </a>
+            </div> -->
+            </div>
+
+            <br>
+            <div class="row" id="demo" class="collapse">
+                    <div class="col-lg-12">
+                            <table class="table table-bordered fonttxt">
+                                    <thead>
+                                            <tr class="newFont">
+                                                    <th class="SelectData" *ngIf="roleid!=6">Select</th>
+                                                    <th>Employee ID</th>
+                                                    <th>Last Name</th>
+                                                    <th>First Name</th>
+                                                    <th>Department</th>
+                                                    <th>Role</th>
+                                                    <th>Status</th>
+                                            <tr>
+                                    </thead>
+                                    <tr
+                                            *ngFor="let item of uniqueorlist|paginate: { itemsPerPage: count1, currentPage: p}|filter:search">
+                                            <td *ngIf="roleid!=6">
+                                                    <input type="checkbox" [value]="item.id"
+                                                            (change)="getCheckbocdetails(item)">&nbsp;
+                                            </td>
+                                            <td>000{{item.id}}</td>
+                                            <td>{{item.lastName}}</td>
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.department_name}}</td>
+                                            <td>{{item.role}}</td>
+                                            <td>Active</td>
+                                    </tr>
+                            </table>
+                    </div>
+                    <div class="text-right">
+                            <br>
+                            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+
+            </div>
+            <br>
+            <div class="row">
+                    <!-- <div class="col-lg-1"></div> -->
+                    <div class="col-lg-4">
+                            <!-- <button class="loan1" data-toggle="modal" data-target="#sssmodal" >SSS</button> -->
+                            <button *ngIf="roleid==6" class="AddButton" style="margin-right: 90px;"
+                                    (click)="showssss()">SSS</button>
+                            <button *ngIf="roleid!=6" class="AddButton" style="margin-right: 90px;"
+                                    (click)="getempdetails()">SSS</button>
+
+                    </div>
+                    <div class="col-lg-4">
+                            <button *ngIf="roleid==6" class="AddButton" style="margin-right: 90px;"
+                                    (click)="showpagibig()">PAG-IBIG</button>
+                            <button *ngIf="roleid!=6" class="AddButton" style="margin-right: 90px;"
+                                    (click)="getpagibig()">PAG-IBIG</button>
+                    </div>
+                    <div class="col-lg-4">
+                            <button *ngIf="roleid==6" class="AddButton" style="margin-right: 90px;"
+                                    (click)="showphilhealth()">Phil Health</button>
+                            <button *ngIf="roleid!=6" class="AddButton" style="margin-right: 90px;"
+                                    (click)="getphil()">Phil Health</button>
+                    </div>
+            </div> <br>
+    </div>
+
+</div>
+
+
+<button id="myBtn" [hidden]="true" data-toggle="modal" data-target="#sssmodal">Open Modal</button>
+
+
+<button id="myBtn1" [hidden]="true" data-toggle="modal" data-target="#pagibigmodal">Open Modal</button>
+
+
+<button id="myBtn2" [hidden]="true" data-toggle="modal" data-target="#philHealthmodal">Open Modal</button>
+
+
+<div id="sssmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="height: 935px;">
+                    <div class="modal-header">
+                            <h4 class="modal-title">SSS</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="row">
+                                    <div class="col-lg-2">
+                                    </div>
+                                    <div class="col-lg-6">
+                                            <!-- <button class="loan1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                            aria-hidden="true"></i></button> -->
+                                            <button class="AddButton" style="margin-right: 45px;"
+                                                    (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                                                            aria-hidden="true"></i></button>
+                                    </div>
+                            </div>
+                            <div id="downloadaplication" style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;
+                    height:743px;border-style:outset;overflow:hidden;background-color: white;margin-top: 63px;">
+                                    <div style="position:absolute;left:0px;top:0px">
+                                            <img src="{{logo}}" style="width:30%">
+                                    </div>
+
+
+                                    <div style="position:absolute;left:199.53px;top:82.97px" class="cls_004"><span
+                                                    class="cls_004">CERTIFICATION OF
+                                                    SSS CONTRIBUTIONS</span></div>
+                                    <div style="position:absolute;left:73.87px;top:127.94px" class="cls_002"><span
+                                                    class="cls_002">This is to
+                                                    certify that the following contributions has been remitted to
+                                            </span><span class="cls_003">Social
+                                                    Security System (SSS) </span><span class="cls_002">for</span>
+                                    </div>
+                                    <div style="position:absolute;left:73.87px;top:139.45px" class="cls_003"><span
+                                                    class="cls_003">{{fullname}}
+                                            </span><span class="cls_002"> with </span><span class="cls_003">SSS No.
+                                                    {{sssno}}
+                                            </span><span class="cls_002">from {{startmonth}} to {{endmonth}} </span>
+                                    </div>
+                                    <div style="position:absolute;left:66.39px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">Month/Year</span></div>
+                                    <div style="position:absolute;left:142.50px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">SSS
+                                                    Contribution</span></div>
+                                    <div style="position:absolute;left:231.19px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">ER
+                                                    Contribution</span></div>
+                                    <div style="position:absolute;left:317.59px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">EC
+                                                    Contribution</span></div>
+                                    <div style="position:absolute;left:414.26px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">Receipt
+                                                    No.</span></div>
+                                    <div style="position:absolute;left:495.64px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">Paid
+                                                    Date</span></div>
+
+
+                                    <div style="position:absolute;left:66.39px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{employeemonth}} {{emplyeeYear}}</span></div>
+                                    <div style="position:absolute;left:142.50px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{sssrate}}</span></div>
+                                    <div style="position:absolute;left:231.19px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{ss_er}} </span></div>
+                                    <div style="position:absolute;left:317.59px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{ss_ec}} </span></div>
+                                    <div style="position:absolute;left:414.26px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{receiptnumber}}</span></div>
+                                    <div style="position:absolute;left:495.64px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{datepaid123|date}}</span></div>
+
+                                    <div style="position:absolute;left:73.87px;top:251.05px" class="cls_002"><span
+                                                    class="cls_002">This
+                                                    certification is issued to </span><span
+                                                    class="cls_003">{{fullname}}</span><span class="cls_002">
+                                                    {{myDate|date}}, at {{companyname }}., {{Address}}</span></div>
+                                    <div style="    position: absolute;
+                                    left: 307.87px;
+                                    top: 264.56px;" class="cls_002"><span class="cls_002">
+                                                    for whatever purpose it may serve.</span></div>
+                                    <div style="position:absolute;left:73.87px;top:330px" class="cls_008"><span
+                                                    class="cls_008">{{companyname }}
+                                            </span></div>
+                                    <div style="position:absolute;left:73.87px;top:342.36px" class="cls_008"><span
+                                                    class="cls_008">SSS no.
+                                                    {{SSN_No}}</span></div>
+                                    <!-- <div style="position:absolute;left:74.01px;top:340.62px" class="cls_007"><span class="cls_007"><img
+                                src="assets/images/sign.png" style="    width: 31%;
+                                margin-top: 11px;
+                                margin-left: -1px;"></span>
+                    </div>
+                    <div style="position:absolute;left:74.01px;top:400.93px" class="cls_008"><span class="cls_008">{{signname}}</span></div>
+                    <div style="position:absolute;left:74.01px;top:412.42px" class="cls_008"><span class="cls_008">{{department}}</span></div>
+            
+                </div>
+            </div>
+            
+            <br />
+            <br />
+            
+            <div class="row" *ngIf="showPhilhealth==1">
+                <div class="col-lg-5">
+            
+                </div>
+                <div class="col-lg-4">
+                    <button class="button1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                            aria-hidden="true"></i></button>
+                    <br />
+                    <br />
+                </div>
+                <div id="downloadaplication"
+                    style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden;margin-top: 600px;background-color: white;">
+                    <div style="position:absolute;left:0px;top:0px">
+                        <img src="assets/images/AmazeLogo.jpg" style="width:30%">
+                    </div>
+            
+                    <div
+                        style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden">
+                        <div style="position:absolute;left:0px;top:0px">
+                        </div>
+                        <div style="position:absolute;left:165.12px;top:82.97px" class="cls_004"><span class="cls_004">CERTIFICATION
+                                OF PHILHEALTH PREMIUM PAYMENTS</span></div>
+                        <div style="position:absolute;left:38.01px;top:127.94px" class="cls_002"><span class="cls_002">This is to
+                                certify that </span><span class="cls_003">{{companyname}}.</span><span class="cls_002"> has remitted to
+                            </span><span class="cls_003">PhilHealth </span><span class="cls_002">the monthly contributions of
+                            </span><span class="cls_003">{{fullname}}</span></div>
+                        <div style="position:absolute;left:38.01px;top:139.45px" class="cls_003"><span
+                                class="cls_003"></span><span class="cls_002"> under </span><span class="cls_003">PhilHealth
+                                number. 12-051236413-1 </span><span class="cls_002">from  {{startmonth}} to {{endmonth}}  </span></div>
+                        <div style="position:absolute;left:59.61px;top:179.05px" class="cls_002"><span class="cls_002">A.</span>
+                        </div>
+                        <div style="position:absolute;left:88.41px;top:193.45px" class="cls_003"><span class="cls_003">Employee
+                                details</span></div>
+                        <div style="position:absolute;left:88.41px;top:207.85px" class="cls_002"><span class="cls_002">Employee
+                                name:</span></div>
+                        <div style="position:absolute;left:203.61px;top:207.85px" class="cls_002"><span class="cls_002">{{fullname}}</span></div>
+                        <div style="position:absolute;left:88.41px;top:222.25px" class="cls_002"><span
+                                class="cls_002">PhilHealth:</span></div>
+                        <div style="position:absolute;left:203.61px;top:222.11px" class="cls_003"><span
+                                class="cls_003">{{PhilHealth}}</span></div>
+                        <div style="position:absolute;left:88.41px;top:236.65px" class="cls_002"><span
+                                class="cls_002">Birthday:</span></div>
+                        <div style="position:absolute;left:203.61px;top:237.11px" class="cls_002"><span class="cls_002">{{dob}}</span></div>
+                        <div style="position:absolute;left:88.41px;top:251.05px" class="cls_002"><span class="cls_002">Employment
+                                date:</span></div>
+                        <div style="position:absolute;left:203.61px;top:251.34px" class="cls_002"><span class="cls_002">
+                                {{joiningdate}} up to Present.</span></div>
+                        <div style="position:absolute;left:59.61px;top:272.63px" class="cls_002"><span class="cls_002">B.</span>
+                        </div>
+                        <div style="position:absolute;left:88.41px;top:287.02px" class="cls_003"><span class="cls_003">Monthly
+                                Contributions</span></div>
+                        <div style="position:absolute;left:102.70px;top:303.53px" class="cls_005"><span class="cls_005">Month /
+                                Year</span></div>
+                        <div style="position:absolute;left:181.11px;top:303.53px" class="cls_005"><span class="cls_005">Employee
+                                Share</span></div>
+                        <div style="position:absolute;left:268.24px;top:303.53px" class="cls_005"><span class="cls_005">Employer
+                                Share</span></div>
+                        <div style="position:absolute;left:364.17px;top:303.53px" class="cls_005"><span class="cls_005">Receipt
+                                No.</span></div>
+                        <div style="position:absolute;left:445.27px;top:303.53px" class="cls_005"><span class="cls_005">Payment
+                                Date</span></div>
+                        <div style="position:absolute;left:114.72px;top:323.93px" class="cls_005"><span class="cls_005"> {{endmonth}}</span>
+                        </div>
+                        <div style="position:absolute;left:181.11px;top:323.53px" class="cls_005"><span class="cls_005">
+                                {{PhilHealthEC}}</span></div>
+                        <div style="position:absolute;left:268.24px;top:323.53px" class="cls_005"><span class="cls_005">
+                            {{PhilHealthEC}}</span></div>
+                        <div style="position:absolute;left:364.17px;top:323.53px" class="cls_005"><span class="cls_005">
+                                09876 </span></div>
+                        <div style="position:absolute;left:445.27px;top:323.53px" class="cls_005"><span class="cls_005"> {{myDate}}
+                            </span></div>
+                        <div style="position:absolute;left:38.01px;top:373.42px" class="cls_002"><span class="cls_002">This
+                                certification is issued to </span><span class="cls_003">{{fullname}}</span><span class="cls_002"> this
+                                {{myDate}}, at {{</span></div>
+                        <div style="position:absolute;left:38.01px;top:384.93px" class="cls_002"><span class="cls_002"> for
+                                whatever purpose it may serve.</span></div>
+            
+            
+                        <div style="position:absolute;left:74.01px;top:340.62px" class="cls_007"><span class="cls_007"><img
+                                    src="assets/images/sign.png"
+                                    style="    width: 25%;margin-top: 56px; margin-left: -32px;"></span></div>
+                        <div style="position:absolute;left:38.01px;top:430.22px" class="cls_007"><span class="cls_007">{{signname}}</span></div>
+                        <div style="position:absolute;left:38.01px;top:440.71px" class="cls_007"><span class="cls_007">{{department}}</span></div>
+                        <div style="position:absolute;left:38.01px;top:450.19px" class="cls_007"><span class="cls_007">{{companyname}}
+                                </span></div>
+                        <div style="position:absolute;left:38.01px;top:460.68px" class="cls_007"><span class="cls_007">PhilHealth
+                                no. 00-400001024-4</span></div> -->
+
+
+                                    <div style="position:absolute;left:74.01px;top:340.62px" class="cls_009"><span
+                                                    class="cls_009"><img src="{{Signature}}" style="    width: 25%;
+                                                    margin-top: -31px;
+                                                    margin-left: -68px;"></span></div>
+                                    <div style="position: absolute;left: 57.01px;top: 380.22px;" class="cls_009"><span class="cls_009">{{signname}}
+                                            </span></div>
+                                    <div style="position:absolute;left:58.01px;top:390.71px" class="cls_009"><span
+                                                    class="cls_009">{{sign}}
+                                            </span></div>
+
+                                    <div style="position:absolute;left:58.01px;top:400.19px" class="cls_009"><span
+                                                    class="cls_009">{{companyname }}
+                                            </span></div>
+                                    <!-- <div style="position:absolute;left:38.01px;top:460.68px" class="cls_009"><span class="cls_009">PhilHealth
+                        no. 00-400001024-4</span></div> -->
+                            </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                            <hr>
+                            <div class="col-lg-4">
+                                    <!-- <button class="loan1">Close</button> -->
+                                    <!-- <button class="AddButton" data-dismiss="modal">Close</button> -->
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div id="philHealthmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="height: 935px;">
+                    <div class="modal-header">
+                            <h4 class="modal-title">PhilHealth</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+
+
+                            <div class="row">
+                                    <div class="col-lg-2">
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                            <!-- <button class="loan1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                            aria-hidden="true"></i></button> -->
+                                            <button class="AddButton" (click)="convetToPDF1()">Export to PDF <i
+                                                            class="fa fa-download" aria-hidden="true"></i></button>
+                                    </div>
+                            </div>
+
+
+
+                            <div id="downloadaplication"
+                                    style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden;margin-top: 60px;background-color: white;">
+                                    <div style="position:absolute;left:0px;top:0px">
+                                            <img src="{{logo}}" style="width:30%">
+                                    </div>
+
+                                    <div
+                                            style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden">
+                                            <div style="position:absolute;left:0px;top:0px">
+                                            </div>
+                                            <div style="position:absolute;left:165.12px;top:82.97px"
+                                                    class="cls_004"><span class="cls_004">CERTIFICATION
+                                                            OF PHILHEALTH PREMIUM PAYMENTS</span></div>
+                                            <div style="position:absolute;left:38.01px;top:127.94px"
+                                                    class="cls_002"><span class="cls_002">This is to
+                                                            certify that </span><span
+                                                            class="cls_003">{{companyname}}.</span><span
+                                                            class="cls_002"> has remitted to
+                                                    </span><span class="cls_003">PhilHealth </span><span
+                                                            class="cls_002">the monthly contributions of
+                                                    </span><span class="cls_003">{{fullname}}</span></div>
+                                            <div style="position:absolute;left:38.01px;top:139.45px"
+                                                    class="cls_003"><span class="cls_003"></span><span
+                                                            class="cls_002"> under </span><span
+                                                            class="cls_003">PhilHealth
+                                                            number. {{philhealthno}} </span><span
+                                                            class="cls_002">from {{startmonth}} to {{endmonth}}
+                                                    </span></div>
+                                            <div style="position:absolute;left:59.61px;top:179.05px"
+                                                    class="cls_002"><span class="cls_002">A.</span>
+                                            </div>
+                                            <div style="position:absolute;left:88.41px;top:193.45px"
+                                                    class="cls_003"><span class="cls_003">Employee
+                                                            details</span></div>
+                                            <div style="position:absolute;left:88.41px;top:207.85px"
+                                                    class="cls_002"><span class="cls_002">Employee
+                                                            name:</span></div>
+                                            <div style="position:absolute;left:203.61px;top:207.85px"
+                                                    class="cls_002"><span class="cls_002">{{fullname}}</span></div>
+                                            <div style="position:absolute;left:88.41px;top:222.25px"
+                                                    class="cls_002"><span class="cls_002">PhilHealth:</span></div>
+                                            <div style="position:absolute;left:203.61px;top:222.11px"
+                                                    class="cls_003"><span class="cls_003">{{PhilHealth}}</span>
+                                            </div>
+                                            <div style="position:absolute;left:88.41px;top:236.65px"
+                                                    class="cls_002"><span class="cls_002">Birthday:</span></div>
+                                            <div style="position:absolute;left:203.61px;top:237.11px"
+                                                    class="cls_002"><span class="cls_002">{{dob}}</span></div>
+                                            <div style="position:absolute;left:88.41px;top:251.05px"
+                                                    class="cls_002"><span class="cls_002">Employment
+                                                            date:</span></div>
+                                            <div style="position:absolute;left:203.61px;top:251.34px"
+                                                    class="cls_002"><span class="cls_002">
+                                                            {{joiningdate}} up to Present.</span></div>
+                                            <div style="position:absolute;left:59.61px;top:272.63px"
+                                                    class="cls_002"><span class="cls_002">B.</span>
+                                            </div>
+                                            <div style="position:absolute;left:88.41px;top:287.02px"
+                                                    class="cls_003"><span class="cls_003">Monthly
+                                                            Contributions</span></div>
+                                            <div style="position:absolute;left:102.70px;top:303.53px"
+                                                    class="cls_005"><span class="cls_005">Month /
+                                                            Year</span></div>
+                                            <div style="position:absolute;left:181.11px;top:303.53px"
+                                                    class="cls_005"><span class="cls_005">Employee
+                                                            Share</span></div>
+                                            <div style="position:absolute;left:268.24px;top:303.53px"
+                                                    class="cls_005"><span class="cls_005">Employer
+                                                            Share</span></div>
+                                            <div style="position:absolute;left:364.17px;top:303.53px"
+                                                    class="cls_005"><span class="cls_005">Receipt
+                                                            No.</span></div>
+                                            <div style="position:absolute;left:445.27px;top:303.53px"
+                                                    class="cls_005"><span class="cls_005">Payment
+                                                            Date</span></div>
+                                            <div style="position:absolute;left:114.72px;top:323.93px"
+                                                    class="cls_005"><span class="cls_005"> {{employeemonth}}
+                                                            {{emplyeeYear}} </span>
+                                            </div>
+                                            <div style="position:absolute;left:181.11px;top:323.53px"
+                                                    class="cls_005"><span class="cls_005">
+                                                            {{PhilHealthEC}}</span></div>
+                                            <div style="position:absolute;left:268.24px;top:323.53px"
+                                                    class="cls_005"><span class="cls_005">
+                                                            {{PhilHealthEC}}</span></div>
+                                            <div style="position:absolute;left:364.17px;top:323.53px"
+                                                    class="cls_005"><span class="cls_005">
+                                                            {{philreceiptnumber}} </span></div>
+                                            <div style="position:absolute;left:445.27px;top:323.53px"
+                                                    class="cls_005"><span class="cls_005"> {{phildatepaid123}}
+                                                    </span></div>
+                                            <div style="position:absolute;left:38.01px;top:373.42px"
+                                                    class="cls_002"><span class="cls_002">This
+                                                            certification is issued to </span><span
+                                                            class="cls_003">{{fullname}}</span><span
+                                                            class="cls_002"> this
+                                                            {{myDate}}, </span></div>
+                                            <div style="position:absolute;left:38.01px;top:384.93px"
+                                                    class="cls_002"><span class="cls_002"> for
+                                                            whatever purpose it may serve.</span></div>
+
+
+                                            <div style="position:absolute;left:74.01px;top:340.62px"
+                                                    class="cls_007"><span class="cls_007"><img src="{{Signature}}"
+                                                                    style="       width: 25%;
+                                        margin-top: 45px;
+                                        margin-left: -68px;"></span></div>
+                                            <div style="position:absolute;left:38.01px;top:430.22px"
+                                                    class="cls_007"><span class="cls_007">{{signname}}</span></div>
+                                            <div style="position:absolute;left:38.01px;top:440.71px"
+                                                    class="cls_007"><span class="cls_007">{{department}}</span>
+                                            </div>
+                                            <div style="position:absolute;left:38.01px;top:450.19px"
+                                                    class="cls_007"><span class="cls_007">{{companyname}}
+                                                    </span></div>
+                                            <div style="position:absolute;left:38.01px;top:460.68px"
+                                                    class="cls_007"><span class="cls_007">PhilHealth
+                                                            no.{{compphil}}</span></div>
+
+
+
+
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                            <hr>
+                                            <div class="col-lg-4">
+                                                    <!-- <button class="loan1">Close</button> -->
+                                                    <!-- <button class="AddButton">Close</button> -->
+                                            </div>
+                                    </div>
+
+                            </div>
+
+                            <br />
+                            <br />
+
+
+                    </div>
+            </div>
+    </div>
+</div>
+
+<div id="pagibigmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="height: 935px;">
+                    <div class="modal-header">
+                            <h4 class="modal-title">HDMF</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="row">
+                                    <div class="col-lg-2">
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                            <!-- <button class="loan1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                            aria-hidden="true"></i></button> -->
+                                            <button class="AddButton" (click)="convetToPDF1()">Export to PDF <i
+                                                            class="fa fa-download" aria-hidden="true"></i></button>
+                                    </div>
+                            </div>
+                            <div id="downloadaplication" style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;
+                    height:745px;border-style:outset;overflow:hidden;margin-top: 60px;background-color: white;">
+                                    <div style="position:absolute;left:0px;top:0px">
+                                            <img src="{{logo}}" style="width:30%">
+                                    </div>
+                                    <div style="position:absolute;left:0px;top:0px">
+                                    </div>
+                                    <div style="position:absolute;left:93.09px;top:82.97px" class="cls_004"><span
+                                                    class="cls_004">CERTIFICATION OF
+                                                    HOME DEVELOPMENT MUTUAL FUND (HDMF) CONTRIBUTIONS</span></div>
+                                    <div style="position:absolute;left:74.01px;top:127.94px" class="cls_002"><span
+                                                    class="cls_002">This is to
+                                                    certify that the contribution of </span><span
+                                                    class="cls_003">{{fullname}}</span><span class="cls_002"> have
+                                                    been remitted to </span><span class="cls_003">Home</span></div>
+                                    <div style="position:absolute;left:74.01px;top:139.45px" class="cls_003"><span
+                                                    class="cls_003">Development Fund
+                                                    (HDMF){{pagibigid}}</span><span class="cls_002"> as indicated in
+                                                    the summary below from {{startmonth}} to {{endmonth}} </span>
+                                    </div>
+                                    <div style="position:absolute;left:102.39px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">Month /
+                                                    Year</span></div>
+                                    <div style="position:absolute;left:180.79px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">Employee
+                                                    Share</span></div>
+                                    <div style="position:absolute;left:267.93px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">Employer
+                                                    Share</span></div>
+                                    <div style="position:absolute;left:363.86px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">Receipt
+                                                    No.</span></div>
+                                    <div style="position:absolute;left:445.32px;top:181.16px" class="cls_005"><span
+                                                    class="cls_005">Payment
+                                                    Date</span></div>
+                                    <div style="position:absolute;left:114.41px;top:200.56px" class="cls_005"><span
+                                                    class="cls_005">{{employeemonth}} {{emplyeeYear}}</span>
+                                    </div>
+                                    <div style="position:absolute;left:180.79px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{paginigec}}</span></div>
+                                    <div style="position:absolute;left:267.93px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{paginigec}}</span></div>
+                                    <div style="position:absolute;left:363.86px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{pagireceiptnumber}}</span></div>
+                                    <div style="position:absolute;left:445.32px;top:200.16px" class="cls_005"><span
+                                                    class="cls_005">
+                                                    {{pagidatepaid123|date}}</span></div>
+                                    <div style="position:absolute;left:74.01px;top:251.05px" class="cls_002"><span
+                                                    class="cls_002">This
+                                                    certification is issued to </span><span
+                                                    class="cls_003">{{fullname}}</span><span class="cls_002"> this
+                                                    {{myDate|date}}, at {{companyname}}</span></div>
+                                    <div style="position:absolute;left:74.01px;top:262.56px" class="cls_002"><span
+                                                    class="cls_002">
+
+                                                    , for whatever purpose it may serve.</span>
+                                    </div>
+                                    <div style="position:absolute;left:74.01px;top:340.62px" class="cls_007"><span
+                                                    class="cls_007"><img src="{{Signature}}" style="    width: 25%;
+                                margin-top: -60px;
+                                margin-left: -31px;"></span></div>
+                                    <div style="position:absolute;left:74.01px;top:340.62px" class="cls_007"><span
+                                                    class="cls_007">{{signname}}</span></div>
+                                    <div style="position:absolute;left:74.01px;top:350.10px" class="cls_007"><span
+                                                    class="cls_007">{{department}}</span></div>
+                                    <div style="position:absolute;left:74.01px;top:360.59px" class="cls_007"><span
+                                                    class="cls_007">{{companyname}}
+                                            </span></div>
+                                    <div style="position:absolute;left:74.01px;top:370.08px" class="cls_007"><span
+                                                    class="cls_007">HDMF no.
+                                                    {{HDMFNumber}} </span></div>
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                            <hr>
+                            <div class="col-lg-4">
+                                    <!-- <button class="loan1">Close</button> -->
+                                    <!-- <button class="AddButton" data-dismiss="modal">Close</button> -->
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>

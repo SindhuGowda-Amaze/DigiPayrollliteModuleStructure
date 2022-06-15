@@ -1,0 +1,235 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-6">
+            <ul>
+                <span><a class="Heading1" style="margin-left:-42px;" routerLink="/ExpenseDashboard"><u>My Expense Details</u>
+                    </a></span>&nbsp;&nbsp;
+                <span *ngIf="roleid==2"><a class="Heading1"  routerLink="/TeamExpenseList">My Team Expense
+                        Details</a></span>
+                <!-- <span *ngIf="roleid==8"><a class="Heading1"  routerLink="/Financeexpensedash">All Staff Expense
+                        Details</a></span> -->
+
+            </ul>
+        </div>
+        <div class="col-md-8"></div>
+    </div>
+    <br>
+
+    <div class="card filtercard">
+
+        <div class="row">
+            <div class="col-md-1">
+                Filter By
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" id="date" name="date" (change)="getdate($event)" type="date"
+                    placeholder="Duration">
+            </div>
+            <div class="col-md-6">
+                <input class="form-control" type="search" id="search" name="search" [(ngModel)]="search"
+                    placeholder="Search for date , Expense or Status">
+            </div>
+        </div>
+
+    </div> <br>
+
+    <div class="row">
+        <div class="col-md-4">
+            <!-- <p class="show3res">SHOWING <span style="color: black;"> {{count}} </span>RESULTS
+            </p> -->
+        </div>
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-2">
+            <a routerLink="/AddExpense"><button class="button">Add New</button></a>
+        </div>
+    </div><br>
+    <div class="row">
+        <br />
+        <div class="col-lg-12 dashbutton bttn">
+            <div class="tab-slider--nav">
+                <ul class="tab-slider--tabs">
+                    <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
+                        (click)="viewMode ='tab1'" (click)="Pending()">
+                        New Request {{projectlist1.length}}</li>
+                    <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
+                        (click)="viewMode ='tab2'" (click)="Approve()">Approved {{projectlist.length}}</li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="tab-slider--container" [ngSwitch]="viewMode">
+            <div *ngSwitchCase="'tab1'" id="tab1">
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr class="thwidth">
+                                <th class="thwidth">Expense Head</th>
+                                <th class="thwidth">Expense Amount</th>
+                                <!-- <th class="thwidth">Project Name</th> -->
+                                <th class="thwidth">Submitted Date</th>
+                                <!-- <th class="thwidth">Expense Location</th> -->
+                                <th class="thwidth">Attachments</th>
+                                <th class="thwidth">Status</th>
+                               
+                                <th>Comments</th>
+                                <th >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of projectlist1|filter:search">
+                                <td>{{project.expencesName}}</td>
+                                <td>{{project.expenceAmount}}</td>
+                                <!-- <td>{{project.project}}</td> -->
+                                <td>{{project.date|date}}</td>
+                                <!-- <td>{{project.expenceLocation}}</td> -->
+                              
+                                <td>
+                                    <p *ngIf="project.invoiceURL==null">No Attachment</p>
+                                    <a href="{{project.invoiceURL}}" target="blank"> <img *ngIf="project.invoiceURL!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td>
+                                <td>
+                                    <p *ngIf="project.approvalStatus==null">Manager Pending Finance Pending</p>
+                                    <p *ngIf="project.approvalStatus!=null"> {{project.approvalStatus}}</p>
+        
+                                </td>
+                               
+                                <td>
+                                    <p *ngIf="project.comments==null ">Sorry, Unable to process your request</p>
+                                    <p *ngIf="project.comments!=null"> {{project.comments}}</p>
+                                    
+                                </td>
+                                <td>
+                                    <button *ngIf="project.approvalStatus=='Manager Pending'" class="button"
+                                        (click)="CancelLeave(project)">Cancel</button>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'tab2'" id="tab2">
+                <div class="row tablehead">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <h5 style="text-align: center;margin-left: 66px;"></h5>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr class="thwidth">
+                                <th class="thwidth">Expense Head</th>
+                                <th class="thwidth">Expense Amount</th>
+                                            <!-- <th class="thwidth">Project Name</th> -->
+                                <th class="thwidth">Submitted Date</th>
+                                <th class="thwidth">Expense Location</th>
+                                <th class="thwidth">Attachments</th>
+                                <th class="thwidth">Status</th>
+                              
+                                <th>Comments</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of projectlist|filter:search">
+                                <td>{{project.expencesName}}</td>
+                                <td>{{project.expenceAmount}}</td>
+                                        <!-- <td>{{project.project}}</td> -->
+                                <td>{{project.date|date}}</td>
+                                <td>{{project.expenceLocation}}</td>
+                              
+                                <td>
+                                    <p *ngIf="project.invoiceURL==null">No Attachment</p>
+                                    <a href="{{project.invoiceURL}}" target="blank"> <img *ngIf="project.invoiceURL!=null"
+                                            src="assets/images/attachment (1).png"
+                                            style="width:30px;height: 20%;margin-left:20px;color: blue;"></a>
+                                </td>
+                                <td>
+                                    <p *ngIf="project.approvalStatus==null">Manager Pending Finance Pending</p>
+                                    <p *ngIf="project.approvalStatus!=null"> {{project.approvalStatus}}</p>
+        
+                                </td>
+                              
+                                <td>
+                                    <!-- <p *ngIf="project.notes==null ">Sorry, Unable to process your request</p> -->
+                                    <p *ngIf="project.notes!=null "> {{project.notes}}</p>
+                                    
+                                </td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template>
+
+                    <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+<div id="Allocate" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Attachment</h1>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-3">
+
+                        </div>
+                        <img src="{{medicalUrl}}" alt="medical.img" style="height: 410px;width: 330px;">
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

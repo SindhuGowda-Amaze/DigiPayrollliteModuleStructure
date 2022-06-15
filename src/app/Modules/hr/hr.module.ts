@@ -9,6 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SalaryDetailsDashComponent } from './employees/salary-details-dash/salary-details-dash.component';
 import { EmploymentJobHistoryComponent } from './employees/employment-job-history/employment-job-history.component';
 import { DatePipe } from '@angular/common';
+
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { HRDashboardComponent } from './hrdashboard/hrdashboard.component';
 import { GaugeModule } from 'angular-gauge';
@@ -26,8 +27,9 @@ import { GaugeModule } from 'angular-gauge';
     SharedModule,
     FormsModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule,
-    GaugeModule.forRoot(),
+ 
+    // Ng2SearchPipeModule,
+    // GaugeModule.forRoot(),
    
   ]
 })
