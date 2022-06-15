@@ -1,0 +1,513 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a class="active Heading" routerLink="/MyOverTimeDetails"> My OverTime Details </a></li>
+                        <li><a class="leavelist Heading"> <u>My Team OverTime Details </u> </a></li>
+
+                    </ul>
+                </div>
+                <!-- <div class="col-md-6"></div> -->
+            </div>
+            <br>
+            <div class="card filtercard">
+                <div class="row">
+                    <div class="col-md-1">
+                        Filter By
+                    </div>
+                    <div class="col-md-2">
+                        <p>Start Date
+                            <input class="form-control" type="date" placeholder="Duration" [(ngModel)]="date">
+                    </div>
+                    <div class="col-md-2">
+                        <p>End Date
+                            <input class="form-control" type="date" placeholder="Duration" [(ngModel)]="edate"
+                                (change)="getdate()">
+                    </div>
+                    <div class="col-lg-2">
+                        <p>Role
+                            <br> <select class="form-control" id="RoleType" name="RoleType"
+                                (change)='getRoleType($event)' [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                                <option value="">Select Role</option>
+                                <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
+                                </option>
+                            </select>
+                        </p>
+                    </div>
+                    <!-- <div class="col-lg-2">
+                        <p>Department
+                            <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                                (change)="filterByDepartment()">
+                                <option value="">Select Department</option>
+                                <option value="{{item.id}}" *ngFor="let item of Departmentlist">
+                                    {{item.department_name}}
+                                </option>
+                            </select>
+                        </p>
+                    </div> -->
+                    <div class="col-md-3">
+                        <p>Search
+                            <input class="form-control" id="term" name="term" [(ngModel)]="term" type="search"
+                                (ngModelChange)="FilterAttendence()" placeholder="Search for data.. ">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-lg-2">
+                    Filter By
+                </div>
+                <div class="col-lg-2">
+                    <input class="form-control" type="date" placeholder="Duration">
+                </div>
+                <div class="col-lg-2">
+                    <div class="dropdown">
+                        <select class="form-control inputfield">
+                            <option value="Select">Select Request Type</option>
+                            <option value="Paid Time off Leave">CompOff</option>
+                            <option value="Vacation Leave">OverTime</option>
+                            <option value="Vacation Leave">OverTime alongwith CompOff</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="dropdown">
+                        <select class="form-control inputfield">
+                            <option value="Select">Select Status</option>
+                            <option value="Paid Time off Leave">Cancel Completed</option>
+                            <option value="Vacation Leave">Completed</option>
+                            <option value="Vacation Leave">Initial</option>
+                            <option value="Vacation Leave">L1 Approval</option>
+                            <option value="Vacation Leave">L1 Cancel Approval</option>
+                            <option value="Vacation Leave">Reject Completed</option>
+                            <option value="Vacation Leave">Withdraw Completed</option>
+                        </select>
+                    </div>
+                </div>
+            </div> -->
+
+
+            <br>
+
+            <div class="row">
+                <!-- <div class="col-md-11">
+                    <p class="show3res">SHOWING <span style="color: black;">{{attendancelist.length}} </span>RESULTS</p>
+                </div> -->
+                <div class="col-md-1">
+                    <!-- <button class="form-control requestbtn" routerLink="/ApplyOT" >Apply</button> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+
+                </div>
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-2">
+                    <a><button *ngIf="selecallbtn" class="form-control AddExpense" (click)="Approveall()">Approve
+                            All</button></a>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <br />
+                <div class="col-lg-12 dashbutton bttn">
+                    <div class="tab-slider--nav">
+                        <ul class="tab-slider--tabs">
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
+                                (click)="viewMode ='tab1'">
+                                Auto Calculated OT Request</li>
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
+                                (click)="viewMode ='tab2'">Manually Applied OT Request</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="tab-slider--container" [ngSwitch]="viewMode">
+                    <div *ngSwitchCase="'tab1'" id="tab1">
+                        <div class="row tablehead">
+                            <div class="col-lg-8"></div>
+                            <div class="col-lg-4">
+                                <h5 style="text-align: center;margin-left: 66px;"></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-md-11">
+                                <br/>
+                                <p class="show3res">SHOWING <span style="color: black;margin-top:15px">{{attendancelist.length}}
+                                    </span>RESULTS</p>
+                            </div>
+                        </div>
+                        <div class="row " style="width: 1320px; overflow: auto;">
+                        <div class="col-md-11">
+                            <table class="table"
+                                *ngIf="(attendancelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>Select All <input type="checkbox" name="select-all" id="select-all"
+                                                (click)="selectALL(true)" /></th> -->
+                                        <th >Employee Name</th>
+                                        <th >Role</th>
+                                        <th >Department</th>
+                                        <th >Date</th>
+                                        <th >Sign In Type</th>
+                                        <th >Expected In Time</th>
+                                        <th >Punch In Time</th>
+                                        <th>Punch In Location/IP Address</th>
+                                        <th >Expected Out Time</th>
+                                        <th >Punch Out Time</th>
+                                        <th >Punch Out Location/IP Address</th>
+                                        <th >Work Hours</th>
+                                        <th >Over Time(hr)</th>
+                                        <th >Regular OT(hr)</th>
+                                        <th >Night OT (hr)</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let attendance of attendancelist|paginate: { itemsPerPage: count1, currentPage: p}">
+                                        <td>{{attendance.name}}</td>
+                                        <td>{{attendance.role}}</td>
+                                        <td>{{attendance.department_name}}</td>
+                                        <td>{{attendance.signinDate|date}}</td>
+                                        <td>{{attendance.signInType}}</td>
+                                        <td>10:00</td>
+                                        <td style="font-family: Poppins;
+                                        font-style: normal;
+                                        font-weight: bold;
+                                        font-size: 13px;
+                                        line-height: 17px;
+                                        /* identical to box height, or 131% */
+                                        
+                                        
+                                        color: #3247D5;">{{attendance.signinDate|date:'HH:mm'}}</td>
+                                        <td>
+                                            <p *ngIf="attendance.signInType=='Web Application'">{{attendance.punchinip}}
+                                            </p>
+                                            <p *ngIf="attendance.signInType!='Web Application'">
+                                                {{attendance.signinLocation}}
+                                            </p>
+                                        </td>
+
+                                        <td>19:00</td>
+                                        <td style="font-family: Poppins;
+                                        font-style: normal;
+                                        font-weight: bold;
+                                        font-size: 13px;
+                                        line-height: 17px;
+                                        /* identical to box height, or 131% */
+                                        
+                                        
+                                        color: #3247D5;">{{attendance.signoutDate|date:'HH:mm'}}</td>
+
+                                        <td>
+                                            <p *ngIf="attendance.signInType=='Web Application'">
+                                                {{attendance.punchoutip}}
+                                            </p>
+                                            <p *ngIf="attendance.signInType!='Web Application'">
+                                                {{attendance.signoutLocation}}
+                                            </p>
+                                        </td>
+                                        <td>{{attendance.hr1}}</td>
+                                        <td>{{attendance.ot}}</td>
+                                        <td>
+                                            {{attendance.ot-attendance.nightot}}
+                                        </td>
+                                        <td>{{attendance.nightot}}</td>
+                                        <td>
+                                            <p *ngIf="attendance.approvalStatus==null">Manager Pending</p>
+                                             {{attendance.approvalStatus}}
+                                           
+                                        </td>
+                                        <td>
+                                            <img *ngIf="attendance.approvalStatus=='Manager Pending HR Pending'|| attendance.approvalStatus==null || attendance.approvalStatus=='Manager Pending' && attendance.approvalStatus!='Manager Approved'"
+                                                class="img" 
+                                                src="assets/images/check-mark.png" (click)="ManagerLeaveApprove(attendance)">
+                                            <img *ngIf="attendance.approvalStatus=='Manager Pending HR Pending'|| attendance.approvalStatus==null || attendance.approvalStatus=='Manager Pending'"
+                                                class="imgcancel"  data-toggle="modal"
+                                                data-target="#Reject" src="assets/images/cancel (1).png"  (click)="getid(attendance.id)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ng-template #noResults>
+                                <div class="card">
+                                    <p class="NoResultShow"> No results found !! </p>
+                                </div>
+                            </ng-template>
+                            <div class="text-left">
+                                <br>
+                                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                            </div>
+                            <!-- <table class="table">
+                                <thead>
+                                    <tr>
+        
+                                        <th>Select All <input type="checkbox" name="select-all" id="select-all"
+                                                (click)="selectALL(true)" /></th>
+                                        <th>Employee Name</th>
+                                        <th>Date</th>
+                                        <th>Day</th>
+                                        <th>Type</th>
+                                        <th>No. Of Hours</th>
+                                        <th>Comments</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let project of projectlist|filter:term">
+                                        <td><input *ngIf="project.status=='Manager Pending'" type="checkbox"
+                                                (click)="getCheckbocdetails(project)">
+                                        </td>
+                                        <td>{{project.staffname}}</td>
+                                        <td>{{project.date|date}}</td>
+                                        <td>{{project.day}}</td>
+                                        <td>
+                                            <p *ngIf="project.type==1">Normal</p>
+                                            <p *ngIf="project.type==2">OT</p>
+                                            <p *ngIf="project.type==3">ND</p>
+                                            <p *ngIf="project.type==3">NDOT</p>
+                                        </td>
+                                        <td class="numberblue">{{project.noofhours}}</td>
+                                        <td>{{project.comments}}</td>
+                                        <td>{{project.status}}</td>
+                                        <td></td>
+                                    </tr>
+        
+                                </tbody>
+                            </table> -->
+                        </div>
+                        </div>
+
+                    </div>
+                    <div *ngSwitchCase="'tab2'" id="tab2">
+                        <div class="row tablehead">
+                            <div class="col-lg-8"></div>
+                            <div class="col-lg-4">
+                                <h5 style="text-align: center;margin-left: 66px;"></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="show3res ">SHOWING <span style="color: black;">{{count}} </span> RESULTS</p>
+                            </div>
+                            <!-- <div class="col-md-2">
+                                <button class="form-control requestbtn" routerLink="/ApplyOT">Apply</button>
+                            </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="thwidth">
+                                             <th class="thwidth">Employee Name</th> 
+                                            <th class="thwidth">Date</th>
+                                            <th class="thwidth">Start Time</th>
+                                            <th class="thwidth">End Time</th>
+                                            <!-- <th class="thwidth">Day</th> -->
+                                            <th class="thwidth">OT</th>
+                                            <th class="thwidth">Night OT</th>
+                                            <th class="thwidth">Comments</th>
+                                            <th class="thwidth">Status</th>
+
+                                            <th>Action</th>
+
+                                        </tr>
+                                        <tr *ngFor="let time of timedetails|paginate: { itemsPerPage: count1, currentPage: p}">
+                                            <td>{{time.staffname}}</td>
+                                            <td>{{time.date|date}}</td>
+                                            <!-- <td>{{time.day}}</td> -->
+                                            <td>{{time.startTime|date:'HH:mm'}}</td>
+                                            <td>{{time.endTime|date:'HH:mm'}}</td>
+                                            <td>{{time.noofhours}}</td>
+                                            <td>{{time.nightot}}</td>
+                                            <td>{{time.comments}}</td>
+                                            <td>{{time.status}}</td>
+                                            
+                                         
+                                            <td>
+                                                <img *ngIf="time.status=='Manager Pending HR Pending'|| time.status==null || time.status=='Manager Pending'"
+                                                    class="img" (click)="ManagerOTApprove(time)"
+                                                    src="assets/images/check-mark.png">
+                                                <img *ngIf="time.status=='Manager Pending HR Pending'|| time.status==null || time.status=='Manager Pending'"
+                                                    class="imgcancel" (click)="getid(time.id)" data-toggle="modal"
+                                                    data-target="#Reject" src="assets/images/cancel (1).png">
+                                            </td>
+                                        </tr>
+
+                                    </thead>
+                                </table>
+                                <ng-template #noResults>
+                                    <div class="card">
+                                        <p class="NoResultShow"> No results found !! </p>
+                                    </div>
+                                </ng-template>
+                                <div class="text-left">
+                                    <br>
+                                    <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-2">
+                    <!-- <button class="form-control">LOAD 10MORE</button> -->
+                </div>
+                <div class="col-lg-5"></div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+<div id="Reject" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Reject OverTime</h5>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-3">
+                            Reject Reason
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="text" id="RejectReason" name="RejectReason" [(ngModel)]="RejectReason"
+                                class="form-control" placeholder=" Reject Reason">
+                        </div>
+                    </div>
+                    <br />
+                  
+                    <br>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-4">
+
+                        </div>
+                        <div class="col-lg-5">
+                            <button class="upload" (click)="ManagerOTReject()">Submit</button>
+                        </div>
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="bigimg16" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Leave Details</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label>Application Date</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Leave Type</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Leave Reason</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Any Other Reason</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label>24 Jul 2020</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Paid time off leave</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Others</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>test</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Duration</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td> Tue 28 Jul 2020</td>
+                                    <td>Full Day</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                   
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>LEAVE APPROVAL HISTORY</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table">
+                                <tr>
+                                    <th>Approvers Name</th>
+                                    <th>Stage</th>
+                                    <th>Comments</th>
+                                </tr>
+                                <tr>
+                                    <td>Prashant Patil</td>
+                                    <td> Initial Stage</td>
+                                    <td>test</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

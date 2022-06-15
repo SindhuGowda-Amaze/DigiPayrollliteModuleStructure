@@ -3,7 +3,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { SharedRoutingModule } from './shared-routing.module';
 import { SharedComponent } from './shared.component';
 import { FormsModule } from '@angular/forms';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AdminHelpMenuComponent } from './admin-help-menu/admin-help-menu.component';
+import { SupportTicketDashboardComponent } from './support-ticket-dashboard/support-ticket-dashboard.component';
+import { GaugeModule } from 'angular-gauge';
+
 import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.component';
 
 
@@ -11,22 +14,24 @@ import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.compone
 @NgModule({
   declarations: [
     SharedComponent,
-    LoaderComponent
+    AdminHelpMenuComponent,
+    SupportTicketDashboardComponent
+
   ],
   imports: [
     CommonModule,
     FormsModule,
     SharedRoutingModule,
-    Ng2SearchPipeModule
- 
+    GaugeModule.forRoot(),
+
   ],
   exports: [
     FormsModule,
-    LoaderComponent
-
-
-
+    GaugeModule
+ 
+ 
   ],
+  
   providers: [
     // {
     //   provide: ConnectionServiceOptionsToken,

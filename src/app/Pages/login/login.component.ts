@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('UserName', temp[0].name);
           sessionStorage.setItem('email', temp[0].official_Email);
           localStorage.setItem('Pagename', 'Manager Dashboard')
-          this.router.navigate(['/ManagerDashboard']).then(() => {
+          this.router.navigate(['/manager/ManagerDashboard']).then(() => {
             location.reload();
           });
         }
