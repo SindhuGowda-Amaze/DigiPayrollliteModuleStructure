@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import Swal from 'sweetalert2';
-import { jsPDF } from "jspdf";
+import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 import * as XLSX from 'xlsx';

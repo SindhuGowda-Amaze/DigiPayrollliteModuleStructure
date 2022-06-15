@@ -16,7 +16,9 @@ import { PayslipComponent } from './Reports/payslip/payslip.component';
 import { ContributioncertificateComponent } from './Reports/contributioncertificate/contributioncertificate.component';
 import { CertificateofloanComponent } from './Reports/certificateofloan/certificateofloan.component';
 import { EmploymentcertificateComponent } from './Reports/employmentcertificate/employmentcertificate.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     EmployeeRoutingModule,
     SharedModule,
     FormsModule ,
+    NgxPaginationModule,
     NgxDropzoneModule
+
   ]
 })
 export class EmployeeModule { }

@@ -11,6 +11,7 @@ import { SidebarComponent } from './Pages/CommonPages/sidebar/sidebar.component'
 
 import { LoginComponent } from './Pages/login/login.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { LoginComponent } from './Pages/login/login.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+
 
   ],
   providers: [
