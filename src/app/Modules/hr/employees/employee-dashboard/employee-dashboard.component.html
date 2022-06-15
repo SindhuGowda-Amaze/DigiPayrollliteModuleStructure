@@ -1,0 +1,176 @@
+<div class="container-fluid">
+    <div>
+        <ul>
+            <p class="Heading1">Staff Dashboard</p>
+        </ul>
+    </div>
+    <app-loader *ngIf="loader"></app-loader>
+    <div class="card">
+
+        <div class="row">
+            <div class="col-lg-1 space">
+                <p style="color:#0C275A">Filter By</p>
+            </div>
+            <div class="col-lg-2">
+                <p>Date
+                    <input style="color:#0C275A;font-family: 'Poppins'" class="form-control" type="date"
+                        placeholder="Duration" id="date" name="date" [(ngModel)]="date" (change)="getdate($event)">
+            </div>
+            <div class="col-lg-2">
+                <p>Role
+                    <br> <select class="form-control" id="RoleType" name="RoleType" (change)='getRoleType($event)'
+                        [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                        <option value="">Select Role</option>
+                        <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
+                        </option>
+                    </select>
+                </p>
+            </div>
+            <div class="col-lg-2">
+                <p>Department
+                    <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                        (change)="filterByDepartment()">
+                        <option value="">Select Department</option>
+                        <option value="{{item.id}}" *ngFor="let item of Departmentlist">
+                            {{item.department_name}}
+                        </option>
+                    </select>
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <p>Search
+                    <input class="form-control" type="search" [(ngModel)]="term"
+                        style="color:#0C275A;font-family: 'Poppins'" (ngModelChange)="Filterstaff()"
+                        placeholder="Search for Staff...">
+            </div>
+            <div class="col-lg-1 space">
+                <p class="active">Count:{{count}}</p>
+            </div>
+        </div>
+
+    </div>
+    <br>
+
+
+    <div class="row FilterClass">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <button class="form-control requestbtn" routerLink="/EmployeeForm" style="    width: 88%;">Add
+                        New</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="form-control requestbtn" data-toggle="modal" data-target="#import"
+                        style="    width: 88%;">Upload
+                        Staff</button>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    <br>
+    <div class="row ">
+        <div class="col-md-12">
+            <table class="table" id="lvs"
+                *ngIf="(stafflist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                <thead>
+                    <tr>
+                        <!-- <th>Check Box</th> -->
+                        <th>Employee Id</th>
+                        <th>Employee Name</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Level</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Date Of Joining</th>
+                        <th>Manager</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of stafflist|paginate: { itemsPerPage: count1, currentPage: p}">
+
+                        <td>000{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.gender}}</td>
+                        <td>{{item.role}}</td>
+                        <td>{{item.department_name}}</td>
+                        <td>{{item.levelname}}</td>
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.emailID}}</td>
+                        <td>{{item.joiningDate|date}}</td>
+                        <td>
+                            <p *ngIf="item.manager==null">
+                                NA
+                            </p>
+                            <p *ngIf="item.manager!=null">
+                                {{item.manager}}
+                            </p>
+                        </td>
+
+
+                        <td>
+
+
+                            <i class="fa fa-pencil-square-o icon" [routerLink]="['/EmployeeForm',item.id]"
+                                title="Edit"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <!-- <button class="upload"
+                               >Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                            <!-- <i class="  fa fa-file icon" [routerLink]="['/Uploademployeedocumets',item.id]"
+                                title="Upload Documents"></i>&nbsp;&nbsp;&nbsp;&nbsp; -->
+
+                            <i class="fa fa-trash-o icon" (click)="delete(item.id)"
+                                title="Delete"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                            <!-- <i class="  fa fa-folder-open icon" (click)="downloadzip(item)"
+                                title="Download Documents"></i> -->
+
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noResults>
+                <div class="card">
+                    <p class="NoResultShow"> No results found !! </p>
+                </div>
+            </ng-template>
+            <div class="text-right">
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="import" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Upload Staff</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="file" accept=".xls,.xlsx" style="display: inline-block;"
+                            (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <button type="button" class="button" style="width: 70%;" data-dismiss="modal"
+                            (click)="Upload_file()">Upload
+                            Staff</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
