@@ -33,6 +33,17 @@ import { PayslipReportComponent } from './Reports/Payroll/payslip-report/payslip
 import { SSSR5ReportComponent } from './Reports/SSS/sssr5-report/sssr5-report.component';
 import { SSSML1ReportComponent } from './Reports/SSS/sssml1-report/sssml1-report.component';
 import { SSSRL1ReportComponent } from './Reports/SSS/sssrl1-report/sssrl1-report.component';
+import { ER2Component } from './Reports/Philhealth/er2/er2.component';
+import { RFReportComponent } from './Reports/Philhealth/rfreport/rfreport.component';
+import { RF1PDFReportComponent } from './Reports/Philhealth/rf1-pdfreport/rf1-pdfreport.component';
+import { M1MCRFReportComponent } from './Reports/Pag-IBig/m1-mcrfreport/m1-mcrfreport.component';
+import { M1ExcelReportComponent } from './Reports/Pag-IBig/m1-excel-report/m1-excel-report.component';
+import { STLRFReportComponent } from './Reports/Pag-IBig/stlrfreport/stlrfreport.component';
+import { STLRFExcelReportComponent } from './Reports/Pag-IBig/stlrfexcel-report/stlrfexcel-report.component';
+import { BIR1601CReportComponent } from './Reports/BIR/bir1601-creport/bir1601-creport.component';
+import { BIR1604CReportComponent } from './Reports/BIR/bir1604-creport/bir1604-creport.component';
+import { BIR1604CFReportComponent } from './Reports/BIR/bir1604-cfreport/bir1604-cfreport.component';
+import { BIR2316ReportComponent } from './Reports/BIR/bir2316-report/bir2316-report.component';
 @NgModule({
   declarations: [
     HrComponent,
@@ -59,7 +70,18 @@ import { SSSRL1ReportComponent } from './Reports/SSS/sssrl1-report/sssrl1-report
     PayslipReportComponent,
     SSSR5ReportComponent,
     SSSML1ReportComponent,
-    SSSRL1ReportComponent
+    SSSRL1ReportComponent,
+    ER2Component,
+    RFReportComponent,
+    RF1PDFReportComponent,
+    M1MCRFReportComponent,
+    M1ExcelReportComponent,
+    STLRFReportComponent,
+    STLRFExcelReportComponent,
+    BIR1601CReportComponent,
+    BIR1604CReportComponent,
+    BIR1604CFReportComponent,
+    BIR2316ReportComponent
   ],
   imports: [
     CommonModule,

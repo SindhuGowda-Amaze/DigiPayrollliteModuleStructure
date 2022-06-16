@@ -1,0 +1,314 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-4">
+                        <a href="" class="Heading ">M1-1</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row FilterClass ">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-3">
+                        <p style="text-align: right;"> Select Start Month & Year</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <select name="cars" id="Month" class="form-control text" [(ngModel)]="month">
+                            <option value="">Select</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <select name="cars" id="Month" class="form-control text" [(ngModel)]="year">
+                            <option value="">Select</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                        </select>
+                    </div>
+                </div><br>
+                <div class="row FilterClass fontheading">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                        <p>Signatory Person</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <select name="cars" id="Month" class="form-control text" [(ngModel)]="sign"
+                            (change)="getsign()">
+                            <option value="">Select</option>
+                         
+                            <option value="HR">HR</option>
+                          
+                        </select>
+                    </div>
+                </div> <br><br>
+
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                        <button class="AddButton" (click)="showpdf()">GENERATE</button>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="row" *ngIf="showleaseforprint==1" id="downloadaplication">
+    <!-- <div class="col-lg-9">
+    </div>
+    <div class="col-lg-2">
+        <button class="loan1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download" aria-hidden="true"></i></button>
+        <br/>
+        <br/>
+    </div>
+    <br/> -->
+
+    <div class="col-lg-7">
+    </div>
+
+    <div class="col-lg-4">
+        <!-- <button class="AddButton" (click)="convetToPDF1()">EXPORT TO PDF</button>  -->
+        <button class="AddButton" (click)="convetToPDF1()" style="margin-right: -25px;" >EXPORT TO PDF <i class="fa fa-download"
+                aria-hidden="true"></i></button>
+    </div><br>
+
+    <div class="container-fluid"  *ngFor="let item of uniquelistchnuk;let i = index">
+        <div class="container" style="background-color: white; margin-top: 20px;">
+            <div class="row">
+                <div class="col-lg-10"></div>
+                <div class="col-lg-2">
+                    <label>HQP-PFF-053</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="../../assets/images/m11mcrf.PNG">
+                </div>
+                <div class="col-lg-5">
+                    <h2>MEMBER'S CONTRIBUTION<BR> REMITTANCE FORM(MCRF)</h2>
+                </div>
+                <div class="col-lg-5">
+                    <div class="w3-card-4">
+                        <header class="w3-container bgcolor">
+                            <h6>Pag-IBIG EMPLOYER'S ID NUMBER</h6>
+                        </header>
+                        <div class="w3-container numpadding">
+                            209754750003
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-5">
+                    <h6 class="numpadding">NOTE: PLEASE READ INSTRUCTIONS AT THE BATCH</h6>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="5">EMPLOYER/BUSSINESS NAME</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5">{{companyname}}</td>
+                        </tr>
+                        <tr>
+                            <th>EMPLOYER/BUSSINESS ADDRESS <br>Unit/Room No. Floor</th>
+                            <th>Building Name</th>
+                            <th>Lot No,Block No,Phase No,House No</th>
+                            <th colspan="2">Street Name</th>
+                        </tr>
+                        <tr>
+                            <td>{{Address}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>Subdivision</th>
+                            <th>Barangay</th>
+                            <th>Municipality City</th>
+                            <th>Provision/Sate/Country(if abroad)</th>
+                            <th>Zipcode</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{zipcode}}</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th>Pag-IBIG MD No/RTN</th>
+                            <th>ACCOUNT NO</th>
+                            <th>MEMBERSHIP PROGRAM</th>
+                            <th colspan="4">NAME OF MEMBERS</th>
+                            <th>PERIOD CCVERED</th>
+                            <th>MONTHLY COMPENSATION</th>
+                            <th colspan="3">MEMBERSHIP CONTRIBUTION</th>
+                            <th>REMARKS</th>
+                        </tr>
+                        <tr aria-rowspan="2">
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Name Ext(jr,Mr,etc)</th>
+                            <th>Middle Name</th>
+                            <th></th>
+                            <th></th>
+                            <th>EE SHARE</th>
+                            <th>ER SHARE</th>
+                            <th>TOTAL</th>
+                            <th>REMARKS</th>
+                        <tr>
+                        </tr>
+                        <tr *ngFor="let item of uniquelistchnuk[i]">
+                            <td>{{item.pagiBig_ID}}</td>
+                            <td>{{item.pagiBigAccountNo}}</td>
+                            <td>{{item.pagibigMembership}}</td>
+                            <td>{{item.lastName}}</td>
+                            <td>{{item.staffname}} </td>
+                            <td>{{item.title}} </td>
+                            <td></td>
+                            <td>{{item.month_Name}} {{item.emplyeeYear}} </td>
+                            <td>{{item.monthlyNetSalary}}</td>
+                            <td>{{item.monthlyPagibigRate/2}}</td>
+                            <td>{{item.monthlyPagibigRate/2}}</td>
+                            <td>{{item.monthlyPagibigRate}}</td>
+
+
+                        </tr>
+                        <!-- <tr>
+                            <td>121122212689</td>
+                            <td></td>
+                            <td></td>
+                            <td>Ancheta</td>
+                            <td>Abigaile</td>
+                            <td></td>
+                            <td>Gatdulae</td>
+                            <td>01 2021</td>
+                            <td>80000.00</td>
+                            <td>100.00</td>
+                            <td>100.00</td>
+                            <td>200.00</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>121122212689</td>
+                            <td>ACCOUNT NO</td>
+                            <td>MEMBERSHIP PROGRAM</td>
+                            <td>Ancheta</td>
+                            <td>Abigaile</td>
+                            <td></td>
+                            <td>Gatdulae</td>
+                            <td>01 2021</td>
+                            <td>80000.00</td>
+                            <td>100.00</td>
+                            <td>100.00</td>
+                            <td>200.00</td>
+                            <td>REMARKS</td>
+                        </tr>
+                        <tr>
+                            <td>121122212689</td>
+                            <td>ACCOUNT NO</td>
+                            <td>MEMBERSHIP PROGRAM</td>
+                            <td>Ancheta</td>
+                            <td>Abigaile</td>
+                            <td></td>
+                            <td>Gatdulae</td>
+                            <td>01 2021</td>
+                            <td>80000.00</td>
+                            <td>100.00</td>
+                            <td>100.00</td>
+                            <td>200.00</td>
+                            <td>REMARKS</td>
+                        </tr> -->
+
+                        <tr>
+                            <th colspan="9">TOTAL FOR THIS PAGE</th>
+                            <th>{{pagibiger}}</th>
+                            <th>{{pagibiger}}</th>
+                            <th colspan="2">{{pagibig}}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="9">GRAND TOTAL(IF LAST PAGE)</th>
+                            <th>{{pagibiger}}</th>
+                            <th>{{pagibiger}}</th>
+                            <th colspan="2">{{pagibig}}</th>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="3" class="align" style="background-color: GREY;">EMPLOYER CERTIFICATION</th>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <div><br>
+                                    <p class="numpadding align">
+                                        I hearby certify under pain of perjury that the Information given and all
+                                        statements
+                                        made
+                                        herein are true and correct to the best of my knowledge and belief. In
+                                        futurecertify
+                                        that my
+                                        signature appearing herein are genuine and authentic.
+                                    </p><br>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align">
+                                {{signname}}<br><br>
+
+                               <img src="{{Signature}}"  style="
+                                width: 116px;
+                                margin-top: -2px;"/><br/>
+                                _____________________________<br>
+                                <span style="font-size: 12px;">HEAD OF OFFICE OR AUTHORISED REPRESENTATIVE<BR>
+                                    (Signature over Printed Name)</span>
+                            </td>
+                            <td class="align">
+                                {{sign}}<br>
+                                _____________________________<br>
+                                <span style="font-size: 12px;">DESIGNATION/POSITION</span>
+                            </td>
+                            <td class="align">
+                                <br>
+                                &nbsp;&nbsp;&nbsp;{{myDate|date}}<br/>
+                                _____________________________<br>
+                                <span style="font-size: 14px;">DATE</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <P style="font-weight: 500; text-align: center;">THIS FROM MAY BE REPRODUCED .NOT FOR SALE
+                        <BR>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

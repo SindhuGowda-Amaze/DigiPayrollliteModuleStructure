@@ -1,0 +1,93 @@
+<div class="container-fluid">
+    <div class="row" >
+        <div class="col-md-12" style="background-color: F3F8FF;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="" class="Heading1" >Loan Type Dashboard</a>
+                    <!-- <hr class="HrLine"> -->
+                </div>
+            </div><br>
+    
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <p>Filter By</p>
+                    </div>
+                    <div class="col-lg-4" >
+                        <input type="text" placeholder="Search" style="margin-left: 15px;"
+                        id="term" [(ngModel)]="term" class="form-control">
+                    </div>
+                    <!-- <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <a href="#/LeaveTypeForn"><button class="AddButton">Add</button> </a>
+                    </div> -->
+                </div>
+            </div>
+           <br>
+            <div class="row">
+                    <div class="col-md-8">
+                        <!-- <p class="show3res">SHOWING <span style="color: black;">{{leavelist.length}} </span>RESULTS</p> -->
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#/admin/LoanMaster"><button class="AddButton">Add</button> </a>
+                    </div>
+                </div><br>
+            <div class="row" style="margin-left: -99px;">
+            </div>
+            <!-- <hr class="HrLine"> -->
+            <div class="row">
+                <div class="col-md-12">
+                   
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                
+                                    <th>Loan Type</th>
+                                    <th>Description</th>
+                                    <!-- <th>Entitlement Per Year</th> -->
+                                   
+                                    <th>Action</th>
+
+    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let holiday of leavelist|filter:term">
+                                    <td>{{holiday.type}}</td>
+                                    <td>{{holiday.description}}</td>
+                                    <!-- <td>{{holiday.entitlement_Per_Year}}</td> -->
+                                    <td>
+                                        <img src="assets/images/activate.png" *ngIf="holiday.enable_Disable==0"
+                                        (click)="Disable_Loans(holiday.id)" style="width: 40px;">&nbsp;
+                                        <img src="assets/images/deactivate.png" *ngIf="holiday.enable_Disable==1"
+                                        (click)="Enable_Loans(holiday.id)" style="width: 42px;">
+                                        <img class="imgcancel" src="assets/cancel (1).png" (click)="delete(holiday.id)">
+                                    </td>
+                                    <!-- <td> <button class="upload"
+                                                [routerLink]="['/LeaveTypeForn',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button class="upload" (click)="delete(holiday.id)">Delete</button>
+                                        </td> -->
+    
+                                </tr>
+                            </tbody>
+                        </table>
+                
+    
+                </div>
+            </div>
+    
+    
+    
+        </div>
+    </div>
+    
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

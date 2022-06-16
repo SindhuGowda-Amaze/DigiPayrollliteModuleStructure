@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="Heading1">Bank</p>
+            <!-- <hr class="HrLine"> -->
+        </div>
+    </div>
+    <!-- <div class="row FilterClass">
+        <div class="col-lg-2">
+            Filter By
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control  FilterClass" type="date" placeholder="Duration">
+        </div>
+        <div class="col-lg-6">
+            <input class="form-control FilterClass" type="search" placeholder="Search for date , Type or Code">
+        </div>
+    </div><br> -->
+    <div class="row">
+        <div class="col-lg-8 View">
+             <ul>
+                <!-- <li><a class="active">View</a></li>
+                <li ><a (click)="update()">Modify</a></li> -->
+            </ul> 
+        </div>
+
+        <div class="col-lg-4">
+           <button class="AddButton" routerLink="/admin/BankForm">Add</button>
+        </div>
+    </div> <br>
+
+
+    
+  
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table">
+
+
+
+                    <thead>
+                        <tr >
+                            <!-- <th >Select</th> -->
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Remarks</th>
+                            <th>Action</th>
+                        <tr>
+                    </thead>
+                    <tbody>
+                        <tr   *ngFor="let details of result">
+                            <!-- <td  (click)="GetId(details.id)"><input type="checkbox"></td> -->
+                            <td  >{{details.name}}</td>
+                            <td  >{{details.code}}</td>
+                            <td  >{{details.remarks}}</td>
+                            <td  ><img class="imgcancel" (click)="Ondelete(details.id)"  src="assets/cancel (1).png"></td>
+                        </tr>
+                        <!-- <tr  class="newFont">
+                            <td class="SelectData"><input type="checkbox"></td>
+                            <td>RAK Bank</td>
+                            <td>RAK009</td>
+                            <td>Good Bank</td>
+                            <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                        </tr>
+                        <tr  class="newFont">
+                            <td class="SelectData"><input type="checkbox"></td>
+                            <td>SBI Bank</td>
+                            <td>SBI005</td>
+                            <td>Good Bank</td>
+                            <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                        </tr>
+                        <tr  class="newFont">
+                            <td class="SelectData"><input type="checkbox"></td>
+                            <td>YES Bank</td>
+                            <td>YES003</td>
+                            <td>Good Bank</td>
+                            <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                        </tr>
+                        <tr  class="newFont">
+                            <td class="SelectData"><input type="checkbox"></td>
+                            <td>ICICI Bank</td>
+                            <td>ICICI002</td>
+                            <td>Good Bank</td>
+                            <td><img class="imgcancel" src="../../../assets/cancel (1).png"></td>
+                        </tr> -->
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+  
+
+</div>

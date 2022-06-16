@@ -11,7 +11,7 @@ import { GaugeModule } from 'angular-gauge';
 import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+//import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
@@ -31,7 +31,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
    NgxDropzoneModule,
    NgxPaginationModule,
    Ng2SearchPipeModule,
-   NgMultiSelectDropDownModule.forRoot()
+   //NgMultiSelectDropDownModule.forRoot()
 
   ],
   exports: [
@@ -41,7 +41,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     GaugeModule,
-    NgMultiSelectDropDownModule
+    //NgMultiSelectDropDownModule
  
  
   ],

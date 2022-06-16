@@ -1,0 +1,1240 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="Heading1">Company Profile</p>
+            <!-- <hr class="HrLine"> -->
+        </div>
+    </div>
+    <div class="card">
+        <div class="row ">
+            <div class="col-lg-12 negative-padding">
+                <p class="companyinfo">Company Information</p>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <p class="newFont">Company Logo</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont"> Company Name<span style="color: red;">*</span></p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">Nature of Business</p>
+            </div>
+            <div class="col-md-3">
+                <p class="newFont">Address1</p>
+            </div>
+            <div class="col-md-3">
+                <p class="newFont">Address2</p>
+            </div>
+        </div>
+        <div class="row leavereq">
+
+            <div class="col-md-2">
+                <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                    <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+                </ngx-dropzone>
+
+            </div>
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="" [(ngModel)]="Company_Name">
+            </div>
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="" [(ngModel)]="Nature_Of_Business">
+            </div>
+            <div class="col-md-3">
+                <textarea class="form-control inputfield" placeholder="Address1" [(ngModel)]="Address1"></textarea>
+            </div>
+            <div class="col-md-3">
+                <textarea class="form-control inputfield" placeholder="Address2" [(ngModel)]="Address2"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <p class="newFont">Zip Code</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">RDO</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">Email</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">Phone</p>
+            </div>
+            <!-- <div class="col-md-2">
+                        <p class="newFont">Password</p>
+                    </div> -->
+            <div class="col-md-2">
+                <p class="newFont">Fax</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">TIN <span style="color: red;">*</span></p>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="" [(ngModel)]="Zipcode">
+            </div>
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="" [(ngModel)]="RDO">
+            </div>
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="" [(ngModel)]="Email">
+            </div>
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="" [(ngModel)]="Phone"
+                    onkeypress="return /[0-9]/i.test(event.key)" maxlength="11">
+            </div>
+            <!-- <div class="col-md-2">
+                        <input class="form-control inputfield" placeholder="" [(ngModel)]="Password">
+                    </div> -->
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="" [(ngModel)]="Fax">
+            </div>
+
+            <div class="col-md-2">
+                <input type="text" class="form-control" onkeypress="return /[0-9]/i.test(event.key)" maxlength="9"
+                    placeholder="Employee TIN" id="Tin" name="Tin" [(ngModel)]="Tin">
+                <div *ngIf="Tin==undefined|| Tin.length<9" class="alert">
+                    <div class="validation">
+                        * Employee TIN Should be 9 digit number.
+                    </div>
+                </div>
+
+                <!-- <input class="form-control inputfield" placeholder="" [(ngModel)]="Tin" > -->
+            </div>
+        </div>
+        <br>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <p class="newFont">SSS No. <span style="color: red;">*</span></p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">PhilHealth No. <span style="color: red;">*</span></p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">HDMF No. <span style="color: red;">*</span></p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">Country</p>
+            </div>
+
+            <div class="col-md-2">
+                <p class="newFont">Province</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">City</p>
+            </div>
+
+
+        </div>
+        <div class="row leavereq">
+
+            <div class="col-md-2">
+                <input type="text" class="form-control" onkeypress="return /[0-9]/i.test(event.key)"
+                maxlength="10" placeholder="SSS No" id="SSN_No" name="SSN_No" [(ngModel)]="SSN_No">
+            <div *ngIf="SSN_No==undefined|| SSN_No.length<10" class="alert">
+                <div class="validation">
+                    * SSS No Should be 10 digit number.
+                </div>
+            </div>
+                <!-- <input class="form-control inputfield" placeholder="" [(ngModel)]="SSN_No"> -->
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" onkeypress="return /[0-9]/i.test(event.key)" maxlength="12"
+                    placeholder="PhilHealth No" id="PhilHealthNumber" name="PhilHealthNumber" [(ngModel)]="PhilHealthNumber">
+                <div *ngIf="PhilHealthNumber==undefined|| PhilHealthNumber.length<12" class="alert">
+                    <div class="validation">
+                        * PhilHealth No Should be 12 digit number.
+                    </div>
+                </div>
+
+                <!-- <input class="form-control inputfield" placeholder="" [(ngModel)]="PhilHealthNumber"> -->
+            </div>
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="" [(ngModel)]="HDMFNumber">
+            </div>
+            <div class="col-md-2">
+                <select class="form-control inputfield" id="CountryID" name="CountryID" (change)="GetCountryID($event)"
+                    [(ngModel)]="CountryID">
+                    <option value="0" selected>Select Country </option>
+                    <option *ngFor="let role of Countrylist" value="{{role.id}}">{{role.short}}</option>
+
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <select class="form-control inputfield" id="StateID" name="StateID" [(ngModel)]="StateID"
+                    (change)="GetProvinceID($event)">
+                    <option class="textcolor" value="0">Select Province </option>
+                    <option class="textcolor" *ngFor="let role of Provincelist" value="{{role.id}}">
+                        {{role.short}}
+                    </option>
+
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control inputfield" id="CityID" name="CityID" [(ngModel)]="CityID"
+                    (change)="GetCItyID($event)">
+                    <option class="textcolor" value="0">Select City </option>
+                    <option class="textcolor" *ngFor="let role of Citylist" value="{{role.id}}">
+                        {{role.short}}
+                    </option>
+
+                </select>
+            </div>
+
+
+        </div>
+        <br>
+
+
+        <div class="row leavereq">
+            <div class="col-lg-2">
+                <p class="newFont">Barangay <span style="color: red;">*</span></p>
+            </div>
+            <!-- <div class="col-md-2">
+                <p class="newFont">Subsidiary Name</p>
+            </div> -->
+            <!-- <div class="col-md-5">
+                <p class="newFont">HR Signatory</p>
+            </div> -->
+            <!-- <div class="col-md-5">
+                <p class="newFont">Finance Signatory</p>
+            </div> -->
+        </div>
+        <div class="row leavereq">
+            <div class="col-lg-2">
+                <select class="form-control inputfield" id="Barangay" name="Barangay" [(ngModel)]="Barangay">
+                    <option class="textcolor" value="0">Select Barangay </option>
+                    <option *ngIf="show==1" class="textcolor" value="Anunas">Anunas</option>
+                    <option *ngIf="show==1" class="textcolor" value="Balibago">Balibago </option>
+                    <option *ngIf="show==1" class="textcolor" value="Capaya">Capaya </option>
+                    <option *ngIf="show==2" class="textcolor" value="Alasas">Alasas</option>
+                    <option *ngIf="show==2" class="textcolor" value="Baliti">Baliti </option>
+                    <option *ngIf="show==2" class="textcolor" value="Bulaon">Bulaon </option>
+                    <option *ngIf="show==2" class="textcolor" value="Calulut">Calulut </option>
+                    <option *ngIf="show==2" class="textcolor" value="Alasas">Dela Paz Norte</option>
+                    <option *ngIf="show==2" class="textcolor" value="Dela Paz Sur">Dela Paz Sur</option>
+                    <option *ngIf="show==2" class="textcolor" value="Bulaon">Del Carmen</option>
+                    <option *ngIf="show==2" class="textcolor" value="Calulut">Del Pilar </option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control inputfield" placeholder="Subsidiary Name" name="subsidiaryName"
+                    id="subsidiaryName" [(ngModel)]="subsidiaryName">
+            </div>
+            <!-- <div class="col-md-5">
+                <div class="row">
+                    <div class="col-lg-2"> <label class="newFont">Authorized Person:</label></div>
+                    <div class="col-lg-4"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="HR_AuthorisedPerson"></div>
+                    <div class="col-lg-2"> <label class="newFont">Position Title:</label></div>
+                    <div class="col-lg-4"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="HR_PositionTitle"></div>
+                </div>
+            </div> -->
+            <!-- <div class="col-md-5">
+                <div class="row">
+                    <div class="col-lg-2"> <label class="newFont">Authorized Person:</label></div>
+                    <div class="col-lg-4"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="Finance_AuthorisedPerson"></div>
+                    <div class="col-lg-2"> <label class="newFont">Position Title:</label></div>
+                    <div class="col-lg-4"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="Finance_PositionTitle"></div>
+                </div>
+            </div> -->
+        </div>
+        <br>
+        <div class="row leavereq">
+            <!-- <div class="col-md-6">
+                <p class="newFont">Admin Signatory(<span style="color: red;">*</span>For Payroll Summary and
+                    Employer Contribution)</p>
+            </div> -->
+
+            <div class="col-md-2">
+                <p class="newFont">E-Signatory</p>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <!-- <div class="col-md-6">
+                <div class="row">
+                    <div class="col-lg-2"> <label class="newFont">Authorized Person:</label></div>
+                    <div class="col-lg-4"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="Admin_AuthorisedPerson"></div>
+                    <div class="col-lg-2"> <label class="newFont">Position Title:</label></div>
+                    <div class="col-lg-4"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="Admin_PositionTitle"></div>
+                </div>
+            </div> -->
+
+            <div class="col-md-2">
+                <ngx-dropzone (change)="onSelect2($event)" style="height: 60px;">
+                    <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                    <ngx-dropzone-preview *ngFor="let f of files2" [removable]="true" (removed)="onRemove2(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+                </ngx-dropzone>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-2">
+                <button class="form-control SubmitBTN" *ngIf="id==null || id==undefined"
+                    (click)="onSave()">SAVE</button>
+                <button class="form-control SubmitBTN" *ngIf="id!=null || id!=undefined"
+                    (click)="onUpdate()">UPDATE</button>
+            </div>
+            <!-- <div class="col-lg-2">
+                <button class="form-control SubmitBTN ">AUDIT TRAIL</button>
+            </div> -->
+            <div class="col-lg-4"></div>
+        </div>
+
+
+        <div class="col-md-1">
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="row ">
+            <div class="col-lg-12 negative-padding">
+                <p class="companyinfo">Authorised Signatory</p>
+            </div>
+        </div>
+
+        <div class="row leavereq">
+            <div class="col-md-12">
+                <p class="newFont">Admin Signatory(<span style="color: red;">*</span>For Payroll Summary and
+                    Employer Contribution)
+                <div class="row">
+                    <div class="col-lg-1"> <label class="newFont">Authorized Person:</label></div>
+                    <div class="col-lg-2"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="Admin_AuthorisedPerson"></div>
+
+                    <div class="col-lg-1"> <label class="newFont">Position Title:</label></div>
+                    <div class="col-lg-2"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="Admin_PositionTitle"></div>
+
+                    <div class="col-lg-1"> <label class="newFont"> Signature:</label></div>
+                    <div class="col-lg-3">
+                        <ngx-dropzone (change)="onSelect3($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files3" [removable]="true" (removed)="onRemove3(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                    <div class="col-lg-2" *ngIf="id!=null || id!=undefined">
+                        <img src="{{AdminSignature}}" style="width: 65%;" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <p class="newFont">HR Signatory
+                <div class="row">
+                    <div class="col-lg-1"> <label class="newFont">Authorized Person:</label></div>
+                    <div class="col-lg-2"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="HR_AuthorisedPerson"></div>
+                    <div class="col-lg-1"> <label class="newFont">Position Title:</label></div>
+                    <div class="col-lg-2"> <input class="form-control inputfield" placeholder=""
+                            [(ngModel)]="HR_PositionTitle"></div>
+
+                    <div class="col-lg-1"> <label class="newFont"> Signature:</label></div>
+                    <div class="col-lg-3">
+                        <ngx-dropzone (change)="onSelect4($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files4" [removable]="true" (removed)="onRemove4(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                    <div class="col-lg-2" *ngIf="id!=null || id!=undefined">
+                        <img src="{{HRSignature}}" style="width: 65%;" />
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-2">
+                <button class="form-control SubmitBTN" *ngIf="id==null || id==undefined"
+                    (click)="onSave()">SAVE</button>
+                <button class="form-control SubmitBTN" *ngIf="id!=null || id!=undefined"
+                    (click)="onUpdate()">UPDATE</button>
+            </div>
+
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="row ">
+            <div class="col-lg-12 negative-padding">
+                <p class="companyinfo">WORK POLICY</p>
+            </div>
+        </div>
+
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <p class="newFont">Work Days Per Year<span style="color: red;">*</span></p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">Work Hours Per Day</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">Work Months Per Year<span style="color: red;">*</span></p>
+            </div>
+            <!-- <div class="col-md-2">
+                <p class="newFont">Work Hours Start</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">Work Hours End</p>
+            </div>
+            <div class="col-md-2">
+                <p class="newFont">Break Time</p>
+            </div> -->
+        </div>
+        <div class="row leavereq">
+
+            <div class="col-md-2">
+                <input class="form-control inputfield" [(ngModel)]="Work_Days_Per_Year">
+            </div>
+            <div class="col-md-2">
+                <input class="form-control inputfield" [(ngModel)]="Work_Days_Per_Day">
+            </div>
+            <div class="col-md-2">
+                <select class="form-control inputfield" [(ngModel)]="Work_Months_Per_Year">
+                    <!-- <select class="form-control inputfield"> -->
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            <!-- <div class="col-md-2">
+                <input type="time" class="form-control inputfield" placeholder="" [(ngModel)]="Work_hour_Start">
+            </div>
+            <div class="col-md-2">
+                <input type="time" class="form-control inputfield" placeholder="" [(ngModel)]="Work_hour_End">
+            </div>
+            <div class="col-md-2">
+                <input type="time" class="form-control inputfield" placeholder="" [(ngModel)]="Break_Hours">
+            </div> -->
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-2">
+                <button class="form-control SubmitBTN" *ngIf="id==null || id==undefined"
+                    (click)="InsertCompany_WorkPolicy()">SAVE</button>
+                <button class="form-control SubmitBTN" *ngIf="id!=null || id!=undefined"
+                    (click)="UpdateCompany_WorkPolicy()">UPDATE</button>
+            </div>
+            <!-- <div class="col-lg-2">
+                <button class="form-control SubmitBTN ">AUDIT TRAIL</button>
+            </div> -->
+            <div class="col-lg-4"></div>
+        </div>
+
+    </div>
+    <br>
+    <div class="card">
+        <div class="row ">
+            <div class="col-lg-12 negative-padding">
+                <p class="companyinfo">PAYROLL COMPUTATION</p>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <p class="newFont"> Periods Per Month<span style="color: red;">*</span></p>
+            </div>
+            <div class="col-md-5">
+                <p class="newFont ">Absent Deduction</p>
+            </div>
+            <div class="col-md-5">
+                <p class="newFont ">Late Deduction</p>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <select class="form-control inputfield" [(ngModel)]="Periods_Per_Month">
+                    <!-- <select class="form-control newFont"> -->
+                    <option value="1 Monthly">1 Monthly</option>
+                    <option value="2(Semi-Monthly)">2 Semi-Monthly</option>
+
+                </select>
+            </div>
+            <div class="col-md-5">
+                <div class="card tiles">
+                    <div class="row ">
+
+                        <div class="col-lg-3">
+                            <!-- <input type="checkbox" id="Basic_Salary1" name="Absent_Deduction"
+                                         value="Basic Salary">
+                                        <label for="Basic_Salary1" class="checkboxtxt"></label> -->
+
+                            <input type="checkbox" id="Absent_Deduction_BasicSalary" class="checkboxtxt"
+                                name="Absent_Deduction_BasicSalary" value="Absent_Deduction_BasicSalary"
+                                [(ngModel)]="Absent_Deduction_BasicSalary">
+                            <label for="Absent_Deduction_BasicSalary" class="checkboxtxt" class="newFont"> Basic
+                                Salary</label><br>
+
+                        </div>
+                        <div class="col-lg-4">
+
+                            <input type="checkbox" class="checkboxtxt" id="Absent_Deduction_Deminimis"
+                                name="Absent_Deduction_Deminimis" value="Absent_Deduction_Deminimis"
+                                [(ngModel)]="Absent_Deduction_Deminimis">
+                            <label for="Deminimis1" class="checkboxtxt" class="newFont">Deminimis</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="checkbox" id="Absent_Deduction_Allowance" class="checkboxtxt"
+                                name="Absent_Deduction_Allowance" value="Absent_Deduction_Allowance"
+                                [(ngModel)]="Absent_Deduction_Allowance">
+                            <label for="Allowance1" class="checkboxtxt" class="newFont">Allowance</label>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-lg-6">
+                            <input type="checkbox" id="Absent_Deduction_BasicSalary" class="checkboxtxt"
+                                name="Absent_Deduction_Reimbursement" value="Absent_Deduction_Reimbursement"
+                                [(ngModel)]="Absent_Deduction_Reimbursement">
+                            <label for="Reimbursement_Allowance1" class="checkboxtxt" class="newFont">Reimbursement
+                                Allowance</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="checkbox" id="Absent_Deduction_BasicSalary" class="checkboxtxt"
+                                name="Absent_Deduction_ECOLA" value="Absent_Deduction_ECOLA"
+                                [(ngModel)]="Absent_Deduction_ECOLA">
+                            <label for="ECOLA1" class="checkboxtxt" class="newFont">ECOLA</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="checkbox" id="Absent_Deduction_BasicSalary" class="checkboxtxt"
+                                name="Absent_Deduction_Bonus" value="Absent_Deduction_Bonus"
+                                [(ngModel)]="Absent_Deduction_Bonus">
+                            <label for="Bonus1" class="checkboxtxt" class="newFont">Bonus</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-5">
+                <div class="card tiles">
+                    <div class="row ">
+                        <div class="col-lg-4">
+                            <input type="checkbox" id="Absent_Deduction_BasicSalary" class="checkboxtxt"
+                                name="Late_Deduction_Basic_Salary" value="Late_Deduction_Basic_Salary"
+                                [(ngModel)]="Late_Deduction_Basic_Salary">
+                            <label class="checkboxtxt" class="newFont">Basic Salary</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="checkbox" id="Late_Deduction_Deminimis" class="checkboxtxt"
+                                name="Late_Deduction_Deminimis" value="Late_Deduction_Deminimis"
+                                [(ngModel)]="Late_Deduction_Deminimis">
+                            <label class="checkboxtxt newFont">Deminimis</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="checkbox" id="Late_Deduction_Allowance" class="checkboxtxt"
+                                name="Late_Deduction_Allowance" value="Late_Deduction_Allowance"
+                                [(ngModel)]="Late_Deduction_Allowance">
+                            <label class="checkboxtxt newFont">Allowance</label>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-lg-6">
+                            <input type="checkbox" id="Late_Deduction_Reimbursement" class="checkboxtxt"
+                                name="Late_Deduction_Reimbursement" value="Late_Deduction_Reimbursement"
+                                [(ngModel)]="Late_Deduction_Reimbursement">
+                            <label class="checkboxtxt newFont">Reimbursement Allowance</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="checkbox" id="Late_Deduction_ECOLA" class="checkboxtxt"
+                                name="Late_Deduction_ECOLA" value="Late_Deduction_ECOLA"
+                                [(ngModel)]="Late_Deduction_ECOLA">
+                            <label class="checkboxtxt newFont">ECOLA</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="checkbox" id="Late_Deduction_Bonus" class="checkboxtxt"
+                                name="Late_Deduction_Bonus" value="Late_Deduction_Bonus"
+                                [(ngModel)]="Late_Deduction_Bonus">
+                            <label class="checkboxtxt newFont">Bonus</label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <p class="newFont">Over Time Computation</p>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-10 ">
+                <div class="row leavereq">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <p class="newFont" style="margin-left: 20px;">OT Rates:</p>
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_OrdOT" class="checkboxtxt" name="OT_Rates_OrdOT"
+                            value="OT_Rates_OrdOT" [(ngModel)]="OT_Rates_OrdOT">
+                        <label class="checkboxtxt newFont">Ord-OT</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_OrdND" class="checkboxtxt" name="OT_Rates_OrdND"
+                            value="OT_Rates_OrdND" [(ngModel)]="OT_Rates_OrdND">
+                        <label class="checkboxtxt newFont">Ord-ND</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_OrdNDOT" class="checkboxtxt" name="OT_Rates_OrdNDOT"
+                            value="OT_Rates_OrdNDOT" [(ngModel)]="OT_Rates_OrdNDOT">
+                        <label class="checkboxtxt newFont">Ord-ND-OT</label>
+                    </div>
+                </div>
+
+                <div class="row leavereq">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_RD" class="checkboxtxt" name="OT_Rates_RD"
+                            value="OT_Rates_RD" [(ngModel)]="OT_Rates_RD">
+                        <label class="checkboxtxt newFont">RD</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_RDOT" class="checkboxtxt" name="OT_Rates_RDOT"
+                            value="OT_Rates_RDOT" [(ngModel)]="OT_Rates_RDOT">
+                        <label class="checkboxtxt newFont">RD-OT</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_RDND" class="checkboxtxt" name="OT_Rates_RDND"
+                            value="OT_Rates_RDND" [(ngModel)]="OT_Rates_RDND">
+                        <label class="checkboxtxt newFont">RD-ND</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_RDNDOT" class="checkboxtxt" name="OT_Rates_RDNDOT"
+                            value="OT_Rates_RDNDOT" [(ngModel)]="OT_Rates_RDNDOT">
+                        <label class="checkboxtxt newFont">RD-ND-OT</label>
+                    </div>
+                </div>
+
+                <div class="row leavereq">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_SH" class="checkboxtxt" name="OT_Rates_SH"
+                            value="OT_Rates_SH" [(ngModel)]="OT_Rates_SH">
+                        <label class="checkboxtxt newFont">SH</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_SHOT" class="checkboxtxt" name="OT_Rates_SHOT"
+                            value="OT_Rates_SHOT" [(ngModel)]="OT_Rates_SHOT">
+                        <label class="checkboxtxt newFont">SH-OT</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_SHND" class="checkboxtxt" name="OT_Rates_SHND"
+                            value="OT_Rates_SHND" [(ngModel)]="OT_Rates_SHND">
+                        <label class="checkboxtxt newFont">SH-ND</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_SHNDOT" class="checkboxtxt" name="OT_Rates_SHNDOT"
+                            value="OT_Rates_SHNDOT" [(ngModel)]="OT_Rates_SHNDOT">
+                        <label class="checkboxtxt newFont">SH-ND-OT</label>
+                    </div>
+                </div>
+
+                <div class="row leavereq">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"> </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_LH" class="checkboxtxt" name="OT_Rates_LH"
+                            value="OT_Rates_LH" [(ngModel)]="OT_Rates_LH">
+                        <label class="checkboxtxt newFont">LH</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_LHOT" class="checkboxtxt" name="OT_Rates_LHOT"
+                            value="OT_Rates_LHOT" [(ngModel)]="OT_Rates_LHOT">
+                        <label class="checkboxtxt newFont">LH-OT</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_LHND" class="checkboxtxt" name="OT_Rates_LHND"
+                            value="OT_Rates_LHND" [(ngModel)]="OT_Rates_LHND">
+                        <label class="checkboxtxt newFont">LH-ND</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_LHNDOT" class="checkboxtxt" name="OT_Rates_LHNDOT"
+                            value="OT_Rates_LHNDOT" [(ngModel)]="OT_Rates_LHNDOT">
+                        <label class="checkboxtxt newFont">LH-ND-OT</label>
+                    </div>
+                </div>
+
+                <div class="row leavereq">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_SHRD" class="checkboxtxt" name="OT_Rates_SHRD"
+                            value="OT_Rates_SHRD" [(ngModel)]="OT_Rates_SHRD">
+                        <label class="checkboxtxt newFont">SH-RD</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_SHRDOT" class="checkboxtxt" name="OT_Rates_SHRDOT"
+                            value="OT_Rates_SHRDOT" [(ngModel)]="OT_Rates_SHRDOT">
+                        <label class="checkboxtxt newFont">SH-RD-OT</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_SHRDND" class="checkboxtxt" name="OT_Rates_SHRDND"
+                            value="OT_Rates_SHRDND" [(ngModel)]="OT_Rates_SHRDND">
+                        <label class="checkboxtxt newFont">SH-RD-ND</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_SHRDNDOT" class="checkboxtxt" name="OT_Rates_SHRDNDOT"
+                            value="OT_Rates_SHRDNDOT" [(ngModel)]="OT_Rates_SHRDNDOT">
+                        <label class="checkboxtxt newFont">SH-RD-ND-OT</label>
+                    </div>
+                </div>
+
+                <div class="row leavereq">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_LHRD" class="checkboxtxt" name="OT_Rates_LHRD"
+                            value="OT_Rates_LHRD" [(ngModel)]="OT_Rates_LHRD">
+                        <label class="checkboxtxt newFont">LH-RD</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_LHRDOT" class="checkboxtxt" name="OT_Rates_LHRDOT"
+                            value="OT_Rates_LHRDOT" [(ngModel)]="OT_Rates_LHRDOT">
+                        <label class="checkboxtxt newFont">LH-RD-OT</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_LHRDND" class="checkboxtxt" name="OT_Rates_LHRDND"
+                            value="OT_Rates_LHRDND" [(ngModel)]="OT_Rates_LHRDND">
+                        <label class="checkboxtxt newFont">LH-RD-ND</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_LHRDNDOT" class="checkboxtxt" name="OT_Rates_LHRDNDOT"
+                            value="OT_Rates_LHRDNDOT" [(ngModel)]="OT_Rates_LHRDNDOT">
+                        <label class="checkboxtxt newFont">LH-RD-ND-OT</label>
+                    </div>
+                </div>
+
+                <div class="row leavereq">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_DH" class="checkboxtxt" name="OT_Rates_DH"
+                            value="OT_Rates_DH" [(ngModel)]="OT_Rates_DH">
+                        <label class="checkboxtxt newFont">DH</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_DHOT" class="checkboxtxt" name="OT_Rates_DHOT"
+                            value="OT_Rates_DHOT" [(ngModel)]="OT_Rates_DHOT">
+                        <label class="checkboxtxt newFont">DH-OT</label>
+                    </div>
+                    <div class="col-lg-2">
+
+                        <input type="checkbox" id="OT_Rates_DHND" class="checkboxtxt" name="OT_Rates_DHND"
+                            value="OT_Rates_DHND" [(ngModel)]="OT_Rates_DHND">
+                        <label class="checkboxtxt newFont">DH-ND</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_DHNDOT" class="checkboxtxt" name="OT_Rates_DHNDOT"
+                            value="OT_Rates_DHNDOT" [(ngModel)]="OT_Rates_DHNDOT">
+                        <label class="checkboxtxt newFont">DH-ND-OT</label>
+                    </div>
+                </div>
+
+                <div class="row leavereq">
+                    <div class="col-md-2"></div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_DHRD" class="checkboxtxt" name="OT_Rates_DHRD"
+                            value="OT_Rates_DHRD" [(ngModel)]="OT_Rates_DHRD">
+                        <label class="checkboxtxt newFont">DH-RD</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_DHRDOT" class="checkboxtxt" name="OT_Rates_DHRDOT"
+                            value="OT_Rates_DHRDOT" [(ngModel)]="OT_Rates_DHRDOT">
+                        <label class="checkboxtxt newFont ">DH-RD-OT</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_DHRDND" class="checkboxtxt" name="OT_Rates_DHRDND"
+                            value="OT_Rates_DHRDND" [(ngModel)]="OT_Rates_DHRDND">
+                        <label class="checkboxtxt newFont">DH-RD-ND</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" id="OT_Rates_DHRDNDOT" class="checkboxtxt" name="OT_Rates_DHRDNDOT"
+                            value="OT_Rates_DHRDNDOT" [(ngModel)]="OT_Rates_DHRDNDOT">
+                        <label class="checkboxtxt newFont">DH-RD-ND-OT</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <!-- <img src="../../../assets/images/eye.png" data-toggle="collapse" data-target="#demo"> -->
+                <!-- <div class="legend collapse" id="demo"> -->
+                <div class="legend">
+                    <p>Ord: Ordinary Day<br>
+                        RD: Rest Day<br>
+                        SH: Special Holiday<br>
+                        LH: Legal Holiday<br>
+                        SH-RD: Special Holiday and Rest Day<br>
+                        LH-RD: Legal Holiday and Rest Day<br>
+                        DH: Doulble Holiday<br>
+                        DH-RD: Doulble Holiday and Rest Day<br>
+                        OT: OverTime<br>
+                        ND: Night Differential<br>
+                        ND-OT: Night Differential OverTime<br>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- <div class="row leavereq">
+            <div class="col-md-2">
+                <p class="newFont">Rest Days</p>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="RestDaysMonday" class="checkboxtxt"
+                               
+                name="RestDaysMonday" value="RestDaysMonday" [(ngModel)]="RestDaysMonday"  >
+                <label class="checkboxtxt newFont">Monday</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="RestDaysTuesday" class="checkboxtxt"
+                               
+                name="RestDaysTuesday" value="RestDaysTuesday" [(ngModel)]="RestDaysTuesday"  >
+                <label class="checkboxtxt newFont">Tuesday</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="RestDaysWednesday" class="checkboxtxt"
+                               
+                name="RestDaysWednesday" value="RestDaysWednesday" [(ngModel)]="RestDaysWednesday"  >
+                <label class="checkboxtxt newFont">Wednesday</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="RestDaysThursday" class="checkboxtxt"
+                               
+                name="RestDaysThursday" value="RestDaysThursday" [(ngModel)]="RestDaysThursday"  >
+                <label class="checkboxtxt newFont">Thursday</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="RestDaysFriday" class="checkboxtxt"
+                               
+                name="RestDaysFriday" value="RestDaysFriday" [(ngModel)]="RestDaysFriday"  >
+                <label class="checkboxtxt newFont">Friday</label>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <input type="checkbox" id="RestDaysSaturday" class="checkboxtxt"
+                name="RestDaysSaturday" value="RestDaysSaturday" [(ngModel)]="RestDaysSaturday"  >
+                <label class="checkboxtxt newFont">Saturday</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="RestDaysSunday" class="checkboxtxt"
+                name="RestDaysSunday" value="RestDaysSunday" [(ngModel)]="RestDaysSunday"  >
+                <label class="checkboxtxt newFont">Sunday</label>
+            </div>
+        </div> -->
+        <br>
+
+        <div class="row leavereq ">
+            <div class="col-md-12">
+                <p class="newFont">New Hire Prorated Computation</p>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-1"></div>
+            <div class="col-md-1">
+                <p class="newFont">Optional:</p>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="NewHireProratedComputationBasicSalary" class="checkboxtxt"
+                    name="NewHireProratedComputationBasicSalary" value="NewHireProratedComputationBasicSalary"
+                    [(ngModel)]="NewHireProratedComputationBasicSalary">
+                <label class="checkboxtxt newFont">Basic Salary</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="NewHireProratedComputationDeminimis" class="checkboxtxt"
+                    name="NewHireProratedComputationDeminimis" value="NewHireProratedComputationDeminimis"
+                    [(ngModel)]="NewHireProratedComputationDeminimis">
+                <label class="checkboxtxt newFont">Deminimis</label>
+            </div>
+            <!-- <div class="col-md-2">
+                <input type="checkbox" id="NewHireProratedComputationAllowance" class="checkboxtxt"
+                name="NewHireProratedComputationAllowance" value="NewHireProratedComputationAllowance" [(ngModel)]="NewHireProratedComputationAllowance"  >
+                <label class="checkboxtxt newFont">Allowance</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="NewHireProratedComputationReimbursement" class="checkboxtxt"
+                name="NewHireProratedComputationReimbursement" value="NewHireProratedComputationReimbursement" [(ngModel)]="NewHireProratedComputationReimbursement"  >
+                <label class="checkboxtxt newFont">Reimbursement Allowance</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="NewHireProratedComputationECOLA" class="checkboxtxt"
+                name="NewHireProratedComputationECOLA" value="NewHireProratedComputationECOLA" [(ngModel)]="NewHireProratedComputationECOLA"  >
+                <label class="checkboxtxt newFont">ECOLA</label>
+            </div> -->
+        </div>
+        <div class="row leavereq ">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <p class="newFont"> Proration method:</p>
+                <div class="row">
+
+                    <div class="col-lg-5">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="ProratedDaily" name="ProratedDaily"
+                                [(ngModel)]="ProratedDaily" [value]=true>
+                            <label class="form-check-label newFont" for="flexRadioDefault1">
+                                Prorated / Daily multiply by days present
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="ProratedDaily" name="ProratedDaily"
+                                [(ngModel)]="ProratedDaily" [value]=false>
+                            <label class="form-check-label newFont" for="flexRadioDefault2">
+                                Prorated / Salary less absent
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div> <br>
+        <div class="card tiles">
+            <div class="row leavereq tiles">
+                <div class="col-md-12">
+                    <p class="newFont">13th Month Computation</p>
+                </div>
+            </div>
+            <div class="row leavereq tiles">
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <p class="newFont"> Computation Type:</p>
+                    <div class="row">
+                        <!-- <div class="col-lg-5">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thirteen_Month_Compuatation_Type"
+                                    name="Pro-rated_Advanced" [(ngModel)]="thirteen_Month_Compuatation_Type"
+                                    value="Pro-rated/Advanced">
+                                <label class="form-check-label newFont" for="proratedadvance1">
+                                    Pro-rated/Advanced
+                                </label>
+                            </div>
+                        </div> -->
+                        <div class="col-lg-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thirteen_Month_Compuatation_Type"
+                                    name="thirteen_Month_Compuatation_Type"
+                                    [(ngModel)]="thirteen_Month_Compuatation_Type"
+                                    value="Pro-rated/Current/Full Salary">
+                                <label class="form-check-label newFont" for="proratedadvance2">
+                                    Pro-rated/Current/Full Salary
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-3">
+                    <p class="newFont">Deduct Absent:</p>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thirteen_Month_Deduct_Absent"
+                                    name="thirteen_Month_Deduct_Absent" [(ngModel)]="thirteen_Month_Deduct_Absent"
+                                    [value]=true>
+                                <label class="form-check-label newFont " for="deductionabsent1">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thirteen_Month_Deduct_Absent"
+                                    name="thirteen_Month_Deduct_Absent" [(ngModel)]="thirteen_Month_Deduct_Absent"
+                                    [value]=false>
+                                <label class="form-check-label newFont" for="deductionabsent2">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <p class="newFont">Deduct Late/Undertime?</p>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thirteen_Month_Deduct_Late"
+                                    name="thirteen_Month_Deduct_Late" [(ngModel)]="thirteen_Month_Deduct_Late" [value]=true>
+                                <label class="form-check-label newFont " for="latededuction1">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thirteen_Month_Deduct_Late"
+                                    name="thirteen_Month_Deduct_Late" [(ngModel)]="thirteen_Month_Deduct_Late" [value]=false>
+                                <label class="form-check-label newFont" for="latededuction2 ">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div> -->
+            </div>
+            <br><br>
+            <div class="row leavereq tiles">
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    <p class="newFont">Optional:</p>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationBasic" name="ComputationBasic"
+                        [(ngModel)]="ComputationBasic" value="ComputationBasicAdjustment">
+                    <label class="checkboxtxt newFont">Basic</label>
+                </div>
+                <!-- <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationECOLA"
+                    name="ComputationECOLA" [(ngModel)]="ComputationECOLA" value="ComputationBasicAdjustment">
+                    <label class="checkboxtxt newFont">ECOLA</label>
+                </div> -->
+                <!-- <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationBasicAdjustment"
+                    name="ComputationBasicAdjustment" [(ngModel)]="ComputationBasicAdjustment" value="ComputationBasicAdjustment">
+                    <label class="checkboxtxt newFont">Basic Adjustment</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationTaxable"
+                    name="ComputationTaxable" [(ngModel)]="ComputationTaxable" value="ComputationTaxable">
+                    <label class="checkboxtxt newFont">Other Taxable Income</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationOverTime"
+                   name="ComputationOverTime" [(ngModel)]="ComputationOverTime" value="ComputationOverTime">
+                    <label class="checkboxtxt newFont">OverTime</label>
+                </div> -->
+            </div>
+
+            <div class="row leavereq tiles">
+                <div class="col-md-2"></div>
+                <!-- <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationAllowance"
+                    name="ComputationAllowance" [(ngModel)]="ComputationAllowance" value="ComputationAllowance">
+                    <label class="checkboxtxt newFont">Allowance</label>
+                </div> -->
+                <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationDeminimis"
+                        name="ComputationDeminimis" [(ngModel)]="ComputationDeminimis" value="ComputationDeminimis">
+                    <label class="checkboxtxt newFont">Deminimis</label>
+                </div>
+                <!-- <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationReimbursable"
+                    name="ComputationReimbursable" [(ngModel)]="ComputationReimbursable" value="ComputationReimbursable">
+                    <label class="checkboxtxt newFont">Reimbursable Allowance</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationBonus"
+                    name="ComputationBonus" [(ngModel)]="ComputationBonus" value="ComputationBonus">
+                    <label class="checkboxtxt newFont">Bonus</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationSalary"
+                    name="ComputationSalary" [(ngModel)]="ComputationSalary" value="ComputationSalary">
+                    <label class="checkboxtxt newFont">Salary Adjustment</label>
+                </div> -->
+            </div>
+            <!-- <div class="row leavereq tiles">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <input class="form-check-input" type="checkbox" id="ComputationCommission"
+                    name="ComputationCommission" [(ngModel)]="ComputationCommission" value="No">
+                    <label class="checkboxtxt newFont">Commission</label>
+                </div>
+            </div> -->
+        </div>
+
+
+        <br>
+        <div class="row leavereq">
+            <div class="col-md-12">
+                <p class="newFont"> Final Pay Computation</p>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <p class="newFont">Deduct Absent?</p>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="FinalPay_Deduct_Absent"
+                                name="FinalPay_Deduct_Absent" [(ngModel)]="FinalPay_Deduct_Absent" [value]=true>
+                            <label class="form-check-label newFont" for="flexRadioDefault1">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="FinalPay_Deduct_Absent"
+                                name="FinalPay_Deduct_Absent" [(ngModel)]="FinalPay_Deduct_Absent" [value]=false>
+                            <label class="form-check-label newFont" for="flexRadioDefault1">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <p class="newFont">Deduct Late/Undertime?</p>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="FinalPay_Deduct_Late"
+                                name="FinalPay_Deduct_Late" [(ngModel)]="FinalPay_Deduct_Late" [value]=true>
+                            <label class="form-check-label newFont" for="flexRadioDefault1">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="FinalPay_Deduct_Late"
+                                name="FinalPay_Deduct_Late" [(ngModel)]="FinalPay_Deduct_Late" [value]=false>
+                            <label class="form-check-label newFont" for="flexRadioDefault1">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <p class="newFont">Include 13th Month Pay?</p>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="Final_Pay_13th_Month"
+                                name="Final_Pay_13th_Month" [(ngModel)]="Final_Pay_13th_Month" [value]=true>
+                            <label class="form-check-label newFont" for="flexRadioDefault1">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="Final_Pay_13th_Month"
+                                name="Final_Pay_13th_Month" [(ngModel)]="Final_Pay_13th_Month" [value]=false>
+                            <label class="form-check-label newFont" for="flexRadioDefault1">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-2">
+                <button class="form-control SubmitBTN" *ngIf="id==null || id==undefined"
+                    (click)="InsertCompany_PayrollComputation()">SAVE</button>
+                <button class="form-control SubmitBTN" *ngIf="id!=null || id!=undefined"
+                    (click)="UpdateCompanyPayrollComputation()">UPDATE</button>
+            </div>
+            <!-- <div class="col-lg-2">
+                <button class="form-control SubmitBTN ">AUDIT TRAIL</button>
+            </div> -->
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+    <br>
+
+    <div class="card ">
+        <div class="row ">
+            <div class="col-lg-12 negative-padding">
+                <p class="companyinfo">TAX COMPUTATIONS</p>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-lg-2">
+                <label class="newFont">Payroll Calendar</label>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="PayRoll_Calender" name="PayRoll_Calender"
+                        [(ngModel)]="PayRoll_Calender" [value]=true>
+                    <label class="form-check-label newFont" for="flexRadioDefault1">
+                        Calendar Year(From January to December)
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-4">
+                <label class="newFont">Non-Tax Exemption Ceiling<span style="color: red;">*</span></label>
+            </div>
+            <div class="col-lg-4">
+                <label class="newFont">Deminimis Exemption Ceiling<span style="color: red;">*</span></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <input class="form-control" placeholder="20,50,000" [(ngModel)]="Non_Tax_Essential_Sealing">
+            </div>
+            <div class="col-lg-4">
+                <input class="form-control" placeholder="90,00,000" [(ngModel)]="Deminimis_Exemption">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-2">
+            <button class="form-control SubmitBTN" *ngIf="id==null || id==undefined"
+                (click)="InsertCompany_TaxComputation()">SAVE</button>
+            <button class="form-control SubmitBTN" *ngIf="id!=null || id!=undefined"
+                (click)="UpdateCompany_TaxComputation()">UPDATE</button>
+        </div>
+        <!-- <div class="col-lg-2">
+            <button class="form-control SubmitBTN ">AUDIT TRAIL</button>
+        </div> -->
+        <div class="col-lg-4"></div>
+    </div>
+</div>
+
+<br><br>

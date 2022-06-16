@@ -1,0 +1,49 @@
+<div class="container-fluid">
+
+ 
+    <div class="row ">
+        <div class="col-lg-2">
+            <p class="Heading1">Pay Group Details</p>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-lg-10"></div>
+    </div>
+    <br>
+    <div class="row LocDashboard">
+        <div class="col-lg-12">
+            <label>Pay Group Details</label>
+        </div>
+    </div> -->
+    <div class="card">
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <label style="color:#0C275A">Description<span style="color: red;">*</span></label>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-6">
+                <textarea type="text" [disabled]="true" *ngIf="id!=undefined"   class="form-control inputfield" [(ngModel)]="description"
+                    placeholder="Write the Description..." rows="4"></textarea>
+             <textarea type="text" *ngIf="id==undefined"   class="form-control inputfield Poppins" [(ngModel)]="description"
+                    placeholder="Write the Description..." rows="4"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-7"></div>
+            <div class="col-lg-2">
+                <button class="form-control CancelBTN" routerLink="/admin/PayGroup">Cancel</button>
+            </div>
+            <div class="col-lg-2">
+                <!-- <button class="form-control SubmitBTN">Submit</button> -->
+                <button class="form-control SubmitBTN"  *ngIf="id==undefined" (click)="OnSubmit()">Submit</button>
+                <button type="button" class="form-control SubmitBTN" *ngIf="id!=undefined"
+                    (click)="Update()">Update</button>
+            </div>
+        </div>
+    </div><br>
+
+
+
+</div>
