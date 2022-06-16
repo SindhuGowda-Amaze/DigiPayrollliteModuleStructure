@@ -1,0 +1,615 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-5"></div>
+            <div class="col-lg-4">
+                <a href="" class="Heading fontheading"> RF-1 PDF</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-3">
+                <p style="text-align: right;"> Select Start Month & Year</p>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control inputfield" id="Month" name="Month" [(ngModel)]="month"><br />
+                    <option value="">Select Month </option>
+                    <option value="1">January </option>
+                    <option value="2">February </option>
+                    <option value="3">March </option>
+                    <option value="4">April </option>
+                    <option value="5">May </option>
+                    <option value="6">June </option>
+                    <option value="7">July</option>
+                    <option value="8">August </option>
+                    <option value="9">September </option>
+                    <option value="10">October </option>
+                    <option value="11">November </option>
+                    <option value="12">December </option>
+
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control inputfield" id="Year" name="Year" [(ngModel)]="Year"><br />
+                    <option value="">Select Year </option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p>Signatory Person</p>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                    <option value="">Select</option>
+                    <option value="Admin">Admin</option>
+                    <option value="HR">HR</option>
+                    <option value="Finance">Finance</option>
+                </select>
+            </div>
+        </div> <br><br>
+
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-4">
+                <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                <button class="AddButton" (click)="showpdf()">GENERATE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<br />
+<div class="row" *ngIf="showleaseforprint==1" id="downloadaplication" >
+
+
+    <div class="row">
+
+        <div class="col-lg-1">
+
+        </div>
+        <div class="col-lg-10">
+
+            <div class="row">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+                    <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                    <button class="AddButton" (click)="convetToPDF1()">Convert To Pdf</button>
+                </div>
+            </div>
+            <br />
+            <br />
+
+
+            <div class="container-fluid" style="background-color: white;"  *ngFor="let item of uniquelistchnuk;let i = index"> 
+                <br>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p style="font-size: 10px;float: right;"><b>This form may be reproduced and IS NOT FOR SALE</b>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+                    <div class="col-lg-2 " style="border: 2px solid black;">
+                        <img src="assets/images/rf1.PNG" style="width: 100%; height: 90%;">
+                    </div>
+                    <div class="col-lg-6" style="border: 2px solid black; font-size: 8px;">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <p><i>Republic Of The Philippines</i> <br>
+                                    PHILLIPINE HEALTH INSURANCE CORPORATION <br>
+                                    Healthline 441-7444 www.philhealth.gov.ph <br>
+                                    actioncenter@philhealth.gov.ph</p>
+                            </div>
+                            <div class="col-lg-7">
+                                <p style="margin-top: 20px; font-size: 15px;"><b>EMPLOYER'S REMMITTANCE REPORT</b></p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- <div class="col-lg-4" style="border: 2px solid black;">
+                       
+                    </div> -->
+                    <div class="col-lg-4" style="border-style: dashed;">
+                        <p style="margin-top: 20px; text-align: center;">FOR PHILHEALTH USE</p>
+                    </div>
+                </div>
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+                    <div class="col-lg-6" style="border: 2px solid black;">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <button style="margin-right:10px">1</button>
+                                <p style="padding: 0px; margin-top: 5px; float: right;">PHILHEALTH NO. </p>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" class="input" value={{PhilHealthNumber1}} [(ngModel)]="PhilHealthNumber1" >
+                                <div style="position:absolute;left:22.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber1}}</span></div>
+                                <input type="text" class="input"  value={{PhilHealthNumber2}}> 
+                                <div style="position:absolute;left:42.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber2}}</span></div>-
+                                <input type="text" class="input" value={{PhilHealthNumber3}}>
+                                <div style="position:absolute;left:82.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber3}}</span></div>
+                                <input type="text" class="input" value={{PhilHealthNumber4}}>
+                                <div style="position:absolute;left:102.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber4}}</span></div>
+                                <input type="text" class="input" value={{PhilHealthNumber5}}>
+                                <div style="position:absolute;left:132.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber5}}</span></div>
+                                <input type="text" class="input" value={{PhilHealthNumber6}}>
+                                <div style="position:absolute;left:152.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber6}}</span></div>
+                                <input type="text" class="input" value={{PhilHealthNumber7}}>
+                                <div style="position:absolute;left:182.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber7}}</span></div>
+                                <input type="text" class="input" value={{PhilHealthNumber8}}>
+                                <div style="position:absolute;left:202.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber8}}</span></div>
+                                <input type="text" class="input" value={{PhilHealthNumber9}}>
+                                <div style="position:absolute;left:232.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber9}}</span></div>
+                                <input type="text" class="input" value={{PhilHealthNumber10}}>
+                                <div style="position:absolute;left:252.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber10}}</span></div>
+                                <input type="text" class="input" value={{PhilHealthNumber11}}>
+                                <div style="position:absolute;left:272.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber11}}</span></div> -
+                                <input type="text" class="input" value={{PhilHealthNumber12}}>
+                                <div style="position:absolute;left:318.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{PhilHealthNumber12}}</span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <p style="padding: 0px;  margin-left: 38px;">EMPLOYER TIN</p>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" class="input" value={{tin}}>
+                                <div style="position:absolute;left:22.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin1}}</span></div>
+                                <input type="text" class="input" value={{tin}}>
+                                <div style="position:absolute;left:42.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin2}}</span></div>
+                                <input type="text" class="input" value={{tin}}> 
+                                <div style="position:absolute;left:72.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin3}}</span></div>-
+                                <input type="text" class="input" value={{tin}}>
+                                <div style="position:absolute;left:102.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin4}}</span></div>
+                                <input type="text" class="input" value={{tin}}>
+                                <div style="position:absolute;left:132.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin5}}</span></div>
+                                <input type="text" class="input" value={{tin}}>
+                                <div style="position:absolute;left:152.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin6}}</span></div> -
+                                <input type="text" class="input" value={{tin}}>
+                                <div style="position:absolute;left:192.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin7}}</span></div>
+                                <input type="text" class="input" value={{tin}}>
+                                <div style="position:absolute;left:222.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin8}}</span></div>
+                                <input type="text" class="input" value={{tin}}>
+                                <div style="position:absolute;left:242.95px;top:10.87px;" class="cls_002"><span
+                                    class="cls_002">{{tin9}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="border: 2px solid black; border-style: dashed;">
+                        <p style="margin-top: 10px;">Date Received :
+                            _____________
+
+                            &nbsp; &nbsp; &nbsp; Action Taken:__________
+                        </p>
+                        <p> By:
+                           <img src="{{Signature}}"><br>
+                            <b style="font-size: 11px; margin-left: 25px;">Signature over printed name</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+                    <div class="col-lg-6" style="border: 2px solid black;">
+                        <button style="margin-right:10px">2</button>
+                        <p>COMPLETE EMPLOYER NAME &nbsp;: &nbsp;
+                            <u>{{companyname}}</u>
+                        </p>
+                        <p>COMPLETE MAILING ADDRESS &nbsp;: &nbsp;
+                            <u>{{Address}}</u>
+
+                        </p>
+                        <p>TELEPHONE NO. &nbsp;: &nbsp;
+                            <u>{{Phone}}</u>
+                            <br />
+
+                            EMAIL ADDRESS &nbsp;: &nbsp;{{email}}
+                        </p>
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <button style="margin-right:10px">3</button>
+                        <p>EMPLOYER TYPE
+                            <br>
+                            <input type="checkbox" checked> Private <br>
+                            <input type="checkbox"> Government <br>
+                            <input type="checkbox"> Household <br>
+                        </p>
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <button style="margin-right:10px">4</button>
+                        <p> REPORT TYPE
+                            <br>
+                            <input type="checkbox"> REGULAR RF-1 <br>
+                            <input type="checkbox">ADDITION TO PREVIOUS RF-1 <br>
+                            <input type="checkbox"> Household <br>
+                        </p>
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <button style="margin-right:10px">5</button>
+                        <p> APPLICABLE PERIOD
+                            <br> <br>
+                            <u>{{month}} {{Year}}</u>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table1  table-bordered">
+                            <tr>
+                                <td colspan="15">
+                                    <button style="margin-right:10px">6</button>
+                                    PHILHEALTH IDENTIFICATIONNUMBER (PIN)
+                                </td>
+                                <td colspan="4" scope="col">
+                                    <button style="margin-right:10px">7</button>
+                                    EMPLOYEE/S INFORMATION
+                                </td>
+                                <td colspan="4">
+                                    <button style="margin-right:10px">8</button>
+                                    Fill-out this portion only if declared employees/ has not yet been issued his/her
+                                    Pin
+                                </td>
+                                <td scope="col">
+                                    <button style="margin-right:10px">9</button>
+                                    MonthlySalary
+                                </td>
+                                <td colspan="2">
+                                    <button style="margin-right:10px">10</button>
+                                    NHIP PREMIUM CONTRIBUTION
+                                </td>
+                                <td colspan="4">
+                                    <button style="margin-right:10px">11</button>
+                                    EMPLOYEE STATUS
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td colspan="16"> </td>
+                                <td>LAST NAME</td>
+                                <td>FIRST NAME</td>
+                                <td>NAME EXT <br><span style="font-size: 8px;">Sr./Jr.</span></td>
+                                <td>MIDDLE NAME</td>
+
+                                <td colspan="3">DATE OF Birth<br>
+                                    <span style="font-size: 8px;">mm-dd-yyyy</span>
+                                </td>
+                                <td>SEX(M/F)</td>
+
+                                <td>MONTHLY SALARY BRACKET(MSD)</td>
+
+                                <td>PS</td>
+                                <td>ES</td>
+
+                                <td colspan="4">S-separated, NE- Noearnings, NH-New Hired/Effectivity Date</td>
+
+
+                            </tr>
+
+                            <tr *ngFor="let item of uniquelistchnuk[i]">
+                                <td colspan="16">
+                                    {{item.philhealtH_NO}}
+                                </td>
+                                <td>{{item.lastName}}</td>
+                                <td>{{item.staffname}}</td>
+
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+
+                                <td colspan="2">
+                                    {{item.dob}}
+
+                                </td>
+
+
+
+                                <td>
+                                    <p *ngIf="item.gender=='Female'"> F</p>
+                                    <p *ngIf="item.gender=='Male'"> M</p>
+
+                                </td>
+
+                                <td>{{item.monthlyGrossSalary}}</td>
+
+                                <td>{{item.monthlyPhilihealth/2}}</td>
+                                <td>{{item.monthlyPhilihealth/2}}</td>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <p style="font-size: 12px;text-align: center; ">PHILHEALTH IDENTIFICATIONNUMBER</p>
+                        <p style="font-size: 12px; text-align: center;">(PIN)</p>
+                        <div class="row" style="border: 2px solid black;">
+                            <div class="col-lg-12" *ngFor="let item of uniquelist">
+                                <p>{{item.philHealth}}
+                                </p>
+                            </div>
+                        </div>
+            
+                    </div>
+                    <div class="col-lg-4" style="border: 2px solid black;">
+                        <p style="font-size: 12px; text-align: center;">EMPLOYEE/S INFORMATION</p>
+                        <div class="row" style="font-size: 10px;">
+                            <div class="col-lg-3" style="border: 2px solid black;">
+                                <p>FIRST NAME</p>
+                            </div>
+                            <div class="col-lg-3" style="border: 2px solid black;">
+                                <p>LAST NAME</p>
+                            </div>
+                            <div class="col-lg-3" style="border: 2px solid black;">
+                                <p>EXT NAME</p>
+                            </div>
+                            <div class="col-lg-3" style="border: 2px solid black;">
+                                <p>MIDDLE NAME</p>
+                            </div>
+                        </div>
+                        <div class="row" style="border: 2px solid black; font-size: 10px;">
+                            <div class="col-lg-3">
+                                <p *ngFor="let item of uniquelist">{{item.staffname}}</p>
+                            </div>
+                            <div class="col-lg-3">
+                                <p *ngFor="let item of uniquelist">{{item.lastName}}</p>
+            
+                            </div>
+                            <div class="col-lg-3">
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                            </div>
+                            <div class="col-lg-3">
+                                <p *ngFor="let item of uniquelist">{{item.middleName}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <p style="font-size: 10px;">Fill-out this portion only if declared employees/ has not yet been issued
+                            his/her Pin </p> <br>
+                            <div class="row" >
+                                <div class="col-lg-4" style="font-size:8px;">
+                                    <p>Date Of Birth</p>
+                                    <p *ngFor="let item of uniquelist">{{item.dob}}</p>
+                                </div>
+                                <div class="col-lg-4" style="font-size:8px;">
+                                    <p >Sex(M/F)</p>
+                                    <p *ngFor="let item of uniquelist">{{item.gender}}</p>
+                                </div>
+                                <div class="col-lg-4" style="font-size:6px;">
+                                    <p>MonthlySalary </p>
+                                    <p *ngFor="let item of uniquelist">{{item.baseSalary}}</p>
+            
+                                </div>
+                            </div>
+                        </div>
+                  
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <p style="font-size: 10px;">NHIP PREMIUM CONTRIBUTION</p>
+                        <div class="row">
+                            <div class="col-lg-6">
+                               <p>PS</p>
+                               <p style="font-size:8px" *ngFor="let item of uniquelist">{{item.monthlyPhilihealth/2}}</p>
+            
+                            </div>
+                            <div class="col-lg-6">
+                                <p>ES</p>
+                                <p style="font-size:8px" *ngFor="let item of uniquelist">{{item.monthlyPhilihealth/2}}</p>
+            
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <p style="font-size: 12px;">EMPLOYEE STATUS</p>
+                    </div>
+                </div> -->
+
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <button style="margin-right:10px">12</button>
+
+
+                        <p style="margin-left: 10px;">{{uniquelistchnuk[i].length}}</p>
+                        <p style="margin-left: 10px;">_________</p>
+                        <p style="font-size: 12px;">Indicate Total Number of Employees Per Page</p>
+                    </div>
+                    <div class="col-lg-5" style="border: 2px solid black;">
+                        <button style="margin-right:10px">13</button>
+                        <p style="font-size: 12px;">ACKNOWLEDGEMENT RECEIPT(PAR/POR/TRANSACTION REFERENCE NO.)</p>
+                        <tr>
+                            <td style="font-size: 10px;">APPLICABLE PERIOD</td>
+                            <td style="font-size: 10px;">REMITTED AMOUNT</td>
+                            <td style="font-size: 10px;">ACKNOWLEDGEMENT RECEIPT NO.</td>
+                            <td style="font-size: 10px;">TRANSACTION DATE </td>
+                            <td style="font-size: 10px;">NO. OF EMPLOYEES</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 10px;"></td>
+                            <td style="font-size: 10px;"></td>
+                            <td style="font-size: 10px;"></td>
+                            <td style="font-size: 10px;"></td>
+                            <td style="font-size: 10px;"></td>
+                        </tr>
+                    </div>
+                    <!-- <div class="col-lg-1" style="border: 2px solid black;">
+                        <p style="font-size: 12px;">SUBTOTAL
+                            (PS+ES)<br>
+                   <span style="font-size: 8px;"> <b> (To be accomplished on every page)</b></span>
+                        </p>
+                        <br>
+                        <p style="font-size: 12px;">GRAND TOTAL
+                            (PS+ES)</p>
+                    </div> -->
+                    <div class="col-lg-3" style="border: 2px solid black;">
+                        <button style="margin-right:10px">14</button>
+                        <table class="table-bordered">
+                            <tr>
+                                <td>SUBTOTAL
+                                    (PS+ES)</td>
+
+                                <td>{{sum/2}}</td>
+                                <td>{{sum/2}}</td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-size: 8px;"> <b> (To be accomplished on every page)---></b></span>
+                                </td>
+                                <td colspan="2">{{sum}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>GRAND TOTAL
+                                    (PS+ES)</td>
+                                <td>{{sum/2}}</td>
+                                <td>{{sum/2}}</td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-size: 8px;"> <b> (To be accomplished on every page)---></b></span>
+                                </td>
+                                <td colspan="2">{{sum}}</td>
+
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <!-- <div class="col-lg-2" style="border: 2px solid black;">
+                        <tr style="border: 2px solid black;" >
+                            <th>{{item.yearPhilihealth/2}}</th>
+                            <th>{{item.yearPhilihealth/2}}</th>
+                        </tr>
+                        <tr *ngFor="let item of uniquelist">
+                            <td>{{item.yearPhilihealth/2}}</td>
+                        </tr>
+                        <tr style="border: 2px solid black;" >
+                            <th>{{item.yearPhilihealth/2}}</th>
+                            <th>{{item.yearPhilihealth/2}}</th>
+                        </tr>
+                        <tr >
+                            <td>{{item.yearPhilihealth/2}}</td>
+                        </tr>
+                    </div> -->
+                    <div class="col-lg-2" style="border: 2px solid black;">
+                        <button style="margin-right:10px">15</button>
+                        <p style="font-size: 10px;">PREPARED BY
+
+                            <img src="{{Signature}}" style="    width: 48%;
+                            margin-left: 32px;
+                            margin-top: 17px;" />
+
+
+                            ___________<br>
+                            <span>SIGNATURE OVER PRINTED NAME</span>
+                        </p>
+
+                        <p style="font-size: 10px;">
+                            {{sign}}
+                            <br />
+                            ________________
+                            <span>OFFICIAL DESIGNATION</span>
+                        </p>
+                        <p style="font-size: 10px;">
+                            _______________</p>
+                        <span>DATE</span>
+                    </div>
+                </div>
+                <div class="row" style=" margin-left: 1px; margin-right: 6px;">
+                    <div class="col-lg-12" style="border: 2px solid black;">
+                        <button style="margin-right:10px">16</button>
+                        <p style="font-size: 12px; text-align: center; margin-top: 10px;">UNDER THE PENALTY OF THE LAW
+                            ,I HERE BY
+                            ATTEST THAT THE ABOVE INFORMATION PROVIDED HEREIN ARE TRUE AND CORRECT.</p>
+                        <div class="row">
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-2">
+                                <p style="font-size: 10px;">{{signname}}</p><br>
+
+                                _________________
+                                <p style="font-size: 9px;">Signature over printed name</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <img src="{{Signature}}" style="    width: 48%;
+                                margin-left: -142px;
+                                margin-top: 17px;" />
+                                <p style="font-size: 10px;">{{sign}}</p>
+
+                                _________________
+                                <span style="font-size: 10px; padding-left: 10px;">Official Designation </span>
+                            </div>
+                            <div class="col-lg-2" style="margin-top: 36px;">
+
+                                _________________
+                                <p style="font-size: 10px; padding-left: 10px;">Date</p>
+                            </div>
+                            <div class="col-lg-3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p style="text-align: center; font-size: 12px;">PLEASE READ INSTRUCTIONS (FOR EACH NUMBERED BOX)
+                            AT THE BACK
+                            BEFORE ACCOMPLISHING THIS FORM </p>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <div class="col-lg-1">
+
+        </div>
+    </div>
+
+
+
+</div>

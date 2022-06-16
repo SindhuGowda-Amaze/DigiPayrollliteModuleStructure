@@ -1,0 +1,166 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="Heading1" style="text-align: center;">Pag-IBIG Short-term Loan Remittance Excel</p>
+                <hr>
+                <div class="container">
+                    <div class="row FilterClass">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-2">
+                            <p style="text-align: right;"> Loan Type:</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="dropdown">
+                                <select class="form-control inputfield" id="Loan" name="Loan" [(ngModel)]="Loan"><br />
+                                    <option value="">Select Loan </option>
+                                    <option value="HDMF Salary">HDMF Loan </option>
+                                    <option value="HDMF Calamity">Calamity Loan </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                    <br />
+                    <div class="row FilterClass">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-3">
+                            <p style="text-align: right;">Select Start Month And Year:</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="dropdown">
+                                <select class="form-control inputfield" id="Month" name="Month"
+                                    [(ngModel)]="Month"><br />
+                                    <option value="">Select Month </option>
+                                    <option value="1">January </option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="dropdown">
+                                <select class="form-control inputfield" id="Year" name="Year" [(ngModel)]="Year"><br />
+                                    <option value="">Select Year </option>
+                                    <option value="2022">2022 </option>
+                                    <option value="2021">2021 </option>
+                                    <option value="2020">2020 </option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                    <br/>
+                    <div class="row FilterClass">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-2">
+                            <p style="text-align: right;"> Signatory Person:</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="dropdown">
+                                <select class="form-control inputfield" id="Month" name="Month" [(ngModel)]="sign"
+                                    (click)="getsign()"><br />
+                                    <option value="">Select Person </option>
+                                    <option value="Admin">Admin </option>
+                                    <option value="Admin">HR </option>
+                                    <option value="Admin">FINANCE </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- <button class="generate" data-toggle="collapse" data-target="#demo" (click)="showpdf()">GENERATE</button> -->
+                            <button class="AddButton" data-toggle="collapse" data-target="#demo"
+                                (click)="showpdf()">GENERATE</button>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+                <div class="container-fluid" id="demo" class="collapse" *ngIf="showleaseforprint == 1">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <P>Employer ID: </P>
+                        </div>
+                        <div class="col-lg-2">
+                            <h6>{{companyid}}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <P>Employer Name: </P>
+                        </div>
+                        <div class="col-lg-2">
+                            <h6>{{companyname}}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <P>Address: </P>
+                        </div>
+                        <div class="col-lg-5">
+                            <h6>{{Address}}</h6>
+                        </div>
+                        <div class="col-lg-5">
+                            <!-- <button class="loan1" (click)="exportexcel()">EXPORT TO EXCEL</button> -->
+                            <button class="AddButton" (click)="exportexcel()">EXPORT TO EXCEL</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" *ngIf="showleaseforprint == 1">
+                        <div class="col-lg-12">
+                            <table class="table table-bordered fonttxt">
+                                <thead>
+                                    <tr class="newFont">
+
+                                        <th>Pag-IBIG ID/RTN</th>
+                                        <th>APPLICATION NO.</th>
+                                        <th>LAST NAME</th>
+                                        <th>FIRST NAME</th>
+                                        <th>LOAN TYPE</th>
+                                        <th>AMOUNT</th>
+                                        <th>REMARKS</th>
+                                    </tr>
+                                    <tr>
+                                    <tr *ngFor="let item of results|paginate: { itemsPerPage: count1, currentPage: p}">
+                                        <td>{{item.pagiBig_ID}}</td>
+                                        <td>{{item.pagiBigAccountNo}}</td>
+                                        <td>{{item.lastName}}</td>
+                                        <td>{{item.staffname}}</td>
+                                        <td>{{item.loanType}} </td>
+                                        <td>{{item.paidamount}}</td>
+                                        <td>{{item.pagibigRemarks}}</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="text-right">
+                            <br>
+                 <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                  </div> 
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<br>
