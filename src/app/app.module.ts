@@ -10,6 +10,7 @@ import { HeaderComponent } from './Pages/CommonPages/header/header.component';
 import { SidebarComponent } from './Pages/CommonPages/sidebar/sidebar.component';
 
 import { LoginComponent } from './Pages/login/login.component';
+import { AmountToWordPipe } from './amount-to-word.pipe';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { LoginComponent } from './Pages/login/login.component';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    AmountToWordPipe
   ],
   imports: [
     BrowserModule,

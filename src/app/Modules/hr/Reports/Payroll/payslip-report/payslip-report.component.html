@@ -1,0 +1,971 @@
+
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="Heading1">Payslip Report</p>
+        </div>
+    </div>
+    <br>
+    <div class="tab-slider--nav">
+        <ul class="tab-slider--tabs">
+            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
+                (click)="viewMode ='tab1'" >
+                Normal Payroll</li>
+            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
+                (click)="viewMode ='tab2'" >13th Month Payroll</li>
+        </ul>
+
+    </div>
+
+<br/>
+<br/>
+    <div class="tab-slider--container" [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'tab1'" id="tab1">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table">
+                <thead>
+                    <tr class="newFont">
+                        <th class="SelectData">Select</th>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Period</th>
+                        <th>Payroll Run Type</th>
+                        <th>Description</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uniquelist |paginate: { itemsPerPage: count1, currentPage: p}">
+                        <td class="SelectData"><input type="checkbox"
+                                (change)="getemployeelist(item.startdate,item.enddate,item.payrolltype)"
+                                data-toggle="collapse" data-target="#demo"></td>
+                        <td style="color:#0C275A">{{item.endyear}}</td>
+                        <td style="color:#0C275A">{{item.month}}</td>
+                        <td style="color:#0C275A">{{item.payrolltype}}</td>
+                        <td style="color:#0C275A">Normal</td>
+                        <td style="color:#0C275A">Payroll For {{item.startdate1|date}} - {{item.enddate1|date}} </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <br>
+            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+        </div>
+    </div><br>
+
+   
+    <div class="container-fluid" id="demo" class="collapse">
+        <div class="row">  
+                 
+            <p class="Heading1 data">Employees in selected Period</p>
+     </div>
+
+     <div class="card" id="demo" class="collapse">
+        <div class="row ">
+            <div class="col-lg-1 space">
+                <p style="color:#0C275A">Filter By</p>
+            </div>
+            <div class="col-lg-4">
+                <p>Search
+                    <input class="form-control" type="search" [(ngModel)]="term"
+                        style="color:#0C275A;font-family: 'Poppins'" 
+                        placeholder="Search for Staff...">
+            </div>
+            <div class="col-lg-2">
+                <p>Role
+                    <br> <select class="form-control" id="RoleType" name="RoleType" 
+                        [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                        <option value="">Select Role</option>
+                        <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
+                        </option>
+                    </select>
+                </p>
+            </div>
+            <div class="col-lg-2">
+                <p>Department
+                    <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                        (change)="filterByDepartment()">
+                        <option value="">Select Department</option>
+                        <option value="{{item.department_name}}" *ngFor="let item of Departmentlist">
+                            {{item.department_name}}
+                        </option>
+                    </select>
+                </p>
+            </div>
+        </div>
+        
+    </div>
+     
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered fonttxt">
+                    <thead>
+                        <tr class="newFont">
+                            <th class="SelectData">Select</th>
+                            <th>Employee ID</th>
+                            <th>Employee Name</th>
+                            <th>Department</th>
+                            <th>Role</th>
+                            <th>Level</th>
+                            <th>Status</th>
+                            <th>Pay Group</th>
+                        </tr>
+                        <tr *ngFor="let item of employeelist2|filter:term">
+                            <td class="SelectData"><input type="checkbox"
+                                    (change)="getpayslip(item.id,item.payrolltype,item.month)" data-toggle="collapse"
+                                    data-target="#demo1"></td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.staffname}}</td>
+                            <td>{{item.department_name}}</td>
+                            <td>{{item.role}}</td>
+                            <td>{{item.level}}</td>
+                            <td>Active</td>
+
+                            <td>{{item.paygroup}}</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+
+    <div class="container-fluid" id="demo1" class="collapse">
+        <div class="row">
+            <div class="col-lg-8">
+                <p class="Heading1 ">Employees</p>
+           
+            </div>
+            <div class="col-lg-4">
+                <button class="AddButton" (click)="convetToPDF1()">EXPORT TO PDF</button>
+            </div>
+
+            <!-- <div class="col-lg-3">
+                            <a class="active fontheading">Employees</a>
+                        </div>
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-1">
+                            <button class="export" (click)="convetToPDF1()">EXPORT TO PDF</button>
+                        </div> -->
+            <!-- <div class="col-lg-1">
+                            <button class="form-control Send" data-toggle="modal" data-target="#mail">SEND TO
+                                EMAIL</button>
+                        </div> -->
+        </div>
+        <br />
+        <div class="row Overflow">
+            <div class="col-lg-12">
+                <table class="table table-bordered fonttxt TableBorder" >
+                    <thead>
+                        <tr style="border: 2px solid #6c757d;">
+                            <td>
+                                <img src={{company_logo}} style="margin-left: 5px; width: 20%;">
+                            </td>
+                            <td colspan="5" style="color: #494949; font-weight: bold;"  class="tablehead" >
+                                <h4 style="text-transform:capitalize">{{Company_Name}}</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">NAME:</td>
+                            <td>{{fullname}}</td>
+                            <td style="color: #494949; font-weight: bold;">TAX STATUS:</td>
+                            <td colspan="3">ME</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">PAYROLL DATE:</td>
+                            <td>{{payrolldate|date}}</td>
+                            <td style="color: #494949; font-weight: bold;">TIN:</td>
+                            <td colspan="3">{{tin}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">DATE COVERED:</td>
+                            <td>{{startdate|date}} - {{enddate|date}} </td>
+                            <td style="color: rgb(73, 73, 73); font-weight: bold;">SSS NO.:</td>
+                            <td colspan="3">{{SSS}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">DEPARTMENT:</td>
+                            <td>{{department}}</td>
+                            <td style="color: #494949; font-weight: bold;">PHILHEALTH NO.:</td>
+                            <td colspan="3">{{PhilHealth}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">POSITION:</td>
+                            <td>{{role}}</td>
+                            <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                            <td colspan="3">{{hdmf}}</td>
+                        </tr>
+                        <tr style=" background-color: #2196F3;">
+                            <td colspan="2"
+                                style="color: white; font-weight: bold; text-align: center; background-color: #02cfff ;">
+                                 COMPENSATION</td>
+                            <td colspan="2"
+                                style="color: white; font-weight: bold; text-align: center;background-color: #02cfff ; ">
+                                 DEDUCTIONS</td>
+                            <td colspan="2"
+                                style="color: white; font-weight: bold; text-align: center; background-color: #02cfff ;">
+                                 YEAR-TO-DATE</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">BASIC({{noofdaysinperiod}} Days):</td>
+                            <td>{{monthlysalaryperperiod}}</td>
+                            <!-- <td style="color: #494949; font-weight: bold;">DE MINIMIS:</td>
+                                        <td  >500.00</td> -->
+                            <td style="color: #494949; font-weight: bold;">
+                               <p *ngIf="LoanType!=null">{{LoanType}}:</p> 
+                               <p *ngIf="LoanType==null">Adjustment:</p> 
+                            
+                            </td>
+                            <td>
+                                <p *ngIf="semiadjustment!=null"> {{semiadjustment|number:'1.2-2'}}</p>
+                                <p *ngIf="semiadjustment==null"> 0</p>
+                            </td>
+                            <td style="color: #494949; font-weight: bold;">TAXABLE GROSS:</td>
+                            <td>{{yearGrossSal}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: hsl(0, 0%, 29%); font-weight: bold;">DE MINIMIS
+                                BENEFITS({{noofdaysinperiod}} Days):</td>
+                            <td>{{deniminimis_amount}}</td>
+                            <!-- <td style="color: #494949; font-weight: bold;">LATE/UNDERTIME (0m):</td>
+                                        <td  >0</td> -->
+                            <td style="color: #494949; font-weight: bold;">SSS:</td>
+                            <td>{{sssamount}}</td>
+                            <td style="color: #494949; font-weight: bold;">TAX:</td>
+                            <td>{{yeartax}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;"
+                            >
+                            <p *ngIf="OtHours==null">OT</p>
+                            <p *ngIf="OtHours!=null">OT({{OtHours}})</p>
+                        
+                        </td>
+                           
+                            <td>
+                                <p *ngIf="OT==null"> 0 </p>
+                                <p *ngIf="OT!=null"> {{OT|number:'1.2-2'}} </p>
+
+
+                            </td>
+                            <td style="color: #494949; font-weight: bold;">PHILHEALTH:</td>
+                            <td>{{philHealthContribution}} </td>
+                            <td style="color: #494949; font-weight: bold;">SSS:</td>
+                            <td>{{yearSSSRate}}</td>
+                            <!-- <td style="color: #494949; font-weight: bold;">ADJUSTMENT:</td>
+                                        <td  >450.00</td> -->
+                            <!-- <td style="color: #494949; font-weight: bold;">SSS:</td>
+                                        <td  >640</td> -->
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">
+                                <p *ngIf="regularotamount==null">Regular OT</p> 
+                               <p *ngIf="regularotamount!=null">Regular OT({{regularothours}})</p> 
+                             
+                            </td>
+                            <td>
+                                <p *ngIf="regularotamount==null"> 0 </p>
+                                <p *ngIf="regularotamount!=null"> {{regularotamount|number:'1.2-2'}} </p>
+
+
+                            </td>
+                            <!-- <td style="color: #494949; font-weight: bold;">SSS:</td>
+                                        <td  >640</td> -->
+                            <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                            <td>{{pagBig}}</td>
+                            <td style="color: #494949; font-weight: bold;">PHIL:</td>
+                            <td>{{yearPhilihealth}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">
+                                <p *ngIf="regularotamount==null">Night OT</p>
+                                <p *ngIf="regularotamount!=null">Night OT({{NightOtHours}})</p>
+                            
+                            </td>
+                            <td>
+                                <p *ngIf="NightOtAmount==null"> 0 </p>
+                                <p *ngIf="NightOtAmount!=null"> {{NightOtAmount|number:'1.2-2'}} </p>
+
+
+                            </td>
+                            <!-- <td style="color: #494949; font-weight: bold;">SSS MPF:</td>
+                                        <td  >0</td> -->
+                            <td style="color: #494949; font-weight: bold;">TAX:</td>
+                            <td>{{tax}}</td>
+                            <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                            <td>{{yearPagibigRate}}</td>
+                        </tr>
+                        <tr>
+
+                            <td style="color: #494949; font-weight: bold;">Loan Payout</td>
+                            <td>
+                                <p *ngIf="loanpayout!=null">{{loanpayout}}</p>
+                                <p *ngIf="loanpayout==null">0</p>
+                            </td>
+                            <td style="color: #494949; font-weight: bold;">ABSENCES (LOP):</td>
+                            <td>{{lopamount}}</td>
+                            <td style="color: #494949; font-weight: bold;">GROSS INCOME:</td>
+                            <td>{{yeargrosspaysalary}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">BENEFITS:</td>
+                            <td>{{Benefits}}</td>
+                            <td colspan="2"></td>
+                            <td style="color: #494949; font-weight: bold;">NON TAXABLE:</td>
+                            <td>{{yearlydeminims}}</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">TOTAL
+                                COMPENSATION:</td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">
+                                {{Compensation|number:'1.2-2'}}</td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">TOTAL DEDUCTIONS:
+                            </td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">
+                                {{semideductions|number:'1.2-2'}}</td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">NET PAY:</td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">{{netMonthSalary|number:'1.2-2'}}
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+
+               
+            </div>
+
+           
+            
+        </div>
+    </div>
+    <br>
+    <!-- <div class="row leavereq">
+                    <div class="col-lg-10"></div>
+                <div class="col-lg-1">
+                    <button class="form-control CancelBTN fontheading">Cancel</button>
+                </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <button class="form-control SubmitBTN">PRINT</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="form-control SubmitBTN">GENERATE EXCEL</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="form-control SubmitBTN">SEND TO EMAIL</button>
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-1"></div>
+                </div> -->
+    <br>
+
+
+</div>
+<div *ngSwitchCase="'tab2'" id="tab2">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table">
+                <thead>
+                    <tr class="newFont">
+                        <th class="SelectData">Select</th>
+                        <th>Year</th>
+                        <th>Description</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uniquelist13 |paginate: { itemsPerPage: count1, currentPage: p}">
+                        <td class="SelectData"><input type="checkbox"
+                                (change)="get13themployeelist(item.year)"
+                                data-toggle="collapse" data-target="#demo13"></td>
+                        <td style="color:#0C275A"> {{item.year}} </td>
+                        <td style="color:#0C275A">Payroll For {{item.year}} </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <br>
+            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+        </div>
+    </div><br>
+
+   
+    <div class="container-fluid" id="demo13" class="collapse">
+        <div class="row">       
+            <p class="Heading1 data">Employees in selected Period</p>
+     </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered fonttxt">
+                    <thead>
+                        <tr class="newFont">
+                            <th class="SelectData">Select</th>
+                            <th>Employee ID</th>
+                            <th>Employee Name</th>
+                            <th>Status</th>
+                            <th>Pay Group</th>
+                        </tr>
+                        <tr *ngFor="let item of employeelist213|paginate: { itemsPerPage: count1, currentPage: p}">
+                            <td class="SelectData"><input type="checkbox"
+                                    (change)="getpayslip13(item.staffID)" data-toggle="collapse"
+                                    data-target="#demo213"></td>
+                                    <td>{{item.staffID}}</td>
+                                    <td>{{item.firstName}}</td>
+                          
+                                   <td>Active</td>
+
+                                <td>{{item.paygroup}}</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="text-right">
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+    <div class="container-fluid" id="demo213" class="collapse">
+        <div class="row">
+            <div class="col-lg-4">
+                <p class="Heading1 ">Employees</p>
+           
+            </div>
+            <div class="col-lg-4">
+                <button class="AddButton" data-toggle="modal" data-target="#mail" >Send Mail</button>
+            </div>
+
+            <div class="col-lg-4">
+                <button class="AddButton" (click)="convetToPDF1()">EXPORT TO PDF</button>
+            </div>
+
+            <!-- <div class="col-lg-3">
+                            <a class="active fontheading">Employees</a>
+                        </div>
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-1">
+                            <button class="export" (click)="convetToPDF1()">EXPORT TO PDF</button>
+                        </div> -->
+            <!-- <div class="col-lg-1">
+                            <button class="form-control Send" data-toggle="modal" data-target="#mail">SEND TO
+                                EMAIL</button>
+                        </div> -->
+        </div>
+        <br />
+        <div class="row Overflow">
+            <div class="col-lg-12">
+                <table class="table table-bordered fonttxt TableBorder" >
+                    <thead>
+                        <tr style="border: 2px solid #6c757d;">
+                            <td>
+                                <img src={{company_logo}} style="margin-left: 5px; width: 20%;">
+                            </td>
+                            <td colspan="5" style="color: #494949; font-weight: bold;">{{Company_Name}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">NAME:</td>
+                            <td>{{fullname}}</td>
+                            <td style="color: #494949; font-weight: bold;">TAX STATUS:</td>
+                            <td colspan="3">ME</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">PAYROLL DATE:</td>
+                            <td> - </td>
+                            <td style="color: #494949; font-weight: bold;">TIN:</td>
+                            <td colspan="3">{{tin}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">DATE COVERED:</td>
+                            <td>{{startdate|date}} - {{enddate|date}} </td>
+                            <td style="color: rgb(73, 73, 73); font-weight: bold;">SSS NO.:</td>
+                            <td colspan="3">{{SSS}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">DEPARTMENT:</td>
+                            <td>{{department}}</td>
+                            <td style="color: #494949; font-weight: bold;">PHILHEALTH NO.:</td>
+                            <td colspan="3">{{PhilHealth}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">POSITION:</td>
+                            <td>{{role}}</td>
+                            <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                            <td colspan="3">{{hdmf}}</td>
+                        </tr>
+                        <tr style=" background-color: #2196F3;">
+                            <td colspan="2"
+                                style="color: white; font-weight: bold; text-align: center; background-color: #02cfff ;">
+                                 COMPENSATION</td>
+                            <td colspan="2"
+                                style="color: white; font-weight: bold; text-align: center;background-color: #02cfff ; ">
+                                 DEDUCTIONS</td>
+                            <td colspan="2"
+                                style="color: white; font-weight: bold; text-align: center; background-color: #02cfff ;">
+                                 YEAR-TO-DATE</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">BASIC:</td>
+                            <td>{{BaseSalary}}</td>
+                            <!-- <td style="color: #494949; font-weight: bold;">DE MINIMIS:</td>
+                                        <td  >500.00</td> -->
+                            <td style="color: #494949; font-weight: bold;">ADJUSTMENT:</td>
+                            <td>
+                                <p *ngIf="semiadjustment!=null"> {{semiadjustment|number:'1.2-2'}}</p>
+                                <p *ngIf="semiadjustment==null"> 0</p>
+                            </td>
+                            <td style="color: #494949; font-weight: bold;">TAXABLE GROSS:</td>
+                            <td>{{yearGrossSal}}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: hsl(0, 0%, 29%); font-weight: bold;">DE MINIMIS
+                                BENEFITS:</td>
+                            <td ><p *ngIf="ComputationDeminimis==true" >{{deniminimis_amount}}</p>
+                                <p *ngIf="ComputationDeminimis==false" >0</p>
+                            </td>
+                            <!-- <td style="color: #494949; font-weight: bold;">LATE/UNDERTIME (0m):</td>
+                                        <td  >0</td> -->
+                            <td style="color: #494949; font-weight: bold;">SSS:</td>
+                            <td>0</td>
+                            <td style="color: #494949; font-weight: bold;">TAX:</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">OT({{OtHours}})</td>
+                            <td>
+                                <p *ngIf="OT==null"> 0 </p>
+                                <p *ngIf="OT!=null"> {{OT|number:'1.2-2'}} </p>
+
+
+                            </td>
+                            <td style="color: #494949; font-weight: bold;">PHILHEALTH:</td>
+                            <td>{{philHealthContribution}} </td>
+                            <td style="color: #494949; font-weight: bold;">SSS:</td>
+                            <td>{{yearSSSRate}}</td>
+                            <!-- <td style="color: #494949; font-weight: bold;">ADJUSTMENT:</td>
+                                        <td  >450.00</td> -->
+                            <!-- <td style="color: #494949; font-weight: bold;">SSS:</td>
+                                        <td  >640</td> -->
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">Regular OT({{regularothours}})</td>
+                            <td>
+                                <p *ngIf="regularotamount==null"> 0 </p>
+                                <p *ngIf="regularotamount!=null"> {{regularotamount|number:'1.2-2'}} </p>
+
+
+                            </td>
+                            <!-- <td style="color: #494949; font-weight: bold;">SSS:</td>
+                                        <td  >640</td> -->
+                            <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                            <td>0</td>
+                            <td style="color: #494949; font-weight: bold;">PHIL:</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">Night OT({{NightOtHours}})</td>
+                            <td>
+                                <p *ngIf="NightOtAmount==null"> 0 </p>
+                                <p *ngIf="NightOtAmount!=null"> {{NightOtAmount|number:'1.2-2'}} </p>
+
+
+                            </td>
+                            <!-- <td style="color: #494949; font-weight: bold;">SSS MPF:</td>
+                                        <td  >0</td> -->
+                            <td style="color: #494949; font-weight: bold;">TAX:</td>
+                            <td>0</td>
+                            <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+
+                            <td style="color: #494949; font-weight: bold;">Loan Payout</td>
+                            <td>
+                                <p *ngIf="loanpayout!=null">{{loanpayout}}</p>
+                                <p *ngIf="loanpayout==null">0</p>
+                            </td>
+                            <td style="color: #494949; font-weight: bold;">ABSENCES (LOP):</td>
+                            <td>0</td>
+                            <td style="color: #494949; font-weight: bold;">GROSS INCOME:</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;">BENEFITS:</td>
+                            <td>0</td>
+                            <td colspan="2"></td>
+                            <td style="color: #494949; font-weight: bold;">NON TAXABLE:</td>
+                            <td>0</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">TOTAL
+                                COMPENSATION:</td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">
+                                <p *ngIf="ComputationDeminimis==true" > {{netMonthSalary}}</p>
+                                <p *ngIf="ComputationDeminimis==false" >{{BaseSalary}}</p>
+                               </td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">TOTAL DEDUCTIONS:
+                            </td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">
+                                0</td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">NET PAY:</td>
+                            <td style="color: #494949; font-weight: bold;background-color: #02cfff ;"> <p *ngIf="ComputationDeminimis==true" > {{netMonthSalary}}</p>
+                                <p *ngIf="ComputationDeminimis==false" >{{BaseSalary}}</p>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- <div class="row leavereq">
+                    <div class="col-lg-10"></div>
+                <div class="col-lg-1">
+                    <button class="form-control CancelBTN fontheading">Cancel</button>
+                </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <button class="form-control SubmitBTN">PRINT</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="form-control SubmitBTN">GENERATE EXCEL</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="form-control SubmitBTN">SEND TO EMAIL</button>
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-1"></div>
+                </div> -->
+    <br>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="mail" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">New Email</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label class="Text">To :</label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input class="form-control" [(ngModel)]="tomail">
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label class="Text">Subject :</label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input class="form-control" [(ngModel)]="subject">
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label class="Text">Message :</label>
+                    </div>
+                    <div class="col-lg-5">
+                        <textarea class="form-control" rows="5" placeholder="Write here.."
+                            [(ngModel)]="message"></textarea>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label class="Text">Attachment :</label>
+                    </div>
+                    <div class="col-lg-5">
+                        <!-- <input type="file" > -->
+                        <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                </div><br>
+
+                <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-2">
+                        <button class="form-control edit" (click)="sendmail()">Send</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <hr>
+                <div class="col-lg-2">
+                    <button class="edit">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-lg-12" *ngIf="showleaseforprint==true" >
+    <div class="row" id="downloadaplication">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <img src="{{company_logo}}"   style="margin-left: 5px;
+        width: 15%;
+        margin-top: 20px;
+        margin-bottom: -129px;">
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <table   class="table table-bordered fonttxt TableBorder"  >
+        <thead>
+            <tr style="border: 2px solid #6c757d;">
+                <td>
+                  
+                </td>
+                <td colspan="5" style="color: #494949; font-weight: bold;"  class="tablehead" >
+                    <h4 style="text-transform:capitalize">{{Company_Name}}</h4>
+                </td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">NAME:</td>
+                <td>{{fullname}}</td>
+                <td style="color: #494949; font-weight: bold;">TAX STATUS:</td>
+                <td colspan="3">ME</td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">PAYROLL DATE:</td>
+                <td>{{payrolldate|date}}</td>
+                <td style="color: #494949; font-weight: bold;">TIN:</td>
+                <td colspan="3">{{tin}}</td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">DATE COVERED:</td>
+                <td>{{startdate|date}} - {{enddate|date}} </td>
+                <td style="color: rgb(73, 73, 73); font-weight: bold;">SSS NO.:</td>
+                <td colspan="3">{{SSS}}</td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">DEPARTMENT:</td>
+                <td>{{department}}</td>
+                <td style="color: #494949; font-weight: bold;">PHILHEALTH NO.:</td>
+                <td colspan="3">{{PhilHealth}}</td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">POSITION:</td>
+                <td>{{role}}</td>
+                <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                <td colspan="3">{{hdmf}}</td>
+            </tr>
+            <tr style=" background-color: #2196F3;">
+                <td colspan="2"
+                    style="color: white; font-weight: bold; text-align: center; background-color: #02cfff ;">
+                     COMPENSATION</td>
+                <td colspan="2"
+                    style="color: white; font-weight: bold; text-align: center;background-color: #02cfff ; ">
+                     DEDUCTIONS</td>
+                <td colspan="2"
+                    style="color: white; font-weight: bold; text-align: center; background-color: #02cfff ;">
+                     YEAR-TO-DATE</td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">BASIC({{noofdaysinperiod}} Days):</td>
+                <td>{{monthlysalaryperperiod}}</td>
+                <!-- <td style="color: #494949; font-weight: bold;">DE MINIMIS:</td>
+                            <td  >500.00</td> -->
+                <td style="color: #494949; font-weight: bold;">
+                   <p *ngIf="LoanType!=null">{{LoanType}}:</p> 
+                   <p *ngIf="LoanType==null">Adjustment:</p> 
+                
+                </td>
+                <td>
+                    <p *ngIf="semiadjustment!=null"> {{semiadjustment|number:'1.2-2'}}</p>
+                    <p *ngIf="semiadjustment==null"> 0</p>
+                </td>
+                <td style="color: #494949; font-weight: bold;">TAXABLE GROSS:</td>
+                <td>{{yearGrossSal}}</td>
+            </tr>
+            <tr>
+                <td style="color: hsl(0, 0%, 29%); font-weight: bold;">DE MINIMIS
+                    BENEFITS({{noofdaysinperiod}} Days):</td>
+                <td>{{deniminimis_amount}}</td>
+                <!-- <td style="color: #494949; font-weight: bold;">LATE/UNDERTIME (0m):</td>
+                            <td  >0</td> -->
+                <td style="color: #494949; font-weight: bold;">SSS:</td>
+                <td>{{sssamount}}</td>
+                <td style="color: #494949; font-weight: bold;">TAX:</td>
+                <td>{{yeartax}}</td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;"
+                >
+                <p *ngIf="OtHours==null">OT</p>
+                <p *ngIf="OtHours!=null">OT({{OtHours}})</p>
+            
+            </td>
+               
+                <td>
+                    <p *ngIf="OT==null"> 0 </p>
+                    <p *ngIf="OT!=null"> {{OT|number:'1.2-2'}} </p>
+
+
+                </td>
+                <td style="color: #494949; font-weight: bold;">PHILHEALTH:</td>
+                <td>{{philHealthContribution}} </td>
+                <td style="color: #494949; font-weight: bold;">SSS:</td>
+                <td>{{yearSSSRate}}</td>
+                <!-- <td style="color: #494949; font-weight: bold;">ADJUSTMENT:</td>
+                            <td  >450.00</td> -->
+                <!-- <td style="color: #494949; font-weight: bold;">SSS:</td>
+                            <td  >640</td> -->
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">
+                    <p *ngIf="regularotamount==null">Regular OT</p> 
+                   <p *ngIf="regularotamount!=null">Regular OT({{regularothours}})</p> 
+                 
+                </td>
+                <td>
+                    <p *ngIf="regularotamount==null"> 0 </p>
+                    <p *ngIf="regularotamount!=null"> {{regularotamount|number:'1.2-2'}} </p>
+
+
+                </td>
+                <!-- <td style="color: #494949; font-weight: bold;">SSS:</td>
+                            <td  >640</td> -->
+                <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                <td>{{pagBig}}</td>
+                <td style="color: #494949; font-weight: bold;">PHIL:</td>
+                <td>{{yearPhilihealth}}</td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">
+                    <p *ngIf="regularotamount==null">Night OT</p>
+                    <p *ngIf="regularotamount!=null">Night OT({{NightOtHours}})</p>
+                
+                </td>
+                <td>
+                    <p *ngIf="NightOtAmount==null"> 0 </p>
+                    <p *ngIf="NightOtAmount!=null"> {{NightOtAmount|number:'1.2-2'}} </p>
+
+
+                </td>
+                <!-- <td style="color: #494949; font-weight: bold;">SSS MPF:</td>
+                            <td  >0</td> -->
+                <td style="color: #494949; font-weight: bold;">TAX:</td>
+                <td>{{tax}}</td>
+                <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                <td>{{yearPagibigRate}}</td>
+            </tr>
+            <tr>
+
+                <td style="color: #494949; font-weight: bold;">Loan Payout</td>
+                <td>
+                    <p *ngIf="loanpayout!=null">{{loanpayout}}</p>
+                    <p *ngIf="loanpayout==null">0</p>
+                </td>
+                <td style="color: #494949; font-weight: bold;">ABSENCES (LOP):</td>
+                <td>{{lopamount}}</td>
+                <td style="color: #494949; font-weight: bold;">GROSS INCOME:</td>
+                <td>{{yeargrosspaysalary}}</td>
+            </tr>
+            <tr>
+                <td style="color: #494949; font-weight: bold;">BENEFITS:</td>
+                <td>{{Benefits}}</td>
+                <td colspan="2"></td>
+                <td style="color: #494949; font-weight: bold;">NON TAXABLE:</td>
+                <td>{{yearlydeminims}}</td>
+            </tr>
+
+
+
+            <tr>
+                <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">TOTAL
+                    COMPENSATION:</td>
+                <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">
+                    {{Compensation|number:'1.2-2'}}</td>
+                <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">TOTAL DEDUCTIONS:
+                </td>
+                <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">
+                    {{semideductions|number:'1.2-2'}}</td>
+                <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">NET PAY:</td>
+                <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">{{netMonthSalary|number:'1.2-2'}}
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="col-lg-1"></div>
+<div class="row">
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-8">
+
+    </div>
+    <div class="col-lg-2">
+       
+      
+        <br/>
+        <img src="{{Signature}}" style="width: 174%;
+        margin-left: 314px;"/>
+     
+        <br/>
+       <h5 style="margin-left: 358px;">{{signname}} </h5>
+      
+       <br/>
+      
+      
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-5">
+
+    </div>
+    <div class="col-lg-2">
+       <h5 style="margin-left: 358px;">{{signname}} </h5>
+      
+       <br/>
+      
+      
+    </div>
+  
+</div>
+</div>
+</div>

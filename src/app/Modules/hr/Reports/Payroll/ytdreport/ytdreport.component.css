@@ -1,0 +1,128 @@
+.img {
+    width: 25px;
+    height: 10%;
+  }
+  .img:hover {
+    background-color: chartreuse;
+    color: white;
+  }
+  .imgcancel {
+    width: 25px;
+    height: 10%;
+  }
+  .imgcancel:hover {
+    background-color: red;
+    color: white;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    text-decoration: 3px solid rgb(72, 83, 238) underline;
+    color: rgb(72, 83, 238);
+  }
+  .card {
+    width:100%;
+     background: #FFFFFF;
+     box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.12);
+     border-radius: 12px;
+  }
+  
+  .card-padding {
+    padding: 1%;
+  }
+  .table {
+    border-radius: 5px;
+  }
+  
+  .Heading {
+    padding-left: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #3247D5;
+    text-decoration-line: underline;
+  }
+  
+  
+  .Overflow {
+    width: 101%;
+    overflow-x: scroll;
+  }
+  
+  
+  .button {
+    background-color: #2f87cc;
+    color: white;
+    height: 38px;
+    border-radius: 7px;
+    border: none;
+    width: 150px;
+    float: right;
+    margin-bottom: 10px;
+  }
+  
+  .edit {
+    width: 85%;
+    border: none;
+    background-color: #2f87cc;
+    text-align: center;
+    border-radius: 16px;
+    color: white;
+    margin-top: 6px;
+  }
+  
+  .FilterClass {
+    padding-left: 15px;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .View {
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  
+  
+  .HrLine {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  
+  .fontheading {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .fonttxt {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .newFont {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .SelectData {
+    text-align: center;
+  }
+  

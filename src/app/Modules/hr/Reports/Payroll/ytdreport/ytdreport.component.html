@@ -1,0 +1,492 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="Heading1">YTD Summary Report</p>
+        </div>
+    </div>
+    <br>
+
+    <!-- <div class="row">
+                <div class="col-lg-8 View">
+                    <ul>
+                        <li><a class="active fontheading">View</a></li>
+                        <li><a>Select PayRoll</a></li>
+                    </ul>
+                </div>
+            </div> -->
+
+            
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-bordered fonttxt" id="downloadaplication">
+                            <thead>
+                                <tr class="newFont">
+                                    <th>Select</th>
+                                    <th>Year</th>
+                                  
+                                <tr>
+                            </thead>
+                            <tr *ngFor="let item of uniquelist">
+                                <td>
+                                    <input type="checkbox" 
+                                    (change)="Getrankandfile($event,item.emplyeeYear)"  >&nbsp;
+                                </td>
+                                <!-- <td style="color:#0C275A">
+                                    <select class="form-control" (change)="Getrankandfile($event,item.emplyeeYear)">
+                                        <option style="color:#0C275A" selected value="select">Select</option>
+                                        <option value="Officer"> Officer</option>
+                                        <option value="Rank and file">Rank and file</option>
+                                    </select>
+                                 
+                                </td> -->
+                                <!-- <td class="SelectData"><input type="checkbox" ></td> -->
+                                <td style="color:#0C275A">{{item.emplyeeYear}}</td>
+                               
+                            </tr>
+                           
+                           
+                        </table>
+                    </div>
+                </div>
+         
+<!-- 
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-bordered fonttxt">
+                <thead>
+                    <tr class="newFont">
+                        <th class="SelectData"> Select</th>
+                        <th>Year</th>
+                        <th>Pay Group</th>
+                    <tr>
+                </thead>
+                <tr *ngFor="let item of uniquelist">
+                    <td class="SelectData"><input type="checkbox" data-toggle="collapse" data-target="#demo"
+                            (change)="getemployee(item.emplyeeYear)"></td>
+                    <td style="color:#0C275A">{{item.emplyeeYear}}</td>
+                    <td style="color:#0C275A">
+                        <select class="form-control" [(ngModel)]="paygroup">
+                            <option style="color:#0C275A" value="">Select</option>
+                            <option style="color:#0C275A" value="Rank and File">
+                                Rank and File</option>
+                            <option style="color:#0C275A" value="Officer-Deployed">
+                                Officer Deployed</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div> -->
+
+   
+    <div class="container-fluid" *ngIf="show2div">
+        <div class="row">
+            <ul>
+                <li><a class="active fontheading" (click)="selectALL(true)">Select ALL</a></li>
+                        <!-- <li><a class="active fontheading">Uncheck ALL</a></li>  -->
+                
+            </ul>
+        </div>
+        <div class="card">
+            <div class="row ">
+                <div class="col-lg-1 space">
+                    <p style="color:#0C275A">Filter By</p>
+                </div>
+                <div class="col-lg-4">
+                    <p>Search
+                        <input class="form-control" type="search" [(ngModel)]="term"
+                            style="color:#0C275A;font-family: 'Poppins'" 
+                            placeholder="Search for Staff...">
+                </div>
+                <div class="col-lg-2">
+                    <p>Role
+                        <br> <select class="form-control" id="RoleType" name="RoleType" 
+                            [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                            <option value="">Select Role</option>
+                            <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
+                            </option>
+                        </select>
+                    </p>
+                </div>
+                <div class="col-lg-2">
+                    <p>Department
+                        <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                            (change)="filterByDepartment()">
+                            <option value="">Select Department</option>
+                            <option value="{{item.department_name}}" *ngFor="let item of Departmentlist">
+                                {{item.department_name}}
+                            </option>
+                        </select>
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <!-- <div class="col-lg-1"></div> -->
+            <div class="col-lg-2">
+                <p class="Heading1">Employees</p>
+            </div>
+
+            <!-- <ul>
+                        <li><a class="active fontheading">Employees</a></li>
+                    </ul> -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered fonttxt">
+                    <thead>
+                        <tr class="newFont">
+                            <th class="SelectData">Select</th>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Role</th>
+                           
+                           
+                            <th>Pay Group</th>
+                        </tr>
+                        <tr *ngFor="let item of uniquelist1|paginate: { itemsPerPage: count1, currentPage: p}">
+                            <td>
+                                <input type="checkbox" 
+                                    (change)="getpaydetails(item.id,$event,item)" value="item.value" [(ngModel)]="item.checked" >&nbsp;
+                            </td>
+
+                            <td>000{{item.id}}</td>
+                            <td>{{item.staffname}}</td>
+                            <td>{{item.department_name}}</td>
+                            <td>{{item.role}}</td>
+                            
+                            <td>{{item.paygroup}}</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="text-right">
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container-fluid" *ngIf="showtable==2">
+        <!-- <div class="row">
+                    <div class="col-lg-3">
+                        <a class="active fontheading">Employees</a>
+                    </div>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-3">
+                        <button class="Edit" (click)="exportexcel()">EXPORT TO EXCEL</button>
+                    </div>
+                </div> -->
+
+
+        <!-- <div class="row">
+                    <div class="col-lg-2">
+                        <P>Employer ID: </P>
+                    </div>
+                    <div class="col-lg-2">
+                        <h6>209754750003</h6>
+                    </div>
+                </div> -->
+        <div class="row">
+            <div class="col-lg-2">
+                <P>Company Name: </P>
+            </div>
+            <div class="col-lg-2">
+                <h6>{{companyname}}</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <P>For The Year Of: </P>
+            </div>
+            <div class="col-lg-6">
+                <h6>{{Year}}</h6>
+            </div>
+            <div class="col-lg-4">
+                <button class="AddButton" (click)="exportexcel()">EXPORT TO EXCEL</button>
+                <!-- <button class="loan1" (click)="exportexcel()">EXPORT TO EXCEL</button> -->
+            </div>
+        </div>
+        <br />
+        <!-- <div class="row">
+                    <div class="col-lg-10"></div>
+                    <div class="col-lg-2">
+                        <p style="font-size: 15px;padding-left: 30px;">Grand Total: 19,050</p>
+                    </div>
+                </div> -->
+        <div class="row Overflow" >
+            <div class="col-lg-12">
+                <table class="table table-bordered fonttxt" id="downloadaplication">
+                    <thead>
+                        <tr class="newFont">
+                            <!-- <th class="SelectData">Select</th> -->
+                            <th>Employee ID</th>
+                            <th>Fullname</th>
+
+                            <th>Position</th>
+                            <th>Department</th>
+                            <th>Date Hired</th>
+                            <!-- <th>Employment Status</th>
+                            <th>Bank Account Number</th> -->
+                            <!-- <th>Cost Center</th> -->
+                            <!-- <th>Gender</th> -->
+                            <th>Tax Status</th>
+                            <!-- <th>Work Days Per Year</th> -->
+                            <!-- <th> Total Salary 
+
+                            </th> -->
+
+                            <!-- <th>Monthly De Minimis Benefits</th> -->
+                            <!-- <th>Total Monthly Salary</th> -->
+                            <th>Total Salary</th>
+                            <th>Total Loan Payout</th>
+                            <th>Salary Till date</th>
+                            <!-- <th>Basic Salary (Semi-Monthly)</th>
+                            <th>Gross/Day</th>
+                            <th>Basic/Hr (8 hours)</th>
+                            <th>De Minimis Benefits (Semi-Monthly)</th>
+                            <th>OT Total</th> -->
+                            
+                            <!-- <th>Days Absent</th>
+                                    <th>Total Absent Deduction</th>
+                                     <th>Deminimis Absent Deduction</th>
+                                    <th>Allowance Absent Deduction</th>
+                                    <th>Discretionary Deduction</th>
+                                    <th>Minutes Late</th>
+                                    <th>Total Late Deduction</th> -->
+                            <th>Withholding Tax Till Date</th>
+                            <th>SSS Till Date</th>
+                            <th>Philhealth Till Date</th>
+                            <th>HDMF Till Date</th>
+                            <th>Total Deductions Till Date</th>
+                            <!-- <th>Taxable Gross</th>
+                            <th>Net Pay</th>
+                            <th>SSSER</th>
+                            <th>SSSEC</th> -->
+                            <!-- <th>PHER</th> -->
+                            <!-- <th>HDMFER</th> -->
+                            <!-- <th>HDMF Additional</th> -->
+
+
+                        </tr>
+                        <tr *ngFor="let item of uniquelist3|paginate: { itemsPerPage: count1, currentPage: p}">
+
+
+                            <!-- <td class="SelectData"><input type="checkbox"></td> -->
+                            <td>000{{item.id}}</td>
+                            <td>{{item.staffname}} {{item.lastName}}</td>
+                            <td>{{item.role}}</td>
+                            <td>{{item.department_name}}</td>
+                            <td>{{item.joiningDate}}</td>
+                            <!-- <td>Active</td>
+                            <td>{{item.bankAccountNumber}}</td> -->
+                            <!-- <td>Management Team</td> -->
+
+                            <td>ME</td>
+                            <!-- <td>{{Days}}</td> -->
+                            <td>{{item.yearGrossSal}}</td>
+                            <!-- <td>{{item.staffdeminims}}</td>
+                            <td>{{item.grossSalary}}</td> -->
+                            <td>{{item.yearlyloanpayout}}</td>
+                            <td>{{item.yearsalary}}</td>
+                            <!-- <td>{{item.monthlysalaryperperiod}}</td> -->
+                            <!-- <td>{{item.basicperday}}</td>
+
+
+                            <td>{{item.basichour}}</td>
+                            <td>{{item.deniminimis_amount}}</td>
+                            <td>{{item.yearotamount|number:'1.2-2'}}</td>
+                            <td>{{item.grossSalary+item.yearotamount|number:'1.2-2'}}</td> -->
+                            <td>{{item.yeartax}}</td>
+                            <td>{{item.yearSSSRate}}</td>
+                            <td>{{item.yearPhilihealth}}</td>
+                            <td>{{item.yearPagibigRate}}</td>
+                            <td>{{item.yeartax+item.yearSSSRate+item.yearPhilihealth+item.yearPagibigRate}}</td>
+                            <!-- <td>{{item.yearSSSRate}}</td> -->
+                            <!-- <td>{{item.yearsalary}}</td>
+                            <td>{{item.yearss_er}}</td>
+                            <td>{{item.yearss_ec}}</td>
+                            <td>{{item.yearPagibigRate/2}}</td> -->
+                            <!-- <td></td> -->
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="text-right">
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+            </div>
+        </div>
+
+
+        
+    </div>
+    <div class="container-fluid" *ngIf="showtable==1" >
+        <!-- <div class="row">
+                    <div class="col-lg-3">
+                        <a class="active fontheading">Employees</a>
+                    </div>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-3">
+                        <button class="Edit" (click)="exportexcel()">EXPORT TO EXCEL</button>
+                    </div>
+                </div> -->
+
+
+        <!-- <div class="row">
+                    <div class="col-lg-2">
+                        <P>Employer ID: </P>
+                    </div>
+                    <div class="col-lg-2">
+                        <h6>209754750003</h6>
+                    </div>
+                </div> -->
+        <div class="row">
+            <div class="col-lg-2">
+                <P>Company Name: </P>
+            </div>
+            <div class="col-lg-2">
+                <h6>{{companyname}}</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <P>For The Year Of: </P>
+            </div>
+            <div class="col-lg-6">
+                <h6>{{Year}}</h6>
+            </div>
+            <div class="col-lg-4">
+                <button class="AddButton" (click)="exportexcel()">EXPORT TO EXCEL</button>
+                <!-- <button class="loan1" (click)="exportexcel()">EXPORT TO EXCEL</button> -->
+            </div>
+        </div>
+        <br />
+        <!-- <div class="row">
+                    <div class="col-lg-10"></div>
+                    <div class="col-lg-2">
+                        <p style="font-size: 15px;padding-left: 30px;">Grand Total: 19,050</p>
+                    </div>
+                </div> -->
+        <div class="row Overflow " >
+            <div class="col-lg-12">
+                <table class="table table-bordered fonttxt" id="downloadaplication">
+                    <thead>
+                        <tr class="newFont">
+                            <!-- <th class="SelectData">Select</th> -->
+                            <th>Employee ID</th>
+                            <th>Fullname</th>
+
+                            <th>Position</th>
+                            <th>Department</th>
+                            <th>Date Hired</th>
+                            <!-- <th>Employment Status</th>
+                            <th>Bank Account Number</th> -->
+                            <!-- <th>Cost Center</th> -->
+                            <!-- <th>Gender</th> -->
+                            <th>Tax Status</th>
+                            <!-- <th>Work Days Per Year</th> -->
+                            <!-- <th> Total Salary 
+
+                            </th> -->
+
+                            <!-- <th>Monthly De Minimis Benefits</th> -->
+                            <!-- <th>Total Monthly Salary</th> -->
+                            <th>Total Salary</th>
+                             <th>Total Loan Payout</th> 
+                            <th>Salary Till date</th>
+                            <!-- <th>Basic Salary (Semi-Monthly)</th>
+                            <th>Gross/Day</th>
+                            <th>Basic/Hr (8 hours)</th>
+                            <th>De Minimis Benefits (Semi-Monthly)</th>
+                            <th>OT Total</th> -->
+                            
+                            <!-- <th>Days Absent</th>
+                                    <th>Total Absent Deduction</th>
+                                     <th>Deminimis Absent Deduction</th>
+                                    <th>Allowance Absent Deduction</th>
+                                    <th>Discretionary Deduction</th>
+                                    <th>Minutes Late</th>
+                                    <th>Total Late Deduction</th> -->
+                            <th>Withholding Tax Till Date</th>
+                            <th>SSS Till Date</th>
+                            <th>Philhealth Till Date</th>
+                            <th>HDMF Till Date</th>
+                            <th>Deductions Total Till Date</th>
+                            <!-- <th>Taxable Gross</th>
+                            <th>Net Pay</th>
+                            <th>SSSER</th>
+                            <th>SSSEC</th> -->
+                            <!-- <th>PHER</th> -->
+                            <!-- <th>HDMFER</th> -->
+                            <!-- <th>HDMF Additional</th> -->
+
+
+                        </tr>
+                        <tr *ngFor="let item of uniquelistpayroll|paginate: { itemsPerPage: count1, currentPage: p}">
+
+
+                            <!-- <td class="SelectData"><input type="checkbox"></td> -->
+                            <td>000{{item.id}}</td>
+                            <td>{{item.staffname}} {{item.lastName}}</td>
+                            <td>{{item.role}}</td>
+                            <td>{{item.department_name}}</td>
+                            <td>{{item.joiningDate}}</td>
+                            <!-- <td>Active</td>
+                            <td>{{item.bankAccountNumber}}</td> -->
+                            <!-- <td>Management Team</td> -->
+
+                            <td>ME</td>
+                            <!-- <td>{{Days}}</td> -->
+                            <td>{{item.yearGrossSal}}</td>
+                            <!-- <td>{{item.staffdeminims}}</td>
+                            <td>{{item.grossSalary}}</td> -->
+                            <td>{{item.yearlyloanpayout}}</td>
+                            <td>{{item.yearsalary}}</td>
+                            <!-- <td>{{item.monthlysalaryperperiod}}</td> -->
+                            <!-- <td>{{item.basicperday}}</td>
+
+
+                            <td>{{item.basichour}}</td>
+                            <td>{{item.deniminimis_amount}}</td>
+                            <td>{{item.yearotamount|number:'1.2-2'}}</td>
+                            <td>{{item.grossSalary+item.yearotamount|number:'1.2-2'}}</td> -->
+                            <td>{{item.yeartax}}</td>
+                            <td>{{item.yearSSSRate}}</td>
+                            <td>{{item.yearPhilihealth}}</td>
+                            <td>{{item.yearPagibigRate}}</td>
+                            <td>{{item.yeartax+item.yearSSSRate+item.yearPhilihealth+item.yearPagibigRate}}</td>
+                            <!-- <td>{{item.yearSSSRate}}</td> -->
+                            <!-- <td>{{item.yearsalary}}</td>
+                            <td>{{item.yearss_er}}</td>
+                            <td>{{item.yearss_ec}}</td>
+                            <td>{{item.yearPagibigRate/2}}</td> -->
+                            <!-- <td></td> -->
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="text-right">
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+            </div>
+        </div>
+
+
+        
+    </div>
+    <br>
+
+</div>
