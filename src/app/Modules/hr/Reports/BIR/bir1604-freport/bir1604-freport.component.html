@@ -1,0 +1,1649 @@
+<div class="container-fluid">
+    <div class="card">
+     <div class="row">
+         <div class="col-lg-5"></div>
+         <div class="col-lg-4">
+             <a href="" class="Heading "> BIR 1604-F</a>
+         </div>
+     </div>
+     <hr>
+     <div class="row FilterClass fontheading">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-3">
+             <p> Year</p>
+         </div>
+        
+         <div class="col-lg-2">
+             <select name="year" id="year" class="form-control" [(ngModel)]="year">
+                 <option value="Select">Select</option>
+                 <option value="2022">2022</option>
+                 <option value="2021">2021</option>
+                 <option value="2020">2020</option>
+                 <option value="2019">2019</option>
+             </select>
+         </div>
+     </div><br>
+ 
+    
+ 
+ 
+     <div class="row FilterClass fontheading">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-3">
+             <p>Authorized Representative/Tax Payer</p>
+         </div>
+         <div class="col-lg-2">
+             <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                 <option value="">Select</option>
+                 <option value="Admin">Admin</option>
+                 <option value="HR">HR</option>
+                 <option value="Finance">Finance</option>
+             </select>
+         </div>
+     </div> <br>
+ 
+ 
+     <div class="row">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-4">
+             <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+             <button class="AddButton" (click)="showpdf()">GENERATE</button>
+         </div>
+     </div>
+    </div>
+          
+ 
+ </div><br>
+ 
+ <div class="row" *ngIf="showleaseforprint==1">
+     <!-- <div class="col-lg-5">
+ 
+     </div>
+     <div class="col-lg-3">
+        <button class="button1" (click)="convetToPDF1()">Convert To PDF </button>
+     </div> -->
+ 
+     <div class="col-lg-4">
+     </div>
+     <div class="col-lg-4">
+         <!-- <button class="loan1" (click)="convetToPDF1()">Convert To PDF</button> -->
+         <button class="AddButton" (click)="convetToPDF1()" style="margin-right: -10px;">Convert To PDF</button>
+         <br/>
+     </div>
+     <div class="col-lg-3">
+     </div>
+ 
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <div id="downloadaplication"
+      style="position: absolute;
+      left: 50%;
+      margin-left: -396px;
+      top: 0px;
+     
+    width: 928px;
+
+      height: 2500px;
+      border-style: outset;
+      overflow: hidden;
+      margin-top: 380px;">
+         <div id="page1-div" style="position:relative;width:918px;height:1404px;">
+            <img width="918" height="1404" src="assets/images/1604Part1.png" alt="background image"/>
+            <p style="position:absolute;top:1381px;left:43px;white-space:nowrap" class="ft10">&#160;</p>
+            <p style="position:absolute;top:1387px;left:43px;white-space:nowrap" class="ft11">&#160;</p>
+            <p style="position:absolute;top:30px;left:43px;white-space:nowrap" class="ft118">&#160;<br/>&#160;<br/>&#160;</p>
+            <p style="position:absolute;top:40px;left:95px;white-space:nowrap" class="ft10">&#160;</p>
+            <p style="position:absolute;top:44px;left:151px;white-space:nowrap" class="ft118">&#160;<br/>&#160;</p>
+            <p style="position:absolute;top:52px;left:151px;white-space:nowrap" class="ft119">&#160;<br/>&#160;</p>
+            <p style="position:absolute;top:78px;left:43px;white-space:nowrap" class="ft10">&#160;</p>
+            <p style="position:absolute;top:86px;left:56px;white-space:nowrap" class="ft13">BIR Form&#160;No.&#160;</p>
+            <p style="position:absolute;top:106px;left:44px;white-space:nowrap" class="ft14"><b>1604-F</b></p>
+            <p style="position:absolute;top:120px;left:148px;white-space:nowrap" class="ft15"><b>&#160;</b></p>
+            <p style="position:absolute;top:140px;left:57px;white-space:nowrap" class="ft13">January&#160;2018&#160;&#160;</p>
+            <p style="position:absolute;top:154px;left:78px;white-space:nowrap" class="ft16"><b>Page 1</b></p>
+            <p style="position:absolute;top:153px;left:117px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:88px;left:259px;white-space:nowrap" class="ft17"><b>Annual Information&#160;Return&#160;</b></p>
+            <p style="position:absolute;top:114px;left:182px;white-space:nowrap" class="ft18"><b>of&#160;Income&#160;Payments&#160;Subjected&#160;to&#160;Final&#160;Withholding&#160;Taxes&#160;</b></p>
+            <p style="position:absolute;top:131px;left:411px;white-space:nowrap" class="ft19">&#160;</p>
+            <p style="position:absolute;top:139px;left:174px;white-space:nowrap" class="ft110"><i>Enter&#160;all&#160;required&#160;information&#160;in&#160;CAPITAL&#160;LETTERS&#160;using&#160;BLACK&#160;ink.&#160;Mark&#160;all&#160;applicable&#160;boxes&#160;with</i></p>
+            <p style="position:absolute;top:137px;left:645px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:149px;left:230px;white-space:nowrap" class="ft110"><i>an&#160;“X”.&#160;Two&#160;copies&#160;MUST&#160;be&#160;filed&#160;with&#160;the&#160;BIR and&#160;one&#160;held&#160;by the&#160;Taxpayer.</i></p>
+            <p style="position:absolute;top:146px;left:592px;white-space:nowrap" class="ft11">&#160;</p>
+            <p style="position:absolute;top:86px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:174px;left:30px;white-space:nowrap" class="ft111"><b>1</b>&#160;For the&#160;Year&#160;</p>
+            <p style="position:absolute;top:176px;left:130px;white-space:nowrap" class="ft113"><i>(YYYY)</i></p>
+            <p style="position:absolute;top:176px;left:220px;white-space:nowrap" class="ft113"><i>{{year1}}</i></p>
+            <p style="position:absolute;top:176px;left:241px;white-space:nowrap" class="ft113"><i>{{year2}}</i></p>
+            <p style="position:absolute;top:176px;left:261px;white-space:nowrap" class="ft113"><i>{{year3}}</i></p>
+            <p style="position:absolute;top:176px;left:278px;white-space:nowrap" class="ft113"><i>{{year4}}</i></p>
+            <p style="    position: absolute;top: 172px;left: 555px;white-space: nowrap;" class="ft113"><i>&#10004;</i></p>
+            <p style="    position: absolute;top: 228px;left: 351px;white-space: nowrap;" class="ft113"><i>{{tin1}}</i></p>
+            <p style="    position: absolute;top: 172px;left: 435px;white-space: nowrap;" class="ft113"><i>{{tin2}}</i></p>
+            <p style="    position: absolute;top: 172px;left: 519px;white-space: nowrap;" class="ft113"><i>{{tin3}}</i></p>
+            <p style="    position: absolute;top: 172px;left: 607px;white-space: nowrap;" class="ft113"><i>{{tin4}}</i></p>
+            <p style="    position: absolute;top: 266px;left: 48px;white-space: nowrap;" class="ft113"><i>{{companyname}}</i></p>
+            <p style="    position: absolute;top: 309px;left: 48px;white-space: nowrap;" class="ft113"><i>{{Address}}</i></p>
+            <p style="    position: absolute;top: 337px;left: 805px;white-space: nowrap;" class="ft113"><i>{{zipcode}}</i></p>
+            <p style="    position: absolute;top: 370px;left: 263px;white-space: nowrap;" class="ft113"><i>&#10004;</i></p>
+            <p style="    position: absolute;top: 410px;left: 36px;white-space: nowrap;" class="ft113"><i>{{Phone}}</i></p>
+            <p style="    position: absolute;top: 410px;left: 267px;white-space: nowrap;" class="ft113"><i>{{email}}</i></p>
+            <p style="position:absolute;top:174px;left:170px;white-space:nowrap" class="ft112">&#160;</p>
+            <p style="position:absolute;top:170px;left:201px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:170px;left:223px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:170px;left:244px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:170px;left:266px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:170px;left:287px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:174px;left:309px;white-space:nowrap" class="ft111"><b>2</b>&#160;Amended&#160;Return?&#160;&#160;&#160; &#160; &#160; &#160; &#160;Yes&#160;</p>
+            <p style="position:absolute;top:173px;left:546px;white-space:nowrap" class="ft112">&#160; &#160; &#160; &#160;No&#160;</p>
+            <p style="position:absolute;top:170px;left:611px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:174px;left:628px;white-space:nowrap" class="ft111"><b>3&#160;</b>No.&#160;of&#160;Sheet/s&#160;Attached</p>
+            <p style="position:absolute;top:175px;left:799px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:170px;left:850px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:170px;left:872px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:185px;left:201px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:185px;left:223px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:185px;left:244px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:185px;left:266px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:185px;left:287px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:185px;left:611px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:185px;left:850px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:185px;left:872px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:196px;left:43px;white-space:nowrap" class="ft115">&#160;</p>
+            <p style="position:absolute;top:203px;left:340px;white-space:nowrap" class="ft111"><b>Part&#160;I&#160;</b></p>
+            <p style="position:absolute;top:200px;left:382px;white-space:nowrap" class="ft111"><b>–&#160;Background&#160;Information</b></p>
+            <p style="position:absolute;top:204px;left:569px;white-space:nowrap" class="ft15"><b>&#160;</b></p>
+            <p style="position:absolute;top:228px;left:22px;white-space:nowrap" class="ft15"><b>&#160;</b></p>
+            <p style="position:absolute;top:227px;left:26px;white-space:nowrap" class="ft111"><b>4</b>&#160;Taxpayer Identification Number&#160;</p>
+            <p style="position:absolute;top:229px;left:251px;white-space:nowrap" class="ft113"><i>(TIN)</i></p>
+            <p style="position:absolute;top:228px;left:278px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:351px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:372px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:394px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:226px;left:416px;white-space:nowrap" class="ft18"><b>/&#160;</b></p>
+            <p style="position:absolute;top:222px;left:437px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:459px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:480px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:226px;left:502px;white-space:nowrap" class="ft18"><b>/&#160;</b></p>
+            <p style="position:absolute;top:222px;left:524px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:545px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:566px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:226px;left:588px;white-space:nowrap" class="ft18"><b>/&#160;</b></p>
+            <p style="position:absolute;top:222px;left:610px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:631px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:653px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:674px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:697px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:227px;left:718px;white-space:nowrap" class="ft111"><b>5</b>&#160;RDO&#160;Code</p>
+            <p style="position:absolute;top:228px;left:804px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:828px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:849px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:872px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:237px;left:351px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:372px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:394px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:437px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:459px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:480px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:524px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:545px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:566px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:610px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:631px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:653px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:674px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:697px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:828px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:849px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:237px;left:872px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:250px;left:22px;white-space:nowrap" class="ft15"><b>&#160;</b></p>
+            <p style="position:absolute;top:249px;left:26px;white-space:nowrap" class="ft111"><b>6</b>&#160;</p>
+            <p style="position:absolute;top:247px;left:38px;white-space:nowrap" class="ft112">Withholding&#160;Agent’s&#160;Name&#160;</p>
+            <p style="position:absolute;top:252px;left:219px;white-space:nowrap" class="ft116"><i>(Last&#160;Name,&#160;First&#160;Name,&#160;Middle&#160;Name&#160;for&#160;Individual&#160;OR&#160;Registered&#160;Name&#160;for&#160;Non-Individual)</i></p>
+            <p style="position:absolute;top:250px;left:684px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:30px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:51px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:72px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:93px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:114px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:135px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:157px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:178px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:200px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:221px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:243px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:264px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:286px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:308px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:329px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:351px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:372px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:394px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:415px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:437px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:459px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:480px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:502px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:524px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:545px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:566px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:588px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:610px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:631px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:653px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:674px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:697px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:718px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:740px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:762px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:784px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:806px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:828px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:849px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:267px;left:872px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:282px;left:30px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:51px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:72px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:93px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:114px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:135px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:157px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:178px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:200px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:221px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:243px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:264px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:286px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:308px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:329px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:351px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:372px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:394px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:415px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:437px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:459px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:480px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:502px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:524px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:545px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:566px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:588px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:610px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:631px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:653px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:674px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:697px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:718px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:740px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:762px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:784px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:806px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:828px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:849px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:282px;left:872px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:295px;left:22px;white-space:nowrap" class="ft15"><b>&#160;</b></p>
+            <p style="position:absolute;top:294px;left:26px;white-space:nowrap" class="ft111"><b>7</b>&#160;Registered&#160;Address&#160;</p>
+            <p style="position:absolute;top:295px;left:174px;white-space:nowrap" class="ft110"><i>(Indicate&#160;complete&#160;address.&#160;If&#160;branch,&#160;indicate&#160;the&#160;branch&#160;address.&#160;If&#160;the&#160;registered&#160;address&#160;is&#160;different&#160;from&#160;the&#160;current&#160;address,&#160;go&#160;to&#160;the&#160;RDO&#160;to&#160;update&#160;registered&#160;address&#160;by&#160;using&#160;BIR&#160;Form&#160;No.&#160;1905)</i></p>
+            <p style="position:absolute;top:295px;left:870px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:30px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:51px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:72px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:93px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:114px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:135px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:157px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:178px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:200px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:221px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:243px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:264px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:286px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:308px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:329px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:351px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:372px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:394px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:415px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:437px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:459px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:480px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:502px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:524px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:545px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:566px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:588px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:610px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:631px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:653px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:674px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:697px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:718px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:740px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:762px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:784px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:806px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:828px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:849px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:312px;left:872px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:326px;left:30px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:51px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:72px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:93px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:114px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:135px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:157px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:178px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:200px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:221px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:243px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:264px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:286px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:308px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:329px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:351px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:372px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:394px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:415px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:437px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:459px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:480px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:502px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:524px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:545px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:566px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:588px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:610px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:631px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:653px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:674px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:697px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:718px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:740px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:762px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:784px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:806px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:828px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:849px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:326px;left:872px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:339px;left:30px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:51px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:72px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:93px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:114px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:135px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:157px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:178px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:200px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:221px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:243px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:264px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:286px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:308px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:329px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:351px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:372px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:394px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:415px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:437px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:459px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:480px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:502px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:524px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:545px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:566px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:588px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:610px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:631px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:653px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:674px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:344px;left:697px;white-space:nowrap" class="ft15"><b>7A</b>&#160;ZIP Code&#160;</p>
+            <p style="position:absolute;top:339px;left:806px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:828px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:849px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:339px;left:872px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:354px;left:30px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:51px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:72px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:93px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:114px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:135px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:157px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:178px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:200px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:221px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:243px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:264px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:286px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:308px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:329px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:351px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:372px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:394px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:415px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:437px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:459px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:480px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:502px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:524px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:545px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:566px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:588px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:610px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:631px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:653px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:674px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:806px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:828px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:849px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:354px;left:872px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:371px;left:30px;white-space:nowrap" class="ft111"><b>8</b>&#160;Category&#160;of&#160;Withholding&#160;Agent&#160;</p>
+            <p style="position:absolute;top:366px;left:264px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:371px;left:286px;white-space:nowrap" class="ft112">Private&#160;</p>
+            <p style="position:absolute;top:366px;left:351px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:371px;left:372px;white-space:nowrap" class="ft112">Government</p>
+            <p style="position:absolute;top:372px;left:455px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:371px;left:480px;white-space:nowrap" class="ft111"><b>8A</b>&#160;If&#160;private,&#160;top&#160;withholding agent?</p>
+            <p style="position:absolute;top:372px;left:720px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:366px;left:740px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:371px;left:762px;white-space:nowrap" class="ft112">Yes&#160;</p>
+            <p style="position:absolute;top:366px;left:828px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:371px;left:849px;white-space:nowrap" class="ft112">No&#160;</p>
+            <p style="position:absolute;top:381px;left:264px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:381px;left:351px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:381px;left:740px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:381px;left:828px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:393px;left:30px;white-space:nowrap" class="ft111"><b>9</b>&#160;Contact Number&#160;</p>
+            <p style="position:absolute;top:393px;left:264px;white-space:nowrap" class="ft111"><b>10</b>&#160;Email&#160;Address&#160;</p>
+            <p style="position:absolute;top:411px;left:30px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:51px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:72px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:93px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:114px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:135px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:157px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:178px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:200px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:221px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:243px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:264px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:286px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:308px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:329px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:351px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:372px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:394px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:415px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:437px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:459px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:480px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:502px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:524px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:545px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:566px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:588px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:610px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:631px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:653px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:674px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:697px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:718px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:740px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:762px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:784px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:806px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:828px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:849px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:411px;left:872px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:426px;left:30px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:51px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:72px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:93px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:114px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:135px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:157px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:178px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:200px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:221px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:243px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:264px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:286px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:308px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:329px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:351px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:372px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:394px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:415px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:437px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:459px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:480px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:502px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:524px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:545px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:566px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:588px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:610px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:631px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:653px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:674px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:697px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:718px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:740px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:762px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:784px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:806px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:828px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:849px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:426px;left:872px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:438px;left:30px;white-space:nowrap" class="ft16"><b>11</b></p>
+            <p style="position:absolute;top:438px;left:44px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:435px;left:48px;white-space:nowrap" class="ft12">Are&#160;there&#160;payees&#160;availing&#160;of&#160;tax&#160;relief&#160;under&#160;</p>
+            <p style="position:absolute;top:452px;left:30px;white-space:nowrap" class="ft114">&#160; &#160; &#160; &#160;Special&#160;Law or&#160;International&#160;Tax&#160;Treaty?</p>
+            <p style="position:absolute;top:449px;left:224px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:287px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:444px;left:308px;white-space:nowrap" class="ft13">Yes&#160;</p>
+            <p style="position:absolute;top:438px;left:351px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:444px;left:373px;white-space:nowrap" class="ft13">No&#160;</p>
+            <p style="position:absolute;top:443px;left:415px;white-space:nowrap" class="ft15"><b>11A</b>&#160;If&#160;yes,&#160;specify&#160;</p>
+            <p style="position:absolute;top:438px;left:545px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:566px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:588px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:610px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:631px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:653px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:674px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:697px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:718px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:740px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:762px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:784px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:806px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:828px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:849px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:438px;left:872px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:453px;left:287px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:351px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:545px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:566px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:588px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:610px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:631px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:653px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:674px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:697px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:718px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:740px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:762px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:784px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:806px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:828px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:849px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:453px;left:872px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:464px;left:43px;white-space:nowrap" class="ft115">&#160;</p>
+            <p style="position:absolute;top:471px;left:335px;white-space:nowrap" class="ft111"><b>Part&#160;II&#160;</b></p>
+            <p style="position:absolute;top:468px;left:381px;white-space:nowrap" class="ft111"><b>–&#160;Summary&#160;of&#160;Remittances&#160;</b></p>
+            <p style="position:absolute;top:490px;left:30px;white-space:nowrap" class="ft111"><b>Schedule 1&#160;</b></p>
+            <p style="position:absolute;top:488px;left:113px;white-space:nowrap" class="ft111"><b>–&#160;Remittance&#160;per&#160;BIR&#160;Form No.&#160;1601-FQ&#160;on&#160;Final&#160;Taxes&#160;Withheld&#160;</b></p>
+            <p style="position:absolute;top:517px;left:50px;white-space:nowrap" class="ft112">Quarter&#160;</p>
+            <p style="position:absolute;top:509px;left:141px;white-space:nowrap" class="ft112">Date&#160;of&#160;Remittance&#160;</p>
+            <p style="position:absolute;top:509px;left:301px;white-space:nowrap" class="ft112">TRA/eROR/eAR&#160;</p>
+            <p style="position:absolute;top:526px;left:329px;white-space:nowrap" class="ft112">Number&#160;</p>
+            <p style="position:absolute;top:517px;left:455px;white-space:nowrap" class="ft112">Taxes&#160;Withheld&#160;</p>
+            <p style="position:absolute;top:517px;left:626px;white-space:nowrap" class="ft112">Penalties&#160;</p>
+            <p style="position:absolute;top:509px;left:765px;white-space:nowrap" class="ft112">Total&#160;Amount&#160;</p>
+            <p style="position:absolute;top:526px;left:780px;white-space:nowrap" class="ft112">Remitted&#160;</p>
+            <p style="position:absolute;top:528px;left:163px;white-space:nowrap" class="ft110"><i>(</i></p>
+            <p style="position:absolute;top:527px;left:167px;white-space:nowrap" class="ft113"><i>MM/DD/YYYY)</i></p>
+            <p style="position:absolute;top:529px;left:247px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:553px;left:40px;white-space:nowrap" class="ft112">1</p>
+            <p style="position:absolute;top:553px;left:49px;white-space:nowrap" class="ft114">st</p>
+            <p style="position:absolute;top:553px;left:56px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:554px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:554px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:554px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:554px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:554px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:587px;left:39px;white-space:nowrap" class="ft112">2</p>
+            <p style="position:absolute;top:586px;left:47px;white-space:nowrap" class="ft114">nd</p>
+            <p style="position:absolute;top:587px;left:58px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:588px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:588px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:588px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:588px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:588px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:619px;left:40px;white-space:nowrap" class="ft112">3</p>
+            <p style="position:absolute;top:618px;left:48px;white-space:nowrap" class="ft114">rd</p>
+            <p style="position:absolute;top:619px;left:57px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:619px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:619px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:619px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:619px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:619px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:651px;left:40px;white-space:nowrap" class="ft112">4</p>
+            <p style="position:absolute;top:650px;left:48px;white-space:nowrap" class="ft114">th</p>
+            <p style="position:absolute;top:651px;left:56px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:652px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:652px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:652px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:652px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:652px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:684px;left:30px;white-space:nowrap" class="ft15"><b>TOTAL&#160;</b></p>
+            <p style="position:absolute;top:684px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:684px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:684px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:707px;left:43px;white-space:nowrap" class="ft115">&#160;</p>
+            <p style="position:absolute;top:714px;left:30px;white-space:nowrap" class="ft111"><b>Schedule&#160;2&#160;</b></p>
+            <p style="position:absolute;top:711px;left:113px;white-space:nowrap" class="ft111"><b>–&#160;Remittance&#160;per&#160;BIR&#160;Form No.&#160;1602Q&#160;on&#160;Interest&#160;Payments</b></p>
+            <p style="position:absolute;top:715px;left:540px;white-space:nowrap" class="ft15"><b>&#160;</b></p>
+            <p style="position:absolute;top:741px;left:50px;white-space:nowrap" class="ft112">Quarter&#160;</p>
+            <p style="position:absolute;top:732px;left:141px;white-space:nowrap" class="ft112">Date&#160;of&#160;Remittance&#160;</p>
+            <p style="position:absolute;top:732px;left:301px;white-space:nowrap" class="ft112">TRA/eROR/eAR&#160;</p>
+            <p style="position:absolute;top:749px;left:329px;white-space:nowrap" class="ft112">Number&#160;</p>
+            <p style="position:absolute;top:741px;left:455px;white-space:nowrap" class="ft112">Taxes&#160;Withheld&#160;</p>
+            <p style="position:absolute;top:741px;left:626px;white-space:nowrap" class="ft112">Penalties&#160;</p>
+            <p style="position:absolute;top:732px;left:765px;white-space:nowrap" class="ft112">Total&#160;Amount&#160;</p>
+            <p style="position:absolute;top:749px;left:780px;white-space:nowrap" class="ft112">Remitted&#160;</p>
+            <p style="position:absolute;top:751px;left:163px;white-space:nowrap" class="ft113"><i>(MM/DD/YYYY)</i></p>
+            <p style="position:absolute;top:753px;left:247px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:774px;left:40px;white-space:nowrap" class="ft112">1</p>
+            <p style="position:absolute;top:774px;left:49px;white-space:nowrap" class="ft114">st</p>
+            <p style="position:absolute;top:774px;left:56px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:775px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:775px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:775px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:775px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:775px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:806px;left:39px;white-space:nowrap" class="ft112">2</p>
+            <p style="position:absolute;top:805px;left:47px;white-space:nowrap" class="ft114">nd</p>
+            <p style="position:absolute;top:806px;left:58px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:807px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:807px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:807px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:807px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:807px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:838px;left:40px;white-space:nowrap" class="ft112">3</p>
+            <p style="position:absolute;top:837px;left:48px;white-space:nowrap" class="ft114">rd</p>
+            <p style="position:absolute;top:838px;left:57px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:838px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:838px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:838px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:838px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:838px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:870px;left:40px;white-space:nowrap" class="ft112">4</p>
+            <p style="position:absolute;top:869px;left:48px;white-space:nowrap" class="ft114">th</p>
+            <p style="position:absolute;top:870px;left:56px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:870px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:870px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:870px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:870px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:870px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:902px;left:30px;white-space:nowrap" class="ft15"><b>TOTAL&#160;</b></p>
+            <p style="position:absolute;top:902px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:902px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:902px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:925px;left:43px;white-space:nowrap" class="ft115">&#160;</p>
+            <p style="position:absolute;top:932px;left:30px;white-space:nowrap" class="ft111"><b>Schedule&#160;3&#160;</b></p>
+            <p style="position:absolute;top:929px;left:113px;white-space:nowrap" class="ft111"><b>–&#160;Remittance&#160;per&#160;BIR&#160;Form No.&#160;1603Q&#160;on&#160;Fringe Benefits</b></p>
+            <p style="position:absolute;top:933px;left:520px;white-space:nowrap" class="ft15"><b>&#160;</b></p>
+            <p style="position:absolute;top:959px;left:50px;white-space:nowrap" class="ft112">Quarter&#160;</p>
+            <p style="position:absolute;top:950px;left:141px;white-space:nowrap" class="ft112">Date&#160;of&#160;Remittance&#160;</p>
+            <p style="position:absolute;top:950px;left:301px;white-space:nowrap" class="ft112">TRA/eROR/eAR&#160;</p>
+            <p style="position:absolute;top:968px;left:329px;white-space:nowrap" class="ft112">Number&#160;</p>
+            <p style="position:absolute;top:959px;left:455px;white-space:nowrap" class="ft112">Taxes&#160;Withheld&#160;</p>
+            <p style="position:absolute;top:990px;left:455px;white-space:nowrap" class="ft112">{{firstquartetax}}</p>
+            <p style="position:absolute;top:1027px;left:455px;white-space:nowrap" class="ft112">{{secondquartetax}}</p>
+            <p style="position:absolute;top:1055px;left:455px;white-space:nowrap" class="ft112">{{thirdquartetax}}</p>
+            <p style="position:absolute;top:1085px;left:455px;white-space:nowrap" class="ft112">{{fourthquartetax}}</p>
+            <p style="position:absolute;top:1115px;left:455px;white-space:nowrap" class="ft112">{{total}}</p>
+            <p style="position:absolute;top:959px;left:626px;white-space:nowrap" class="ft112">Penalties&#160;</p>
+            <p style="position:absolute;top:950px;left:765px;white-space:nowrap" class="ft112">Total&#160;Amount&#160;</p>
+            <p style="position:absolute;top:968px;left:780px;white-space:nowrap" class="ft112">Remitted&#160;</p>
+            <p style="position:absolute;top:990px;left:765px;white-space:nowrap" class="ft112">{{firstquartetax}}</p>
+            <p style="position:absolute;top:1027px;left:765px;white-space:nowrap" class="ft112">{{secondquartetax}}</p>
+            <p style="position:absolute;top:1055px;left:765px;white-space:nowrap" class="ft112">{{thirdquartetax}}</p>
+            <p style="position:absolute;top:1085px;left:765px;white-space:nowrap" class="ft112">{{fourthquartetax}}</p>
+            <p style="position:absolute;top:1115px;left:765px;white-space:nowrap" class="ft112">{{total}}</p>
+            <p style="position:absolute;top:970px;left:168px;white-space:nowrap" class="ft110"><i>(MM/DD/YYYY)</i></p>
+            <p style="position:absolute;top:971px;left:242px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:995px;left:40px;white-space:nowrap" class="ft112">1</p>
+            <p style="position:absolute;top:994px;left:49px;white-space:nowrap" class="ft114">st</p>
+            <p style="position:absolute;top:995px;left:56px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:995px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:995px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:995px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:995px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:995px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1028px;left:39px;white-space:nowrap" class="ft112">2</p>
+            <p style="position:absolute;top:1028px;left:47px;white-space:nowrap" class="ft114">nd</p>
+            <p style="position:absolute;top:1028px;left:58px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:1029px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1029px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1029px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1029px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1029px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1060px;left:40px;white-space:nowrap" class="ft112">3</p>
+            <p style="position:absolute;top:1059px;left:48px;white-space:nowrap" class="ft114">rd</p>
+            <p style="position:absolute;top:1060px;left:57px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:1060px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1060px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1060px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1060px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1060px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1092px;left:40px;white-space:nowrap" class="ft112">4</p>
+            <p style="position:absolute;top:1091px;left:48px;white-space:nowrap" class="ft114">th</p>
+            <p style="position:absolute;top:1092px;left:56px;white-space:nowrap" class="ft112">&#160;Quarter&#160;</p>
+            <p style="position:absolute;top:1092px;left:205px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1092px;left:356px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1092px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1092px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1092px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1124px;left:30px;white-space:nowrap" class="ft15"><b>TOTAL&#160;</b></p>
+            <p style="position:absolute;top:1124px;left:506px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1124px;left:657px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1124px;left:810px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1147px;left:43px;white-space:nowrap" class="ft115">&#160;</p>
+            <p style="position:absolute;top:1153px;left:30px;white-space:nowrap" class="ft120">&#160; &#160; &#160; &#160;I/We&#160;declare&#160;under&#160;the&#160;penalties&#160;of&#160;perjury&#160;that&#160;this&#160;return,&#160;and&#160;all&#160;its attachments,&#160;has been&#160;made&#160;in&#160;good&#160;faith,&#160;verified&#160;by&#160;me/us,&#160;and&#160;to&#160;the&#160;best&#160;of&#160;my/our&#160;knowledge&#160;and&#160;belief,&#160;<br/>is true&#160;and&#160;correct,&#160;pursuant&#160;to&#160;the&#160;provisions&#160;of&#160;the&#160;National&#160;Internal&#160;Revenue&#160;Code,&#160;as&#160;amended,&#160;and&#160;the&#160;regulations&#160;issued&#160;under&#160;authority&#160;thereof.&#160;Further,&#160;I/we&#160;give&#160;my/our&#160;<br/>consent&#160;to&#160;the&#160;processing&#160;of&#160;my/our&#160;information&#160;as contemplated&#160;under&#160;the&#160;*Data&#160;Privacy&#160;Act&#160;of&#160;2012&#160;(R.A.&#160;No.&#160;10173)&#160;for&#160;legitimate&#160;and&#160;lawful&#160;purposes.</p>
+            <p style="position:absolute;top:1178px;left:745px;white-space:nowrap" class="ft114">&#160;</p>
+            <p style="position:absolute;top:1175px;left:748px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1190px;left:30px;white-space:nowrap" class="ft12">For&#160;Individual:&#160;</p>
+            <p style="position:absolute;top:1190px;left:461px;white-space:nowrap" class="ft12">For&#160;Non-Individual:&#160;</p>
+            <p style="position:absolute;top:1204px;left:30px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:53px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1205px;left:74px;white-space:nowrap" class="ft11">&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:1204px;left:117px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:138px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:160px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:181px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:203px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:224px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:246px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:267px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:289px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:310px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:331px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:353px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:374px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:396px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:417px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:439px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1205px;left:461px;white-space:nowrap" class="ft11">&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:1204px;left:504px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:525px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:547px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:568px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:590px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:611px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:633px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:654px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:676px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:697px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:719px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:740px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:762px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:783px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:805px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:827px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:850px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1204px;left:872px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:30px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:53px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1226px;left:74px;white-space:nowrap" class="ft11">&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:1225px;left:117px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:138px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:160px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:181px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:203px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:224px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:246px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:267px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:289px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:310px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:331px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:353px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:374px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:396px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:417px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:439px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1226px;left:461px;white-space:nowrap" class="ft11">&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:1225px;left:504px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:525px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:547px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:568px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:590px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:611px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:633px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:654px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:676px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:697px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:719px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:740px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:762px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:783px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:805px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:827px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:850px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1225px;left:872px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:30px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:53px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1247px;left:74px;white-space:nowrap" class="ft11">&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:1245px;left:117px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:138px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:160px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:181px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:203px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:224px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:246px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:267px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:289px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:310px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:331px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:353px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:374px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:396px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:417px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:439px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1247px;left:461px;white-space:nowrap" class="ft11">&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:1245px;left:504px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:525px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:547px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:568px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:590px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:611px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:633px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:654px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:676px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:697px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:719px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:740px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:762px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:783px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:805px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:827px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:850px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1245px;left:872px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:30px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:53px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1267px;left:74px;white-space:nowrap" class="ft11">&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:1266px;left:117px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:138px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:160px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:181px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:203px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:224px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:246px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:267px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:289px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:310px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:331px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:353px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:374px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:396px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:417px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:439px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1267px;left:461px;white-space:nowrap" class="ft11">&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:1266px;left:504px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:525px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:547px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:568px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:590px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:611px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:633px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:654px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:676px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:697px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:719px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:740px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:762px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:783px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:805px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:827px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:850px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1266px;left:872px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1288px;left:25px;white-space:nowrap" class="ft12">Signature&#160;over&#160;Printed&#160;Name&#160;of&#160;Taxpayer/Authorized&#160;Representative/Tax&#160;Agent&#160;&#160;</p>
+            <p style="position:absolute;top:1300px;left:153px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1301px;left:156px;white-space:nowrap" class="ft110"><i>(Indicate&#160;Title/Designation&#160;and&#160;TIN)</i></p>
+            <p style="position:absolute;top:1299px;left:322px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1288px;left:517px;white-space:nowrap" class="ft12">Signature&#160;over&#160;Printed&#160;Name&#160;of&#160;President/Vice&#160;President/&#160;</p>
+            <p style="position:absolute;top:1301px;left:459px;white-space:nowrap" class="ft12">Authorized&#160;Officer&#160;or&#160;Representative/Tax&#160;Agent</p>
+            <p style="position:absolute;top:1303px;left:711px;white-space:nowrap" class="ft110"><i>&#160;(Indicate&#160;Title/Designation&#160;and&#160;TIN)&#160;</i></p>
+            <p style="position:absolute;top:1316px;left:30px;white-space:nowrap" class="ft12">Tax&#160;Agent&#160;Accreditation&#160;No./&#160;</p>
+            <p style="position:absolute;top:1324px;left:203px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1317px;left:423px;white-space:nowrap" class="ft13">Date&#160;of&#160;Issue&#160;</p>
+            <p style="position:absolute;top:1324px;left:525px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1317px;left:657px;white-space:nowrap" class="ft13">Date&#160;of&#160;Expiry&#160;</p>
+            <p style="position:absolute;top:1324px;left:762px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:1332px;left:25px;white-space:nowrap" class="ft12">Attorne</p>
+            <p style="position:absolute;top:1330px;left:64px;white-space:nowrap" class="ft12">y’s&#160;Roll&#160;No.&#160;</p>
+            <p style="position:absolute;top:1333px;left:128px;white-space:nowrap" class="ft110"><i>(if applicable)</i></p>
+            <p style="position:absolute;top:1332px;left:190px;white-space:nowrap" class="ft12">&#160;</p>
+            <p style="position:absolute;top:1332px;left:426px;white-space:nowrap" class="ft110"><i>(MM/DD/YYYY)&#160;</i></p>
+            <p style="position:absolute;top:1332px;left:663px;white-space:nowrap" class="ft110"><i>(MM/DD/YYYY)&#160;</i></p>
+            <p style="position:absolute;top:1348px;left:22px;white-space:nowrap" class="ft117">*NOTE:&#160;The&#160;BIR Data&#160;Privacy&#160;is&#160;in&#160;the&#160;BR website&#160;(www.bir.gov.ph)&#160;</p>
+            <p style="position:absolute;top:1360px;left:43px;white-space:nowrap" class="ft117">&#160;</p>
+            <p style="position:absolute;top:149px;left:781px;white-space:nowrap" class="ft12">1604-F&#160;01/18&#160;P1&#160;</p>
+            <p style="position:absolute;top:37px;left:405px;white-space:nowrap" class="ft16"><b>Republic&#160;of&#160;the Philippines</b></p>
+            <p style="position:absolute;top:35px;left:560px;white-space:nowrap" class="ft111"><b>&#160;</b></p>
+            <p style="position:absolute;top:51px;left:405px;white-space:nowrap" class="ft121"><b>&#160;&#160;&#160;&#160;Department&#160;of&#160;Finance&#160;<br/>Bureau&#160;of&#160;Internal&#160;Revenue&#160;</b></p>
+            <p style="position:absolute;top:79px;left:405px;white-space:nowrap" class="ft111"><b>&#160;</b></p>
+            <p style="position:absolute;top:51px;left:36px;white-space:nowrap" class="ft119">For&#160;BIR&#160;<br/>Use&#160;Only&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:52px;left:96px;white-space:nowrap" class="ft119">BCS/&#160;<br/>Item:&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:33px;left:751px;white-space:nowrap" class="ft17"><b>Annex&#160;“C”&#160;</b></p>
+            </div>
+            <div id="page2-div" style="position:relative;width:918px;height:1404px;">
+<img width="918" height="1404" src="assets/images/1604part2.png" alt="background image"/>
+<p style="position:absolute;top:1381px;left:43px;white-space:nowrap" class="ft20">&#160;</p>
+<p style="position:absolute;top:1387px;left:43px;white-space:nowrap" class="ft21">&#160;</p>
+<p style="position:absolute;top:31px;left:43px;white-space:nowrap" class="ft228">&#160;<br/>&#160;</p>
+<p style="position:absolute;top:52px;left:69px;white-space:nowrap" class="ft23">BIR Form&#160;No.&#160;</p>
+<p style="position:absolute;top:71px;left:57px;white-space:nowrap" class="ft24"><b>1604-F</b></p>
+<p style="position:absolute;top:85px;left:161px;white-space:nowrap" class="ft25"><b>&#160;</b></p>
+<p style="position:absolute;top:105px;left:70px;white-space:nowrap" class="ft23">January&#160;2018&#160;&#160;</p>
+<p style="position:absolute;top:120px;left:91px;white-space:nowrap" class="ft26"><b>Page&#160;2</b></p>
+<p style="position:absolute;top:119px;left:130px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:72px;left:274px;white-space:nowrap" class="ft27"><b>Annual Information&#160;Return&#160;</b></p>
+<p style="position:absolute;top:98px;left:197px;white-space:nowrap" class="ft28"><b>of&#160;Income&#160;Payments&#160;Subjected&#160;to&#160;Final&#160;Withholding&#160;Taxes</b></p>
+<p style="position:absolute;top:97px;left:655px;white-space:nowrap" class="ft21">&#160;</p>
+<p style="position:absolute;top:52px;left:673px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:137px;left:41px;white-space:nowrap" class="ft29"><b>TIN</b></p>
+<p style="position:absolute;top:138px;left:65px;white-space:nowrap" class="ft25"><b>&#160;</b></p>
+<p style="position:absolute;top:134px;left:347px;white-space:nowrap" class="ft29"><b>Withholding&#160;Agent’s&#160;Name</b>&#160;</p>
+<p style="position:absolute;top:139px;left:542px;white-space:nowrap" class="ft211"><i>(Last&#160;Name&#160;for&#160;Individual&#160;OR&#160;Registered&#160;Name&#160;for&#160;Non-Individual)</i></p>
+<p style="position:absolute;top:138px;left:873px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:41px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:67px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:88px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:110px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:131px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:153px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:175px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:196px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:218px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:239px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:261px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:282px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:304px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:326px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:347px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:369px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:390px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:411px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:433px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:455px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:476px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:497px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:519px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:541px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:562px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:583px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:605px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:627px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:648px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:670px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:691px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:713px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:734px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:756px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:777px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:798px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:820px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:843px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:865px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:155px;left:888px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:169px;left:41px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:67px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:88px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:110px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:131px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:153px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:175px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:196px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:218px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:239px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:261px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:282px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:304px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:326px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:347px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:369px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:390px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:411px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:433px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:455px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:476px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:497px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:519px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:541px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:562px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:583px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:605px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:627px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:648px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:670px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:691px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:713px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:734px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:756px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:777px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:798px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:820px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:843px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:865px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:169px;left:888px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:180px;left:43px;white-space:nowrap" class="ft213">&#160;</p>
+<p style="position:absolute;top:187px;left:201px;white-space:nowrap" class="ft25"><b>Part III&#160;</b></p>
+<p style="position:absolute;top:184px;left:246px;white-space:nowrap" class="ft25"><b>–&#160;Alphabetical&#160;List&#160;of&#160;Payees&#160;from&#160;whom&#160;Taxes&#160;were&#160;Withheld&#160;</b><i>(Format&#160;only)</i><b>&#160;</b></p>
+<p style="position:absolute;top:204px;left:41px;white-space:nowrap" class="ft25"><b>Schedule&#160;4&#160;</b></p>
+<p style="position:absolute;top:202px;left:116px;white-space:nowrap" class="ft25"><b>–&#160;Alphalist of Payees&#160;Subjected&#160;to&#160;Final&#160;Withholding&#160;Tax</b>&#160;</p>
+<p style="position:absolute;top:205px;left:484px;white-space:nowrap" class="ft215"><i>(Declared&#160;and&#160;certified&#160;using&#160;BIR&#160;Form&#160;No.&#160;2306)</i></p>
+<p style="position:absolute;top:204px;left:747px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:235px;left:43px;white-space:nowrap" class="ft216">Seq.&#160;</p>
+<p style="position:absolute;top:247px;left:47px;white-space:nowrap" class="ft216">No</p>
+<p style="position:absolute;top:245px;left:60px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:241px;left:109px;white-space:nowrap" class="ft216">TIN</p>
+<p style="position:absolute;top:239px;left:126px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:220px;left:197px;white-space:nowrap" class="ft216">Name&#160;of&#160;Payees&#160;</p>
+<p style="position:absolute;top:232px;left:173px;white-space:nowrap" class="ft217"><i>(Last&#160;Name,&#160;First&#160;Name,&#160;Middle&#160;</i></p>
+<p style="position:absolute;top:243px;left:189px;white-space:nowrap" class="ft217"><i>Name&#160;for&#160;Individual OR&#160;</i></p>
+<p style="position:absolute;top:253px;left:184px;white-space:nowrap" class="ft217"><i>Registered&#160;Name&#160;for&#160;Non-</i></p>
+<p style="position:absolute;top:263px;left:216px;white-space:nowrap" class="ft217"><i>Individual)</i>&#160;</p>
+<p style="position:absolute;top:241px;left:343px;white-space:nowrap" class="ft216">Address&#160;of&#160;Payees&#160;</p>
+<p style="position:absolute;top:226px;left:489px;white-space:nowrap" class="ft216">*Status&#160;&#160;</p>
+<p style="position:absolute;top:237px;left:494px;white-space:nowrap" class="ft212">(As to&#160;</p>
+<p style="position:absolute;top:248px;left:483px;white-space:nowrap" class="ft229">Residence/&#160;<br/>Nationality)</p>
+<p style="position:absolute;top:255px;left:528px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:241px;left:560px;white-space:nowrap" class="ft216">ATC&#160;</p>
+<p style="position:absolute;top:225px;left:601px;white-space:nowrap" class="ft216">Nature&#160;of&#160;Income&#160;</p>
+<p style="position:absolute;top:237px;left:621px;white-space:nowrap" class="ft216">Payment&#160;</p>
+<p style="position:absolute;top:249px;left:608px;white-space:nowrap" class="ft212">(Refer&#160;to&#160;BIR Form&#160;</p>
+<p style="position:absolute;top:259px;left:618px;white-space:nowrap" class="ft212">No.&#160;1601-FQ)</p>
+<p style="position:absolute;top:256px;left:673px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:229px;left:709px;white-space:nowrap" class="ft216">Amount&#160;of&#160;</p>
+<p style="position:absolute;top:241px;left:715px;white-space:nowrap" class="ft216">Income&#160;</p>
+<p style="position:absolute;top:253px;left:712px;white-space:nowrap" class="ft216">Payment</p>
+<p style="position:absolute;top:251px;left:753px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:235px;left:778px;white-space:nowrap" class="ft216">Tax&#160;</p>
+<p style="position:absolute;top:247px;left:776px;white-space:nowrap" class="ft216">Rate</p>
+<p style="position:absolute;top:245px;left:798px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:230px;left:819px;white-space:nowrap" class="ft216">Amount&#160;of&#160;Tax&#160;</p>
+<p style="position:absolute;top:242px;left:833px;white-space:nowrap" class="ft216">Withheld&#160;&#160;</p>
+<p style="position:absolute;top:254px;left:821px;white-space:nowrap" class="ft212">(Not&#160;Creditable)</p>
+<p style="position:absolute;top:253px;left:885px;white-space:nowrap" class="ft216">&#160;</p>
+<p style="position:absolute;top:274px;left:48px;white-space:nowrap" class="ft212">(1)&#160;</p>
+<p style="position:absolute;top:274px;left:112px;white-space:nowrap" class="ft212">(2)&#160;</p>
+<p style="position:absolute;top:274px;left:231px;white-space:nowrap" class="ft212">(3)&#160;</p>
+<p style="position:absolute;top:274px;left:382px;white-space:nowrap" class="ft212">(4)&#160;</p>
+<p style="position:absolute;top:274px;left:500px;white-space:nowrap" class="ft212">(5)&#160;</p>
+<p style="position:absolute;top:274px;left:565px;white-space:nowrap" class="ft212">(6)&#160;</p>
+<p style="position:absolute;top:274px;left:640px;white-space:nowrap" class="ft212">(7)&#160;</p>
+<p style="position:absolute;top:274px;left:727px;white-space:nowrap" class="ft212">(8)&#160;</p>
+<p style="position:absolute;top:274px;left:781px;white-space:nowrap" class="ft212">(9)&#160;</p>
+<p style="position:absolute;top:274px;left:830px;white-space:nowrap" class="ft212">(10)&#160;= (8x9)&#160;</p>
+<p style="position:absolute;top:286px;left:54px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:286px;left:83px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:104px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:125px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:147px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:169px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:190px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:212px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:233px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:255px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:277px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:298px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:320px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:341px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:363px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:384px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:406px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:428px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:449px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:471px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:492px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:514px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:536px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:557px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:579px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:600px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:622px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:643px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:665px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:686px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:708px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:730px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:751px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:773px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:795px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:817px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:838px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:860px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:286px;left:883px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:303px;left:54px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:302px;left:83px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:104px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:125px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:147px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:169px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:190px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:212px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:233px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:255px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:277px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:298px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:320px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:341px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:363px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:384px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:406px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:428px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:449px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:471px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:492px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:514px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:536px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:557px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:579px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:600px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:622px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:643px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:665px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:686px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:708px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:730px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:751px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:773px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:795px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:817px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:838px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:860px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:302px;left:883px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:319px;left:54px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:318px;left:83px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:104px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:125px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:147px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:169px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:190px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:212px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:233px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:255px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:277px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:298px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:320px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:341px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:363px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:384px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:406px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:428px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:449px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:471px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:492px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:514px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:536px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:557px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:579px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:600px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:622px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:643px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:665px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:686px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:708px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:730px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:751px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:773px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:795px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:817px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:838px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:860px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:318px;left:883px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:334px;left:41px;white-space:nowrap" class="ft25"><b>Total&#160;Final&#160;Withholding&#160;Tax&#160;</b></p>
+<p style="position:absolute;top:335px;left:708px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:335px;left:730px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:335px;left:751px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:335px;left:773px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:335px;left:795px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:335px;left:817px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:335px;left:838px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:335px;left:860px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:335px;left:883px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:350px;left:43px;white-space:nowrap" class="ft213">&#160;&#160;</p>
+<p style="position:absolute;top:356px;left:41px;white-space:nowrap" class="ft25"><b>Schedule&#160;5&#160;</b></p>
+<p style="position:absolute;top:354px;left:116px;white-space:nowrap" class="ft25"><b>–&#160;Alphalist&#160;of&#160;Employees&#160;Other&#160;than Rank and&#160;File&#160;Who&#160;were&#160;Given Fringe&#160;Benefits&#160;During&#160;the&#160;Year</b>&#160;</p>
+<p style="position:absolute;top:358px;left:645px;white-space:nowrap" class="ft219"><i>(Declared&#160;and&#160;certified&#160;using&#160;BIR&#160;Form&#160;No.&#160;2306)</i></p>
+<p style="position:absolute;top:356px;left:876px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:387px;left:43px;white-space:nowrap" class="ft216">Seq.&#160;</p>
+<p style="position:absolute;top:399px;left:46px;white-space:nowrap" class="ft216">No.</p>
+<p style="position:absolute;top:397px;left:62px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:393px;left:109px;white-space:nowrap" class="ft216">TIN</p>
+<p style="position:absolute;top:391px;left:126px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:384px;left:189px;white-space:nowrap" class="ft216">Name&#160;of&#160;Employees&#160;</p>
+<p style="position:absolute;top:395px;left:178px;white-space:nowrap" class="ft220"><i>(Last&#160;Name,&#160;First&#160;Name,&#160;Middle&#160;</i></p>
+<p style="position:absolute;top:405px;left:224px;white-space:nowrap" class="ft220"><i>Name)</i></p>
+<p style="position:absolute;top:401px;left:249px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:393px;left:323px;white-space:nowrap" class="ft216">ATC&#160;</p>
+<p style="position:absolute;top:393px;left:364px;white-space:nowrap" class="ft216">Nature&#160;of&#160;Fringe&#160;Benefit</p>
+<p style="position:absolute;top:391px;left:475px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:387px;left:509px;white-space:nowrap" class="ft216">Amount&#160;of&#160;Fringe&#160;</p>
+<p style="position:absolute;top:399px;left:533px;white-space:nowrap" class="ft216">Benefit</p>
+<p style="position:absolute;top:397px;left:565px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:387px;left:627px;white-space:nowrap" class="ft216">Grossed-Up&#160;Monetary&#160;</p>
+<p style="position:absolute;top:399px;left:665px;white-space:nowrap" class="ft216">Value</p>
+<p style="position:absolute;top:400px;left:692px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:382px;left:799px;white-space:nowrap" class="ft216">Tax&#160;Rate&#160;</p>
+<p style="position:absolute;top:394px;left:764px;white-space:nowrap" class="ft216">Amount&#160;of&#160;Tax&#160;Withheld&#160;</p>
+<p style="position:absolute;top:406px;left:789px;white-space:nowrap" class="ft212">(Not&#160;Creditable)</p>
+<p style="position:absolute;top:405px;left:852px;white-space:nowrap" class="ft216">&#160;</p>
+<p style="position:absolute;top:426px;left:48px;white-space:nowrap" class="ft212">(1)&#160;</p>
+<p style="position:absolute;top:426px;left:112px;white-space:nowrap" class="ft212">(2)&#160;</p>
+<p style="position:absolute;top:426px;left:231px;white-space:nowrap" class="ft212">(3)&#160;</p>
+<p style="position:absolute;top:426px;left:328px;white-space:nowrap" class="ft212">(4)&#160;</p>
+<p style="position:absolute;top:426px;left:414px;white-space:nowrap" class="ft212">(5)&#160;</p>
+<p style="position:absolute;top:426px;left:543px;white-space:nowrap" class="ft212">(6)&#160;</p>
+<p style="position:absolute;top:426px;left:673px;white-space:nowrap" class="ft212">(7)&#160;</p>
+<p style="position:absolute;top:426px;left:815px;white-space:nowrap" class="ft212">(8)&#160;</p>
+<p style="position:absolute;top:438px;left:54px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:438px;left:83px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:104px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:125px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:147px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:169px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:190px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:212px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:233px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:255px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:277px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:298px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:320px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:341px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:363px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:384px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:406px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:428px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:449px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:471px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:492px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:514px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:536px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:557px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:579px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:600px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:622px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:643px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:665px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:686px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:708px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:730px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:751px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:773px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:795px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:817px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:838px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:860px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:438px;left:883px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:455px;left:54px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:454px;left:83px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:104px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:125px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:147px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:169px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:190px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:212px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:233px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:255px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:277px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:298px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:320px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:341px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:363px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:384px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:406px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:428px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:449px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:471px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:492px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:514px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:536px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:557px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:579px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:600px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:622px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:643px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:665px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:686px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:708px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:730px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:751px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:773px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:795px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:817px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:838px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:860px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:454px;left:883px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:54px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:471px;left:83px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:104px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:125px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:147px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:169px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:190px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:212px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:233px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:255px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:277px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:298px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:320px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:341px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:363px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:384px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:406px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:428px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:449px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:471px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:492px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:514px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:536px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:557px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:579px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:600px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:622px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:643px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:665px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:686px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:708px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:730px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:751px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:773px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:795px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:817px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:838px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:860px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:471px;left:883px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:486px;left:41px;white-space:nowrap" class="ft25"><b>Total&#160;Fringe&#160;Benefits&#160;Tax&#160;</b></p>
+<p style="position:absolute;top:487px;left:492px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:514px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:536px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:557px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:579px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:600px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:622px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:643px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:665px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:686px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:708px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:730px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:751px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:773px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:795px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:817px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:838px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:860px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:487px;left:883px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:502px;left:43px;white-space:nowrap" class="ft213">&#160;</p>
+<p style="position:absolute;top:508px;left:41px;white-space:nowrap" class="ft25"><b>Schedule&#160;6</b></p>
+<p style="position:absolute;top:507px;left:112px;white-space:nowrap" class="ft29"><b>&#160;</b></p>
+<p style="position:absolute;top:506px;left:116px;white-space:nowrap" class="ft26"><b>–&#160;Alphalist&#160;of&#160;Other&#160;Payees&#160;Whose&#160;Income&#160;Payments&#160;are&#160;Exempt&#160;from&#160;Withholding&#160;Tax&#160;but&#160;Subject&#160;to&#160;Income&#160;Tax</b></p>
+<p style="position:absolute;top:507px;left:685px;white-space:nowrap" class="ft210">&#160;</p>
+<p style="position:absolute;top:511px;left:690px;white-space:nowrap" class="ft217"><i>(Declared&#160;and&#160;certified&#160;using&#160;BIR Form&#160;No.&#160;2304)</i></p>
+<p style="position:absolute;top:508px;left:887px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:540px;left:46px;white-space:nowrap" class="ft216">Seq.&#160;</p>
+<p style="position:absolute;top:552px;left:50px;white-space:nowrap" class="ft216">No</p>
+<p style="position:absolute;top:550px;left:63px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:546px;left:115px;white-space:nowrap" class="ft216">TIN</p>
+<p style="position:absolute;top:544px;left:132px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:530px;left:214px;white-space:nowrap" class="ft216">Name&#160;of&#160;Payees&#160;</p>
+<p style="position:absolute;top:542px;left:176px;white-space:nowrap" class="ft217"><i>(Last&#160;Name,&#160;First&#160;Name,&#160;Middle&#160;Name&#160;</i></p>
+<p style="position:absolute;top:552px;left:176px;white-space:nowrap" class="ft217"><i>for&#160;Individual OR Registered&#160;Name&#160;for&#160;</i></p>
+<p style="position:absolute;top:563px;left:222px;white-space:nowrap" class="ft217"><i>Non-Individual)</i>&#160;</p>
+<p style="position:absolute;top:546px;left:381px;white-space:nowrap" class="ft216">Address&#160;of&#160;Payees&#160;</p>
+<p style="position:absolute;top:530px;left:537px;white-space:nowrap" class="ft216">*Status&#160;&#160;</p>
+<p style="position:absolute;top:542px;left:542px;white-space:nowrap" class="ft212">(As to&#160;</p>
+<p style="position:absolute;top:552px;left:531px;white-space:nowrap" class="ft229">Residence/&#160;<br/>Nationality)</p>
+<p style="position:absolute;top:560px;left:576px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:546px;left:619px;white-space:nowrap" class="ft216">ATC&#160;</p>
+<p style="position:absolute;top:534px;left:679px;white-space:nowrap" class="ft216">Nature&#160;of&#160;</p>
+<p style="position:absolute;top:546px;left:683px;white-space:nowrap" class="ft216">Income&#160;</p>
+<p style="position:absolute;top:558px;left:680px;white-space:nowrap" class="ft216">Payment&#160;</p>
+<p style="position:absolute;top:546px;left:758px;white-space:nowrap" class="ft216">Amount&#160;of&#160;Income&#160;Payment</p>
+<p style="position:absolute;top:544px;left:887px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:579px;left:51px;white-space:nowrap" class="ft212">(1)&#160;</p>
+<p style="position:absolute;top:579px;left:118px;white-space:nowrap" class="ft212">(2)&#160;</p>
+<p style="position:absolute;top:579px;left:247px;white-space:nowrap" class="ft212">(3)&#160;</p>
+<p style="position:absolute;top:579px;left:419px;white-space:nowrap" class="ft212">(4)&#160;</p>
+<p style="position:absolute;top:579px;left:548px;white-space:nowrap" class="ft212">(5)&#160;</p>
+<p style="position:absolute;top:579px;left:624px;white-space:nowrap" class="ft212">(6)&#160;</p>
+<p style="position:absolute;top:579px;left:699px;white-space:nowrap" class="ft212">(7)&#160;</p>
+<p style="position:absolute;top:579px;left:817px;white-space:nowrap" class="ft212">(8)&#160;</p>
+<p style="position:absolute;top:591px;left:56px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:591px;left:88px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:110px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:131px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:153px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:175px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:196px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:218px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:239px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:261px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:282px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:304px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:326px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:347px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:369px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:390px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:411px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:433px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:455px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:476px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:497px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:519px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:541px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:562px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:583px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:605px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:627px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:648px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:670px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:691px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:713px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:734px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:756px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:777px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:798px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:820px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:843px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:865px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:591px;left:888px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:607px;left:56px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:608px;left:88px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:110px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:131px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:153px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:175px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:196px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:218px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:239px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:261px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:282px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:304px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:326px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:347px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:369px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:390px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:411px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:433px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:455px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:476px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:497px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:519px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:541px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:562px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:583px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:605px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:627px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:648px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:670px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:691px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:713px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:734px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:756px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:777px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:798px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:820px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:843px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:865px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:608px;left:888px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:623px;left:56px;white-space:nowrap" class="ft218">&#160;</p>
+<p style="position:absolute;top:624px;left:88px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:110px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:131px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:153px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:175px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:196px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:218px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:239px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:261px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:282px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:304px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:326px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:347px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:369px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:390px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:411px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:433px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:455px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:476px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:497px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:519px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:541px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:562px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:583px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:605px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:627px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:648px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:670px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:691px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:713px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:734px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:756px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:777px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:798px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:820px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:843px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:865px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:624px;left:888px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:640px;left:41px;white-space:nowrap" class="ft25"><b>Total&#160;Income&#160;Payments&#160;Exempt&#160;from&#160;Withholding&#160;Tax</b>&#160;</p>
+<p style="position:absolute;top:640px;left:756px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:640px;left:777px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:640px;left:798px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:640px;left:820px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:640px;left:843px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:640px;left:865px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:640px;left:888px;white-space:nowrap" class="ft23">&#160;</p>
+<p style="position:absolute;top:655px;left:43px;white-space:nowrap" class="ft213">&#160;</p>
+<p style="position:absolute;top:659px;left:33px;white-space:nowrap" class="ft212">*&#160;A&#160;</p>
+<p style="position:absolute;top:657px;left:47px;white-space:nowrap" class="ft212">–&#160;Citizens of&#160;the&#160;Philippines&#160;</p>
+<p style="position:absolute;top:659px;left:205px;white-space:nowrap" class="ft212">B&#160;</p>
+<p style="position:absolute;top:657px;left:214px;white-space:nowrap" class="ft212">–&#160;Resident&#160;Alien&#160;Individuals&#160;</p>
+<p style="position:absolute;top:659px;left:367px;white-space:nowrap" class="ft212">C&#160;</p>
+<p style="position:absolute;top:657px;left:376px;white-space:nowrap" class="ft212">–&#160;Non-Resident&#160;Alien&#160;Engaged&#160;in&#160;Business&#160;</p>
+<p style="position:absolute;top:659px;left:583px;white-space:nowrap" class="ft212">&#160; &#160; &#160; &#160; &#160;&#160;D&#160;</p>
+<p style="position:absolute;top:657px;left:618px;white-space:nowrap" class="ft212">–&#160;Non-Resident&#160;Alien&#160;Not&#160;Engaged&#160;in&#160;Business&#160;</p>
+<p style="position:absolute;top:669px;left:33px;white-space:nowrap" class="ft212">&#160;&#160;E&#160;</p>
+<p style="position:absolute;top:667px;left:46px;white-space:nowrap" class="ft212">–&#160;Domestic Corporation&#160;&#160;&#160;</p>
+<p style="position:absolute;top:669px;left:205px;white-space:nowrap" class="ft212">F&#160;</p>
+<p style="position:absolute;top:667px;left:213px;white-space:nowrap" class="ft212">–&#160;Resident&#160;Foreign&#160;Corp.&#160;</p>
+<p style="position:absolute;top:669px;left:367px;white-space:nowrap" class="ft212">G&#160;</p>
+<p style="position:absolute;top:667px;left:377px;white-space:nowrap" class="ft212">–&#160;Non-Resident&#160;Foreign&#160;Corp.&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+<p style="position:absolute;top:679px;left:33px;white-space:nowrap" class="ft212">.&#160;&#160;</p>
+<p style="position:absolute;top:693px;left:133px;white-space:nowrap" class="ft221"><b>Guidelines&#160;and&#160;Instructions&#160;for BIR&#160;Form&#160;No.&#160;1604-F</b></p>
+<p style="position:absolute;top:696px;left:615px;white-space:nowrap" class="ft28"><b>&#160;[January 2018&#160;(ENCS)]&#160;&#160;</b></p>
+<p style="position:absolute;top:716px;left:151px;white-space:nowrap" class="ft28"><b>Annual Information Return&#160;of&#160;Income&#160;Payments Subjected to&#160;Final&#160;Withholding Taxes</b></p>
+<p style="position:absolute;top:721px;left:767px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:733px;left:43px;white-space:nowrap" class="ft212">&#160;</p>
+<p style="position:absolute;top:744px;left:70px;white-space:nowrap" class="ft216">These&#160;instructions&#160;are&#160;designed&#160;to&#160;assist&#160;&#160;withholding&#160;agents,&#160;or&#160;their&#160;representatives,&#160;with&#160;</p>
+<p style="position:absolute;top:756px;left:43px;white-space:nowrap" class="ft230">the&#160;&#160;preparation&#160;&#160;of&#160;&#160;their&#160;&#160;Annual&#160;&#160;Information&#160;&#160;Return&#160;&#160;of&#160;&#160;Income&#160;&#160;Taxes&#160;&#160;Withheld&#160;&#160;on&#160;&#160;Final&#160;<br/>Withholding&#160;&#160;Taxes.&#160;&#160;If&#160;&#160;there&#160;&#160;are&#160;&#160;questions&#160;&#160;which&#160;&#160;are&#160;&#160;not&#160;&#160;adequately&#160;&#160;covered,&#160;&#160;please&#160;&#160;consult&#160;&#160;the&#160;<br/>local&#160;&#160;BIR&#160;&#160;office.&#160;&#160;&#160;&#160;If&#160;&#160;there&#160;&#160;appears&#160;&#160;to&#160;&#160;be&#160;&#160;any&#160;&#160;discrepancies&#160;&#160;between&#160;&#160;these&#160;&#160;instructions&#160;&#160;and&#160;&#160;the&#160;<br/>applicable&#160;laws&#160;and&#160;regulations,&#160;the&#160;laws&#160;and&#160;regulations&#160;take&#160;precedence.<b>&#160;</b></p>
+<p style="position:absolute;top:804px;left:43px;white-space:nowrap" class="ft223"><b>&#160;</b></p>
+<p style="position:absolute;top:813px;left:43px;white-space:nowrap" class="ft222"><b>Who&#160;Shall&#160;File&#160;</b></p>
+<p style="position:absolute;top:823px;left:43px;white-space:nowrap" class="ft224"><b>&#160;</b></p>
+<p style="position:absolute;top:828px;left:70px;white-space:nowrap" class="ft216">This&#160;return&#160;shall&#160;be&#160;filed&#160;by&#160;every&#160;Withholding&#160;Agent&#160;(WA)/payor&#160;required&#160;to&#160;deduct&#160;and&#160;</p>
+<p style="position:absolute;top:840px;left:43px;white-space:nowrap" class="ft230">withhold&#160;taxes&#160;on&#160;income&#160;payments&#160;subject&#160;to&#160;Final&#160;Withholding&#160;Tax.&#160;The&#160;tax&#160;rates&#160;and&#160;nature&#160;of&#160;<br/>income&#160;payments&#160;subject&#160;to&#160;final&#160;withholding&#160;taxes&#160;are&#160;printed&#160;in&#160;BIR&#160;Form&#160;Nos.&#160;1601-FQ,&#160;1602Q&#160;<br/>and&#160;1603Q,&#160;respectively.&#160;</p>
+<p style="position:absolute;top:874px;left:70px;white-space:nowrap" class="ft216">&#160;&#160;</p>
+<p style="position:absolute;top:876px;left:75px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:885px;left:43px;white-space:nowrap" class="ft222"><b>When&#160;and&#160;Where&#160;to&#160;File&#160;&#160;</b></p>
+<p style="position:absolute;top:895px;left:43px;white-space:nowrap" class="ft224"><b>&#160;</b></p>
+<p style="position:absolute;top:901px;left:70px;white-space:nowrap" class="ft216">The&#160;return&#160;shall&#160;be&#160;filed&#160;<b>on&#160;or&#160;before&#160;January&#160;31&#160;of&#160;the&#160;year&#160;following&#160;the&#160;calendar&#160;year</b>&#160;</p>
+<p style="position:absolute;top:913px;left:43px;white-space:nowrap" class="ft216">in&#160;which&#160;income&#160;payments&#160;subjected&#160;to&#160;final&#160;withholding&#160;taxes&#160;were&#160;paid&#160;or&#160;accrued.&#160;</p>
+<p style="position:absolute;top:924px;left:70px;white-space:nowrap" class="ft22">&#160;&#160;</p>
+<p style="position:absolute;top:933px;left:70px;white-space:nowrap" class="ft225">The&#160;return&#160;shall&#160;be&#160;filed&#160;thru&#160;Offline&#160;eBIRForms&#160;Package&#160;per&#160;Revenue&#160;Regulations&#160;</p>
+<p style="position:absolute;top:946px;left:43px;white-space:nowrap" class="ft225">No.&#160;6-2014,&#160;as&#160;amended</p>
+<p style="position:absolute;top:947px;left:153px;white-space:nowrap" class="ft216">.&#160;</p>
+<p style="position:absolute;top:959px;left:70px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:968px;left:70px;white-space:nowrap" class="ft216">A&#160;&#160;taxpayer&#160;&#160;may&#160;&#160;file&#160;&#160;a&#160;&#160;separate&#160;&#160;return&#160;&#160;for&#160;&#160;the&#160;&#160;head&#160;&#160;office&#160;&#160;and&#160;&#160;for&#160;&#160;each&#160;&#160;branch&#160;&#160;or&#160;&#160;place&#160;&#160;of&#160;</p>
+<p style="position:absolute;top:980px;left:43px;white-space:nowrap" class="ft230">business/office&#160;or&#160;a&#160;consolidated&#160;return&#160;for&#160;the&#160;head&#160;office&#160;and&#160;all&#160;the&#160;branches/offices&#160;except&#160;in&#160;<br/>the&#160;case&#160;of&#160;large&#160;taxpayers&#160;where&#160;only&#160;one&#160;consolidated&#160;return&#160;is&#160;required.&#160;</p>
+<p style="position:absolute;top:1003px;left:70px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:1013px;left:70px;white-space:nowrap" class="ft216">The&#160;&#160;return&#160;&#160;shall&#160;&#160;be&#160;&#160;e-filed&#160;&#160;using&#160;&#160;the&#160;&#160;eFPS/eBIRForms&#160;&#160;facilities&#160;&#160;thru&#160;&#160;the&#160;&#160;BIR&#160;&#160;website&#160;</p>
+<p style="position:absolute;top:1025px;left:43px;white-space:nowrap" class="ft216"><a href="http://www.bir.gov.ph/">www.bir.gov.ph.<b>&#160;</b></a></p>
+<p style="position:absolute;top:1036px;left:43px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:1046px;left:43px;white-space:nowrap" class="ft222"><b>How&#160;to&#160;Accomplish&#160;the&#160;Information&#160;Return&#160;</b></p>
+<p style="position:absolute;top:1056px;left:64px;white-space:nowrap" class="ft226">&#160;</p>
+<p style="position:absolute;top:1063px;left:43px;white-space:nowrap" class="ft230"><b>For&#160;Items&#160;1&#160;to&#160;3&#160;<br/>Item&#160;1</b>&#160;Indicate&#160;the&#160;taxable&#160;year&#160;covered&#160;by&#160;the&#160;return&#160;being&#160;filed.&#160;<br/><b>Item&#160;2</b>&#160;Choose&#160;“Yes”&#160;if&#160;the&#160;return&#160;is&#160;one&#160;amending&#160;previous&#160;return&#160;filed,&#160;“No”&#160;if&#160;not.&#160;&#160;<br/><b>Item&#160;3</b>&#160;Indicate&#160;total&#160;number&#160;of&#160;sheet/s&#160;being&#160;attached&#160;to&#160;the&#160;return.&#160;</p>
+<p style="position:absolute;top:1110px;left:43px;white-space:nowrap" class="ft223"><b>&#160;</b></p>
+<p style="position:absolute;top:1120px;left:43px;white-space:nowrap" class="ft222"><b>Part&#160;I&#160;-&#160;Background&#160;Information&#160;&#160;</b></p>
+<p style="position:absolute;top:1131px;left:43px;white-space:nowrap" class="ft227"><b>&#160;</b></p>
+<p style="position:absolute;top:1137px;left:43px;white-space:nowrap" class="ft222"><b>Item&#160;4&#160;Taxpayer&#160;Identification&#160;Number&#160;(TIN):</b>&#160;Enter&#160;TIN.&#160;If&#160;no&#160;TIN,&#160;apply&#160;for&#160;one&#160;before&#160;filing&#160;</p>
+<p style="position:absolute;top:1149px;left:70px;white-space:nowrap" class="ft230">using&#160;Application&#160;for&#160;Registration&#160;[(BIR&#160;Form&#160;No.&#160;1901&#160;for&#160;individual&#160;taxpayer)&#160;or&#160;(BIR&#160;Form&#160;<br/>No.&#160;1903&#160;for&#160;non-individual&#160;taxpayer)].&#160;&#160;</p>
+<p style="position:absolute;top:1173px;left:43px;white-space:nowrap" class="ft222"><b>Item&#160;5&#160;RDO&#160;Code</b>:&#160;Enter&#160;the&#160;appropriate&#160;code&#160;for&#160;the&#160;RDO&#160;per&#160;filed&#160;BIR&#160;Form&#160;No.&#160;&#160;&#160;&#160;1901/1903&#160;</p>
+<p style="position:absolute;top:1185px;left:70px;white-space:nowrap" class="ft216">and/or&#160;Certificate&#160;of&#160;Registration&#160;(BIR&#160;Form&#160;No.&#160;2303).&#160;&#160;</p>
+<p style="position:absolute;top:1195px;left:43px;white-space:nowrap" class="ft222"><b>Item&#160;6&#160;Withholding&#160;Agent’s&#160;Name:</b>&#160;Enter&#160;taxpayer’s&#160;name&#160;as&#160;it&#160;was&#160;entered&#160;on&#160;the&#160;registration&#160;</p>
+<p style="position:absolute;top:1210px;left:70px;white-space:nowrap" class="ft216">form&#160;and/or&#160;certificate&#160;of&#160;registration.&#160;</p>
+<p style="position:absolute;top:1222px;left:43px;white-space:nowrap" class="ft222"><b>Item&#160;7&#160;Registered&#160;Address:&#160;</b>Enter&#160;Registered&#160;Address&#160;as&#160;indicated&#160;in&#160;BIR&#160;Form&#160;No.&#160;2303.&#160;If&#160;</p>
+<p style="position:absolute;top:1234px;left:70px;white-space:nowrap" class="ft230">the&#160;taxpayer&#160;has&#160;moved&#160;its&#160;registered&#160;address&#160;since&#160;the&#160;previous&#160;filing&#160;of&#160;this&#160;return&#160;and&#160;<br/>has&#160;NOT&#160;updated&#160;its&#160;registration&#160;information&#160;with&#160;the&#160;BIR,&#160;fill-up&#160;and&#160;file&#160;first&#160;the&#160;BIR&#160;<br/>Form&#160;No.&#160;1905.&#160;</p>
+<p style="position:absolute;top:1270px;left:43px;white-space:nowrap" class="ft230"><b>Item&#160;7A&#160;ZIP&#160;Code:&#160;</b>Enter&#160;the&#160;ZIP&#160;Code&#160;of&#160;the&#160;address.&#160;<br/><b>Item&#160;8&#160;Category&#160;of&#160;Withholding&#160;Agent:&#160;</b>Choose&#160;Private&#160;if&#160;the&#160;withholding&#160;agent&#160;is&#160;a&#160;private&#160;</p>
+<p style="position:absolute;top:1294px;left:70px;white-space:nowrap" class="ft230">individual/non-individual,&#160;or&#160;government&#160;if&#160;the&#160;withholding&#160;agent&#160;is&#160;the&#160;government&#160;of&#160;<br/>the&#160;Philippines&#160;or&#160;any&#160;political&#160;subdivision,&#160;agency&#160;or&#160;instrumentality.&#160;</p>
+<p style="position:absolute;top:1318px;left:43px;white-space:nowrap" class="ft222"><b>Item&#160;&#160;8A&#160;&#160;Top&#160;&#160;Withholding&#160;&#160;Agent</b>:&#160;&#160;If&#160;&#160;the&#160;&#160;withholding&#160;&#160;agent&#160;&#160;is&#160;&#160;private&#160;&#160;and&#160;&#160;belong&#160;&#160;to&#160;&#160;top&#160;</p>
+<p style="position:absolute;top:1330px;left:77px;white-space:nowrap" class="ft230">withholding&#160;agent&#160;(i.e.&#160;top&#160;5,000&#160;individual,&#160;top&#160;20,000&#160;private&#160;corporations,&#160;TAMP,&#160;<br/>medium&#160;taxpayers,&#160;large&#160;taxpayers,&#160;etc.),&#160;tick&#160;Yes,&#160;if&#160;not,&#160;tick&#160;No.&#160;</p>
+<p style="position:absolute;top:744px;left:473px;white-space:nowrap" class="ft222"><b>Item&#160;9&#160;Contact&#160;Number:&#160;</b>Enter&#160;the&#160;taxpayer’s&#160;current&#160;contact&#160;number.&#160;</p>
+<p style="position:absolute;top:755px;left:473px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:764px;left:473px;white-space:nowrap" class="ft222"><b>Item&#160;10&#160;Email&#160;Address:&#160;</b>Enter&#160;requested&#160;&#160;information.&#160;In&#160;case&#160;the&#160;taxpayer&#160;&#160;has&#160;no&#160;email&#160;&#160;address,&#160;</p>
+<p style="position:absolute;top:777px;left:505px;white-space:nowrap" class="ft216">leave&#160;the&#160;space&#160;blank.&#160;</p>
+<p style="position:absolute;top:788px;left:473px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:797px;left:473px;white-space:nowrap" class="ft222"><b>Item&#160;11&#160;Are&#160;there&#160;payees&#160;availing&#160;of&#160;tax&#160;relief&#160;under</b></p>
+<p style="position:absolute;top:797px;left:703px;white-space:nowrap" class="ft222"><b>&#160;Special&#160;Law&#160;or&#160;International&#160;Tax&#160;Treaty?&#160;</b></p>
+<p style="position:absolute;top:807px;left:505px;white-space:nowrap" class="ft230">Choose&#160;“Yes”&#160;if&#160;the&#160;taxpayer&#160;has&#160;availed&#160;of&#160;the&#160;tax&#160;relief&#160;under&#160;Special&#160;Law&#160;or&#160;International&#160;<br/>Tax&#160;Treaty,&#160;“No”&#160;if&#160;not.&#160;</p>
+<p style="position:absolute;top:833px;left:473px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:842px;left:473px;white-space:nowrap" class="ft222"><b>Item&#160;11A&#160;If&#160;yes,&#160;specify</b>:&#160;Specify&#160;the&#160;tax&#160;relief&#160;availed&#160;by&#160;the&#160;taxpayer&#160;whether&#160;under&#160;Special&#160;Law&#160;</p>
+<p style="position:absolute;top:854px;left:505px;white-space:nowrap" class="ft216">or&#160;International&#160;Tax&#160;Treaty&#160;or&#160;both.&#160;</p>
+<p style="position:absolute;top:866px;left:473px;white-space:nowrap" class="ft223"><b>&#160;</b></p>
+<p style="position:absolute;top:875px;left:473px;white-space:nowrap" class="ft222"><b>Penalty&#160;for&#160;Failure&#160;to&#160;File&#160;Information&#160;Returns&#160;</b></p>
+<p style="position:absolute;top:886px;left:473px;white-space:nowrap" class="ft223"><b>&#160;</b></p>
+<p style="position:absolute;top:896px;left:473px;white-space:nowrap" class="ft230"><b>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</b>In&#160;the&#160;case&#160;of&#160;each&#160;failure&#160;to&#160;file&#160;an&#160;information&#160;return,&#160;statement&#160;or&#160;list,&#160;or&#160;keep&#160;any&#160;record,&#160;or&#160;<br/>supply&#160;any&#160;information&#160;required&#160;by&#160;the&#160;Code&#160;or&#160;by&#160;the&#160;Commissioner&#160;on&#160;the&#160;date&#160;prescribed&#160;therefor,&#160;<br/>unless&#160;it&#160;is&#160;shown&#160;that&#160;such&#160;failure&#160;is&#160;due&#160;to&#160;reasonable&#160;cause&#160;and&#160;not&#160;to&#160;wilful&#160;neglect,&#160;there&#160;shall,&#160;<br/>upon&#160;notice&#160;and&#160;demand&#160;by&#160;the&#160;Commissioner,&#160;be&#160;paid&#160;by&#160;the&#160;person&#160;failing&#160;to&#160;file,&#160;keep&#160;or&#160;supply&#160;<br/>the&#160;&#160;same,&#160;&#160;One&#160;&#160;Thousand&#160;&#160;Pesos&#160;&#160;(P&#160;&#160;1,000.00)&#160;&#160;for&#160;&#160;each&#160;&#160;such&#160;&#160;failure:&#160;&#160;Provided,&#160;&#160;however,&#160;&#160;that&#160;&#160;the&#160;<br/>aggregate&#160;&#160;amount&#160;&#160;imposed&#160;&#160;for&#160;&#160;all&#160;&#160;such&#160;&#160;failures&#160;&#160;during&#160;&#160;the&#160;&#160;calendar&#160;&#160;year&#160;&#160;shall&#160;&#160;not&#160;&#160;exceed&#160;&#160;Twenty&#160;<br/>five&#160;thousand&#160;pesos&#160;(P25,000.00).&#160;</p>
+<p style="position:absolute;top:979px;left:473px;white-space:nowrap" class="ft223"><b>&#160;</b></p>
+<p style="position:absolute;top:989px;left:473px;white-space:nowrap" class="ft222"><b>Signature&#160;Lines:&#160;</b></p>
+<p style="position:absolute;top:1000px;left:473px;white-space:nowrap" class="ft223"><b>&#160;</b></p>
+<p style="position:absolute;top:1009px;left:500px;white-space:nowrap" class="ft216">When&#160;&#160;all&#160;&#160;the&#160;&#160;information&#160;&#160;required&#160;&#160;are&#160;&#160;complete,&#160;&#160;sign&#160;&#160;the&#160;&#160;return&#160;&#160;in&#160;&#160;the&#160;&#160;place&#160;&#160;indicated&#160;&#160;and&#160;</p>
+<p style="position:absolute;top:1022px;left:473px;white-space:nowrap" class="ft216">provide&#160;the&#160;necessary&#160;details&#160;(e.g.&#160;title&#160;of&#160;signatory&#160;and&#160;TIN).&#160;&#160;</p>
+<p style="position:absolute;top:1033px;left:500px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:1042px;left:473px;white-space:nowrap" class="ft222"><b>NOTE:&#160;All&#160;background&#160;information&#160;must&#160;be&#160;properly&#160;filled&#160;out&#160;&#160;</b></p>
+<p style="position:absolute;top:1052px;left:499px;white-space:nowrap" class="ft230">&#160;&#160;The&#160;last&#160;5&#160;digits&#160;of&#160;the&#160;14-digit&#160;TIN&#160;refers&#160;to&#160;the&#160;branch&#160;code&#160;<br/>&#160;&#160;All&#160;&#160;returns&#160;&#160;filed&#160;&#160;by&#160;&#160;an&#160;&#160;accredited&#160;&#160;tax&#160;&#160;agent&#160;&#160;on&#160;&#160;behalf&#160;&#160;of&#160;&#160;a&#160;&#160;taxpayer&#160;&#160;shall&#160;&#160;bear&#160;&#160;the&#160;</p>
+<p style="position:absolute;top:1078px;left:512px;white-space:nowrap" class="ft230">following&#160;information:&#160;<br/>A.&#160;For&#160;Individual&#160;(CPAs,&#160;members&#160;of&#160;GPPs,&#160;and&#160;others)&#160;</p>
+<p style="position:absolute;top:1103px;left:526px;white-space:nowrap" class="ft230">a.1&#160;Taxpayer&#160;Identification&#160;Number&#160;(TIN);&#160;and&#160;&#160;<br/>a.2&#160;BIR&#160;Accreditation&#160;Number,&#160;Date&#160;of&#160;Issue,&#160;and&#160;Date&#160;of&#160;Expiry.&#160;</p>
+<p style="position:absolute;top:1127px;left:512px;white-space:nowrap" class="ft216">B.&#160;For&#160;members&#160;of&#160;the&#160;Philippine&#160;Bar&#160;(Lawyers)&#160;</p>
+<p style="position:absolute;top:1139px;left:526px;white-space:nowrap" class="ft233">b.1&#160;Taxpayer&#160;Identification&#160;Number&#160;(TIN);&#160;&#160;<br/>b.2&#160;Attorney’s&#160;Roll&#160;Number;&#160;<br/>b.3&#160;Mandatory&#160;Continuing&#160;Legal&#160;Education&#160;(MCLE)&#160;&#160;</p>
+<p style="position:absolute;top:1175px;left:540px;white-space:nowrap" class="ft216">&#160;&#160;Compliance&#160;Number;&#160;and&#160;</p>
+<p style="position:absolute;top:1187px;left:526px;white-space:nowrap" class="ft216">b.4&#160;BIR&#160;Accreditation&#160;Number,&#160;Date&#160;of&#160;Issue,&#160;and&#160;Date&#160;of&#160;Expiry.&#160;&#160;</p>
+<p style="position:absolute;top:1198px;left:526px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:1208px;left:473px;white-space:nowrap" class="ft222"><b>Required&#160;attachments:&#160;</b>(Electronically&#160;submitted&#160;using&#160;eFPS&#160;or&#160;email&#160;to&#160;</p>
+<p style="position:absolute;top:1220px;left:641px;white-space:nowrap" class="ft216"><a href="mailto:esubmission@bir.gov.ph">esubmission@bir.gov.ph)</a>&#160;</p>
+<p style="position:absolute;top:1231px;left:473px;white-space:nowrap" class="ft22">&#160;</p>
+<p style="position:absolute;top:1241px;left:486px;white-space:nowrap" class="ft216">1.&#160;</p>
+<p style="position:absolute;top:1241px;left:506px;white-space:nowrap" class="ft230">Acknowledgement&#160;&#160;Receipt/Validation&#160;&#160;Successful&#160;&#160;message&#160;&#160;as&#160;&#160;proof&#160;&#160;of&#160;&#160;submission&#160;&#160;thru&#160;<br/>electronic&#160;attachment&#160;for&#160;eFPS&#160;or&#160;email&#160;<a href="mailto:esubmission@bir.gov.ph">to&#160;esubmission@bir.gov.ph&#160;o</a>f&#160;the&#160;following:&#160;<br/>a.&#160;&#160;Alphalist&#160;of&#160;Payees&#160;Subjected&#160;to&#160;Final&#160;Withholding&#160;Tax.&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>b.&#160;&#160;Alphalist&#160;of&#160;Employees&#160;Other&#160;than&#160;Rank&#160;&amp;&#160;File&#160;Who&#160;Were&#160;Given&#160;Fringe&#160;Benefits&#160;During&#160;</p>
+<p style="position:absolute;top:1289px;left:520px;white-space:nowrap" class="ft216">the&#160;year.&#160;</p>
+<p style="position:absolute;top:1301px;left:506px;white-space:nowrap" class="ft216">c.&#160;&#160;Alphalist&#160;of&#160;Other&#160;Payees&#160;Whose&#160;Income&#160;are&#160;Exempt&#160;from&#160;Withholding&#160;Tax&#160;but&#160;Subject&#160;</p>
+<p style="position:absolute;top:1313px;left:520px;white-space:nowrap" class="ft216">to&#160;Income&#160;Tax.&#160;</p>
+<p style="position:absolute;top:1325px;left:486px;white-space:nowrap" class="ft216">2.&#160;&#160;Authorization&#160;letter,&#160;if&#160;return&#160;is&#160;filed&#160;by&#160;an&#160;authorized&#160;representative.&#160;</p>
+<p style="position:absolute;top:1355px;left:11px;white-space:nowrap" class="ft222"><b>&#160;</b></p>
+<p style="position:absolute;top:115px;left:798px;white-space:nowrap" class="ft218">1604-F&#160;01/18&#160;P2&#160;</p>
+</div>
+ </div>

@@ -1,0 +1,229 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <br />
+    <div class="row card card1">
+        <div class="row">
+            <div class="col-lg-2">
+                <label>Start Date</label>
+                <input class="form-control" type="date" placeholder="startdate" id="startdate" name="startdate"
+                    [(ngModel)]="startdate">
+            </div>
+            <div class=" col-lg-2">
+                <label>End Date</label>
+                <input class="form-control" type="date" placeholder="enddate" id="enddate" name="enddate"
+                    [(ngModel)]="enddate" (change)="getdate($event)">
+            </div>
+
+            <div class="col-lg-2">
+                <button class="button" data-toggle="collapse" data-target="#employee"
+                    (click)="getemployeedetails()">Fetch
+                    Employees</button>
+            </div>
+            <div class=" col-lg-2">
+                <input class="form-control" (ngModelChange)="FilterPayroll()" placeholder="Search" type="text"
+                    [(ngModel)]="Search">
+            </div>
+          
+            <div class="col-lg-2">
+                <div class="dropdown">
+                    <select class="form-control  " id="Year" name="Year" [(ngModel)]="Role"
+                        (ngModelChange)="Rolefilter()"><br />
+                        <option style="color:#0C275A" value="Select">Select Role </option>
+                        <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <div class="dropdown">
+                    <select class="form-control  " id="Year" name="Year" [(ngModel)]="department_name"
+                        (ngModelChange)="Departmentfilter()"><br />
+                        <option style="color:#0C275A" value="Select">Select Department</option>
+                        <option *ngFor="let item of result" value="{{item.department_name}}">{{item.department_name}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+
+            </div>
+            <!-- <div class="col-lg-4">
+                <button class="button" data-toggle="collapse" data-target="#employee1"
+                (click)="getemployeedetails2()">Run 13th Month Payroll</button>
+            </div> -->
+        </div>
+        <br />
+
+    </div>
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2"></div>
+
+        <div class="col-lg-2">
+            <br />
+
+            <button (click)="SelectAll()" class="form-control CancelBTN" style="width: 70%;" type="button"
+                id="btn_button" *ngIf="selecallbtn==true">Run Payroll</button>
+            <button (click)="Accept()" class="form-control CancelBTN" style="width: 70%;" type="button" id="btn_button"
+                *ngIf="seleconebtn==true">Run Payroll</button>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-5">
+            
+        </div>
+        <div class="col-lg-3">
+            <p>Total Count: {{uniquelist.length}} </p>
+        </div>
+
+    </div>
+
+    <div class="row rowwidth collapse" id="employee1" style="height:500px;">
+        <div class="col-lg-12">
+            <table class="table table-bordered fonttxt" id="downloadaplication" style="height:300px" > 
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" (click)="selectALL(true)"></th>
+                        <th>Employee Id</th>
+                        <th>Employee Name</th>
+                        <th>Department</th>
+                        <th>Role</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Date Of Joining</th>
+                        <th>Manager</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of thirteenthmonthpayroll">
+                        <td>
+                            <input type="checkbox" [(ngModel)]="item.checked" [value]="item.value"
+                                (click)="getCheckbocdetails(item)">&nbsp;
+                        </td>
+
+                        <td>000{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.department_name}}</td>
+                        <td>{{item.role}}</td>
+
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.emailID}}</td>
+                       
+                        <td>{{item.joiningDate|date}}</td>
+                        
+                        <td>
+                            <p *ngIf="item.manager==null">
+                                NA
+                            </p>
+                            <p *ngIf="item.manager!=null">
+                                {{item.manager}}
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <br>
+            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+        </div>
+        <ng-template #noResults>
+            <div class="card">
+                <p class="NoResultShow"> No results found</p>
+            </div>
+        </ng-template>
+    </div>
+
+
+    <!-- <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <p style="margin-left: 83px;">Grand Total:1,01,076.55</p>
+        </div>
+        
+    </div> -->
+    <br />
+    <br />
+    <div class="row rowwidth collapse" id="employee" style="height:500px;">
+        <div class="col-lg-12">
+            <table class="table table-bordered fonttxt" id="downloadaplication" style="height:300px;"
+                *ngIf="(uniquelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" (click)="selectALL(true)"></th>
+                        <th>Employee Id</th>
+                        <th>Employee Name</th>
+                        <th>Department</th>
+                        <th>Role</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Weekend Days</th>
+
+                        <th>No Of Days Worked</th>
+                        <th>Total Days</th>
+                        <th>Leave Days</th>
+                        <th>Lop</th>
+                        <th>Date Of Joining</th>
+                        <th>Manager</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uniquelist|paginate: { itemsPerPage: count1, currentPage: p}">
+                        <td>
+                            <input type="checkbox" [(ngModel)]="item.checked" [value]="item.value"
+                                (click)="getCheckbocdetails(item)">&nbsp;
+                        </td>
+
+                        <td>000{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.department_name}}</td>
+                        <td>{{item.role}}</td>
+
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.emailID}}</td>
+                        <td>{{item.weekenddays}}</td>
+                        <td>{{item.daysworked}}</td>
+                        <td>{{item.workingdays}}</td>
+                        <td>{{item.leavedays}}</td>
+                        <td>{{item.lopdays}}</td>
+                        <td>{{item.joiningDate|date}}</td>
+
+                        <td>
+                            <p *ngIf="item.manager==null">
+                                NA
+                            </p>
+                            <p *ngIf="item.manager!=null">
+                                {{item.manager}}
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <br>
+            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+        </div>
+        <ng-template #noResults>
+            <div class="card">
+                <p class="NoResultShow"> No results found</p>
+            </div>
+        </ng-template>
+    </div>
+    <br />
+    <br />
+    
+    <br />
+    <br />
+
+
+</div>

@@ -8,11 +8,14 @@ import { EmployeeDashboardComponent } from './employees/employee-dashboard/emplo
 import { EmploymentJobHistoryComponent } from './employees/employment-job-history/employment-job-history.component';
 import { ExitformalityDashComponent } from './employees/exitformality-dash/exitformality-dash.component';
 import { SalaryDetailsDashComponent } from './employees/salary-details-dash/salary-details-dash.component';
+import { StaffSalaryFormComponent } from './employees/staff-salary-form/staff-salary-form.component';
+import { HolidayDashboardComponent } from './holiday-dashboard/holiday-dashboard.component';
 import { HrComponent } from './hr.component';
 import { HRDashboardComponent } from './hrdashboard/hrdashboard.component';
 import { PayRollDashComponent } from './pay-roll-dash/pay-roll-dash.component';
 import { PayRollRunsComponent } from './pay-roll-runs/pay-roll-runs.component';
 import { PreliminaryReportComponent } from './preliminary-report/preliminary-report.component';
+import { ProfileCompletionFormComponent } from './employees/profile-completion-form/profile-completion-form.component';
 import { BIR1601CReportComponent } from './Reports/BIR/bir1601-creport/bir1601-creport.component';
 import { BIR1604CFReportComponent } from './Reports/BIR/bir1604-cfreport/bir1604-cfreport.component';
 import { BIR1604CReportComponent } from './Reports/BIR/bir1604-creport/bir1604-creport.component';
@@ -34,12 +37,41 @@ import { SSSML1ReportComponent } from './Reports/SSS/sssml1-report/sssml1-report
 import { SSSR3ReportComponent } from './Reports/SSS/sssr3-report/sssr3-report.component';
 import { SSSR5ReportComponent } from './Reports/SSS/sssr5-report/sssr5-report.component';
 import { SSSRL1ReportComponent } from './Reports/SSS/sssrl1-report/sssrl1-report.component';
+import { VaccineDashboardComponent } from './vaccine-dashboard/vaccine-dashboard.component';
+import { VaccineFormComponent } from './vaccine-form/vaccine-form.component';
+import { EmpJobHistoryFormComponent } from './employees/emp-job-history-form/emp-job-history-form.component';
+import { HRLeaveRequestComponent } from './Requests/hrleave-request/hrleave-request.component';
+import { LeaveFormComponent } from './Requests/leave-form/leave-form.component';
+import { TeamLoansComponent } from './Requests/team-loans/team-loans.component';
+import { LoanFormComponent } from './Requests/loan-form/loan-form.component';
+import { PayRollRunsFormComponent } from './pay-roll-runs-form/pay-roll-runs-form.component';
+import { GovernmentComponent } from './government/government.component';
+import { ExpenseReportComponent } from './Reports/Payroll/expense-report/expense-report.component';
+import { ModifiedAttendanceReportComponent } from './Reports/Payroll/modified-attendance-report/modified-attendance-report.component';
+import { OverTimeSummaryPerEmployeeComponent } from './Reports/Payroll/over-time-summary-per-employee/over-time-summary-per-employee.component';
+import { OvertimeSummaryReportComponent } from './Reports/Payroll/overtime-summary-report/overtime-summary-report.component';
+import { GeneralLedgerReportComponent } from './Reports/Payroll/general-ledger-report/general-ledger-report.component';
+import { SSSBreakdownComponent } from './Reports/SSS/sssbreakdown/sssbreakdown.component';
+import { BIRAlphaList7Component } from './Reports/BIR/biralpha-list7/biralpha-list7.component';
+import { BIR1603ReportComponent } from './Reports/BIR/bir1603-report/bir1603-report.component';
+import { BIR1604FReportComponent } from './Reports/BIR/bir1604-freport/bir1604-freport.component';
+import { BIR1700ReportComponent } from './Reports/BIR/bir1700-report/bir1700-report.component';
+import { PayrollCutOffDatesComponent } from './Configuration/payroll-cut-off-dates/payroll-cut-off-dates.component';
+import { CutOffConfigurationFormComponent } from './Configuration/cut-off-configuration-form/cut-off-configuration-form.component';
+import { RemittanceConfigDashComponent } from './Configuration/remittance-config-dash/remittance-config-dash.component';
+import { RemittanceConfigFormComponent } from './Configuration/remittance-config-form/remittance-config-form.component';
 
 const routes: Routes = [{ path: '', component: HrComponent },
 {path:'HRDashboard',component:HRDashboardComponent},
 {path:'EmployeeDashboard',component:EmployeeDashboardComponent},
+{path:'ProfileCompletionForm',component:ProfileCompletionFormComponent},
+{path:'ProfileCompletionForm/:id',component:ProfileCompletionFormComponent},
 {path:'SalaryDetailsDash',component:SalaryDetailsDashComponent},
+{path:'StaffSalaryForm',component:StaffSalaryFormComponent},
+{path:'StaffSalaryForm/:id',component:StaffSalaryFormComponent},
 {path:'EmploymentJobHistory',component:EmploymentJobHistoryComponent},
+{path:'EmpJobHistoryForm',component:EmpJobHistoryFormComponent},
+{path:'EmpJobHistoryForm/:id',component:EmpJobHistoryFormComponent},
 {path:'ExitformalityDash',component:ExitformalityDashComponent},
 {path:'BankAdviceList',component:BankAdviceListComponent},
 {path:'AttendanceConfigDash',component:AttendanceConfigDashComponent},
@@ -69,6 +101,34 @@ const routes: Routes = [{ path: '', component: HrComponent },
 {path:'PreliminaryReport',component:PreliminaryReportComponent},
 {path:'PayRollDash',component:PayRollDashComponent},
 {path:'PayRollRuns',component:PayRollRunsComponent},
+{path:'PayRollRunsForm',component:PayRollRunsFormComponent},
+{path:'PayRollRunsForm/:id',component:PayRollRunsFormComponent},
+{path:'HolidayDashboard',component:HolidayDashboardComponent},
+{path:'VaccineDashboard',component:VaccineDashboardComponent},
+{path:'VaccineForm',component:VaccineFormComponent},
+{path:'HRLeaveRequest',component:HRLeaveRequestComponent},
+{path:'LeaveForm',component:LeaveFormComponent},
+{path:'LeaveForm/:id',component:LeaveFormComponent},
+{path:'TeamLoans',component:TeamLoansComponent},
+{path:'LoanForm',component:LoanFormComponent},
+{path:'LoanForm/:id',component:LoanFormComponent},
+{path:'Government',component:GovernmentComponent},
+{path:'ExpenseReport',component:ExpenseReportComponent},
+{path:'ModifiedAttendanceReport',component:ModifiedAttendanceReportComponent},
+{path:'OverTimeSummaryPerEmployee',component:OverTimeSummaryPerEmployeeComponent},
+{path:'OvertimeSummaryReport',component:OvertimeSummaryReportComponent},
+{path:'GeneralLedgerReport',component:GeneralLedgerReportComponent},
+{path:'SSSBreakdown',component:SSSBreakdownComponent},
+{path:'BIRAlphaList7',component:BIRAlphaList7Component},
+{path:'BIR1603Report',component:BIR1603ReportComponent},
+{path:'BIR1604FReport',component:BIR1604FReportComponent},
+{path:'BIR1700Report',component:BIR1700ReportComponent},
+{path:'PayrollCutOffDates',component:PayrollCutOffDatesComponent},
+{path:'CutOffConfigurationForm',component:CutOffConfigurationFormComponent},
+{path:'RemittanceConfigDash',component:RemittanceConfigDashComponent},
+{path:'RemittanceConfigForm',component:RemittanceConfigFormComponent},
+
+
 ];
 
 
