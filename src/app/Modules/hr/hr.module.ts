@@ -43,6 +43,7 @@ import { STLRFExcelReportComponent } from './Reports/Pag-IBig/stlrfexcel-report/
 import { BIR1601CReportComponent } from './Reports/BIR/bir1601-creport/bir1601-creport.component';
 import { BIR1604CReportComponent } from './Reports/BIR/bir1604-creport/bir1604-creport.component';
 import { BIR1604CFReportComponent } from './Reports/BIR/bir1604-cfreport/bir1604-cfreport.component';
+import { BIR2316ReportComponent } from './Reports/BIR/bir2316-report/bir2316-report.component';
 @NgModule({
   declarations: [
     HrComponent,
@@ -79,7 +80,8 @@ import { BIR1604CFReportComponent } from './Reports/BIR/bir1604-cfreport/bir1604
     STLRFExcelReportComponent,
     BIR1601CReportComponent,
     BIR1604CReportComponent,
-    BIR1604CFReportComponent
+    BIR1604CFReportComponent,
+    BIR2316ReportComponent
   ],
   imports: [
     CommonModule,

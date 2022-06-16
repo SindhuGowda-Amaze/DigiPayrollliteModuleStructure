@@ -5,6 +5,11 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { SharedModule } from '../shared/shared.module';
 import { DepartmentComponent } from './Master/department/department.component';
+import { OtRatesComponent } from './ot-rates/ot-rates.component';
+import { TaxTableComponent } from './tax-table/tax-table.component';
+import { OtratesformComponent } from './otratesform/otratesform.component';
+
+
 import { BankComponent } from './Setup/bank/bank.component';
 import { PayGroupComponent } from './Setup/pay-group/pay-group.component';
 import { NewcompanyprofileComponent } from './Setup/newcompanyprofile/newcompanyprofile.component';
@@ -33,6 +38,9 @@ import { HolidayFormComponent } from './holiday-form/holiday-form.component';
 @NgModule({
   declarations: [
     AdminComponent,
+    OtRatesComponent,
+    TaxTableComponent,
+    OtratesformComponent,
     DepartmentComponent,
     BankComponent,
     PayGroupComponent,

@@ -1,0 +1,342 @@
+<div class="container-fluid">
+    <div class="card">
+            <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-4">
+                            <a href="" class="Heading fontheading">2316</a>
+                    </div>
+            </div>
+            <hr>
+            <div class="row FilterClass fontheading">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                            <p> Select Year</p>
+                    </div>
+
+                    <div class="col-lg-2">
+                            <select name="cars" id="Month" class="form-control" [(ngModel)]="year">
+                                    <option value="">Select</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                            </select>
+                    </div>
+            </div><br>
+
+
+
+            <br>
+
+            <div class="row FilterClass fontheading">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                            <p>Signatory Person</p>
+                    </div>
+                    <div class="col-lg-2">
+                            <select name="cars" id="Month" class="form-control" (change)="getsign()"
+                                    [(ngModel)]="sign">
+                                    <option value="">Select</option>
+                                    <!-- <option value="Admin">Admin</option> -->
+                                    <option value="HR">HR</option>
+                                    <!-- <option value="Finance">Finance</option> -->
+                            </select>
+                    </div>
+            </div> <br>
+
+            <div class="row FilterClass fontheading">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                            <p>Search</p>
+                    </div>
+                    <div class="col-lg-2">
+                            <input type="text" placeholder="Search" class="form-control" [(ngModel)]="search" />
+                    </div>
+            </div>
+    </div>
+</div>
+<br>
+
+
+
+
+
+
+
+<!-- <div class="row">
+    <div class="col-lg-5"></div>
+    <div class="col-lg-3">
+        <button class="generate"">GENERATE DAT FILE</button>
+        <p>Generate DAT file for all employees</p>
+    </div>
+</div> --><br>
+
+<div class="row">
+    <div class="col-lg-12">
+            <table class="table table-bordered fonttxt">
+                    <thead>
+                            <tr class="newFont">
+                                    <th colspan="6">ALPHALIST OF EMPLOYEES</th>
+                            </tr>
+                            <tr class="newFont">
+                                    <!-- <th><input type="checkbox"></th> -->
+                                    <th>Select</th>
+                                    <th>Employee ID</th>
+                                    <th>Name</th>
+                                    <th>Employee Status</th>
+                                    <th><input type="checkbox">Substitute </th>
+                                    <th>Posting Status</th>
+
+                            </tr>
+                    </thead>
+                    <tbody>
+                            <tr *ngFor="let item of uniquelist1|paginate: { itemsPerPage: count1, currentPage: p}">
+                                    <td class="SelectData"><input type="checkbox" (change)="getempdetails(item.id)">
+                                    </td>
+                                    <td>000{{item.id}}</td>
+                                    <td>{{item.name}} {{item.last_Name}}</td>
+                                    <td>Active</td>
+                                    <td class="SelectData"><input type="checkbox"></td>
+                                    <td>Unposted</td>
+                            </tr>
+                    </tbody>
+            </table>
+    </div>
+    <div class="text-right">
+            <br>
+            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+    </div>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-2">
+            <br>
+            <button class="AddButton" (click)="showpdf()">PRINT</button>
+    </div>
+</div>
+<br>
+<br><br>
+<div class="row" *ngIf="showleaseforprint==1">
+    <!-- <div class="col-lg-5">
+
+</div>
+<div class="col-lg-3">
+   <button class="button1" (click)="convetToPDF1()">Convert To PDF </button>
+</div> -->
+
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-4">
+            <!-- <button class="loan1" (click)="convetToPDF1()">CONVERT To PDF</button> -->
+            <button class="AddButton" (click)="convetToPDF1()">CONVERT To PDF</button>
+    </div>
+    <div class="col-lg-3">
+    </div><br>
+
+
+
+    <div id="downloadaplication" style="    position: absolute;
+left: 50%;
+margin-left: -300px;
+top: 400px;
+width: 621px;
+height: 1008px;
+border-style: outset;
+overflow: hidden;
+margin-top: 640px;">
+            <div style="position:absolute;left:0px;top:0px">
+                    <img src="assets/images/2316report.jpg" width=612 height=1008>
+            </div>
+            <div style="position:absolute;left:112.95px;top:135.87px" class="cls_002"><span
+                            class="cls_002">{{year01}}</span></div>
+            <div style="position:absolute;left:131.46px;top:135.87px" class="cls_002"><span
+                            class="cls_002">{{year02}}</span></div>
+            <div style="position:absolute;left:151.27px;top:135.87px" class="cls_002"><span
+                            class="cls_002">{{year03}}</span></div>
+            <div style="position:absolute;left:170.63px;top:135.87px" class="cls_002"><span
+                            class="cls_002">{{year04}}</span></div>
+            <div style="position:absolute;left:394.06px;top:135.87px" class="cls_002"><span class="cls_002">0</span>
+            </div>
+            <div style="position:absolute;left:412.85px;top:135.87px" class="cls_002"><span class="cls_002">1</span>
+            </div>
+            <div style="position:absolute;left:429.84px;top:135.87px" class="cls_002"><span class="cls_002">0</span>
+            </div>
+            <div style="position:absolute;left:446.26px;top:135.87px" class="cls_002"><span class="cls_002">1</span>
+            </div>
+            <div style="position:absolute;left:528.45px;top:135.87px" class="cls_002"><span class="cls_002">1</span>
+            </div>
+            <div style="position:absolute;left:547.72px;top:135.87px" class="cls_002"><span class="cls_002">2</span>
+            </div>
+            <div style="position:absolute;left:566.93px;top:135.87px" class="cls_002"><span class="cls_002">3</span>
+            </div>
+            <div style="position:absolute;left:585.58px;top:135.87px" class="cls_002"><span class="cls_002">1</span>
+            </div>
+            <div style="position:absolute;left:69.08px;top:165.95px" class="cls_002"><span
+                            class="cls_002">{{tin1}}</span></div>
+            <div style="position:absolute;left:82.46px;top:165.95px" class="cls_002"><span
+                            class="cls_002">{{tin2}}</span></div>
+            <div style="position:absolute;left:95.78px;top:165.95px" class="cls_002"><span
+                            class="cls_002">{{tin3}}</span></div>
+            <div style="position:absolute;left:121.61px;top:165.55px" class="cls_002"><span
+                            class="cls_002">{{tin4}}</span></div>
+            <div style="position:absolute;left:136.37px;top:165.55px" class="cls_002"><span
+                            class="cls_002">{{tin5}}</span></div>
+            <div style="position:absolute;left:150.04px;top:165.55px" class="cls_002"><span
+                            class="cls_002">{{tin6}}</span></div>
+            <div style="position:absolute;left:175.60px;top:165.55px" class="cls_002"><span
+                            class="cls_002">{{tin7}}</span></div>
+            <div style="position:absolute;left:189.13px;top:165.55px" class="cls_002"><span
+                            class="cls_002">{{tin8}}</span></div>
+            <div style="position:absolute;left:203.04px;top:165.55px" class="cls_002"><span
+                            class="cls_002">{{tin9}}</span></div>
+            <div style="position:absolute;left:229.85px;top:165.16px" class="cls_002"><span
+                            class="cls_002">{{tin10}}</span></div>
+            <div style="position:absolute;left:244.39px;top:165.15px" class="cls_002"><span
+                            class="cls_002">{{tin11}}</span></div>
+            <div style="position:absolute;left:260.52px;top:165.15px" class="cls_002"><span
+                            class="cls_002">{{tin12}}</span></div>
+            <div style="position:absolute;left:20.52px;top:193.47px" class="cls_002"><span
+                            class="cls_002">{{staffname}}</span></div>
+            <div style="position:absolute;left:19.22px;top:223.98px" class="cls_002"><span
+                            class="cls_002">{{empAddress}}</span></div>
+            <div style="position:absolute;left:268.48px;top:223.21px" class="cls_002"><span
+                            class="cls_002">{{SubDistrictPostcode}}</span>
+            </div>
+            <div style="position:absolute;left:494.64px;top:292.04px" class="cls_002"><span class="cls_002"></span>
+            </div>
+            <div style="position:absolute;left:26.66px;top:306.42px" class="cls_002"><span
+                            class="cls_002">{{dob7}}</span>
+            </div>
+            <div style="position:absolute;left:39.98px;top:306.42px" class="cls_002"><span
+                            class="cls_002">{{dob8}}</span>
+            </div>
+            <div style="position:absolute;left:54.40px;top:306.42px" class="cls_002"><span
+                            class="cls_002">{{dob5}}</span>
+            </div>
+            <div style="position:absolute;left:67.68px;top:306.42px" class="cls_002"><span
+                            class="cls_002">{{dob6}}</span>
+            </div>
+            <div style="position:absolute;left:80.84px;top:306.42px" class="cls_002"><span
+                            class="cls_002">{{dob1}}</span>
+            </div>
+            <div style="position:absolute;left:94.08px;top:306.42px" class="cls_002"><span
+                            class="cls_002">{{dob2}}</span>
+            </div>
+            <div style="position:absolute;left:107.71px;top:306.42px" class="cls_002"><span
+                            class="cls_002">{{dob3}}</span>
+            </div>
+            <div style="position:absolute;left:121.46px;top:306.42px" class="cls_002"><span
+                            class="cls_002">{{dob4}}</span>
+            </div>
+
+            <div style="    position: absolute;
+    left: 495.64px;
+    top: 227.31px;" class="cls_002"><span class="cls_002"> {{yearotamount}}</span></div>
+            <div style="    position: absolute;
+    left: 495.64px;
+    top: 313.31px;" class="cls_002"><span class="cls_002">{{yearlydeminims}}</span></div>
+            <div style="position:absolute;left:494.64px;top:333.31px" class="cls_002"><span
+                            class="cls_002">{{totalsss}}</span></div>
+            <div style="position:absolute;left:494.64px;top:375.01px" class="cls_002"><span
+                            class="cls_002">{{totalnontax}}</span></div>
+            <div style="position:absolute;left:69.08px;top:393.73px" class="cls_002"><span class="cls_002">6</span>
+            </div>
+            <div style="position:absolute;left:82.46px;top:393.73px" class="cls_002"><span class="cls_002">0</span>
+            </div>
+            <div style="position:absolute;left:95.78px;top:393.73px" class="cls_002"><span class="cls_002">0</span>
+            </div>
+            <div style="position:absolute;left:122.17px;top:393.73px" class="cls_002"><span class="cls_002">1</span>
+            </div>
+            <div style="position:absolute;left:135.78px;top:393.73px" class="cls_002"><span class="cls_002">9</span>
+            </div>
+            <div style="position:absolute;left:149.38px;top:393.73px" class="cls_002"><span class="cls_002">4</span>
+            </div>
+            <div style="position:absolute;left:175.80px;top:393.73px" class="cls_002"><span class="cls_002">0</span>
+            </div>
+            <div style="position:absolute;left:188.90px;top:393.73px" class="cls_002"><span class="cls_002">1</span>
+            </div>
+            <div style="position:absolute;left:202.82px;top:393.73px" class="cls_002"><span class="cls_002">2</span>
+            </div>
+            <div style="position:absolute;left:229.41px;top:393.73px" class="cls_002"><span class="cls_002">0</span>
+            </div>
+            <div style="position:absolute;left:244.83px;top:393.73px" class="cls_002"><span class="cls_002">0</span>
+            </div>
+            <div style="position:absolute;left:260.96px;top:393.73px" class="cls_002"><span class="cls_002">0</span>
+            </div>
+            <div style="position:absolute;left:494.64px;top:415.45px" class="cls_002"><span
+                            class="cls_002">{{yearlybasesalary}}</span></div>
+            <div style="position:absolute;left:19.22px;top:421.44px" class="cls_002"><span
+                            class="cls_002">{{companyname}}</span></div>
+            <div style="position:absolute;left:19.22px;top:449.95px" class="cls_002"><span
+                            class="cls_002">{{Address}}</span></div>
+            <div style="position:absolute;left:267.69px;top:449.95px" class="cls_002"><span
+                            class="cls_002">{{zipcode}}</span>
+            </div>
+            <div style="position:absolute;left:196.27px;top:584.41px" class="cls_002"><span
+                            class="cls_002">{{yearlybasesalary}}</span></div>
+            <div style="position:absolute;left:196.27px;top:605.73px" class="cls_002"><span
+                            class="cls_002">{{yearlydeminims}}</span></div>
+            <div style="position:absolute;left:196.27px;top:626.14px" class="cls_002"><span
+                            class="cls_002">{{yearlybasesalary}}</span></div>
+            <div style="position:absolute;left:196.27px;top:646.14px" class="cls_002"><span
+                            class="cls_002">{{previoussalary}}</span></div>
+            <div style="position:absolute;left:196.27px;top:667.81px" class="cls_002"><span
+                            class="cls_002">{{yearlybasesalary+previoussalary}}</span></div>
+            <div style="position:absolute;left:494.64px;top:678.68px" class="cls_002"><span class="cls_002"></span>
+            </div>
+            <div style="position:absolute;left:196.27px;top:688.62px" class="cls_002"><span
+                            class="cls_002">0.00</span>
+            </div>
+            <div style="position:absolute;left:196.27px;top:709.08px" class="cls_002"><span
+                            class="cls_002">{{yeartax}}</span></div>
+            <div style="position:absolute;left:196.27px;top:739.08px" class="cls_002"><span
+                            class="cls_002">{{previoustax}}</span></div>
+            <div style="position:absolute;left:196.27px;top:752.35px" class="cls_002"><span
+                            class="cls_002">{{yeartax+previoustax}}</span></div>
+            <div style="position:absolute;left:494.64px;top:751.05px" class="cls_002"><span
+                            class="cls_002">{{yearlybasesalary}}</span></div>
+            <div style="position:absolute;left:130.27px;top:803.83px" class="cls_002"><span
+                            class="cls_002">{{signname}}</span></div>
+            <div style="position:absolute;left:426.27px;top:803.83px" class="cls_002"><span class="cls_002">{{
+                            mydate7}}</span></div>
+            <div style="position:absolute;    left: 437.27px;top:803.83px" class="cls_002"><span class="cls_002">{{
+                            mydate8}}</span></div>
+            <div style="position:absolute;left:452.27px;top:803.83px" class="cls_002"><span class="cls_002">{{
+                            mydate5}}</span></div>
+            <div style="position:absolute;left:461.27px;top:803.83px" class="cls_002"><span class="cls_002">{{
+                            mydate6}}</span></div>
+            <div style="position:absolute;left:474.27px;top:803.83px" class="cls_002"><span class="cls_002">{{
+                            mydate1}}</span></div>
+            <div style="position:absolute;left:486.27px;top:803.83px" class="cls_002"><span class="cls_002">{{
+                            mydate2}}</span></div>
+            <div style="position:absolute;left:496.27px;top:803.83px" class="cls_002"><span class="cls_002">{{
+                            mydate3}}</span></div>
+            <div style="position:absolute;left:506.27px;top:803.83px" class="cls_002"><span class="cls_002">{{
+                            mydate4}}</span></div>
+
+            <div style="position:absolute;left:121.09px;top:837.73px" class="cls_002"><span
+                            class="cls_002">{{staffname}}</span>
+            </div>
+            <div style="position:absolute;left:426.27px;top:837.83px" class="cls_002"><span class="cls_002">{{
+                            mydate7}}</span></div>
+            <div style="position:absolute;    left: 437.27px;top:837.83px" class="cls_002"><span class="cls_002">{{
+                            mydate8}}</span></div>
+            <div style="position:absolute;left:452.27px;top:837.83px" class="cls_002"><span class="cls_002">{{
+                            mydate5}}</span></div>
+            <div style="position:absolute;left:461.27px;top:837.83px" class="cls_002"><span class="cls_002">{{
+                            mydate6}}</span></div>
+            <div style="position:absolute;left:474.27px;top:837.83px" class="cls_002"><span class="cls_002">{{
+                            mydate1}}</span></div>
+            <div style="position:absolute;left:486.27px;top:837.83px" class="cls_002"><span class="cls_002">{{
+                            mydate2}}</span></div>
+            <div style="position:absolute;left:496.27px;top:837.83px" class="cls_002"><span class="cls_002">{{
+                            mydate3}}</span></div>
+            <div style="position:absolute;left:506.27px;top:837.83px" class="cls_002"><span class="cls_002">{{
+                            mydate4}}</span></div>
+            <div style="position:absolute;left:130.26px;top:923.20px" class="cls_002"><span
+                            class="cls_002">{{signname}}</span></div>
+            <div style="position:absolute;left:418.14px;top:940.12px" class="cls_002"><span
+                            class="cls_002">{{staffname}}</span>
+            </div>
+    </div>
+</div>
