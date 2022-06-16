@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DepartmentFormComponent } from './department-form.component';
 
 describe('DepartmentFormComponent', () => {

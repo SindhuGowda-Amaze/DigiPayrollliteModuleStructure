@@ -5,20 +5,19 @@
 
 .card{
     padding: 20px;
-}
-th{
+  }
+  th{
     background-color: #e4e5e6;
-}
-.dropdown-toggle{
+  }
+  .dropdown-toggle{
     text-align: left;
-}
-.LocDashboard{
+  }
+  .LocDashboard{
     padding-top: 10px;
     margin: 0px;
     background-color: #e4e5e6;
-}
-
-ul {
+  }
+  ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -40,7 +39,7 @@ ul {
   li a:hover {
     text-decoration: 3px solid rgb(28, 32, 94) underline;
   }
-
+  
   .requestbtn{
       background-color: #4282be;
       color: white;
@@ -52,10 +51,7 @@ ul {
       text-align: center;
       white-space: nowrap;
   }
-  input,textarea{
-    font-size: 12px;
-  }
-
+  
   .leavelist{
     padding: 0px 20px;
   }
@@ -63,14 +59,14 @@ ul {
       background-color: #2F87CC;
       color: white;
   } */
-.applyleavetxt{
+  .applyleavetxt{
   
     font-family: 'DIN Bold';
     font-size: 20px;
     font-weight: bold;
     text-decoration: none;
-}
-
+  }
+  
   .container-fluid{
     font-family: 'DIN Bold';
     padding: 0px;
@@ -82,7 +78,7 @@ ul {
   td{
     background-color: rgb(247, 242, 242);
     color: #494949;
-}
+  }
   .show3res{
     font-size: 12px;
     font-weight: bold;
@@ -108,14 +104,14 @@ ul {
       border-color: black;
   }
   
-
+  
   .BackEnt{
     margin-top: -10px;
     font-size: x-large;
     font-weight: 900;
     text-decoration: none;
   }
-
+  
   .BACK{
     margin-top: 10px;
     text-decoration: none;
@@ -123,5 +119,13 @@ ul {
   .submitbtn{
     background-color: #2F87CC;
     color: white;
-}
+  }
+  
+  .headingcolor{
+  color: #3247D5; 
+  font-family: 'Poppins';
+  }
+  .span{
+  color:red;
+  }
   
