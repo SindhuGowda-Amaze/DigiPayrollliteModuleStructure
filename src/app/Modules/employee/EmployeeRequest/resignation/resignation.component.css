@@ -1,0 +1,15 @@
+.upload{
+    text-transform: uppercase;
+    font-weight: initial;
+    text-shadow: initial;
+    letter-spacing: 0.5px;
+    /* margin-left: -19px; */
+    border-radius: 5px;
+    border: none;
+    height: 48px;
+    background-color: #3247d5;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100px;
+}

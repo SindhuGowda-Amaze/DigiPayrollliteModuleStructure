@@ -1,0 +1,528 @@
+<!-- <app-spinner *ngIf="loader"></app-spinner> -->
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="Heading1" style="text-align: center;">Certificate Of Loan</p>
+                <hr class="HrLine">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-3">
+                <p style="text-align: center;"> Select Start Month & Year</p>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="month">
+                    <option value="">Select</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="year">
+                    <option value="">Select</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p style="text-align: center;">Signatory Person</p>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                    <option value="">Select</option>
+                    <option value="HR">HR</option>
+                    <!-- <option value="Admin">Admin</option>
+                            <option value="Finance">Finance</option> -->
+                </select>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-4">
+                <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                <button class="AddButton" data-toggle="collapse" data-target="#demo" (click)="getorrecords()" >Fetch</button>
+            </div>
+        </div>
+    </div><br>
+    <div class="row" id="demo" class="collapse">
+        <div class="col-lg-12">
+            <table class="table">
+                <thead>
+                    <tr class="newFont">
+                        <th class="SelectData">Select</th>
+                        <th>ID</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Status</th>
+                        <!-- <th>Reset Password</th> -->
+                        <!-- <th style="padding-left: 47px;">Actions</th> -->
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uniqueorlist|paginate: { itemsPerPage: count1, currentPage: p}">
+                        <td>
+                            <input type="checkbox" [value]="item.id"
+                                (change)="GetNewGovernmentRecords(item.id)">&nbsp;
+                        </td>
+
+                        <td>000{{item.id}}</td>
+                        <td>{{item.last_Name}}</td>
+                        <td>{{item.name}}</td>
+                        <td>Active</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <br>
+            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+        </div>
+    </div><br>
+    <button id="myBtn2" [hidden]="true"  data-toggle="modal"
+   data-target="#showsalaryLoan" >Open Modal</button>
+
+   <button id="myBtn3" [hidden]="true"  data-toggle="modal"
+   data-target="#showcalamityLoan" >Open Modal</button>
+
+   <button id="myBtn4" [hidden]="true"  data-toggle="modal"
+   data-target="#showhdmfsalaryLoan" >Open Modal</button>
+
+    <div class="row leavereq">
+        <div class="col-lg-1"></div>
+                <!-- <div class="col-lg-1">
+                    <button class="form-control CancelBTN fontheading">Cancel</button>
+                </div> -->
+        <div class="col-lg-3">
+            <!-- <button class="loan" *ngIf="ssssalary==true" data-toggle="modal" data-target="#showsalaryLoan" 
+                        (click)="showsalaryLoan()" >SSS SALARY LOAN</button> -->
+            <button class="AddButton" style="width: 80%;"  (click)="showsalaryLoan()">SSS SALARY LOAN</button>
+        </div>
+        <div class="col-lg-3">
+            <button class="AddButton" style="width: 80%;"  (click)="showcalamityLoan()">SSS CALAMITY LOAN</button>
+        </div>
+        <div class="col-lg-3">
+            <button class="AddButton" style="width: 80%;"  (click)="showhdmfsalaryLoan()">HDMF SALARY LOAN</button>
+        </div>
+        <!-- <div class="col-lg-3">
+                        <button class="AddButton" style="width: 80%;" *ngIf="ssssalary==true" data-toggle="modal"
+                            data-target="#showhdmfcalamityLoan" (click)="showhdmfcalamityLoan()">HDMF CALMITY
+                            LOAN</button>
+                    </div> -->
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+
+
+<div  id="showsalaryLoan" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="height: 935px;">
+            <div class="modal-header">
+                <h4 class="modal-title">SSS</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="downloadaplication" style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;
+                    height:745px;border-style:outset;overflow:hidden;margin-top: 60px;background-color: white;">
+
+                    <div style="position:absolute;left:0px;top:0px">
+                        <img src="assets/images/AmazeLogo.jpg" width=60 height=70>
+                    </div>
+
+                    <div style="position:absolute;left:197.79px;top:147.77px" class="cls_004"><span
+                            class="cls_004">CERTIFICATION OF
+                            SSS LOAN PAYMENTS</span></div>
+                    <div style="position:absolute;left:73.87px;top:199.94px" class="cls_002"><span class="cls_002">This
+                            is to
+                            certify that the following payments has been remitted to </span><span class="cls_003">Social
+                            Security
+                            System (SSS) </span><span class="cls_002">for</span></div>
+                    <div style="position:absolute;left:73.87px;top:211.45px" class="cls_003"><span
+                            class="cls_003">{{fullname}}
+                        </span><span class="cls_002"> with </span><span class="cls_003">SSS No. {{sssno}}</span>
+                    </div>
+                    <div style="position:absolute;left:159.99px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Month /
+                            Year</span></div>
+                    <div style="position:absolute;left:234.09px;top:253.16px" class="cls_005"><span class="cls_005">SSS
+                            Loan
+                            Amount</span></div>
+                    <div style="position:absolute;left:335.05px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Receipt
+                            No.</span></div>
+                    <div style="position:absolute;left:416.44px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Payment
+                            Date</span></div>
+
+                    <div style="position:absolute;left:179.99px;top:280.16px" class="cls_005"><span class="cls_005">
+                            {{sssMonth}} {{sssYear}}</span></div>
+                    <div style="position:absolute;left:254.09px;top:280.16px" class="cls_005"><span class="cls_005">
+                            {{sssAmount}}</span></div>
+                    <div style="position:absolute;left:355.05px;top:280.16px" class="cls_005"><span class="cls_005">
+                            0123456</span></div>
+                    <div style="position:absolute;left:436.44px;top:280.16px" class="cls_005"><span class="cls_005">
+                            {{sssDatePaid}}</span></div>
+                    <div style="position:absolute;left:73.87px;top:323.05px" class="cls_002"><span class="cls_002">This
+                            certification is issued to </span><span class="cls_003">{{fullname}}</span><span
+                            class="cls_002"> this {{myDate}}, at {{companyname}} {{Address}} </span></div>
+                    <div style="position:absolute;left: 156.87px;top: 339.56px;" class="cls_002"><span class="cls_002">
+                            for whatever purpose it may serve.</span></div>
+
+                    <div style="position:absolute;left:453.15px;top:410.36px" class="cls_008"><span class="cls_008">SSS
+                            no.
+                            80-0205100-4</span></div>
+                    <div style="position:absolute;left:477.16px;top:460.93px" class="cls_007"><span class="cls_007"><img
+                                src="assets/images/sign.png" style="    width: 56%;
+                    margin-top: -48px;
+                    margin-left: -1px;"></span>
+                    </div>
+                    <div style="position:absolute;left:477.16px;top:460.93px" class="cls_008"><span
+                            class="cls_008">{{signname}}
+                        </span></div>
+                    <div style="position:absolute;left:476.22px;top:470.42px" class="cls_008"><span
+                            class="cls_008">{{sign}}
+                        </span></div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- <button class="loan1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                                aria-hidden="true"></i></button> -->
+                        <button class="AddButton" style="margin-right: 35px;" (click)="convetToPDF1()">EXPORT to PDF <i
+                                class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <hr>
+                <div class="col-lg-4">
+                    <!-- <button class="Edit">Close</button> -->
+                    <button class="AddButton">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showcalamity==1" id="showcalamityLoan" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="height: 935px;">
+            <div class="modal-header">
+                <h4 class="modal-title">SSS</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="AddButton" style="margin-right: 35px;" (click)="convetToPDF1()">EXPORT to PDF <i
+                                class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+                <div id="downloadaplication" style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;
+                    height:745px;border-style:outset;overflow:hidden;margin-top: 62px;background-color: white;">
+                    <div style="position:absolute;left:0px;top:0px">
+                        <img src="assets/images/AmazeLogo.jpg" width=60 height=70>
+                    </div>
+
+                    <div style="position:absolute;left:169.20px;top:147.77px" class="cls_004"><span
+                            class="cls_004">CERTIFICATION OF
+                            SSS CALAMITY LOAN PAYMENTS</span></div>
+                    <div style="position:absolute;left:73.87px;top:199.94px" class="cls_002"><span class="cls_002">This
+                            is to
+                            certify that the following payments has been remitted to </span><span class="cls_003">Social
+                            Security
+                            System (SSS) </span><span class="cls_002">for</span></div>
+                    <div style="position:absolute;left:73.87px;top:211.45px" class="cls_003"><span
+                            class="cls_003">{{fullname}}
+                            A. ADOLFO</span><span class="cls_002"> with </span><span class="cls_003">SSS No.
+                            {{sssno}}</span>
+                    </div>
+                    <div style="position:absolute;left:159.99px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Month /
+                            Year</span></div>
+                    <div style="position:absolute;left:234.09px;top:253.16px" class="cls_005"><span class="cls_005">SSS
+                            Loan
+                            Amount</span></div>
+                    <div style="position:absolute;left:335.05px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Receipt
+                            No.</span></div>
+                    <div style="position:absolute;left:416.44px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Payment
+                            Date</span></div>
+
+
+
+                    <div style="position:absolute;left:159.99px;top:280.16px" class="cls_005"><span class="cls_005">
+                            {{CalamityMonth}} {{CalamityYear}}</span></div>
+                    <div style="position:absolute;left:234.09px;top:280.16px" class="cls_005"><span
+                            class="cls_005">{{calamityAmount}}
+                        </span></div>
+                    <div style="position:absolute;left:335.05px;top:280.16px" class="cls_005"><span class="cls_005">
+                            02345</span></div>
+                    <div style="position:absolute;left:416.44px;top:280.16px" class="cls_005"><span class="cls_005">
+                            {{CalamityDatePaid}}</span></div>
+
+
+                    <div style="position:absolute;left:73.87px;top:323.05px" class="cls_002"><span class="cls_002">This
+                            certification is issued to </span><span class="cls_003">{{fullname}}</span><span
+                            class="cls_002"> this {{myDate}}, </span></div>
+                    <div style="position:absolute;left:73.87px;top:334.56px" class="cls_002"><span
+                            class="cls_002">Plaza, 39 Phinma
+                            Dr, , for whatever purpose it may serve.</span></div>
+                    <div style="position:absolute;left:485.72px;top:410.88px" class="cls_008"><span
+                            class="cls_008">{{companyname}}</span></div>
+                    <div style="position:absolute;left:453.15px;top:420.36px" class="cls_008"><span class="cls_008">SSS
+                            no.
+                            80-0205100-4</span></div>
+                    <div style="position:absolute;left:477.16px;top:460.93px" class="cls_007"><span class="cls_007"><img
+                                src="assets/images/sign.png" style="    width: 56%;
+                            margin-top: -23px;
+                            margin-left: -1px;"></span>
+                    </div>
+                    <div style="position:absolute;left:477.16px;top:480.93px" class="cls_008"><span
+                            class="cls_008">{{signname}}</span></div>
+                    <div style="position:absolute;left:476.22px;top:490.42px" class="cls_008"><span
+                            class="cls_008">{{sign}}
+                        </span></div>
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <hr>
+                <div class="col-lg-4">
+                    <button class="AddButton">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showhdmfcalamity==1" id=" showhdmfcalamityLoan" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="height: 935px;">
+            <div class="modal-header">
+                <h4 class="modal-title">SSS</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+
+
+                <div class="row">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="AddButton" style="margin-right: 35px;" (click)="convetToPDF1()">EXPORT to PDF <i
+                                class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+                <div id="downloadaplication" style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;
+                    height:746px;border-style:outset;overflow:hidden;margin-top: 60px;background-color: white;">
+                    <div style="position:absolute;left:0px;top:0px">
+                        <img src="assets/images/AmazeLogo.jpg" width=60 height=70>
+                    </div>
+
+                    <div style="position:absolute;left:86.37px;top:150.63px" class="cls_004"><span
+                            class="cls_004">CERTIFICATION
+                            OF HOME DEVELOPMENT FUND (HDMF) CALAMITY LOAN PAYMENTS</span></div>
+                    <div style="position:absolute;left:66.81px;top:199.94px" class="cls_002"><span class="cls_002">This
+                            is to
+                            certify that the payment of </span><span class="cls_003">Ms. NOEME MARIE A.
+                            ADOLFO</span><span class="cls_002"> have been remitted to </span><span
+                            class="cls_003">Home</span></div>
+                    <div style="position:absolute;left:66.81px;top:211.45px" class="cls_003"><span
+                            class="cls_003">Development
+                            Fund (HDMF)</span><span class="cls_002"> as indicated in the summary below.</span></div>
+                    <div style="position:absolute;left:131.19px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Month /
+                            Year</span></div>
+                    <div style="position:absolute;left:219.37px;top:253.16px" class="cls_005"><span class="cls_005">HDMF
+                            Loan
+                            Amount</span></div>
+                    <div style="position:absolute;left:342.26px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Receipt
+                            No.</span></div>
+                    <div style="position:absolute;left:423.72px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Payment
+                            Date</span></div>
+
+
+                    <div style="position:absolute;left:131.19px;top:280.16px" class="cls_005"><span class="cls_005">
+                            {{hdmfMonth}} {{hdmfYear}}</span></div>
+                    <div style="position:absolute;left:219.37px;top:280.16px" class="cls_005"><span class="cls_005">
+                            {{hdmfAmount}}</span></div>
+                    <div style="position:absolute;left:342.26px;top:280.16px" class="cls_005"><span class="cls_005">
+                            17654</span></div>
+                    <div style="position:absolute;left:423.72px;top:280.16px" class="cls_005"><span class="cls_005">
+                            {{hdmfDatePaid}}</span></div>
+
+
+                    <div style="position:absolute;left:74.01px;top:323.05px" class="cls_002"><span class="cls_002">This
+                            certification is issued to </span><span class="cls_003">Ms. ADOLFO</span><span
+                            class="cls_002"> this
+                            {{myDate}} at {{companyname}}., 5F Phinma</span></div>
+                    <div style="position:absolute;left:74.01px;top:334.56px" class="cls_002"><span class="cls_002"> ,
+                            for whatever purpose it may serve.</span></div>
+                    <div style="position:absolute;left:150.01px;top:340.62px" class="cls_007"><span class="cls_007"><img
+                                src="assets/images/sign.png" style="    width: 31%;
+                            margin-top: 11px;
+                            margin-left: -1px;"></span>
+                    </div>
+                    <div style="position:absolute;left:150.01px;top:410.13px" class="cls_007"><span
+                            class="cls_007">{{signname}}</span></div>
+                    <div style="position:absolute;left:150.01px;top:420.62px" class="cls_007"><span
+                            class="cls_007">{{sign}}
+                        </span></div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <hr>
+                <div class="col-lg-4">
+                    <button class="AddButton">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showhdmfsalary==1" id="showhdmfsalaryLoan" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="height: 935px;">
+            <div class="modal-header">
+                <h4 class="modal-title">SSS</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+
+
+                <div class="row">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="AddButton" style="margin-right: 35px;" (click)="convetToPDF1()">EXPORT to PDF <i
+                                class="fa fa-download" aria-hidden="true"></i></button>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+
+                <div id="downloadaplication" style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;
+                    height:746px;border-style:outset;overflow:hidden;margin-top: 60px;background-color: white;">
+                    <div style="position:absolute;left:0px;top:0px">
+                        <img src="assets/images/AmazeLogo.jpg" width=60 height=70>
+                    </div>
+
+                    <div style="position:absolute;left:91.91px;top:150.63px" class="cls_004"><span
+                            class="cls_004">CERTIFICATION
+                            OF
+                            HOME DEVELOPMENT FUND (HDMF) SALARY LOAN PAYMENTS</span></div>
+                    <div style="position:absolute;left:66.81px;top:199.94px" class="cls_002"><span class="cls_002">This
+                            is to
+                            certify that the contribution of </span><span class="cls_003">{{fullname}}</span><span
+                            class="cls_002"> have been remitted to </span><span class="cls_003">Home</span></div>
+                    <div style="position:absolute;left:66.81px;top:211.45px" class="cls_003"><span
+                            class="cls_003">Development
+                            Fund
+                            (HDMF)</span><span class="cls_002"> as indicated in the summary below.</span></div>
+                    <div style="position:absolute;left:138.39px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Month /
+                            Year</span></div>
+                    <div style="position:absolute;left:226.57px;top:253.16px" class="cls_005"><span class="cls_005">HDMF
+                            Loan
+                            Amount</span></div>
+                    <div style="position:absolute;left:349.45px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Receipt
+                            No.</span></div>
+                    <div style="position:absolute;left:430.92px;top:253.16px" class="cls_005"><span
+                            class="cls_005">Payment
+                            Date</span></div>
+
+
+
+
+                    <div style="position:absolute;left:138.39px;top:283.16px" class="cls_005"><span class="cls_005">
+                            {{Month}} {{Year}}</span></div>
+                    <div style="position:absolute;left:226.57px;top:283.16px" class="cls_005"><span class="cls_005">
+                            {{Amount}}</span></div>
+                    <div style="position:absolute;left:349.45px;top:283.16px" class="cls_005"><span class="cls_005">
+                            02468</span></div>
+                    <div style="position:absolute;left:430.92px;top:283.16px" class="cls_005"><span
+                            class="cls_005">{{DatePaid}}
+                        </span></div>
+
+
+                    <div style="position:absolute;left:74.01px;top:343.05px" class="cls_002"><span class="cls_002">This
+                            certification is issued to </span><span class="cls_003">{{fullname}}</span><span
+                            class="cls_002"> this
+                            {{myDate}}, at {{companyname}}, {{Address}}</span></div>
+                    <div style="position:absolute;left:150.01px;top:334.56px" class="cls_002"><span class="cls_002"> ,
+                            for whatever purpose it may serve.</span></div>
+                    <div style="position:absolute;left:468.01px;top:360.62px" class="cls_007"><span class="cls_007"><img
+                                src="assets/images/sign.png" style="    width: 31%;
+                            margin-top: 11px;
+                            margin-left: -1px;"></span>
+                    </div>
+                    <div style="position:absolute;left:468.01px;top:430.13px" class="cls_007"><span
+                            class="cls_007">{{signname}}
+                        </span></div>
+                    <div style="position:absolute;left:468.01px;top:440.62px" class="cls_007"><span
+                            class="cls_007">{{sign}}
+                        </span></div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <hr>
+                <div class="col-lg-4">
+                    <button class="AddButton">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

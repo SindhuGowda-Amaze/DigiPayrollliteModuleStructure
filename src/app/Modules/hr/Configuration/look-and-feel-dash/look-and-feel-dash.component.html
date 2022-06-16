@@ -1,0 +1,116 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-11">
+                    <p class="Heading1">Look and Feel</p>
+                </div>
+            </div>
+
+            <!-- <div>
+                    <div>
+                        <ul>
+                            <li><a class="active"> <h3>Holiday Dashboard</h3></a></li>
+    
+                        </ul>
+                    </div>
+                </div>
+                <hr> -->
+            <div class="row">
+                <div class="col-lg-10">
+
+                </div>
+                <div class="col-lg-2">
+                    <!-- <a routerLink="/Addlookandfeel"><button class="form-control requestbtn">Add New</button> </a> -->
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!-- <table class="table table-bordered"> -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <th>Company Logo</th>
+                                <th>Header Color</th>
+                                <th>Button Color</th>
+                                <th>Font Family</th>
+                                <th style="padding-left: 220px;">Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let holiday of holidaylist|filter:term">
+                                <td><img src="{{holiday.companyLogo}}" height="40px" width="100px">
+                                </td>
+                                <!-- <td><img src="../../assets/images/AmazeLogo.jpg" height="40px" width="40px"></td> -->
+                                <td>{{holiday.headerColor}}</td>
+                                <td>{{holiday.buttonColor}}</td>
+                                <td>{{holiday.fontName}}</td>
+
+                                <td> <button class="button" [routerLink]="['/Addlookandfeel',holiday.id]">Edit</button>
+                                    <button class="button" (click)="Default(holiday.id)">Default</button>
+                                    <button class="button" (click)="DeleteHolidays(holiday.id)">Delete</button>
+                                </td>
+
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+                <div class="col-md-1"></div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div id="Allocate" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1></h1>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-4">
+
+                        </div>
+                        <img src="{{file}}" alt="medical.img" style="height: 410px;margin-left: 10px;">
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

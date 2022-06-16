@@ -1,0 +1,604 @@
+<div class="container-fluid">
+ 
+        
+  
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="Heading1">Payslip Report</p> 
+        </div>
+    </div>
+   <br>
+        <!-- <div class="row">
+            <div class="col-lg-8 View">
+                <ul>
+                    <li><a class="active">View</a></li>
+                </ul>
+            </div>
+        </div> -->
+
+        <div class="container-fluid">
+           
+         
+                
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table">
+                <thead>
+                    <tr class="newFont">
+                        
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Period</th>
+                        <th>Payroll Run Type</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uniquelist ">
+                       
+                        <td style="color:#0C275A">{{item.endyear}}</td>
+                        <td style="color:#0C275A">{{item.month}}</td>
+                        <td style="color:#0C275A">{{item.payrolltype}}</td>
+                        <td style="color:#0C275A">Normal</td>
+                        <td style="color:#0C275A">Payroll For {{item.startdate1|date}} - {{item.enddate1|date}} </td>
+                         <td> <button class="AddButton1" data-toggle="modal" data-target="#Reject"
+                        (click)="getpayslip(item.endyear,item.month,item.payrolltype)">Attachment</button></td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+       
+    </div><br>
+            
+                    <br/>
+                    <br/>
+             
+                     
+                
+              
+
+        
+            
+
+           
+
+
+            
+            <br>
+            <!-- <div class="row leavereq">
+                <div class="col-lg-10"></div>
+            <div class="col-lg-1">
+                <button class="form-control CancelBTN fontheading">Cancel</button>
+            </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2">
+                    <button class="form-control SubmitBTN">PRINT</button>
+                </div>
+                <div class="col-lg-2">
+                    <button class="form-control SubmitBTN">GENERATE EXCEL</button>
+                </div>
+                <div class="col-lg-2">
+                    <button class="form-control SubmitBTN">SEND TO EMAIL</button>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-1"></div>
+            </div> -->
+            <br>
+        </div>
+    
+
+</div>
+
+<div id="mail" class="modal fade" role="dialog">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">New Email</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+           
+            <div class="row">
+                <div class="col-lg-3">
+                    <label class="Text">To :</label>
+                </div>
+                <div class="col-lg-5">
+                    <input class="form-control"  [(ngModel)]="tomail">
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-lg-3">
+                    <label class="Text">Subject :</label>
+                </div>
+                <div class="col-lg-5">
+                    <input class="form-control"  [(ngModel)]="subject">
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-lg-3">
+                    <label class="Text">Message :</label>
+                </div>
+                <div class="col-lg-5">
+                    <textarea class="form-control" rows="5" placeholder="Write here.."  [(ngModel)]="message" ></textarea>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-lg-3">
+                    <label class="Text">Attachment :</label>
+                </div>
+                <div class="col-lg-5">
+                    <!-- <input type="file" > -->
+                    <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                        <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-2">
+                    <button class="form-control edit" (click)="sendmail()">Send</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <hr>
+            <div class="col-lg-2">
+                <button class="edit">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div  id="Reject" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Payslip</h5>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body " >
+                <div class="container-fluid" >
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p>Employees</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <button class="AddButton1" (click)="convetToPDF1()">EXPORT TO PDF</button>    
+                        </div> 
+    
+                        <!-- <div class="col-lg-3">
+                            <a class="active fontheading">Employees</a>
+                        </div>
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-1">
+                            <button class="export" (click)="convetToPDF1()">EXPORT TO PDF</button>
+                        </div> -->
+                        <!-- <div class="col-lg-1">
+                            <button class="form-control Send" data-toggle="modal" data-target="#mail">SEND TO
+                                EMAIL</button>
+                        </div> -->
+                    </div>
+                    <br/>
+                    <div class="row Overflow" id="downloadaplication1" >
+                        <div class="col-lg-12">
+                            <table class="table table-bordered fonttxt TableBorder" >
+                                <thead>
+                                    <tr style="border: 2px solid #6c757d;">
+                                        <td>
+                                            <img src={{company_logo}} style="margin-left: 5px; width: 20%;">
+                                        </td>
+                                        <td colspan="5" style="color: #494949; font-weight: bold;"  class="tablehead" >
+                                            <h4 style="text-transform:capitalize">{{Company_Name}}</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #494949; font-weight: bold;">NAME:</td>
+                                        <td>{{fullname}}</td>
+                                        <td style="color: #494949; font-weight: bold;">TAX STATUS:</td>
+                                        <td colspan="3">ME</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #494949; font-weight: bold;">PAYROLL DATE:</td>
+                                        <td>{{payrolldate|date}}</td>
+                                        <td style="color: #494949; font-weight: bold;">TIN:</td>
+                                        <td colspan="3">{{tin}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #494949; font-weight: bold;">DATE COVERED:</td>
+                                        <td>{{startdate|date}} - {{enddate|date}} </td>
+                                        <td style="color: rgb(73, 73, 73); font-weight: bold;">SSS NO.:</td>
+                                        <td colspan="3">{{SSS}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #494949; font-weight: bold;">DEPARTMENT:</td>
+                                        <td>{{department}}</td>
+                                        <td style="color: #494949; font-weight: bold;">PHILHEALTH NO.:</td>
+                                        <td colspan="3">{{PhilHealth}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #494949; font-weight: bold;">POSITION:</td>
+                                        <td>{{role}}</td>
+                                        <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                                        <td colspan="3">{{hdmf}}</td>
+                                    </tr>
+                                    <tr style=" background-color: #2196F3;">
+                                        <td colspan="2"
+                                            style="color: white; font-weight: bold; text-align: center; background-color: #02cfff ;">
+                                             COMPENSATION</td>
+                                        <td colspan="2"
+                                            style="color: white; font-weight: bold; text-align: center;background-color: #02cfff ; ">
+                                             DEDUCTIONS</td>
+                                        <td colspan="2"
+                                            style="color: white; font-weight: bold; text-align: center; background-color: #02cfff ;">
+                                             YEAR-TO-DATE</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #494949; font-weight: bold;">BASIC({{noofdaysinperiod}} Days):</td>
+                                        <td>{{monthlysalaryperperiod}}</td>
+                                        <!-- <td style="color: #494949; font-weight: bold;">DE MINIMIS:</td>
+                                                    <td  >500.00</td> -->
+                                        <td style="color: #494949; font-weight: bold;">
+                                           <p *ngIf="SSSSalaryLoanAdjustment!=0"> SSS Salary Loan Adjustment</p> 
+                                          
+                                        
+                                        </td>
+                                        <td>
+                                            <p *ngIf="SSSSalaryLoanAdjustment!=0"> {{SSSSalaryLoanAdjustment|number:'1.2-2'}}</p>
+                                            
+                                        </td>
+                                        <td style="color: #494949; font-weight: bold;">TAXABLE GROSS:</td>
+                                        <td>{{yearGrossSal}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <!-- <td style="color: #494949; font-weight: bold;">DE MINIMIS:</td>
+                                                    <td  >500.00</td> -->
+                                        <td style="color: #494949; font-weight: bold;">
+                                           <p *ngIf="PagiBigMultiPurposeLoanAdjustment!=0">PagiBig Multi Purpose Loan Adjustment</p> 
+                                          
+                                        
+                                        </td>
+                                        <td>
+                                            <p *ngIf="PagiBigMultiPurposeLoanAdjustment!=0"> {{PagiBigMultiPurposeLoanAdjustment|number:'1.2-2'}}</p>
+                                            
+                                        </td>
+                                        <td colspan="2"></td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <!-- <td style="color: #494949; font-weight: bold;">DE MINIMIS:</td>
+                                                    <td  >500.00</td> -->
+                                        <td style="color: #494949; font-weight: bold;">
+                                           <p *ngIf="PagiBigCalamityLoanAdjustment!=0">PagiBig Calamity Loan Adjustment</p> 
+                                          
+                                        
+                                        </td>
+                                        <td>
+                                            <p *ngIf="PagiBigCalamityLoanAdjustment!=0"> {{PagiBigCalamityLoanAdjustment|number:'1.2-2'}}</p>
+                                            
+                                        </td>
+                                        <td colspan="2"></td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <!-- <td style="color: #494949; font-weight: bold;">DE MINIMIS:</td>
+                                                    <td  >500.00</td> -->
+                                        <td style="color: #494949; font-weight: bold;">
+                                           <p *ngIf="PagiBigHouseLoanAdjustment!=0">PagiBig House Loan Adjustment</p> 
+                                          
+                                        
+                                        </td>
+                                        <td>
+                                            <p *ngIf="PagiBigHouseLoanAdjustment!=0"> {{PagiBigHouseLoanAdjustment|number:'1.2-2'}}</p>
+                                            
+                                        </td>
+                                        <td colspan="2"></td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td style="color: hsl(0, 0%, 29%); font-weight: bold;" *ngIf="month==11">13th Month
+                                            Bonus:</td>
+                                        <td *ngIf="month==11">{{christmasbonus}}</td>
+                                       
+                        
+                                        <td *ngIf="month!=11" colspan="2"></td>
+                                        <!-- <td style="color: #494949; font-weight: bold;">LATE/UNDERTIME (0m):</td>
+                                                    <td  >0</td> -->
+                                        <td style="color: #494949; font-weight: bold;">SSS:</td>
+                                        <td>{{sssamount}}</td>
+                                        <td style="color: #494949; font-weight: bold;">TAX:</td>
+                                        <td>{{yeartax}}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <!-- <td style="color: #494949; font-weight: bold;"
+                                        >
+                                        <p *ngIf="OtHours==null">Total OT Amount</p>
+                                        <p *ngIf="OtHours!=null">Total OT Amount({{OtHours}})</p>
+                                    
+                                    </td>
+                                       
+                                        <td>
+                                            <p *ngIf="OT==null"> 0 </p>
+                                            <p *ngIf="OT!=null"> {{OT|number:'1.2-2'}} </p>
+                        
+                        
+                                        </td> -->
+                                       <td colspan="2"></td>
+                                        <td style="color: #494949; font-weight: bold;">PHILHEALTH:</td>
+                                        <td>{{philHealthContribution}} </td>
+                                        <td style="color: #494949; font-weight: bold;">SSS:</td>
+                                        <td>{{yearSSSRate}}</td>
+                                        <!-- <td style="color: #494949; font-weight: bold;">ADJUSTMENT:</td>
+                                                    <td  >450.00</td> -->
+                                        <!-- <td style="color: #494949; font-weight: bold;">SSS:</td>
+                                                    <td  >640</td> -->
+                                    </tr>
+                                
+                               
+                                <tr>
+                                    <td style="color: #494949; font-weight: bold;">
+                                        <p *ngIf="regularothours==null">Regular OT()</p>
+                                        <p *ngIf="regularothours!=null">Regular OT({{regularothours}})</p>
+                                        <!-- <p *ngIf="regularotamount==0">Regular OT({{regularothours}})</p>  -->
+                                       <p *ngIf="RestOTRegularAmt!=0">Rest Day  OT({{RestOTRegularHrs}})</p> 
+                        
+                                       <p *ngIf="SpecialOTRegularAmt!=0">Special Holiday  OT({{SpecialOTRegularHrs}})</p> 
+                        
+                        
+                                       <p *ngIf="LegalOTRegularAmt!=0">Regular Holiday OT({{LegalOTRegularHrs}})</p> 
+                        
+                                       <p *ngIf="SpecialRestOTRegularAmt!=0">Special Rest  OT({{SpecialRestOTRegularHrs}})</p> 
+                        
+                                       <p *ngIf="LegalRestOTRegularAmt!=0">Legal Rest OT({{LegalRestOTRegularHrs}})</p> 
+                                     
+                                    </td>
+                                    <td>
+                                        <p *ngIf="regularotamount==null"> 0 </p>
+                                        <p *ngIf="regularotamount!=null"> {{regularotamount|number:'1.2-2'}} </p>
+                                        <p *ngIf="RestOTRegularAmt!=0">{{RestOTRegularAmt|number:'1.2-2'}} </p>
+                                 
+                                        <p *ngIf="SpecialOTRegularAmt!=0"> {{SpecialOTRegularAmt|number:'1.2-2'}} </p>
+                               
+                                        <p *ngIf="LegalOTRegularAmt!=0"> {{LegalOTRegularAmt|number:'1.2-2'}} </p>
+                                      
+                                        <p *ngIf="SpecialRestOTRegularAmt!=0"> {{SpecialRestOTRegularAmt|number:'1.2-2'}} </p>
+                                      
+                                        <p *ngIf="LegalRestOTRegularAmt!=0"> {{LegalRestOTRegularAmt|number:'1.2-2'}} </p>
+                        
+                                    </td>
+                                    <!-- <td style="color: #494949; font-weight: bold;">SSS:</td>
+                                                <td  >640</td> -->
+                                    <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                                    <td>{{pagBig}}</td>
+                                    <td style="color: #494949; font-weight: bold;">PHIL:</td>
+                                    <td>{{yearPhilihealth}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #494949; font-weight: bold;">
+                                        
+                                        
+                                        <p *ngIf="NightOtAmount!=0" >Night OT({{NightOtHours}})</p>
+                                        <p *ngIf="SpecialRegularNightOTAmt!=0" >Special Night OT({{SpecialRegularNightOTHrs}})</p>
+                                        <p *ngIf="RestRegularNightOTAmt!=0" >Rest Night OT({{RestRegularNightOTHrs}})</p>
+                                        <p *ngIf="LegalRegularNightOTHrs!=0" >Regular Night OT({{LegalRegularNightOTHrs}})</p>
+                                        <p *ngIf="SpecialRestRegularNightOTAmt!=null" >Special Rest Night OT({{SpecialRestRegularNightOTHrs}})</p>
+                                        <p *ngIf="LegalRestRegularNightOTAmt!=0" >Legal Rest Night OT({{LegalRestRegularNightOTHrs}})</p>
+                                    
+                                    </td>
+                                   
+                                    <td>
+                                        <p *ngIf="NightOtAmount==null"> 0 </p>
+                                        <p *ngIf="NightOtAmount!=null"> {{NightOtAmount|number:'1.2-2'}} </p>
+                                     
+                                        <p *ngIf="SpecialRegularNightOTAmt!=0">{{SpecialRegularNightOTAmt|number:'1.2-2'}} </p>
+                                 
+                                        <p *ngIf="RestRegularNightOTAmt!=0"> {{RestRegularNightOTAmt|number:'1.2-2'}} </p>
+                               
+                                        <p *ngIf="LegalRegularNightOTAmt!=0"> {{LegalRegularNightOTAmt|number:'1.2-2'}} </p>
+                                      
+                                        <p *ngIf="SpecialRestRegularNightOTAmt!=0"> {{SpecialRestRegularNightOTAmt|number:'1.2-2'}} </p>
+                                      
+                                        <p *ngIf="LegalRestRegularNightOTAmt!=0"> {{LegalRestRegularNightOTAmt|number:'1.2-2'}} </p>
+                                    </td>
+                                    
+                                    <td style="color: #494949; font-weight: bold;">TAX:</td>
+                                    <td>{{tax}}</td>
+                                    <td style="color: #494949; font-weight: bold;">HDMF:</td>
+                                    <td>{{yearPagibigRate}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #494949; font-weight: bold;">
+                                        
+                                        
+                                       
+                                        <p *ngIf="SpecialOTRegularExc8Amt!=0" >Special  OT > 8 Hours({{SpecialOTRegularExc8Hrs}})</p>
+                                        <p *ngIf="RestOTRegularExc8Amt!=0" >Rest  OT > 8 Hours({{RestOTRegularExc8Hrs}})</p>
+                                        <!-- <p *ngIf="SpecialRestOTRegularAmt!=null" >Regular  OT > 8 Hours({{LegalOTRegularExc8Hrs}})</p> -->
+                                        <p *ngIf="LegalRestOTRegularExc8Amt!=null" >Special Rest  OT > 8 Hours({{SpecialRestOTRegularExc8Hrs}})</p>
+                                        <p *ngIf="SpecialRestOTRegularExc8Amt!=0" >Legal Rest  OT > 8 Hours({{LegalRestOTRegularExc8Hrs}})</p>
+                                    
+                                    </td>
+                                   
+                                    <td>
+                                        <!-- <p *ngIf="OTRegularExc8Hrs!=0">{{OTRegularExc8Amt}}</p> -->
+                                        <p *ngIf="SpecialOTRegularExc8Hrs!=0">{{SpecialOTRegularExc8Amt}}</p>
+                                        <p *ngIf="RestOTRegularExc8Hrs!=0">{{RestOTRegularExc8Amt}}</p>
+                                        <!-- <p *ngIf="LegalOTRegularExc8Hrs!=0">{{SpecialRestOTRegularAmt}}</p> -->
+                                        <p *ngIf="LegalRestOTRegularExc8Hrs!=0">{{LegalRestOTRegularExc8Amt}}</p>
+                                        <p *ngIf="SpecialRestOTRegularExc8Hrs!=0">{{SpecialRestOTRegularExc8Amt}}</p>
+                        
+                                    </td>
+                                    <td colspan="2"></td>
+                                    <td colspan="2"></td>
+                                   
+                                </tr>
+                                <!-- <tr>
+                        
+                                    <td style="color: #494949; font-weight: bold;" *ngIf="RegularNightOTExc8Amt!=0">
+                                        
+                                        <p>Regular Night OT Exc8 Amt</p>
+                                    
+                                        <p style="color: #494949; font-weight: bold;" *ngIf="SpecialRegularNightOTExc8Amt!=0">Special Night OT Exc8 Amt</p>
+                                        <p style="color: #494949; font-weight: bold;" *ngIf="RestRegularNightOTExc8Amt!=0">Rest Night OT Exc8 Amt</p>
+                                        <p style="color: #494949; font-weight: bold;" *ngIf="LegalRegularNightOTExc8Amt!=0">Special Rest Night OT Exc8 Amt</p>
+                                        <p style="color: #494949; font-weight: bold;" *ngIf="LegalRestRegularNightOTExc8Amt!=0">Legal Rest Night OT Exc8 Amt</p>
+                                        <p style="color: #494949; font-weight: bold;" *ngIf="SpecialRestRegularNightOTExc8Amt!=0">Special Rest Night OT Exc8 Amt</p>
+                                    </td>
+                        
+                        
+                                    <td>
+                                        <p *ngIf="RegularNightOTExc8Hrs!=0">{{RegularNightOTExc8Amt}}</p>
+                                        <p *ngIf="SpecialRegularNightOTExc8Hrs!=0">{{SpecialRegularNightOTExc8Amt}}</p>
+                                        <p *ngIf="RestRegularNightOTExc8Hrs!=0">{{RestRegularNightOTExc8Amt}}</p>
+                                        <p *ngIf="LegalRegularNightOTExc8Hrs!=0">{{LegalRegularNightOTExc8Amt}}</p>
+                                        <p *ngIf="LegalRestRegularNightOTExc8Hrs!=0">{{LegalRestRegularNightOTExc8Amt}}</p>
+                                        <p *ngIf="SpecialRestRegularNightOTExc8Hrs!=0">{{SpecialRestRegularNightOTExc8Amt}}</p>
+                        
+                                    </td>
+                                    <td colspan="2"></td>
+                                    <td colspan="2"></td>
+                                </tr> -->
+                                    <!-- <tr>
+                        
+                                        <td style="color: #494949; font-weight: bold;">OT Regular Exc 8Hrs</td>
+                                        <td>
+                                            <p *ngIf="OTRegularExc8Hrs!=null">{{OTRegularExc8Amt}}</p>
+                                          
+                                        </td>
+                                        <td colspan="2"></td>
+                                        <td colspan="2"></td>
+                                    </tr> -->
+                                    <tr>
+                        
+                                        <p *ngIf="PagiBigHouseLoanPayout!=0">PagiBig House Loan</p>
+                        
+                                        <td>
+                        
+                                            <p *ngIf="PagiBigHouseLoanPayout!=0">{{PagiBigCalamityLoanPayout}}</p>
+                        
+                                            
+                        
+                                        </td>
+                                        <td colspan="1" *ngIf="PagiBigHouseLoanPayout==0"></td>
+                                        <td style="color: #494949; font-weight: bold;">ABSENCES (LOP):</td>
+                        
+                                        <td>{{lopamount}}</td>
+                        
+                                        <td style="color: #494949; font-weight: bold;">GROSS INCOME:</td>
+                        
+                                        <td>{{yeargrosspaysalary}}</td>
+                                       
+                                    </tr>
+                                    <tr>
+                        
+                                        <p *ngIf="PagiBigCalamityLoanPayout!=0">PagiBig Calamity Loan</p>
+                        
+                                        <td>
+                        
+                                            <p *ngIf="PagiBigCalamityLoanPayout!=0">{{PagiBigCalamityLoanPayout}}</p>
+                        
+                                            
+                        
+                                        </td>
+                                        <td colspan="1" *ngIf="PagiBigCalamityLoanPayout==0"></td>
+                                        <td colspan="2"></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+                        
+                                        <p *ngIf="PagiBigMultiPurposeLoanPayout!=0">PagiBig Multipurpose Loan</p>
+                        
+                                        <td>
+                        
+                                            <p *ngIf="PagiBigMultiPurposeLoanPayout!=0">{{PagiBigMultiPurposeLoanPayout}}</p>
+                        
+                                            
+                        
+                                        </td>
+                                        <td colspan="1" *ngIf="PagiBigMultiPurposeLoanPayout==0"></td>
+                                        <td colspan="2"></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+                        
+                                        <p *ngIf="SSSSalaryLoan!=0">SSS Salary Loan</p>
+                        
+                                        <td>
+                        
+                                            <p *ngIf="SSSSalaryLoan!=0">{{SSSSalaryLoan}}</p>
+                        
+                                            
+                        
+                                        </td>
+                                        <td colspan="1" *ngIf="SSSSalaryLoan==0"></td>
+                                        <td *ngIf="salarydispute<0" style="color: #494949; font-weight: bold;">Salary Adjustment:</td>
+                                        <td *ngIf="salarydispute<0">{{salarydispute|number:'1.2-2'}}</td>
+                                        <td colspan="2"></td>
+                                        
+                        
+                                       
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td  *ngIf="salarydispute>0" style="color: #494949; font-weight: bold;">Salary Adjustment:</td>
+                                        <td  *ngIf="salarydispute>0">{{salarydispute|number:'1.2-2'}}</td>
+                                        <td colspan="2"></td>
+                                        <td colspan="2"></td>
+                                        <!-- <td style="color: #494949; font-weight: bold;">NON TAXABLE:</td>
+                                        <td></td> -->
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #494949; font-weight: bold;">Reimbursement:</td>
+                                        <td>{{Benefits}}</td>
+                                        <td style="color: #494949; font-weight: bold;">Undertime({{undertimehours}}):</td>
+                                        <td>{{undertimeamount|number:'1.2-2'}}</td>
+                                        <!-- <td style="color: #494949; font-weight: bold;">NON TAXABLE:</td>
+                                        <td></td> -->
+                                    </tr>
+                        
+                        
+                        
+                                    <tr>
+                                        <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">TOTAL
+                                            COMPENSATION:</td>
+                                        <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">
+                                            {{Compensation|number:'1.2-2'}}</td>
+                                        <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">TOTAL DEDUCTIONS:
+                                        </td>
+                                        <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">
+                                            {{semideductions|number:'1.2-2'}}</td>
+                                        <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">NET PAY:</td>
+                                        <td style="color: #494949; font-weight: bold;background-color: #02cfff ;">{{netMonthSalary|number:'1.2-2'}}
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

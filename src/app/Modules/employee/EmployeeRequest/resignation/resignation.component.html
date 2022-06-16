@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-11">
+            <p class="Heading">Employee Resignation</p>
+        </div>
+    </div>
+
+    <!-- <div class="card" *ngIf="roleid=='9'||roleid=='2'">
+        <div class="row">
+            <div class="col-lg-1">
+                <p style="color:#0C275A">Filter By</p>
+            </div>
+         
+            <div class="col-lg-2">
+                    <select class="form-control" id="month" name="month" (change)="getchangemonth($event)"  >
+                        <option value="0">Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">Febuary</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+            </div>
+        
+            <div class="col-lg-4">
+                <input class="form-control" type="search" style="color:#0C275A;font-family: 'Poppins'"
+                    [(ngModel)]="search" placeholder="Search ...">
+            </div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2 ">
+                <p class="active">Count: {{count}}</p>
+            </div>
+        </div>
+    </div> -->
+    <br>
+    <div class="row">
+        <div class="col-lg-10">
+        </div>
+        <div class="col-lg-2">
+            <button class="upload"  (click)="add()"> New Request</button>
+        </div>
+    </div>
+    <br>
+
+    <!-- 
+    <div class="row FilterClass">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <button class="form-control requestbtn" routerLink="/EmployeeForm" style="   width: 88%;">Add
+                        New</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="form-control requestbtn" data-toggle="modal" data-target="#import"
+                        style="    width: 88%;">Upload
+                        Staff</button>
+                </div>
+            </div>
+        </div>
+    </div><br> -->
+    <br>
+    <div class="row ">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!-- <th>Employee Name</th> -->
+                        <th>Last Working Date</th>
+                        <th>Reason</th>
+                        <th>Comments</th>
+                        <th>Attachments</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let details of Employeelist|filter:search">
+                        <!-- <td>{{details.name}}</td> -->
+                        <td>{{details.lastworkingdate|date}}</td>
+                        <td>{{details.notes}}</td>
+                        <td>{{details.notes}}</td>
+                        <td>
+                            <button class="form-control upload"  (click)="experience(details.experienceletter)">Experience Letter</button> <br>
+                            <button class="form-control upload"  (click)="releaving(details.releavingletter)">Releaving  Letter</button>
+                        </td>
+                        <td>
+                            <!-- <label *ngIf="details.submit=='1'" style="color: red;" >Submitted</label> -->
+                            <label *ngIf="details.ownclearance=='1'" style="color: green;">Manager Approved</label><br>
+                            <label *ngIf="details.hRclearance=='1'" style="color: green;">HR Approved</label><br>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

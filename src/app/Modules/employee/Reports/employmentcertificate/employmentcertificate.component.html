@@ -1,0 +1,179 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="Heading1" style="text-align: center;">Certificate of Employment</p>
+                <hr class="HrLine">
+            </div>
+        </div>
+        <div class="row FilterClass ">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-3">
+                <p style="text-align: center;"> Select Month & Year</p>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="month">
+                    <option value="">Select</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="year">
+                    <option value="">Select</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p>Signatory Person</p>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                    <option value="">Select</option>
+                    <option value="HR">HR</option>
+                    <!-- <option value="Admin">Admin</option>
+                    <option value="Finance">Finance</option> -->
+                </select>
+            </div>
+        </div>
+
+
+
+
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-4">
+                <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                <button class="AddButton" data-toggle="modal" data-target="#sssmodal"
+                    (click)="getorrecords()">Fetch</button>
+            </div>
+        </div>
+        <div class="row">
+            <!-- 
+            <div class="col-lg-4">
+                <a href="/PayRollForm"><button class="button fontheading">Add</button> </a>
+            </div> -->
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+<div id="sssmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="height: 935px;">
+            <div class="modal-header">
+                <h4 class="modal-title">Employment Certificate</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- <button class="loan1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                            aria-hidden="true"></i></button> -->
+                        <button class="AddButton" style="margin-right: 45px;" (click)="convetToPDF1()">Export to PDF <i
+                                class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div id="downloadaplication"
+                    style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;
+                              height:743px;border-style:outset;overflow:hidden;background-color: white;margin-top: 63px;">
+                    <div style="position:absolute;left:0px;top:0px">
+                        <img src="{{logo}}" style="    width: 105%;" width=60 height=70>
+                    </div>
+
+
+                    <div style="position:absolute;left:199.53px;top:82.97px" class="cls_004"><span
+                            class="cls_004">CERTIFICATE OF
+                            EMPLOYMENT</span></div>
+                    <div style="position:absolute;left:73.87px;top:127.94px" class="cls_002"><span class="cls_002">This
+                            is to certify that {{fullname}} is presently employed with {{companyname }} in the following
+                            position:
+                            {{role}}
+                        </span>
+                        <div style="position: absolute;left: -5.13px;top: 74.94px;
+                                    " class="cls_002"><span class="cls_002">
+                                <p *ngIf="title=='Male'">His employment began on {{joiningdate}}</p>
+                                <p *ngIf="title=='Female'">Her employment began on {{joiningdate}}</p>
+
+                            </span>
+
+
+                        </div>
+
+                        <div style="position: absolute;left: -5.13px;top: 116.94px;
+                        " class="cls_002"><span class="cls_002"> This Certification is being issued upon the request of
+                                {{title}} {{fullname}} for whatever legal purpose it may
+                                serve.
+
+                            </span>
+
+
+                        </div>
+
+                        <div style="position: absolute;left: -5.13px;top: 176.94px;
+                        " class="cls_002"><span class="cls_002"> Issued on {{this.myDate|date}} From PURE GO PAYROLL
+                                ONLINE PORTAL .
+
+                            </span>
+
+
+                        </div>
+
+
+                        <div style="width: 47%;
+                        margin-top: 75px;
+                        margin-left: 210px;" class="cls_009"><span class="cls_009"><img src="{{Signature}}" style="    width: 25%;margin-top: 112px;margin-left: 221px;"></span></div>
+                        <div style="position:absolute;left: 422.01px;
+                        top: 274.22px" class="cls_009"><span
+                                class="cls_009">{{signname}}
+                            </span></div>
+                        <div style="    position: absolute;
+                            left: 372.01px;
+                        top: 298.71px;" class="cls_009"><span class="cls_009">{{title1}}
+                            </span></div>
+
+                        <div style="    position: absolute;
+                        left: 410.01px;
+                        top: 328.19px;" class="cls_009"><span
+                                class="cls_009">{{companyname }}
+                            </span></div>
+                        <!-- <div style="position:absolute;left:38.01px;top:460.68px" class="cls_009"><span class="cls_009">PhilHealth
+                        no. 00-400001024-4</span></div> -->
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <hr>
+                    <div class="col-lg-4">
+                        <!-- <button class="loan1">Close</button> -->
+                        <!-- <button class="AddButton" data-dismiss="modal">Close</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

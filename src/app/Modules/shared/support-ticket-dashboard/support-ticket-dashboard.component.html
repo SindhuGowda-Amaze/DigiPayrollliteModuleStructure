@@ -1,0 +1,107 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="" class="Heading1">Support Ticket Details</a>                  
+                </div>
+            </div>
+            <br>
+            
+            <br>
+
+
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="show3res">SHOWING <span style="color: #3247D5;">{{awardlist.length}} </span>RESULTS</p>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <button class="form-control newrequest" routerLink="/SupportTickets">ADD</button>
+                </div>
+            </div> 
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                               
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Type Of Issue</th>
+                                <th>Priority</th>
+                                <th>Comments</th>
+                                <th>Attachment</th>
+                                <th>Status</th>
+                                
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let details of awardlist">
+                               
+                                <td>{{details.date}}</td>
+                                <td>{{details.time}}</td>
+                                <td>{{details.typeOfApplicationIssues}}</td>
+                                <td>{{details.priority}}</td>
+                                <td>{{details.comment}}</td>
+                                <td> <p *ngIf="details.screenShot==null">NA</p>
+                                    <img *ngIf="details.screenShot!=null" src="{{details.screenShot}}" (click)="getmedicalUrl(details.screenShot)"
+                                            data-toggle="modal" data-target="#Allocate"
+                                            style="width:100px;height: 50px;">
+                                </td>
+                                <td>{{details.status}}</td>
+                                
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found</p>
+                        </div>
+                    </ng-template> -->
+                    <!-- <div class="text-left">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div id="Allocate" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h1></h1>
+                        </div>
+                    </div>
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body ">
+                    <div class="container-fluid">
+                        <div class="row" style="text-align: center;">
+                            <div class="col-lg-4">
+
+                            </div>
+                            <img src="{{file}}" alt="medical.img" style="height: 410px;margin-left: 10px;width:700px;">
+                        </div>
+
+                        <br />
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

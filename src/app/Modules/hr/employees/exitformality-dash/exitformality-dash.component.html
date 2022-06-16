@@ -1,0 +1,99 @@
+<p>exitformality-dash works!</p>
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="row">
+            <div class="col-lg-11">
+                <p class="Heading">Exit Formality</p>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-md-10">
+                <p class="show3res">SHOWING <span style="color: black;"> {{annnounecemnetlist.length}} </span>RESULTS
+                </p>
+            </div>
+            <div class="col-md-2">
+                <!-- <button class="form-control requestbtn" routerLink="/AddressDetailsWizard">Add Staff</button> -->
+                <a routerLink="/Exitformalityform"><button *ngIf="roledid==9" class="button" style="width: 70%;">Add
+                        New</button> </a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container-fluid">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Resigned Date</th>
+                                <th>Staff Name</th>
+                                <th>Last Working Day</th>
+                                <th>HR Clearance</th>
+                                <th>Admin Clearance</th>
+                                <th>Finance Clearance</th>
+                                <th>Manager Clearance</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let list of annnounecemnetlist">
+                                <td>{{list.modifiedDate|date}}</td>
+                                <td>{{list.name}}</td>
+                                <td>
+                                    <p>{{list.lastworkingdate|date}}</p>
+
+                                </td>
+                                <td>
+                                    <p *ngIf="list.hRclearance==0">Pending</p>
+                                    <p *ngIf="list.hRclearance!=0">Clear</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="list.adminclearance==0">Pending</p>
+                                    <p *ngIf="list.adminclearance!=0">Clear</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="list.financeclearance==0">Pending</p>
+                                    <p *ngIf="list.financeclearance!=0">Clear</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="list.ownclearance==0">Pending</p>
+                                    <p *ngIf="list.ownclearance!=0">Clear</p>
+                                </td>
+                                <td>
+                                    <button *ngIf="roledid==9 && list.hRclearance==0" class="upload"
+                                        (click)="HRClear(list)">Clear</button>
+                                    <button *ngIf="roledid==1 && list.adminclearance==0" class="upload"
+                                        (click)="AdminClear(list)">Clear</button>
+                                    <button *ngIf="roledid==8 && list.financeclearance==0" class="upload"
+                                        (click)="FinanceClear(list)">Clear</button>
+                                    <button *ngIf="roledid==6 && list.ownclearance==0" class="upload"
+                                        (click)="OwnClear(list)">Clear</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="upload"
+                                        (click)="delete(list)">Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <!-- <button class="upload">Edit</button> -->
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="col-md-1"></div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

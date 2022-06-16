@@ -1,32 +1,51 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-
 import { SharedRoutingModule } from './shared-routing.module';
 import { SharedComponent } from './shared.component';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AdminHelpMenuComponent } from './admin-help-menu/admin-help-menu.component';
+import { SupportTicketDashboardComponent } from './support-ticket-dashboard/support-ticket-dashboard.component';
+import { GaugeModule } from 'angular-gauge';
+
+import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
 @NgModule({
   declarations: [
-    SharedComponent
+    SharedComponent,
+    AdminHelpMenuComponent,
+    SupportTicketDashboardComponent,
+    LoaderComponent
+
   ],
   imports: [
     CommonModule,
     FormsModule,
     SharedRoutingModule,
-    NgxDropzoneModule,
+   GaugeModule.forRoot(),
+   NgxDropzoneModule,
+   NgxPaginationModule,
+   Ng2SearchPipeModule,
+  // NgMultiSelectDropDownModule.forRoot()
 
- 
   ],
   exports: [
     FormsModule,
+    LoaderComponent,
     NgxDropzoneModule,
-    Ng2SearchPipeModule 
-
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
+    GaugeModule,
+    //NgMultiSelectDropDownModule
+ 
+ 
   ],
+  
   providers: [
     // {
     //   provide: ConnectionServiceOptionsToken,
