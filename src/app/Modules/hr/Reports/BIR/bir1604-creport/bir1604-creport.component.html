@@ -1,0 +1,149 @@
+<div class="container-fluid">
+    <div class="card">
+     <div class="row">
+         <div class="col-lg-5"></div>
+         <div class="col-lg-4">
+             <a href="" class="Heading "> 1604-C</a>
+         </div>
+     </div>
+     <hr>
+     <div class="row FilterClass fontheading">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-3">
+             <p> Year</p>
+         </div>
+        
+         <div class="col-lg-2">
+             <select name="cars" id="Month" class="form-control">
+                 <option value="Select">Select</option>
+                 <option value="2022">2022</option>
+                 <option value="2021">2021</option>
+                 <option value="2020">2020</option>
+                 <option value="2019">2019</option>
+             </select>
+         </div>
+     </div><br>
+ 
+     <div class="row FilterClass fontheading">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-3">
+             <p>Amended Return?</p>
+         </div>
+         <div class="col-lg-2">
+             <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                 <label class="form-check-label" for="inlineRadio1">Yes</label>
+               </div>
+               <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                 <label class="form-check-label" for="inlineRadio2">No</label>
+               </div>
+         </div>
+     </div> <br>
+   
+ 
+ 
+     <div class="row FilterClass fontheading">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-3">
+             <p>Authorized Representative/Tax Payer</p>
+         </div>
+         <div class="col-lg-2">
+             <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                 <option value="">Select</option>
+                 <option value="Admin">Admin</option>
+                 <option value="HR">HR</option>
+                 <option value="Finance">Finance</option>
+             </select>
+         </div>
+     </div> <br>
+ 
+ 
+     <div class="row">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-4">
+             <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+             <button class="AddButton" (click)="showpdf()">GENERATE</button>
+         </div>
+     </div>
+    </div>
+          
+ 
+ </div><br>
+ 
+ <div class="row" *ngIf="showleaseforprint==1">
+     <!-- <div class="col-lg-5">
+ 
+     </div>
+     <div class="col-lg-3">
+        <button class="button1" (click)="convetToPDF1()">Convert To PDF </button>
+     </div> -->
+ 
+     <div class="col-lg-4">
+     </div>
+     <div class="col-lg-4">
+         <!-- <button class="loan1" (click)="convetToPDF1()">Convert To PDF</button> -->
+         <button class="AddButton" (click)="convetToPDF1()" style="margin-right: -10px;">Convert To PDF</button>
+         <br/>
+     </div>
+     <div class="col-lg-3">
+     </div>
+ 
+   
+     <div id="downloadaplication"
+      style="position: absolute;
+      left: 50%;
+      margin-left: -396px;
+      top: 0px;
+      width: 618px;
+      height: 980px;
+      border-style: outset;
+      overflow: hidden;
+      margin-top: 380px;">
+         <div style="position:absolute;left:0px;top:0px">
+         <img src="assets/images/1604_C.jpg" width=612 height=1008></div>
+         <div style="position:absolute;left:180.00px;top:117.48px" class="cls_002"><span class="cls_002">{{year1}}</span></div>
+         <div style="position:absolute;left:194.40px;top:117.48px" class="cls_002"><span class="cls_002">{{year2}}</span></div>
+         <div style="position:absolute;left:310.52px;top:122.44px" class="cls_003"><span class="cls_003">X</span></div>
+         <div style="position:absolute;left:252.00px;top:153.04px" class="cls_004"><span class="cls_004">{{tin}}</span></div>
+         <div style="position:absolute;left:309.60px;top:153.04px" class="cls_004"><span class="cls_004"></span></div>
+         <div style="position:absolute;left:367.20px;top:153.04px" class="cls_004"><span class="cls_004"></span></div>
+         <div style="position:absolute;left:432.00px;top:153.04px" class="cls_004"><span class="cls_004"></span></div>
+         <div style="position:absolute;left:550.80px;top:155.20px" class="cls_004"><span class="cls_004"></span></div>
+         <div style="position:absolute;left:57.60px;top:183.64px" class="cls_004"><span class="cls_004">{{companyname}}</span></div>
+         <div style="position:absolute;left:57.60px;top:216.04px" class="cls_004"><span class="cls_004">{{Address}}</span></div>
+         <div style="position:absolute;left:540.00px;top:238.00px" class="cls_004"><span class="cls_004">{{zipcode}}</span></div>
+         <div style="position:absolute;left:180.92px;top:259.24px" class="cls_003"><span class="cls_003">X</span></div>
+         <div style="position:absolute;left:548.12px;top:259.24px" class="cls_003"><span class="cls_003">X</span></div>
+         <div style="position:absolute;left:57.60px;top:288.04px" class="cls_004"><span class="cls_004">{{Phone}}</span></div>
+         <div style="position:absolute;left:216.00px;top:288.04px" class="cls_004"><span class="cls_004">{{email}}</span></div>
+         <div style="position:absolute;left:216.92px;top:316.84px" class="cls_003"><span class="cls_003">X</span></div>
+         <div style="position:absolute;left:496.80px;top:388.45px" class="cls_004"><span class="cls_004">{{jantax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:401.80px" class="cls_004"><span class="cls_004">{{febtax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:415.49px" class="cls_004"><span class="cls_004">{{martax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:429.15px" class="cls_004"><span class="cls_004">{{aprtax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:442.84px" class="cls_004"><span class="cls_004">{{maytax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:456.54px" class="cls_004"><span class="cls_004">{{juntax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:470.20px" class="cls_004"><span class="cls_004">{{jultax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:483.89px" class="cls_004"><span class="cls_004">{{augtax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:497.55px" class="cls_004"><span class="cls_004">{{septax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:511.24px" class="cls_004"><span class="cls_004">{{octtax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:524.93px" class="cls_004"><span class="cls_004">{{novtax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:538.60px" class="cls_004"><span class="cls_004">{{dectax}}</span></div>
+         <div style="position:absolute;left:496.80px;top:552.29px" class="cls_004"><span class="cls_004">{{total}}</span></div>
+         <div style="position:absolute;left:460.80px;top:594.04px" class="cls_004"><span class="cls_004">{{jantax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:607.74px" class="cls_004"><span class="cls_004">{{febtax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:621.40px" class="cls_004"><span class="cls_004">{{martax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:635.09px" class="cls_004"><span class="cls_004">{{aprtax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:648.75px" class="cls_004"><span class="cls_004">{{maytax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:662.45px" class="cls_004"><span class="cls_004">{{juntax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:676.14px" class="cls_004"><span class="cls_004">{{jultax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:689.80px" class="cls_004"><span class="cls_004">{{augtax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:703.49px" class="cls_004"><span class="cls_004">{{septax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:715.74px" class="cls_004"><span class="cls_004">{{octtax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:729.40px" class="cls_004"><span class="cls_004">{{novtax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:743.09px" class="cls_004"><span class="cls_004">{{dectax}}</span></div>
+         <div style="position:absolute;left:460.80px;top:756.75px" class="cls_004"><span class="cls_004">{{total}}</span></div>
+         <div style="position:absolute;left:418.20px;top:820.84px" class="cls_004"><span class="cls_004">{{sign}}</span></div>
+         <div style="position:absolute;left:417.30px;top:835.24px" class="cls_004"><span class="cls_004">{{signname}}</span></div>
+ </div>

@@ -1,0 +1,166 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-5"></div>
+            <div class="col-lg-4">
+                <a href="" class="Heading fontheading"> 1601-C</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p> Select Start Month & Year</p>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control inputfield" id="Month" name="Month" [(ngModel)]="month"><br />
+                    <option style="color:#0C275A" value="Select">Select Month </option>
+                    <option style="color:#0C275A" value="1">January </option>
+                    <option style="color:#0C275A" value="2">February </option>
+                    <option style="color:#0C275A" value="3">March </option>
+                    <option style="color:#0C275A" value="4">April </option>
+                    <option style="color:#0C275A" value="5">May </option>
+                    <option style="color:#0C275A" value="6">June </option>
+                    <option style="color:#0C275A" value="7">July</option>
+                    <option style="color:#0C275A" value="8">August </option>
+                    <option style="color:#0C275A" value="9">September </option>
+                    <option style="color:#0C275A" value="10">October </option>
+                    <option style="color:#0C275A" value="11">November </option>
+                    <option style="color:#0C275A" value="12">December </option>
+    
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <div class="dropdown">
+                    <select class="form-control inputfield" id="Year" name="Year" [(ngModel)]="Year"><br />
+                        <option style="color:#0C275A" value="">Select Year </option>
+                        <option style="color:#0C275A" value="2022">2022</option>
+                        <option style="color:#0C275A" value="2021">2021</option>
+                        <option style="color:#0C275A" value="2020">2020</option>
+                    </select>
+                </div>
+            </div>
+        </div><br>
+    
+      
+      
+    
+    
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p>Signatory Person</p>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                    <option value="">Select</option>
+                    <!-- <option value="Admin">Admin</option> -->
+                    <option value="HR">HR</option>
+                    <!-- <option value="Finance">Finance</option> -->
+                </select>
+            </div>
+        </div> <br>
+    
+     
+    
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-4">
+                <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                <button class="AddButton" (click)="showpdf()" style="margin-right: 5px;">GENERATE</button>
+            </div>
+        </div>
+    
+    </div>
+   
+
+
+</div><br>
+
+
+<div class="row" *ngIf="showleaseforprint==1">
+    <!-- <div class="col-lg-5">
+
+    </div>
+    <div class="col-lg-3">
+       <button class="button1" (click)="convetToPDF1()">Convert To PDF </button>
+    </div> -->
+
+    <!-- <div class="col-lg-6">
+    </div>
+    <div class="col-lg-2">
+        <button class="loan1" (click)="convetToPDF1()">Convert To PDF</button>
+        <br/>
+    </div>
+    <div class="col-lg-3">
+    </div> -->
+
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-4">
+        <button class="AddButton" (click)="convetToPDF1()">CONVERT TO PDF</button>
+    </div>
+    <div class="col-lg-3">
+    </div>
+
+
+    <div id="downloadaplication" style="   position: absolute;
+        left: 50%;
+        margin-left: -396px;
+        top: 0px;
+        width: 619px;
+        height: 993px;
+        border-style: outset;
+        overflow: hidden;
+        margin-top: 530px;">
+        <div style="position:absolute;left:0px;top:0px">
+            <img src="assets/images/1601_C.jpg" width=612 height=1009>
+        </div>
+        <div style="position:absolute;left:124.55px;top:154.45px" class="cls_002"><span class="cls_002">{{month}}</span>
+        </div>
+        <div style="position:absolute;left:158.40px;top:154.45px" class="cls_002"><span class="cls_002">{{Year}}</span>
+        </div>
+        <div style="position:absolute;left:259.20px;top:155.16px" class="cls_002"><span class="cls_002">X</span></div>
+        <div style="position:absolute;left:489.60px;top:155.16px" class="cls_002"><span class="cls_002">X</span></div>
+        <div style="position:absolute;left:64.80px;top:185.41px" class="cls_002"><span class="cls_002">600</span></div>
+        <div style="position:absolute;left:115.20px;top:185.41px" class="cls_002"><span class="cls_002">194</span></div>
+        <div style="position:absolute;left:165.60px;top:185.41px" class="cls_002"><span class="cls_002">012</span></div>
+        <div style="position:absolute;left:223.20px;top:185.41px" class="cls_002"><span class="cls_002">0000</span>
+        </div>
+        <div style="position:absolute;left:346.54px;top:185.41px" class="cls_002"><span class="cls_002">049</span></div>
+        <div style="position:absolute;left:460.80px;top:185.41px" class="cls_002"><span class="cls_002">IT </span></div>
+        <div style="position:absolute;left:64.80px;top:217.10px" class="cls_002"><span
+                class="cls_002">{{companyname}}</span></div>
+        <div style="position:absolute;left:489.60px;top:217.07px" class="cls_002"><span class="cls_002">{{Phone}}</span>
+        </div>
+        <div style="position:absolute;left:64.80px;top:246.95px" class="cls_002"><span class="cls_002">
+                {{Address}}</span></div>
+        <div style="position:absolute;left:535.25px;top:248.02px" class="cls_002"><span
+                class="cls_002">{{zipcode}}</span>
+        </div>
+        <div style="position:absolute;left:64.09px;top:276.46px" class="cls_002"><span class="cls_002">X</span></div>
+        <div style="position:absolute;left:259.20px;top:320.36px" class="cls_002"><span class="cls_002">{{sum}}</span>
+        </div>
+        <div style="position:absolute;left:259.20px;top:339.81px" class="cls_002"><span class="cls_002">0.00</span>
+        </div>
+        <div style="position:absolute;left:259.20px;top:359.97px" class="cls_002"><span class="cls_002">0.00</span>
+        </div>
+        <div style="position:absolute;left:259.20px;top:381.57px" class="cls_002"><span
+                class="cls_002">{{nontaxableamount|number:'1.2-2'}}</span>
+        </div>
+        <div style="position:absolute;left:259.20px;top:400.27px" class="cls_002"><span
+                class="cls_002">{{income|number:'1.2-2'}}</span></div>
+        <div style="position:absolute;left:439.20px;top:416.12px" class="cls_002"><span class="cls_002">{{tax}}</span>
+        </div>
+        <div style="position:absolute;left:439.20px;top:448.52px" class="cls_002"><span class="cls_002">{{tax}}</span>
+        </div>
+        <div style="position:absolute;left:439.20px;top:521.97px" class="cls_002"><span class="cls_002">{{tax}}</span>
+        </div>
+        <div style="position:absolute;left:439.20px;top:572.37px" class="cls_002"><span class="cls_002">{{tax}}</span>
+        </div>
+        <div style="position:absolute;left:406.35px;top:753.44px" class="cls_002"><span class="cls_002">{{signname}}
+            </span></div>
+        <div style="position:absolute;left:405.52px;top:786.55px" class="cls_002"><span class="cls_002">{{sign}}
+            </span></div>
+    </div>
+</div>
