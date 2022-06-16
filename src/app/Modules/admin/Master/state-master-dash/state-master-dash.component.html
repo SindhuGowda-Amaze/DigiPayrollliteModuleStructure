@@ -1,1 +1,91 @@
-<p>state-master-dash works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+    
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="" class="Heading1">Province Master Details</a>
+    
+                </div>
+            </div><br>
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <p>Filter By</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" placeholder="Search" id="term" [(ngModel)]="term" (ngModelChange)="Filterstate()"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-3" >
+                        <div class="dropdown">
+                            <select class="form-control inputfield" id="CountryID" name="CountryID" [(ngModel)]="CountryID"
+                                (change)="GetFilteredStatesByCountry()">
+                                <option value="">Select Country </option>
+                                <option *ngFor="let role of leavelist1" value="{{role.id}}">{{role.short}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+    
+    
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="show3res">SHOWING <span style="color: black;">{{leavelist.length}} </span>RESULTS</p>
+                </div>
+                <div class="col-md-4">
+                    <button class=" AddButton" routerLink="/admin/StateMaster">Add </button>
+                </div>
+            </div>
+    
+    
+            <div class="row">
+                <div class="col-md-12">
+                  
+                        <!-- <table class="table" *ngIf="(leavelist | filter: term).length > 0; else noResults"> -->
+                            <table class="table" *ngIf="(leavelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                            <thead>
+                                <tr>
+                                    <th>Country</th>
+                                    <th>Province Name</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let holiday of leavelist|paginate: { itemsPerPage: count1, currentPage: p}">
+                                    <td>{{holiday.country}}</td>
+                                    <td>{{holiday.short}}</td>
+                                    <td>{{holiday.description}}</td>
+                                    <td> <button class="EditBTN"
+                                            [routerLink]="['/StateMaster',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button class="DeleteBTN" (click)="DeleteStateType(holiday.id)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <ng-template #noResults>
+                            <div class="card">
+                                <p class="NoResultShow"> No results found </p>
+                            </div>
+                        </ng-template>
+                        <div class="text-left">
+                            <br>
+                 <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                  </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

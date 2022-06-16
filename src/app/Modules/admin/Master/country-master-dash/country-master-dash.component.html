@@ -1,1 +1,80 @@
-<p>country-master-dash works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+    
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="" class="Heading1">Country Master Details</a>
+                </div>
+            </div><br>
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-1 space">
+                        <p style="color:#0C275A">Filter By</p>
+                    </div>
+    
+                    <div class="col-lg-6">
+                        <input class="form-control" type="search" [(ngModel)]="term"
+                        (ngModelChange)="FilterCountry()"  style="font-family: 'Poppins'" placeholder="Search for Country....">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="show3res">SHOWING <span style="color: black;">{{leavelist.length}} </span>RESULTS</p>
+                </div>
+                <div class="col-md-4">
+                    <button class=" AddButton" routerLink="/admin/CountryMaster">Add </button>
+                </div>
+            </div>
+            <br>
+    
+            <div class="row">
+                <div class="col-md-12">
+                   
+                        <table class="table " *ngIf="(leavelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                         
+                            <thead>
+                                <tr>
+                                    <th>Country Name</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let holiday of leavelist|paginate: { itemsPerPage: count1, currentPage: p}">
+                                    <td>{{holiday.short}}</td>
+                                    <td>{{holiday.description}}</td>
+                                    <td> <button class="EditBTN"
+                  
+                                            [routerLink]="['/CountryMaster',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button class="DeleteBTN" (click)="DeleteCountryType(holiday.id)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <ng-template #noResults>
+                            <div class="card">
+                                <p class="NoResultShow"> No results found for "{{term}}" </p>
+                            </div>
+                        </ng-template>
+                        <div class="text-left">
+                            <br>
+                 <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                  </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

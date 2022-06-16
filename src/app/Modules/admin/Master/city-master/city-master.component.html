@@ -1,1 +1,99 @@
-<p>city-master works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <P class="Heading1">City Details</P>
+            <br>
+
+            <!-- <div class="row">
+                <div class="col-lg-2">
+                    <h3>City Form</h3>
+                </div>
+                <div class="col-lg-8"></div>
+                <div class="col-lg-2">
+
+                </div>
+            </div> -->
+
+            <!-- <div class="row LocDashboard">
+                <div class="col-lg-12">
+                    <label style="padding-left: 10px;">City </label>
+                </div>
+            </div> -->
+            <div class="card">
+                <div class="row leavereq">
+                    <div class="col-md-2">
+                        <label>Country<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Province<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>City <span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>City Description<span style="color: red;">*</span></label>
+                    </div>
+                   
+                </div>
+                <div class="row leavereq">
+
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <select class="form-control inputfield" id="CountryID" name="CountryID"
+                                [(ngModel)]="CountryID" (change)="GetStateType()">
+                                <option value="">Select Country </option>
+                                <option *ngFor="let role of leavelist1" value="{{role.id}}">{{role.short}}</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <select class="form-control inputfield" id="StateID" name="StateID"
+                                [(ngModel)]="StateID" >
+                                <option value="">Select Province </option>
+                                <option *ngFor="let role of leavelist" value="{{role.id}}">{{role.short}}</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" placeholder="Leave Type Name" placeholder="City"  [(ngModel)]="Short"
+                        name="Short" id="Short">
+                    </div>
+                    <div class="col-md-4">
+                        <textarea type="text" rows="4" class="form-control" placeholder="Leave Description" placeholder="Description"  [(ngModel)]="Description"
+                        name="Description" id="Description"></textarea>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-7"></div>
+                    <div class="col-lg-2">
+                        <button class="form-control button" routerLink="/CityMasterDash">Cancel</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="form-control button" *ngIf="ID!=undefined"
+                        (click)="UpdateCityType()">Update</button>
+                    <button class="form-control button" *ngIf="ID==undefined" (click)="InsertCityType()">Submit</button>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+    
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

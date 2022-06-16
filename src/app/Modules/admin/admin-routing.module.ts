@@ -40,7 +40,7 @@ const routes: Routes = [
  
   { path: "AnnouncementDashboard", component: AnnouncementDashboardComponent},
   { path: " AnnouncementForm", component:  AnnouncementFormComponent},
-  { path: " AnnouncementFormComponent/:id", component: AnnouncementFormComponent},
+  { path: " AnnouncementForm/:id", component: AnnouncementFormComponent},
  
   { path: "BarangayDash", component: BarangayDashComponent},
   { path: "BarangayMaster ", component:  BarangayMasterComponent},
@@ -52,7 +52,7 @@ const routes: Routes = [
 
   { path: "CountryMasterDash", component: CountryMasterDashComponent},
   { path: "CountryMaster ", component:  CountryMasterComponent},
-  { path: "CityMaster/:id", component: CountryMasterComponent},
+  { path: "CountryMaster/:id", component: CountryMasterComponent},
 
   { path: "LoanMasterDash", component: LoanMasterDashComponent},
   { path: "LoanMaster ", component:  LoanMasterComponent},
