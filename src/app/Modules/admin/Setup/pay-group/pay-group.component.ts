@@ -11,9 +11,11 @@ export class PayGroupComponent implements OnInit {
   SelectedData: any;
   id: any;
   result: any;
+  currentUrl: any;
   constructor(private ActivatedRoute: ActivatedRoute, private DigipayrollserviceService: DigipayrollserviceService) { }
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.GetPayGroup();
     this.ActivatedRoute.params.subscribe(params => {
       debugger

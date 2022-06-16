@@ -7,13 +7,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./barangay-dash.component.css']
 })
 export class BarangayDashComponent implements OnInit {
-
-  constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
-  ngOnInit(): void {
-    this.GetCityType();
-    this.GetStateType();
-    this.stateID = "Select"
-  }
   term: any;
   leavelist: any
   stateID: any;
@@ -21,7 +14,17 @@ export class BarangayDashComponent implements OnInit {
   p: any = 1;
   count1: any = 10;
   leavelistCopy:any;
-  public GetCityType() {
+  currentUrl: any;
+  
+  constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+    this.GetBarangayMaster();
+    this.GetStateType();
+    this.stateID = "Select"
+  }
+  
+  public GetBarangayMaster() {
     debugger
     this.DigipayrollserviceService.GetBarangayMaster().subscribe(data => {
       debugger

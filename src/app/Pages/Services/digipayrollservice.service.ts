@@ -2203,6 +2203,17 @@ export class DigipayrollserviceService {
     this.url = this.host + '/Master/UpdatePassword';
     return this.http.post(this.url, data);
   }
+  public InsertExceptionLogs(data: any) {
+    debugger;
+    this.url = this.host + '/Master/InsertExceptionLogs';
+    return this.http.post(this.url, data);
+  }
+  public GetExceptionLogs() {
+    return this.http.get<any[]>(
+      this.host + "/Master/GetExceptionLogs"
+
+    );
+  }
 
 }
 

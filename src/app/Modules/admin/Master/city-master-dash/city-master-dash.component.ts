@@ -11,8 +11,18 @@ export class CityMasterDashComponent implements OnInit {
   p: any = 1;
   count1: any = 10;
   leavelistCopy:any;
+  term: any;
+  StateID:any;
+  leavelist: any;
+  leavelist1: any;
+  
+  leavelist2:any;
+  CountryID:any;
+  currentUrl: any;
+
   constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.GetCityType();
     this.GetStateType();
     this.GetCountryType();
@@ -20,9 +30,7 @@ export class CityMasterDashComponent implements OnInit {
     this.StateID="Select"
 
   }
-  term: any;
-  StateID:any;
-  leavelist: any;
+  
  
   public GetCityType() {
     debugger
@@ -59,7 +67,7 @@ export class CityMasterDashComponent implements OnInit {
 
 
 
-  leavelist1: any
+ 
   public GetCountryType() {
     debugger
     this.DigipayrollserviceService.GetCountryType().subscribe(data => {
@@ -70,8 +78,6 @@ export class CityMasterDashComponent implements OnInit {
 
 
 
-  leavelist2:any;
-  CountryID:any;
   public GetStateType() {
     debugger
     this.DigipayrollserviceService.GetStateType().subscribe(data => {

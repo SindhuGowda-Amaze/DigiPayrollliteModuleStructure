@@ -12,9 +12,11 @@ export class PayGroupFormComponent implements OnInit {
   id : any;
   description:any;
     result: any;
+  currentUrl: any;
     constructor(private DigipayrollserviceService: DigipayrollserviceService,private ActivatedRoute: ActivatedRoute) { }
   
     ngOnInit(): void {
+      this.currentUrl = window.location.href;
       this.ActivatedRoute.params.subscribe(params => {
         this.id = params['id'];
         if (this.id != undefined && this.id != null) {

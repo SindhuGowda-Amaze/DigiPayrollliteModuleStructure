@@ -13,9 +13,11 @@ export class DepartmentFormComponent implements OnInit {
   remarks:any;
   result:any;
   ID:any;
+  currentUrl: any;
   constructor(private DigipayrollserviceService: DigipayrollserviceService,private ActivatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.ActivatedRoute.params.subscribe(params => {
       this.ID = params['id'];
       if (this.ID != undefined && this.ID != null) {
