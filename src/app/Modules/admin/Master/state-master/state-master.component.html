@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <P class="Heading1">Province Details</P>
+            <br>
+
+            <!-- <div class="row">
+                <div class="col-lg-2">
+                    <h3>State Form</h3>
+                </div>
+                <div class="col-lg-8"></div>
+                <div class="col-lg-2">
+
+                </div>
+            </div> -->
+
+            
+            <!-- <div class="row LocDashboard">
+                <div class="col-lg-12">
+                    <label style="padding-left: 10px;">Add State</label>
+                </div>
+            </div> -->
+
+            <div class="card">
+                <div class="row leavereq">
+                    <div class="col-md-2">
+                        <label>Country<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Province<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Province Description<span style="color: red;">*</span></label>
+                    </div>
+                   
+                </div>
+                <div class="row leavereq">
+                    <div class="col-md-2">
+                        <div class="dropdown" *ngIf="ID!=undefined">
+                            <select class="form-control inputfield"  [disabled]="true" id="CountryID" name="CountryID"
+                                [(ngModel)]="CountryID">
+                                <option value="Select">Select Country </option>
+                                <option *ngFor="let role of leavelist1" value="{{role.id}}">{{role.short}}</option>
+                                
+                            </select>
+                        </div>
+
+                        <div class="dropdown" *ngIf="ID==undefined">
+                            <select class="form-control inputfield" id="CountryID" name="CountryID"
+                                [(ngModel)]="CountryID">
+                                <option value="">Select Country </option>
+                                <option *ngFor="let role of leavelist1" value="{{role.id}}">{{role.short}}</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" placeholder="Leave Type Name" placeholder="Province"  [(ngModel)]="Short"
+                        name="Short" id="Short">
+                    </div>
+                    <div class="col-md-4">
+
+                        <textarea type="text" rows="5" class="form-control" placeholder="Leave Description" placeholder="Description"  [(ngModel)]="Description"
+                        name="Description" id="Description"></textarea>
+                    </div>
+                </div>
+ 
+                <div class="row">
+                    <div class="col-lg-10"></div>
+                    <div class="col-lg-1">
+                        <button class="form-control EditDelteBTN" routerLink='/admin/StateMasterDash'>Cancel</button>
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="form-control EditDelteBTN" *ngIf="ID!=undefined"
+                        (click)="UpdateStateType()">Update</button>
+                    <button class="form-control EditDelteBTN" *ngIf="ID==undefined" (click)="InsertStateType()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-11">
+                <p class="Heading" style="color: #3247D5; font-family: 'Poppins';">Announcement Form</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row leavereq">
+                <div class="col-md-2">
+                    <label>Announcement<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-2">
+                    <label>Announcement Description<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-2">
+                    <p>Announcement Date<span style="color: red;">*</span></p>
+                </div>
+                <div class="col-md-2">
+                    <p>Announcement Time<span style="color: red;">*</span></p>
+                </div>
+                <div class="col-md-2">
+                    <p>Venue</p>
+                </div>
+                <div class="col-md-2" *ngIf="ID==undefined">
+                    <p>Attachment</p>
+                </div>
+
+            </div>
+            <div class="row leavereq">
+                <div class="col-md-2">
+                    <input type="text" class="form-control input" placeholder="Announcement Name" id="Name" name="Name"
+                        [(ngModel)]="Name">
+                </div>
+                <div class="col-md-2">
+                    <textarea rows="3" id="Description" name="Description" [(ngModel)]="Description" type="text"
+                        class="form-control" placeholder="Description"></textarea>
+                </div>
+
+                <div class="col-md-2">
+                    <input type="date" id="DateTime" name="DateTime" [(ngModel)]="DateTime" class="form-control"  min="{{maxdate}}">
+                </div>
+                <div class="col-md-2">
+                    <input type="time" id="Time" name="Time" [(ngModel)]="Time" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" placeholder="Venue" id="Venue" name="Venue"
+                        [(ngModel)]="Venue">
+                </div>
+                <div class="col-md-2" *ngIf="ID==undefined">
+                    <ngx-dropzone (change)="onSelect21($event)" style="height: 130px;">
+                        <ngx-dropzone-label>Drop Files here!</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of attachments21" [removable]="true"
+                            (removed)="onRemove21(f)">
+                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+            <br>
+            <div class="row leavereq">
+                <div class="col-md-2">
+                    <label>City</label>
+                </div>
+            </div>
+            <div class="row leavereq">
+                <div class="col-md-2">
+                    <select class="form-control inputfield" id="CityID" name="CityID" [(ngModel)]="CityID">
+                        <option value="0">Select City </option>
+                        <option *ngFor="let role of Citylist" value="{{role.id}}">{{role.short}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-8"></div>
+                <div class="col-lg-2">
+                    <button class="form-control Edit" (click)="Cancel()">Cancel</button>
+                </div>
+                <div class="col-lg-2">
+                    <button *ngIf="ID==undefined" class="form-control Edit" (click)="save()">Save</button>
+                    <button *ngIf="ID!=undefined" class="form-control Edit" (click)="Update()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

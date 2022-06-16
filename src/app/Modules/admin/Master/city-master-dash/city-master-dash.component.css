@@ -1,0 +1,393 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    text-decoration: 3px solid rgb(72, 83, 238) underline;
+    color: rgb(72, 83, 238);
+  }
+  .card {
+    background-color: white;
+  }
+  
+  .card-padding {
+    padding: 1%;
+  }
+  .table {
+    border-radius: 5px;
+  }
+  
+  .Heading {
+    padding-left: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    text-decoration-line: underline;
+  }
+  
+  .button {
+    text-transform: uppercase;
+    font-weight: initial;
+    text-shadow: initial;
+    letter-spacing: 0.5px;
+    background-color: #2f87cc;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    width: 40%;
+    float: right;
+    margin-right: 15px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .edit {
+    width: 85%;
+    border: none;
+    background-color: #2f87cc;
+    text-align: center;
+    border-radius: 16px;
+    color: white;
+    margin-top: 6px;
+  }
+  
+  .FilterClass {
+    padding-left: 15px;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .View {
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .HrLine {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .form-control {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .newFont {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .img {
+    width: 25px;
+    height: 10%;
+  }
+  .img:hover {
+    background-color: chartreuse;
+    color: white;
+  }
+  .imgcancel {
+    width: 25px;
+    height: 10%;
+  }
+  .imgcancel:hover {
+    background-color: red;
+    color: white;
+  }
+  
+  .SelectData {
+    text-align: center;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 27px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196f3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  .newrequest {
+    background-color: #21a4da;
+    color: white;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .dropdown-toggle {
+    text-align: left;
+  }
+  .LocDashboard {
+    padding-top: 10px;
+    margin: 0px;
+    background-color: #e4e5e6;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: #494949;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    text-decoration: 3px solid rgb(28, 32, 94) underline;
+  }
+  
+  .requestbtn {
+    background-color: #4282be;
+    color: white;
+    font-family: "DIN Bold";
+    font-weight: bold;
+    border-left: solid 1px #f5f5f5;
+    font-size: 15px;
+    line-height: 12px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .leavelist {
+    padding: 0px 20px;
+  }
+  /* .btnhover:hover{
+        background-color: #2F87CC;
+        color: white;
+    } */
+  .applyleavetxt {
+    font-family: "DIN Bold";
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  /* .container-fluid {
+    font-family: "DIN Bold";
+    padding: 0px;
+    margin: 0px;
+  } */
+  /* th {
+    background: #02cfff;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  td {
+    background-color: white;
+    color: #0c275a;
+    font-family: Poppins;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0px;
+    text-align: left;
+  } */
+  .show3res {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5;
+    color: #777;
+    text-transform: uppercase;
+    padding: 10px 0 5px;
+  }
+  .leavebalance {
+    padding-top: 10px;
+  
+    font-weight: bold;
+    color: #404040;
+    font-size: 20px;
+  }
+  .leavereq {
+    padding-left: 10px;
+  }
+  .inputfield {
+    background-color: rgb(238, 234, 234);
+  }
+  /* .table {
+    border-color: black;
+  } */
+  
+  .BackEnt {
+    margin-top: -10px;
+    font-size: x-large;
+    font-weight: 900;
+    text-decoration: none;
+  }
+  
+  .BACK {
+    margin-top: 10px;
+    text-decoration: none;
+  }
+  .submitbtn {
+    background-color: #2f87cc;
+    color: white;
+  }
+  
+  .TextHeading {
+    font-family: Poppins;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    color: #3247d5;
+    margin-left: 15px;
+  }
+  
+  
+  .EditBTN {
+    background-color: #3247d5;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    height: 30px;
+    width: 15%;
+    border: transparent;
+    font-family: 'Poppines';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 13px;
+    letter-spacing: 0.5px;
+  }
+  
+  
+  .DeleteBTN{
+    background-color: #3247d5;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    height: 30px;
+    width: 15%;
+    border: transparent;
+    font-family: 'Poppines';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 13px;
+    letter-spacing: 0.5px;
+  }
+  
+  .button {
+    text-transform: uppercase;
+    font-weight: initial;
+    text-shadow: initial;
+    letter-spacing: 0.5px;
+    background-color: #3247d5;
+  
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    width: 50%;
+    float: right;
+    margin-right: 15px;
+  
+    font-family: Poppins;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 13px;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+  }
+  
+  .show3res {
+    letter-spacing: 0.5;
+    color: #3247d5;
+    margin-left: 15px;
+  
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 0px;
+  
+    text-transform: uppercase;
+    padding: 10px 0 5px;
+  }
+  
