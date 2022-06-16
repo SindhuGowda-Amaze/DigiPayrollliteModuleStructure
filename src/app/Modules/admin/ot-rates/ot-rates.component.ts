@@ -79,7 +79,7 @@ delete(id:any) {
       Swal.fire('Please Select the Record to Modify');
     }
     else {
-      location.href="/admin/OtRatesForm/"+ this.ID;
+      location.href="/OtRatesForm/"+ this.ID;
     }
   }
 
