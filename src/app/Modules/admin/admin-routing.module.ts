@@ -15,6 +15,8 @@ import { PositionDashComponent } from './Master/position-dash/position-dash.comp
 import { RoleTypeFormComponent } from './Master/role-type-form/role-type-form.component';
 import { StateMasterDashComponent } from './Master/state-master-dash/state-master-dash.component';
 import { StateMasterComponent } from './Master/state-master/state-master.component';
+import { OtRatesComponent } from './ot-rates/ot-rates.component';
+import { OtratesformComponent } from './otratesform/otratesform.component';
 import { BankFormComponent } from './Setup/bank-form/bank-form.component';
 import { BankComponent } from './Setup/bank/bank.component';
 import { CompanyDashboardComponent } from './Setup/company-dashboard/company-dashboard.component';
@@ -23,6 +25,7 @@ import { DepartmentComponent } from './Setup/department/department.component';
 import { NewcompanyprofileComponent } from './Setup/newcompanyprofile/newcompanyprofile.component';
 import { PayGroupFormComponent } from './Setup/pay-group-form/pay-group-form.component';
 import { PayGroupComponent } from './Setup/pay-group/pay-group.component';
+import { TaxTableComponent } from './tax-table/tax-table.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
@@ -65,6 +68,13 @@ const routes: Routes = [
   { path: "StateMasterDash", component: StateMasterDashComponent},
   { path: "StateMaster", component:  StateMasterComponent},
   { path: "StateMaster/:id", component: StateMasterComponent},
+
+  { path: "TaxTable", component: TaxTableComponent},
+
+  { path: "OtRates", component: OtRatesComponent},
+  { path: "OtRatesForm", component:  OtratesformComponent},
+ 
+
 
 
 
