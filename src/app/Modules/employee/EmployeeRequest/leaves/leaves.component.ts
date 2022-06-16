@@ -135,7 +135,7 @@ export class LeavesComponent implements OnInit {
   }
   public newlevae() {
     debugger
-    this.router.navigate(['/ApplyLeave']);
+    this.router.navigate(['/employee/ApplyLeave']);
   }
   medicalurl: any;
   public getmedicalurl(id: any) {

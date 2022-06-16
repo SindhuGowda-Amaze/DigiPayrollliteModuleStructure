@@ -17,7 +17,6 @@ export class CertificateofloanComponent implements OnInit {
   showhdmfsalary:any
   showhdmfcalamity:any
   myDate:any;
-  constructor(public DigiofficeService: DigipayrollserviceService, private datePipe: DatePipe){}
   stafflist:any;
   uniquelist:any;
   companylist:any;
@@ -25,10 +24,55 @@ export class CertificateofloanComponent implements OnInit {
   Address:any;
   staffid:any;
   roleid:any;
-  
   p: any = 1;
   count1: any = 10;
   ssssalary:any;
+  orgovtlist:any;
+  oremployeelist:any;
+  orresults:any;
+  uniqueorlist:any;
+  sign:any;
+  department:any;
+  signname:any;
+  stafflist1:any;
+  amount:any;
+ employeelist: any;
+ merged: any;
+ results: any;
+ govtlist:any;
+ sssnumber:any;
+ fullname:any;
+ PhilHealth:any;
+ hdmf:any;
+ id:any;
+ year:any;
+ month:any;
+ loantype:any;
+ Month:any;
+ Year:any;
+ DatePaid:any;
+ Amount:any;
+ sssno:any;
+ philhealthno:any;
+ pagibigid:any;
+ sssloantype:any;
+ sssMonth:any;
+ sssYear:any;
+ sssDatePaid:any;
+ sssAmount:any;
+ loader:any;
+ CalamityMonth:any;
+ CalamityYear:any;
+ CalamityDatePaid:any;
+ calamityAmount:any;
+ results1:any;
+ results2:any;
+ hdmfMonth:any;
+ hdmfYear:any;
+ hdmfDatePaid:any;
+ hdmfAmount:any;
+  constructor(public DigiofficeService: DigipayrollserviceService, private datePipe: DatePipe){}
+
   ngOnInit(): void {
     this.month="";
     this.year="";
@@ -88,10 +132,6 @@ else{
 
 
 
-  orgovtlist:any;
-  oremployeelist:any;
-  orresults:any;
-  uniqueorlist:any;
   public getorrecords(){
     this.DigiofficeService.GetNewGovernmentRecords().subscribe(data => {
       debugger
@@ -125,10 +165,7 @@ else{
   }
 
 
-  sign:any;
-department:any;
-signname:any;
-stafflist1:any;
+ 
 public getsign(){
   this.DigiofficeService.GetMyDetails().subscribe(data => {
     debugger
@@ -138,16 +175,7 @@ public getsign(){
 }
 
 
-amount:any;
-employeelist: any;
-merged: any;
-results: any;
-govtlist:any;
-sssnumber:any;
-fullname:any;
-PhilHealth:any;
-hdmf:any;
-id:any;
+
 public GetNewGovernmentRecords(id:any) {
   debugger
  this.id = id 
@@ -158,22 +186,7 @@ public GetNewGovernmentRecords(id:any) {
 
 
 
-year:any;
-month:any;
-loantype:any;
-Month:any;
-Year:any;
-DatePaid:any;
-Amount:any;
-sssno:any;
-philhealthno:any;
-pagibigid:any;
-sssloantype:any;
-sssMonth:any;
-sssYear:any;
-sssDatePaid:any;
-sssAmount:any;
-loader:any;
+
   public showsalaryLoan(){
 
     this.DigiofficeService.GetNewGovernmentRecords().subscribe(data => {
@@ -238,11 +251,7 @@ loader:any;
     
   }
 
-  CalamityMonth:any;
-  CalamityYear:any;
-  CalamityDatePaid:any;
-  calamityAmount:any;
-  results1:any;
+
   public showcalamityLoan(){
 
       this.DigiofficeService.GetNewGovernmentRecords().subscribe(data => {
@@ -302,11 +311,7 @@ loader:any;
     this.showhdmfcalamity=0;
 
   }
-  results2:any;
-  hdmfMonth:any;
-  hdmfYear:any;
-  hdmfDatePaid:any;
-  hdmfAmount:any;
+
   public showhdmfsalaryLoan(){
    
     this.DigiofficeService.GetNewGovernmentRecords().subscribe(data => {

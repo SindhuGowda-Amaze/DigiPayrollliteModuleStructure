@@ -11,26 +11,29 @@ export class AttendanceComponent implements OnInit {
   shiftdetails: any;
   data: any;
   loader:any;
-
-
-
-
-
-  constructor(public DigiofficeService: DigipayrollserviceService) { }
   roleid: any
   staffID: any;
+  startingTime1: any;
+  endTime1: any;
+  attendancelist: any;
+  startdate: any;
+  enddate: any
+  currentUrl: any;
+
+  constructor(public DigiofficeService: DigipayrollserviceService) { }
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.loader=true;
     this.roleid = sessionStorage.getItem('roledid');
     this.staffID = sessionStorage.getItem('staffid');
     this.GetAttendance();
   }
-  startingTime1: any;
-  endTime1: any;
-  attendancelist: any;
+
   public GetAttendance() {
     debugger
-    this.DigiofficeService.GetAttendance().subscribe(data => {
+    this.DigiofficeService.GetAttendance()
+    .subscribe(data => {
       debugger
   
         this.attendancelist = data.filter(x => x.userID == this.staffID)
@@ -40,6 +43,12 @@ export class AttendanceComponent implements OnInit {
         
 
     })
+
+
+
+
+    
+    
     this.DigiofficeService.GetAttendanceConfiguration().subscribe(data => {
       debugger
       let temp: any = data;
@@ -55,8 +64,7 @@ export class AttendanceComponent implements OnInit {
   
   }
 
-  startdate: any;
-  enddate: any
+ 
   public getenddate(event: any) {
     debugger
     if (this.roleid == 1) {
