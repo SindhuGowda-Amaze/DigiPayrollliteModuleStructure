@@ -43,15 +43,15 @@
 
                 </a>
 
-                <a (click)="highlight($event)" (click)="Department()" class="nonactive">
+                <!-- <a (click)="highlight($event)" (click)="Department1()" class="nonactive">
                     <img src="assets/images/64/ATTENDANCE/Report/masters/Department Master.png"
                         [ngClass]="active != 2 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
                     <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Department Master.png"
                         [ngClass]="active == 2 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
                     &nbsp;
-                    <span [ngClass]="active == 2 ? 'Active1' : 'Active3'"> DEPARTMENTS</span>
+                    <span [ngClass]="active == 2 ? 'Active1' : 'Active3'"> DEPARTMENT MASTER</span>
 
-                </a>
+                </a> -->
                 <a (click)="highlight($event)" (click)="Bank()" class="nonactive">
                     <img src="assets/images/64/ATTENDANCE/Report/masters/City Master.png"
                         [ngClass]="active != 3 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
@@ -175,7 +175,7 @@
 
             </a>
 
-            <a (click)="EmployeeTransition()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
+            <!-- <a (click)="EmployeeTransition()" *ngIf="roleid=='9' || roleid=='17'" (click)="highlight($event)">
                 <img src="assets/images/64/ATTENDANCE/Report/masters/Employee_benefits.png"
                     [ngClass]="active != 'transition' ? 'Active1' : 'Active2'"
                     style="width: 13%;  margin-right: 17px;" />
@@ -184,7 +184,7 @@
                     style="width: 13%;  margin-right: 17px;" />
                 <span [ngClass]="active == 'transition' ? 'Active1' : 'Active3'"> EMPLOYEE TRANSITION </span>
 
-            </a>
+            </a> -->
             <a (click)="Exitformality()" class="nonactive" *ngIf="roleid!=6" (click)="openCity($event)">
                 <img src="assets/images/64/ATTENDANCE/Report/masters/Employee Transition.png"
                     [ngClass]="active != 'exitformality' ? 'Active1' : 'Active2'"
@@ -513,8 +513,7 @@
                         [ngClass]="active != 42 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
                     <img src="assets/images/64 Blue/ATTENDANCE/Exit Formality.png"
                         [ngClass]="active == 42 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
-                    <span [ngClass]="active == 42 ? 'Active1' : 'Active3'"> MONTHLY
-                        REPORT </span>
+                    <span [ngClass]="active == 42 ? 'Active1' : 'Active3'"> MONTHLY REPORT </span>
                     <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;MONTHLY
                 REPORT -->
                 </a>
@@ -567,8 +566,7 @@
                         [ngClass]="active != 'YTD' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
                     <img src="assets/images/64 Blue/ATTENDANCE/Report/Probation Evaluation.png"
                         [ngClass]="active == 'YTD' ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
-                    <span [ngClass]="active == 'YTD' ? 'Active1' : 'Active3'"> YTD
-                        ADJUSTMENTS </span>
+                    <span [ngClass]="active == 'YTD' ? 'Active1' : 'Active3'"> YTD ADJUSTMENTS </span>
 
                     <!-- <i class="fa fa-folder-o icon28" style="width: 20px;    margin-right: 17px;"></i> &nbsp;YTD
                 ADJUSTMENTS -->
@@ -1134,18 +1132,18 @@
 </a> -->
 <a (click)="deptmasterdash()" *ngIf="roleid!='9'" (click)="highlight($event)">
     <img src="assets/images/64/ATTENDANCE/Report/masters/Country_master.png"
-        [ngClass]="active != 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+        [ngClass]="active != 19 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
     <img src="assets/images/64 Blue/ATTENDANCE/Report/masters/Country_master.png"
-        [ngClass]="active == 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
-    <span [ngClass]="active == 14 ? 'Active1' : 'Active3'"> DEPARTMENT MASTER </span>
+        [ngClass]="active == 19 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+    <span [ngClass]="active == 19 ? 'Active1' : 'Active3'"> DEPARTMENT MASTER </span>
 
 </a>
 <a (click)="Positionmasterdash()" *ngIf="roleid!='9'" (click)="highlight($event)">
     <img src="assets/images/64/leaves.png"
-        [ngClass]="active != 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+        [ngClass]="active != 111 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
     <img src="assets/images/64 Blue/holiday.png"
-        [ngClass]="active == 14 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
-    <span [ngClass]="active == 14 ? 'Active1' : 'Active3'"> POSITION MASTER </span>
+        [ngClass]="active == 111 ? 'Active1' : 'Active2'" style="width: 13%;  margin-right: 17px;" />
+    <span [ngClass]="active == 111 ? 'Active1' : 'Active3'"> POSITION MASTER </span>
 
 </a>
             <a (click)="CountryMasterDash()" *ngIf="roleid!='9'" (click)="highlight($event)">

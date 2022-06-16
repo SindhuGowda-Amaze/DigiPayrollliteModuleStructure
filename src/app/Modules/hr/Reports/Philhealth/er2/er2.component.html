@@ -1,0 +1,121 @@
+
+ <div class="container-fluid">
+    <div class="card">
+     <div class="row">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-4">
+             
+             <p class="taxtable"> ER-2</p>
+         </div>
+     </div> <hr>
+     <div class="row FilterClass fontheading data">
+      <div class="col-lg-2"></div>
+         <div class="col-lg-3">
+            <p style="text-align: right;"> Select Start Month & Year</p>
+         </div>
+         <div class="col-lg-2">
+             <select name="cars" id="Month" class="form-control">
+                 <option style="color:#0C275A"  value="Select">Select</option>
+                 <option style="color:#0C275A" value="January">January</option>
+                 <option style="color:#0C275A" value="February">February</option>
+                 <option style="color:#0C275A" value="March">March</option>
+                 <option style="color:#0C275A" value="April">April</option>
+                 <option  style="color:#0C275A"value="May">May</option>
+                 <option style="color:#0C275A" value="June">June</option>
+                 <option style="color:#0C275A" value="July">July</option>
+                 <option style="color:#0C275A" value="August">August</option>
+                 <option style="color:#0C275A" value="September">September</option>
+                 <option style="color:#0C275A" value="October">October</option>
+                 <option style="color:#0C275A" value="November">November</option>
+                 <option style="color:#0C275A" value="December">December</option>                       
+               </select>
+         </div>
+         <div class="col-lg-2">
+             <select name="cars" id="Month" class="form-control">
+                 <option style="color:#0C275A" value="Select">Select</option>
+                 <option style="color:#0C275A" value="2022">2022</option>
+                 <option style="color:#0C275A" value="2021">2021</option>
+                 <option style="color:#0C275A" value="2020">2020</option>                                          
+               </select>
+         </div>            
+     </div><br> 
+     <div class="row FilterClass fontheading">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-2">
+             <p style="color:#0C275A">Signatory Person</p>
+         </div>
+         <div class="col-lg-2">
+             <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                 <option style="color:#0C275A" value="">Select</option>
+                 <!-- <option style="color:#0C275A" value="Admin">Admin</option> -->
+                 <option style="color:#0C275A"value="HR">HR</option>                 
+                 <!-- <option style="color:#0C275A" value="Finance">Finance</option>                                           -->
+               </select>
+         </div>
+     </div> <br> 
+     <div class="row FilterClass">
+         <div class="col-lg-3"></div>
+         <div class="col-lg-2">
+             <p>Select Employee</p>
+         </div>
+         <div class="col-lg-2">
+             <!-- <input class="form-control input" [(ngModel)]="staffName" id="staffID" name="staffID"><br> -->
+
+             <ng-multiselect-dropdown [placeholder]="'Select Name'" [settings]="dropdownSettings"
+                 [data]="uniquelist" [(ngModel)]="staffID" (onSelect)="onItemSelect($event)" class="fonttxt">
+             </ng-multiselect-dropdown>
+
+
+             <!-- <select class="form-control input" [(ngModel)]="staffID">
+                 <option class="form-control input" *ngFor="let application of employeelist"  value="application.ID">{{application.name}}</option>
+             </select> -->
+         </div>
+     </div> <br><br>
+    
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-4">
+            <!-- <button class="generate" (click)="showpdf1()">GENERATE</button> -->
+            <button class="AddButton" (click)="showpdf()">GENERATE</button>
+        </div>
+    </div> 
+    </div><br>
+          
+
+
+</div>
+<div class="row" *ngIf="showleaseforprint==1">
+
+ <!-- <div class="col-lg-8">
+ </div>
+ <div class="col-lg-2">
+     <button class="loan1" (click)="convetToPDF1()">Convert To PDF</button>
+ </div> -->
+
+ <div class="col-lg-6">
+ </div>
+ <div class="col-lg-4">
+     <button class="AddButton" (click)="convetToPDF1()" style="margin-right: 38px;">CONVERT TO PDF</button>    
+ </div> 
+
+
+<div id="downloadaplication" style="position:absolute;left:50%;margin-left:-396px;top:0px;width:792px;height:612px;border-style:outset;overflow:hidden;margin-top: 470px;">
+ <div style="position:absolute;left:0px;top:0px">
+ <img src="assets/images/ER2.jpg" width=792 height=612></div>
+ <div style="position:absolute;left:180.00px;top:96.22px" class="cls_003"><span class="cls_003">{{companyname}}</span></div>
+ <div style="position:absolute;left:655.20px;top:96.22px" class="cls_003"><span class="cls_003">000{{companyid}}</span></div>
+ <div style="position:absolute;left:79.20px;top:117.82px" class="cls_003"><span class="cls_003">{{Address}},</span></div>
+ <div style="position:absolute;left:532.80px;top:117.82px" class="cls_003"><span class="cls_003">{{emailid}}</span></div>
+ <div style="position:absolute;left:14.40px;top:190.82px" class="cls_002"><span class="cls_002">{{PhilhealthNo}}</span></div>
+ <div style="position:absolute;left:122.40px;top:190.82px" class="cls_002"><span class="cls_002">{{fullname}}</span></div>
+ <div style="position:absolute;left:302.40px;top:190.82px" class="cls_002"><span class="cls_002">{{department}}</span></div>
+ <div style="position:absolute;left:445.41px;top:190.82px" class="cls_002"><span class="cls_002">{{basesalary}}</span></div>
+ <div style="position:absolute;left:489.60px;top:190.82px" class="cls_002"><span class="cls_002">{{dateofjoining|date}}</span></div>
+ <div style="position:absolute;left:561.60px;top:189.15px" class="cls_004"><span class="cls_004">1</span></div>
+ <div style="position:absolute;left:172.80px;top:546.93px" class="cls_005"><span class="cls_005">1</span></div>
+ <div style="position:absolute;left:620.83px;top:550.53px" class="cls_003"><span class="cls_003"><img src="{{Signature}}" style="width: 100px;
+     height: 19px;
+     margin-top: -11px;
+     margin-left: -63px;"/>{{signname}}</span></div>
+ </div>
+</div> <br><br>

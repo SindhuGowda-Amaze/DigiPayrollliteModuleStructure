@@ -1,0 +1,145 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+          
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-4">
+                        <a href="" class="Heading ">M1-EXCEL</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row FilterClass ">
+                    <div class="col-lg-2"></div>
+                       <div class="col-lg-3">
+                          <p style="text-align: right;"> Select Start Month & Year</p>
+                       </div>
+                       <div class="col-lg-2">
+                           <select name="cars" id="Month" class="form-control fonttxt" [(ngModel)]="month" >
+                               <option value="">Select</option>
+                               <option value="1">January</option>
+                               <option value="2">February</option>
+                               <option value="3">March</option>
+                               <option value="4">April</option>
+                               <option value="5">May</option>
+                               <option value="6">June</option>
+                               <option value="7">July</option>
+                               <option value="8">August</option>
+                               <option value="9">September</option>
+                               <option value="10">October</option>
+                               <option value="11">November</option>
+                               <option value="12">December</option>                       
+                             </select>
+                       </div>
+                       <div class="col-lg-2">
+                           <select name="cars" id="Month" class="form-control fonttxt" [(ngModel)]="year">
+                               <option value="">Select</option>
+                               <option value="2022">2022</option>
+                               <option value="2021">2021</option>
+                               <option value="2020">2020</option>                                          
+                             </select>
+                       </div>            
+                   </div><br> 
+                <!-- <div class="row FilterClass fontheading">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                        <p>Signatory Person</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <select name="cars" id="Month" class="form-control">
+                            <option value="Select">Select</option>
+                            <option value="Admin">Admin</option>
+                            <option value="HR">HR</option>                 
+                            <option value="Finance">Finance</option>                                          
+                          </select>
+                    </div>
+                </div> <br> --><br>
+                <div>
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-4">
+                            <!-- <button class="generate" data-toggle="collapse" data-target="#demo" (click)="showpdf()">GENERATE</button> -->
+                            <button class="AddButton" data-toggle="collapse" data-target="#demo" (click)="showpdf()">GENERATE</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+    
+                <div class="container-fluid" id="demo" class="collapse">
+                    <div class="row input">
+                        <div class="col-lg-2">
+                            <P>Employer ID: </P>
+                        </div>
+                        <div class="col-lg-2  fonttxt">
+                            <h6>{{companyid}}</h6>
+                        </div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-lg-2 fonttxt">
+                            <P>Employer Name: </P>
+                        </div>
+                        <div class="col-lg-2 fonttxt">
+                            <h6>{{companyname}}</h6>
+                        </div>
+
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <button class="AddButton" (click)="exportexcel()">EXPORT TO EXCEL</button>    
+                        </div> 
+
+                    </div>
+
+                    <!-- <div class="col-lg-1"></div>
+                    <div class="col-lg-3">
+                        <button class="loan1" (click)="exportexcel()">EXPORT TO EXCEL</button>
+                    </div>
+                    <br> -->
+
+
+                    <div class="row" >
+                        <div class="col-lg-12">
+                            <table class="table table-bordered fonttxt" id="downloadaplication">
+                                <thead>
+                                    <tr class="newFont">
+                                        
+                                        <th>Pag-IBIG ID/RTN</th>
+                                        <th>ACCOUNT NO. </th>
+                                        <th>MEMBERSHIP PROGRAM</th>
+                                        <th>LAST NAME</th>
+                                        <th>FIRST NAME</th>
+                                        <th>PERCOV</th>
+                                        <th>EE SHARE</th>
+                                        <th>ER SHARE</th>
+                                        <th>REMARKS</th>
+                                    </tr>
+                                    <tr *ngFor="let item of uniquelist|paginate: { itemsPerPage: count1, currentPage: p}">
+                                       
+                                        <td>{{item.pagiBig_ID}}</td>
+                                        <td>{{item.pagiBigAccountNo}}</td>
+                                        <td>{{item.pagibigMembership}}</td>
+                                       
+                                        <td>{{item.lastName}}</td>
+                                        <td>{{item.staffname}}</td>
+                                        <td>{{item.month_Name}} {{item.emplyeeYear}} </td>
+                                        <td>{{item.monthlyPagibigRate/2}}</td>
+                                        <td>{{item.monthlyPagibigRate/2}}</td>
+                                       <td>{{item.pagibigRemarks}}</td>
+        
+                                    </tr>
+    
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="text-right">
+                            <br>
+                 <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                  </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>

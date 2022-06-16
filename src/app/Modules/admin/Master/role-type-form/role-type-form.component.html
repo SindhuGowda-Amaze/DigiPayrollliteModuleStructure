@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3">
+            <p class="Heading">Position Master Details</p>
+        </div>
+        <div class="col-lg-8"></div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+    <div class="card">
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <label>Position Name<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>Description<span class="span">*</span></label>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Enter Shift Name" placeholder="Position Name"
+                [(ngModel)]="Short" name="Short" id="Short">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Enter Rules" placeholder="Description"
+                    [(ngModel)]="Description" name="Description" id="Description">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-2">
+                <button class="button" (click)="Cancel()" style="width:100%">CANCEL</button>
+            </div>
+            <div class="col-lg-2">
+                <button type="button" class="button" *ngIf="ID!=undefined" (click)="UpdateRoleType()" style="width:100%">UPDATE</button>
+                <button class="button" *ngIf="ID==undefined" (click)="InsertRoleType()" style="width:100%">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>

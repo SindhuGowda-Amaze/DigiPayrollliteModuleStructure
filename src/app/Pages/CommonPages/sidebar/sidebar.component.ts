@@ -16,6 +16,7 @@ export class SidebarComponent implements OnInit {
   role: any;
   temp: any;
   show: any;
+  login:any;
   ngOnInit(): void {
     this.active = 0
     this.temp = sessionStorage.getItem('temp')
@@ -50,12 +51,12 @@ export class SidebarComponent implements OnInit {
   }
 
 
-
   active: any
+  
   public Profile() {
     debugger
     localStorage.setItem('clickname', 'PROFILE')
-    this.router.navigate(['/CompanyDashboard']);
+    this.router.navigate(['/admin/CompanyDashboard']);
     this.active = 1;
   }
 
@@ -83,12 +84,12 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  public Department() {
-    debugger
-    this.active = 2;
-    localStorage.setItem('clickname', 'DEPARTMENT')
-    this.router.navigate(['/Department']);
-  }
+  // public Department1() {
+  //   debugger
+  //   this.active = 2;
+  //   localStorage.setItem('clickname', 'DEPARTMENT')
+  //   this.router.navigate(['/admin/Department']);
+  // }
 
   public ShiftDetails() {
     debugger
@@ -109,7 +110,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'LoanMasterDash';
     localStorage.setItem('clickname', 'LOAN MASTER')
-    this.router.navigate(['/LoanMasterDash']);
+    this.router.navigate(['/admin/LoanMasterDash']);
   }
   public CheckList() {
     debugger
@@ -164,14 +165,14 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 3;
     localStorage.setItem('clickname', 'BANK')
-    this.router.navigate(['/Bank']);
+    this.router.navigate(['/admin/Bank']);
   }
 
   public PayGroup() {
     debugger
     this.active = 4;
     localStorage.setItem('clickname', 'PAYGROUP')
-    this.router.navigate(['/PayGroup']);
+    this.router.navigate(['/admin/PayGroup']);
   }
   public UploadLeaveDetails() {
     debugger
@@ -196,7 +197,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'BarangayMaster';
     localStorage.setItem('clickname', 'BARANGAY MASTER')
-    this.router.navigate(['/BarangayDash']);
+    this.router.navigate(['/admin/BarangayDash']);
 
   }
   public AnnualTaxtable() {
@@ -221,7 +222,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 10;
     localStorage.setItem('clickname', 'EMPLOYEE')
-    this.router.navigate(['/EmployeeDashboard']);
+    this.router.navigate(['/hr/EmployeeDashboard']);
   }
 
   public LeaveTypeDashboard() {
@@ -240,19 +241,19 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 13;
     localStorage.setItem('clickname', 'COUNTRY MASTER')
-    this.router.navigate(['/CountryMasterDash']);
+    this.router.navigate(['/admin/CountryMasterDash']);
   }
   public StateMasterDash() {
     debugger
     this.active = 14;
     localStorage.setItem('clickname', 'PROVINCE MASTER')
-    this.router.navigate(['/StateMasterDash']);
+    this.router.navigate(['/admin/StateMasterDash']);
   }
   public CityMasterDash() {
     debugger
     this.active = 15;
     localStorage.setItem('clickname', 'CITY MASTER')
-    this.router.navigate(['/CityMasterDash']);
+    this.router.navigate(['/admin/CityMasterDash']);
   }
   public BenefitDashboard() {
     debugger
@@ -337,7 +338,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'Ammortization';
     localStorage.setItem('clickname', 'Ammortization')
-    this.router.navigate(['/MonthlyAmmortizationReport']);
+    this.router.navigate(['/hr/MonthlyAmmortizationReport']);
   }
 
   public LoanConfig() {
@@ -351,7 +352,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 29;
     localStorage.setItem('clickname', 'PAYROLL RUNS')
-    this.router.navigate(['/PayrollDashboard']);
+    this.router.navigate(['/hr/PayRollRuns']);
   }
   public Employeetiledashboard() {
     debugger
@@ -361,8 +362,14 @@ export class SidebarComponent implements OnInit {
   public ManagerDashboard() {
     debugger
     this.active = 'DASHBOARD';
+    if (this.roleid == '9') {
     localStorage.setItem('clickname', 'DASHBOARD')
+    this.router.navigate(['/hr/HRDashboard']);
+    }
+    else{
+      localStorage.setItem('clickname', 'DASHBOARD')
     this.router.navigate(['#/manager/ManagerDashboard']);
+    }
   }
   public AttendenceDetails() {
     debugger
@@ -381,7 +388,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'PayrollDash';
     localStorage.setItem('clickname', 'PAYROLL DASHBOARD')
-    this.router.navigate(['/PayRoll']);
+    this.router.navigate(['/hr/PayRollDash']);
   }
   public LOANS() {
     debugger
@@ -410,7 +417,7 @@ export class SidebarComponent implements OnInit {
         const login: any = document.getElementById('login') as HTMLElement
 
         if (login.value == 4876) {
-          location.href = '#/Salarydetailsdash';
+          location.href = '/hr/SalaryDetailsDash';
           localStorage.setItem('clickname', 'Staff Salary')
 
         }
@@ -459,7 +466,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 410;
     localStorage.setItem('clickname', 'BANK ADVICE')
-    this.router.navigate(['/BankAdviceList']);
+    this.router.navigate(['/hr/BankAdviceList']);
   }
 
 
@@ -469,19 +476,19 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'PRELIMINARY';
     localStorage.setItem('clickname', 'PRELIMINARY PAYROLL')
-    this.router.navigate(['/PreliminaryReport']);
+    this.router.navigate(['/hr/PreliminaryReport']);
   }
   public PayrollSummaryReport() {
     debugger
     this.active = 41;
     localStorage.setItem('clickname', 'PAYROLL SUMMARY ')
-    this.router.navigate(['/PayrollSummaryReport']);
+    this.router.navigate(['/hr/PayrollSummaryReport']);
   }
   public MonthlySummaryReport() {
     debugger
     this.active = 42;
     localStorage.setItem('clickname', 'MONTHLY SUMMARY')
-    this.router.navigate(['/MonthlySummaryReport']);
+    this.router.navigate(['/hr/MonthlyReport']);
   }
   public AdjustmentGenerateReport() {
     debugger
@@ -493,19 +500,19 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 44;
     localStorage.setItem('clickname', 'PAYSLIP REPORT')
-    this.router.navigate(['/PaySlipReport']);
+    this.router.navigate(['/hr/PayslipReport']);
   }
   public YTDReport() {
     debugger
     this.active = 45;
     localStorage.setItem('clickname', 'YTD REPORT')
-    this.router.navigate(['/YTDReport']);
+    this.router.navigate(['/hr/YTDReport']);
   }
   public YTDReportAdjustment() {
     debugger
     this.active = 'YTD';
     localStorage.setItem('clickname', 'YTD  ADJUSTMENT REPORT')
-    this.router.navigate(['/YTDReportAdjustment']);
+    this.router.navigate(['/hr/YTDReportAdjustment']);
   }
 
 
@@ -522,7 +529,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'eee';
     localStorage.setItem('clickname', 'R3 REPORT')
-    this.router.navigate(['/SSSR3Report']);
+    this.router.navigate(['/hr/SSSR3Report']);
   }
 
 
@@ -566,7 +573,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 48;
     localStorage.setItem('clickname', 'R5 REPORT')
-    this.router.navigate(['/SSSR5Report']);
+    this.router.navigate(['/hr/SSSR5Report']);
   }
   public sssbreakdown() {
     debugger
@@ -578,64 +585,64 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 49;
     localStorage.setItem('clickname', 'ML1 REPORT')
-    this.router.navigate(['/SSSML1Report']);
+    this.router.navigate(['/hr/SSSML1Report']);
   }
   public SSSRL1Report() {
     debugger
     this.active = 50;
     localStorage.setItem('clickname', 'R1-A REPORT')
-    this.router.navigate(['/SSSRL1Report']);
+    this.router.navigate(['/hr/SSSRL1Report']);
   }
 
   public ER2() {
     debugger
     this.active = 53;
     localStorage.setItem('clickname', 'ER2 REPORT')
-    this.router.navigate(['/ER2']);
+    this.router.navigate(['/hr/ER2']);
   }
   public RFreport() {
     debugger
     this.active = 54;
     localStorage.setItem('clickname', 'RF-1 Data REPORT')
-    this.router.navigate(['/RFreport']);
+    this.router.navigate(['/hr/RFReport']);
   }
   public RF1PDF() {
     debugger
     this.active = 55;
     localStorage.setItem('clickname', 'RF-1 PDF REPORT')
-    this.router.navigate(['/RF1PDF']);
+    this.router.navigate(['/hr/RF1PDFReport']);
   }
 
   public M1mcrf() {
     debugger
     this.active = 56;
     localStorage.setItem('clickname', 'M1-1(MCRF)')
-    this.router.navigate(['/M1mcrf']);
+    this.router.navigate(['/hr/M1MCRFReport']);
   }
   public M1excel() {
     debugger
     this.active = 57;
     localStorage.setItem('clickname', 'M1 - EXCEL')
-    this.router.navigate(['/M1excel']);
+    this.router.navigate(['/hr/M1ExcelReport']);
   }
   public PagibigSTLRF() {
     debugger
     this.active = 58;
     localStorage.setItem('clickname', 'STLRF')
-    this.router.navigate(['/PagibigSTLRF']);
+    this.router.navigate(['/hr/STLRFReport']);
   }
   public PagibigSTLRFExcel() {
     debugger
     this.active = 59;
     localStorage.setItem('clickname', 'STLRF - EXCEL')
-    this.router.navigate(['/PagibigSTLRFExcel']);
+    this.router.navigate(['/hr/STLRFExcelReport']);
   }
 
   public Bir1601C() {
     debugger
     this.active = 60;
     localStorage.setItem('clickname', '1601C')
-    this.router.navigate(['/Bir1601C']);
+    this.router.navigate(['/hr/BIR1601CReport']);
   }
   public Bir1601EQ() {
     debugger
@@ -647,19 +654,19 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 62;
     localStorage.setItem('clickname', '1604C')
-    this.router.navigate(['/Bir1604C']);
+    this.router.navigate(['/hr/BIR1604CReport']);
   }
   public Bir1604CF() {
     debugger
     this.active = 63;
     localStorage.setItem('clickname', '1604CF')
-    this.router.navigate(['/Bir1604CF']);
+    this.router.navigate(['/hr/BIR1604CFReport']);
   }
   public Bir2316() {
     debugger
     this.active = 64;
     localStorage.setItem('clickname', '2316')
-    this.router.navigate(['/Bir2316']);
+    this.router.navigate(['/hr/BIR2316Report']);
   }
 
   public CertificateOfContribution() {
@@ -680,7 +687,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 91;
     localStorage.setItem('clickname', 'LOOK AND FEEL')
-    this.router.navigate(['/Lookandfeeldash']);
+    this.router.navigate(['/hr/LookAndFeelDash']);
   }
   public SETUP() {
     debugger
@@ -796,14 +803,14 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 92;
     localStorage.setItem('clickname', 'LEAVES CONFIGURATION')
-    this.router.navigate(['/Leaveconfigurationdash']);
+    this.router.navigate(['/hr/LeaveConfigDash']);
   }
 
   public Attendenceconfig() {
     debugger
     this.active = 93;
     localStorage.setItem('clickname', 'ATTENDANCE CONFIG')
-    this.router.navigate(['/Attendenceconfigdash']);
+    this.router.navigate(['/hr/AttendanceConfigDash']);
   }
 
   public UploadAttendence() {
@@ -816,7 +823,7 @@ export class SidebarComponent implements OnInit {
   public EmployeeJobHistory() {
     this.active = 216;
     localStorage.setItem('clickname', 'JOB HISTORY')
-    this.router.navigate(['/EmploymentJobHistory']);
+    this.router.navigate(['/hr/EmploymentJobHistory']);
 
   }
 
@@ -837,7 +844,7 @@ export class SidebarComponent implements OnInit {
   public Holidays() {
     this.active = 404;
     localStorage.setItem('clickname', 'HOLIDAYS')
-    this.router.navigate(['/HolidayDashboard']);
+    this.router.navigate(['/admin/HolidayDashboard']);
 
   }
 
@@ -852,7 +859,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'exitformality';
     localStorage.setItem('clickname', 'EXIT FORMALITY')
-    this.router.navigate(['/Exitformalityformdash']);
+    this.router.navigate(['/hr/ExitformalityDash']);
   }
 
   public BirAlphalist() {
@@ -879,9 +886,9 @@ export class SidebarComponent implements OnInit {
 
   public Positionmasterdash() {
     debugger
-    this.active = 19;
+    this.active = 111;
     localStorage.setItem('clickname', 'Positionmasterdash')
-    this.router.navigate(['/PositionDash']);
+    this.router.navigate(['/admin/PositionDash']);
 
   }
 
@@ -890,7 +897,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 19;
     localStorage.setItem('clickname', 'deptmasterdash')
-    this.router.navigate(['/Department']);
+    this.router.navigate(['/admin/Department']);
 
   }
 
@@ -993,7 +1000,7 @@ export class SidebarComponent implements OnInit {
   public Announcement() {
     this.active = 'Announcement';
     localStorage.setItem('clickname', 'Announcement')
-    this.router.navigate(['/AnnouncementDashboard']);
+    this.router.navigate(['/admin/AnnouncementDashboard']);
 
   }
 
