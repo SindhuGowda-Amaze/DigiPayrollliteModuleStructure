@@ -119,7 +119,7 @@ export class CityMasterComponent implements OnInit {
       this.DigipayrollserviceService.InsertCityType(entity).subscribe(data => {
         if (data != 0) {
           Swal.fire("Saved Successfully");
-           location.href = "#/CityMasterDash";
+           location.href = "#/admin/CityMasterDash";
           
          
         }

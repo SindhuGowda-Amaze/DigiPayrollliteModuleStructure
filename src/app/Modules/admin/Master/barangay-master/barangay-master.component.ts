@@ -83,7 +83,7 @@ export class BarangayMasterComponent implements OnInit {
 
   public Cancel() {
     debugger
-    location.href = "#/BarangayDash";
+    location.href = "#/admin/BarangayDash";
   }
 
 
@@ -105,7 +105,7 @@ export class BarangayMasterComponent implements OnInit {
       this.DigipayrollserviceService.InsertBarangayMaster(entity).subscribe(data => {
         if (data != 0) {
           Swal.fire("Saved Successfully");
-          location.href = "#/BarangayDash";
+          location.href = "#/admin/BarangayDash";
         }
 
       })

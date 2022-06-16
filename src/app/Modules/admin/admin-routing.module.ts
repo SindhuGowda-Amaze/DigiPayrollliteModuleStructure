@@ -39,31 +39,31 @@ const routes: Routes = [
   { path: "PayGroupFrom/:id", component: PayGroupFormComponent},
  
   { path: "AnnouncementDashboard", component: AnnouncementDashboardComponent},
-  { path: " AnnouncementForm", component:  AnnouncementFormComponent},
-  { path: " AnnouncementForm/:id", component: AnnouncementFormComponent},
+  { path: "AnnouncementForm", component:  AnnouncementFormComponent},
+  { path: "AnnouncementForm/:id", component: AnnouncementFormComponent},
  
   { path: "BarangayDash", component: BarangayDashComponent},
-  { path: "BarangayMaster ", component:  BarangayMasterComponent},
+  { path: "BarangayMaster", component:  BarangayMasterComponent},
   { path: "BarangayMaster/:id", component: BarangayMasterComponent},
 
   { path: "CityMasterDash", component: CityMasterDashComponent},
-  { path: "CityMaster ", component:  CityMasterComponent},
+  { path: "CityMaster", component:  CityMasterComponent},
   { path: "CityMaster/:id", component: CityMasterComponent},
 
   { path: "CountryMasterDash", component: CountryMasterDashComponent},
-  { path: "CountryMaster ", component:  CountryMasterComponent},
+  { path: "CountryMaster", component:  CountryMasterComponent},
   { path: "CountryMaster/:id", component: CountryMasterComponent},
 
   { path: "LoanMasterDash", component: LoanMasterDashComponent},
-  { path: "LoanMaster ", component:  LoanMasterComponent},
+  { path: "LoanMaster", component:  LoanMasterComponent},
   { path: "LoanMaster/:id", component: LoanMasterComponent},
 
   { path: "PositionDash", component: PositionDashComponent},
-  { path: "RoleTypeForm ", component:  RoleTypeFormComponent},
+  { path: "RoleTypeForm", component:  RoleTypeFormComponent},
   { path: "RoleTypeForm/:id", component: RoleTypeFormComponent},
 
   { path: "StateMasterDash", component: StateMasterDashComponent},
-  { path: "StateMaster ", component:  StateMasterComponent},
+  { path: "StateMaster", component:  StateMasterComponent},
   { path: "StateMaster/:id", component: StateMasterComponent},
 
 
