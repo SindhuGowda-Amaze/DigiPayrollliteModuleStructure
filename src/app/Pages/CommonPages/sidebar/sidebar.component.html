@@ -242,12 +242,12 @@
             <a *ngIf="roleid=='6' || roleid=='2' || roleid=='8' ||roleid=='9'" (click)="LOANS()"
                 (click)="highlight($event)">
                 <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
-                    [ngClass]="active != 'Appliedloans' ? 'Active1' : 'Active2'"
+                    [ngClass]="active != 23 ? 'Active1' : 'Active2'"
                     style="width: 13%;  margin-right: 17px;" />
                 <img src="assets/images/64 Blue/ATTENDANCE/Report/Expense Reports.png"
-                    [ngClass]="active == 'Appliedloans' ? 'Active1' : 'Active2'"
+                    [ngClass]="active == 23 ? 'Active1' : 'Active2'"
                     style="width: 13%;  margin-right: 17px;" />
-                <span [ngClass]="active == 'Appliedloans' ? 'Active1' : 'Active3'"> LOANS </span>
+                <span [ngClass]="active == 23 ? 'Active1' : 'Active3'"> LOANS </span>
 
             </a>
 
@@ -1398,7 +1398,7 @@
 
             </a>
 
-            <a (click)="Appliedloans()" (click)="highlight($event)">
+            <!-- <a (click)="Appliedloans()" (click)="highlight($event)">
                 <img src="assets/images/64/ATTENDANCE/Report/Expense Reports.png"
                     [ngClass]="active != 'Appliedloans' ? 'Active1' : 'Active2'"
                     style="width: 13%;  margin-right: 17px;" />
@@ -1407,7 +1407,7 @@
                     style="width: 13%;  margin-right: 17px;" />
                 <span [ngClass]="active == 'Appliedloans' ? 'Active1' : 'Active3'"> LOAN REQUEST </span>
 
-            </a>
+            </a> -->
 
             <a *ngIf="roleid=='2' || roleid=='9' || roleid=='17'" (click)="MyOverTimeDetails()"
                 (click)="highlight($event)">
