@@ -31,7 +31,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
    NgxDropzoneModule,
    NgxPaginationModule,
    Ng2SearchPipeModule,
-  // NgMultiSelectDropDownModule.forRoot()
+   //NgMultiSelectDropDownModule
 
   ],
   exports: [

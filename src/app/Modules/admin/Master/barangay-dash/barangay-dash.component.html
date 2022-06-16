@@ -1,25 +1,30 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-8">
-            <p class="Heading">Barangay Master</p>
-        </div>
-        <div class="col-lg-2"></div>
-        <div class="col-lg-2">
-
-        </div>
+  <div class="row">
+    <div class="col-lg-8">
+      <p class="Heading">Barangay Master</p>
     </div>
-    <div class="card">
-        <div class="row">
-            <div class="col-lg-1">
-                <p>FIlter By</p>
-            </div>
-            <!-- <div clas="col-lg-2">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-2"></div>
+  </div>
+  <div class="card">
+    <div class="row">
+      <div class="col-lg-1">
+        <p>FIlter By</p>
+      </div>
+      <!-- <div clas="col-lg-2">
                 <input type="date" class="form-control">
             </div> -->
-            <div class="col-lg-5">
-                <input type="text" placeholder="Search by barangay.." id="term" [(ngModel)]="term" class="form-control" (ngModelChange)="FilterBarabgay()">
-            </div>
-            <!-- <div class="col-lg-3">
+      <div class="col-lg-5">
+        <input
+          type="text"
+          placeholder="Search by barangay.."
+          id="term"
+          [(ngModel)]="term"
+          class="form-control"
+          (ngModelChange)="FilterBarabgay()"
+        />
+      </div>
+      <!-- <div class="col-lg-3">
                 <div class="dropdown">
                     <select class="form-control inputfield" id="stateID" name="stateID" [(ngModel)]="stateID"
                         (change)="GetFilteredCitiesBystateID()">
@@ -28,66 +33,94 @@
                     </select>
                 </div>
             </div> -->
-            <div class="col-lg-3" style="text-align: center;">
-            </div>
-        </div><br>
-    </div> <br>
-
-    <div class="row">
-        <div class="col-md-10">
-            <p class="show3res">SHOWING <span style="color: black;">{{leavelist.length}} </span>RESULTS</p>
-        </div>
-        <div class="col-md-2">
-            <button class="button" routerLink="/BarangayMaster">Add New</button>
-        </div>
+      <div class="col-lg-3" style="text-align: center"></div>
     </div>
-    <br>
+    <br />
+  </div>
+  <br />
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="container-fluid">
-                <table class="table" *ngIf="(leavelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults" >
-                    <thead>
-                        <tr>
-                            <th>Country Name</th>
-                            <th>Province Name</th>
-                            <th>City Name</th>
-                            <th>Barangay</th>
-                            <th>Action</th>
-
-                        </tr>
-                    </thead>
-
-                    <tr *ngFor="let holiday of leavelist | paginate: { itemsPerPage: count1, currentPage: p}">
-                        <td>{{holiday.countryname}}</td>
-                        <td>{{holiday.statename}}</td>
-                        <td>{{holiday.cityname}}</td>
-                        <td>{{holiday.name}}</td>
-                        <td> <button class="button"
-                                [routerLink]="['/BarangayMaster',holiday.id]">Edit</button>
-                                <br/>
-                            <button class="button" style="margin-top:20px" (click)="DeleteCityType(holiday.id)">Delete</button>
-                        </td>
-                    </tr>
-                </table>
-                <ng-template #noResults>
-                    <div class="card">
-                        <p class="NoResultShow"> No results found </p>
-                    </div>
-                </ng-template>
-                <div class="text-left">
-                    <br>
-         <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
-          </div> 
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-md-10">
+      <p class="show3res">
+        SHOWING <span style="color: black">{{ leavelist.length }} </span>RESULTS
+      </p>
     </div>
+    <div class="col-md-2">
+      <button class="button" routerLink="/BarangayMaster">Add New</button>
+    </div>
+  </div>
+  <br />
 
+  <div class="row">
+    <div class="col-md-12">
+      <div class="container-fluid">
+        <table
+          class="table"
+          *ngIf="
+            (leavelist | paginate: { itemsPerPage: count1, currentPage: p })
+              .length > 0;
+            else noResults
+          "
+        >
+          <thead>
+            <tr>
+              <th>Country Name</th>
+              <th>Province Name</th>
+              <th>City Name</th>
+              <th>Barangay</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+          <tr
+            *ngFor="
+              let holiday of leavelist
+                | paginate: { itemsPerPage: count1, currentPage: p }
+            "
+          >
+            <td>{{ holiday.countryname }}</td>
+            <td>{{ holiday.statename }}</td>
+            <td>{{ holiday.cityname }}</td>
+            <td>{{ holiday.name }}</td>
+            <td>
+              <button
+                class="button"
+                [routerLink]="['/BarangayMaster', holiday.id]"
+              >
+                Edit
+              </button>
+              <br />
+              <button
+                class="button"
+                style="margin-top: 20px"
+                (click)="DeleteCityType(holiday.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </table>
+        <ng-template #noResults>
+          <div class="card">
+            <p class="NoResultShow">No results found</p>
+          </div>
+        </ng-template>
+        <div class="text-left">
+          <br />
+          <pagination-controls
+            (pageChange)=
+            class="poppinns"
+          ></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+</div>
