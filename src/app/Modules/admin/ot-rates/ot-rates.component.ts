@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service'
 import { ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-ot-rates',
@@ -79,7 +77,7 @@ delete(id:any) {
       Swal.fire('Please Select the Record to Modify');
     }
     else {
-      location.href="/OtRatesForm/"+ this.ID;
+      location.href="#/OtRatesForm/"+ this.ID;
     }
   }
 

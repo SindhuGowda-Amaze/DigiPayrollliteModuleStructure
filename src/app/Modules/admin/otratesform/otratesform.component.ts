@@ -76,14 +76,30 @@ export class OtratesformComponent implements OnInit {
  
   };
  
-  this.DigipayrollServiceService.InsertOTRates(json).subscribe(
-     data => {
-     debugger
-     let result = data;
+  this.DigipayrollServiceService.InsertOTRates(json)
+
+  .subscribe({
+    next: data => {
+      debugger
+      let result = data;
     
-     location.href="/admin/OtRates/";
-     Swal.fire("Saved Sucessfully.....!");
+      location.href="/admin/OtRates/";
+      Swal.fire("Saved Sucessfully.....!");
+    }, error: (err) => {
+      Swal.fire('Issue in Getting City Type');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+        () => {
+          debugger
+        },
+      )
+    }
   })
+
  
  
   }
@@ -99,13 +115,29 @@ export class OtratesformComponent implements OnInit {
       "ndot": this.nDOT,
     };
    
-    this.DigipayrollServiceService.UpdateOTRates(json).subscribe(
-      data => {
-      debugger
-      let result = data;
-      location.href="/admin/OtRates/";
-      Swal.fire("Updated Sucessfully.....!");
+    this.DigipayrollServiceService.UpdateOTRates(json)
+
+    .subscribe({
+      next: data => {
+        debugger
+        let result = data;
+        location.href="/admin/OtRates/";
+        Swal.fire("Updated Sucessfully.....!");
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          () => {
+            debugger
+          },
+        )
+      }
     })
+
   }
 
 }
