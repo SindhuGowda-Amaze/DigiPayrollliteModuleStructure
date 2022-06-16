@@ -8,32 +8,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./newcompanyprofile.component.css']
 })
 export class NewcompanyprofileComponent implements OnInit {
-
-  constructor(private ActivatedRoute: ActivatedRoute, private DigipayrollserviceService: DigipayrollserviceService) { }
   Countrylist:any;
   subsidiaryName:any;
-  ngOnInit(): void {
-
-    this.ActivatedRoute.params.subscribe(params=>{
-      debugger
-       this.id=params["id"];
-       if(this.id!=null&&this.id!=undefined){  
-         debugger
-      this.GetCompanyProfile();
-      this.GetCompany_PayrollComputation();
-      this.GetCompanyWorkPolicy();
-      this.GetCompanyTaxComputation();
-      this.GetCompany_GovernmentComputation();
-    
-       }
-      })
-
-
-      this.DigipayrollserviceService.GetCountryType().subscribe(data => {
-        debugger
-        this.Countrylist = data
-      })
-  }
   result: any;
   count: any;
   Company_logo : any;
@@ -207,8 +183,83 @@ ComputationBonus : any;
 ComputationSalary : any;
 ComputationCommission : any;
 OT_Rates_DH : any;
-ComputationECOLA : any
+ComputationECOLA : any;
 
+monday:any;
+tuesday:any;
+wednesday:any;
+thursday:any;
+friday:any;
+saturday:any;
+sunday:any;
+
+ord_ot: any;
+ord_nd: any;
+ord_nd_ot: any;
+rd: any;
+rd_ot: any;
+rd_nd: any;
+rd_nd_ot: any;
+sh: any;
+sh_ot: any;
+sh_nd: any;
+sh_nd_ot: any;
+lh: any;
+lh_ot: any;
+lh_nd: any;
+lh_nd_ot: any;
+sh_rd: any;
+sh_rd_ot: any;
+sh_rd_nd: any;
+sh_rd_nd_ot: any;
+lh_rd: any;
+lh_rd_ot: any;
+lh_rd_nd: any;
+lh_rd_nd_ot: any;
+dh: any;
+dh_ot: any;
+dh_nd: any;
+dh_nd_ot: any;
+dh_rd: any;
+dh_rd_ot: any;
+dh_rd_nd: any;
+dh_rd_nd_ot: any;
+Absent_Deduction_Bonus:any;
+Late_Deduction_Basic_Salary:any;
+Late_Deduction_Bonus:any;
+CompanyId:any;
+Basic_Salary:any;
+companyid1:any;
+AdminSignature:any;
+  currentUrl: any;
+
+
+  constructor(private ActivatedRoute: ActivatedRoute, private DigipayrollserviceService: DigipayrollserviceService) { }
+ 
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+
+    this.ActivatedRoute.params.subscribe(params=>{
+      debugger
+       this.id=params["id"];
+       if(this.id!=null&&this.id!=undefined){  
+         debugger
+      this.GetCompanyProfile();
+      this.GetCompany_PayrollComputation();
+      this.GetCompanyWorkPolicy();
+      this.GetCompanyTaxComputation();
+      this.GetCompany_GovernmentComputation();
+    
+       }
+      })
+
+
+      this.DigipayrollserviceService.GetCountryType().subscribe(data => {
+        debugger
+        this.Countrylist = data
+      })
+  }
+  
 
   GetCompanyProfile() {
     debugger
@@ -248,7 +299,7 @@ ComputationECOLA : any
     this.AdminSignature = this.result[0].finance_AuthorisedPerson_Signature,
     this.HRSignature = this.result[0].hR_AuthorisedPerson_Signature
     this.getstate();
-    this.getcity()
+    this.getcity();
 
     
               
@@ -258,7 +309,7 @@ ComputationECOLA : any
     )
   }
 
-  getstate()
+ public getstate()
   {
     this.DigipayrollserviceService.GetStateType().subscribe(data => {
       debugger
@@ -421,49 +472,6 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
 
 
 
-  monday:any;
-  tuesday:any;
-  wednesday:any;
-  thursday:any;
-  friday:any;
-  saturday:any;
-  sunday:any;
- 
-  ord_ot: any;
-  ord_nd: any;
-  ord_nd_ot: any;
-  rd: any;
-  rd_ot: any;
-  rd_nd: any;
-  rd_nd_ot: any;
-  sh: any;
-  sh_ot: any;
-  sh_nd: any;
-  sh_nd_ot: any;
-  lh: any;
-  lh_ot: any;
-  lh_nd: any;
-  lh_nd_ot: any;
-  sh_rd: any;
-  sh_rd_ot: any;
-  sh_rd_nd: any;
-  sh_rd_nd_ot: any;
-  lh_rd: any;
-  lh_rd_ot: any;
-  lh_rd_nd: any;
-  lh_rd_nd_ot: any;
-  dh: any;
-  dh_ot: any;
-  dh_nd: any;
-  dh_nd_ot: any;
-  dh_rd: any;
-  dh_rd_ot: any;
-  dh_rd_nd: any;
-  dh_rd_nd_ot: any;
- 
-
- 
- companyid1:any;
  
    onSave(){
     var json = {
@@ -506,9 +514,7 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
        })
    }
  
-   CompanyId:any;
-
-   Basic_Salary:any;
+ 
    InsertCompany_WorkPolicy(){
      var json = {
        "CompanyId": this.companyid1,
@@ -528,9 +534,7 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
       })
    }
 
-   Absent_Deduction_Bonus:any
-   Late_Deduction_Basic_Salary:any
-   Late_Deduction_Bonus:any
+  
    InsertCompany_PayrollComputation(){
      var json={
       Periods_Per_Month:this.Periods_Per_Month,
@@ -909,7 +913,7 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
       console.log("content", this.files);
     }
   
-    AdminSignature:any;
+   
     onRemove(event:any)
     {
   debugger

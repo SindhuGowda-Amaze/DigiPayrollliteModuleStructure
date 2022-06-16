@@ -4,12 +4,17 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { SharedModule } from '../shared/shared.module';
-import { DepartmentComponent } from './Setup/department/department.component';
+import { DepartmentComponent } from './Master/department/department.component';
+import { OtRatesComponent } from './ot-rates/ot-rates.component';
+import { TaxTableComponent } from './tax-table/tax-table.component';
+import { OtratesformComponent } from './otratesform/otratesform.component';
+
+
 import { BankComponent } from './Setup/bank/bank.component';
 import { PayGroupComponent } from './Setup/pay-group/pay-group.component';
 import { NewcompanyprofileComponent } from './Setup/newcompanyprofile/newcompanyprofile.component';
 import { CompanyDashboardComponent } from './Setup/company-dashboard/company-dashboard.component';
-import { DepartmentFormComponent } from './Setup/department-form/department-form.component';
+import { DepartmentFormComponent } from './Master/department-form/department-form.component';
 import { BankFormComponent } from './Setup/bank-form/bank-form.component';
 import { PayGroupFormComponent } from './Setup/pay-group-form/pay-group-form.component';
 import { AnnouncementDashboardComponent } from './Master/announcement-dashboard/announcement-dashboard.component';
@@ -27,10 +32,15 @@ import { BarangayMasterComponent } from './Master/barangay-master/barangay-maste
 import { LoanMasterDashComponent } from './Master/loan-master-dash/loan-master-dash.component';
 import { LoanMasterComponent } from './Master/loan-master/loan-master.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { HolidayDashboardComponent } from './holiday-dashboard/holiday-dashboard.component';
+import { HolidayFormComponent } from './holiday-form/holiday-form.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
+    OtRatesComponent,
+    TaxTableComponent,
+    OtratesformComponent,
     DepartmentComponent,
     BankComponent,
     PayGroupComponent,
@@ -53,6 +63,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     BarangayMasterComponent,
     LoanMasterDashComponent,
     LoanMasterComponent,
+    HolidayDashboardComponent,
+    HolidayFormComponent,
   ],
   imports: [
     CommonModule,

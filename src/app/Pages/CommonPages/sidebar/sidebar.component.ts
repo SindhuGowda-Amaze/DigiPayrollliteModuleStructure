@@ -184,14 +184,15 @@ export class SidebarComponent implements OnInit {
   public OtRates() {
     debugger
     localStorage.setItem('clickname', 'OT RATES')
-    this.router.navigate(['/OtRates']);
+    this.router.navigate(['/admin/OtRates']);
   }
-  public TaxTable() {
-    debugger
-    this.active = 6;
-    localStorage.setItem('clickname', 'TAXTABLE')
-    this.router.navigate(['/TaxTable']);
-  }
+  
+  // public TaxTable() {
+  //   debugger
+  //   this.active = 'TaxTable';
+  //   localStorage.setItem('clickname', 'TAXTABLE')
+  //   this.router.navigate(['/admin/TaxTable']);
+  // }
 
   public BarangayMaster() {
     debugger
@@ -782,7 +783,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'OTRATES';
     localStorage.setItem('clickname', 'OT RATES')
-    this.router.navigate(['/OtRates']);
+    this.router.navigate(['/admin/OtRates']);
   }
 
   REFERENCES() {
@@ -886,7 +887,7 @@ export class SidebarComponent implements OnInit {
 
   public Positionmasterdash() {
     debugger
-    this.active = 19;
+    this.active = 111;
     localStorage.setItem('clickname', 'Positionmasterdash')
     this.router.navigate(['/admin/PositionDash']);
 
@@ -942,7 +943,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'TaxTable';
     localStorage.setItem('clickname', 'ANNUAL TAX TABLE')
-    this.router.navigate(['/TaxtableAnnual']);
+    this.router.navigate(['/admin/TaxTable']);
   }
 
   public Overtimesummaryperemployee() {

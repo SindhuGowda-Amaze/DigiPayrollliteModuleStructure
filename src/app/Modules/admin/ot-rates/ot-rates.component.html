@@ -1,0 +1,93 @@
+<div class="container-fluid">
+
+       
+    <div class="row">
+        <div class="col-lg-12">
+            <p  class="Heading1">OT Rates</p>
+            <!-- <hr class="HrLine"> -->
+        </div>
+    </div> 
+    <!-- <div class="row FilterClass">
+        <div class="col-lg-2">
+            Filter By
+        </div>
+        <div class="col-lg-2 ">
+            <input class="form-control" type="date" placeholder="Duration">
+        </div>
+        <div class="col-lg-6">
+            <input class="form-control" type="search" placeholder="Search for date , Type or Code">
+        </div>
+    </div><br> -->
+    <div class="row">
+        <div class="col-lg-8 View">
+         <ul>
+                <!-- <li><a class="active">View</a></li> -->
+                <li><a (click)="update()">Modify</a></li>
+            </ul> 
+        </div> 
+
+        <div class="col-lg-4">
+            <button class="AddButton" routerLink="/admin/OtRatesForm">Add</button>
+        </div> 
+    </div> <br>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table">
+                    <thead>
+                        <tr class="newFont">
+                            <th class="SelectData">Select</th>
+                            <th>Day</th>
+                            <!-- <th>Normal</th> -->
+                            <th>RATES</th>
+                            <th>NORMAL</th>
+                            <th>Actions</th>
+                          
+                        <tr>
+                    </thead>
+                    <tbody>
+                        <tr class="newFont" *ngFor="let application of Otlist">
+                            <td class="SelectData "  (click)="GetId(application.id)"><input type="checkbox"></td>
+                            <td style="color:#0C275A">{{application.day}}</td>
+                            <!-- <td style="color:#0C275A">{{application.normal}}</td> -->
+                            <td style="color:#0C275A">{{application.ot}}</td>
+                            <td style="color:#0C275A">{{application.normal}}</td> 
+                            <td style="color:#0C275A"><img class="imgcancel" src="assets/cancel (1).png" (click)="delete(application.id)"></td>
+                        </tr>
+                        <!-- <tr class="newFont">
+                            <td class="SelectData"><input type="checkbox"></td>
+                            <td>Rest Day</td>
+                            <td>1.300</td>
+                            <td>1.690</td>
+                            <td>1.430</td>
+                            <td>1.859</td>
+                            <td><img class="imgcancel" src="/assets/cancel (1).png"></td>
+                        </tr>
+                        <tr class="newFont">
+                            <td class="SelectData"><input type="checkbox"></td>
+                            <td>Legal Holiday Day</td>
+                            <td>1.000</td>
+                            <td>2.600</td>
+                            <td>1.200</td>
+                            <td>2.860</td>
+                            <td><img class="imgcancel" src="/assets/cancel (1).png"></td>
+                        </tr>
+                        <tr class="newFont">
+                            <td class="SelectData"><input type="checkbox"></td>
+                            <td>Double Holiday Day</td>
+                            <td>2.000</td>
+                            <td>3.900</td>
+                            <td>3.300</td>
+                            <td>4.290</td>
+                            <td><img class="imgcancel" src="/assets/cancel (1).png"></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+</div>

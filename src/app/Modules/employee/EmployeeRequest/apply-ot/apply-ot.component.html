@@ -1,0 +1,113 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul>
+                        <li><button class="active form-control">
+                                <a routerLink="/MyOverTimeDetails" class="BackEnt"><span class="BACK">&#8592;</span></a>
+                            </button></li>
+
+                        <li><a class="Heading">New Request</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-8"></div>
+            </div>
+            <br>
+            <div class="card">
+                <div>
+                    <label class="Heading">Over Time Request</label>
+                </div>
+                <hr>
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <p> Date<span style="color: red;">*</span></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Start Time<span style="color: red;">*</span></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>End Time<span style="color: red;">*</span></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Normat OT<span style="color: red;">*</span></p>
+                    </div>
+
+
+                </div>
+
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <input type="date" id="Date" name="Date" [(ngModel)]="Date" class="form-control inputfield"
+                            max="{{maxdate}}">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="time" class="form-control" placeholder="Leave Code" name="starttime"
+                            [(ngModel)]="starttime" id="starttime" min="{{maxdate}}">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="time" (change)="duration()" class="form-control" placeholder="Leave Code"
+                            name="endtime" [(ngModel)]="endtime" id="endtime">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" disabled="true" class="form-control" placeholder="ot" name="ot"
+                            [(ngModel)]="ot" id="ot">
+                    </div>
+
+                </div>
+
+                <br />
+                <br />
+
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <p>Night OT<span style="color: red;">*</span></p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <p>Attachment</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Comments</p>
+                    </div>
+
+                </div>
+                <div class="row leavereq">
+
+                    <div class="col-md-3">
+                        <input type="text" disabled="true" class="form-control" placeholder="nightot" name="nightot"
+                            [(ngModel)]="nightot" id="nightot">
+                    </div>
+                    <div class="col-md-3">
+                        <ngx-dropzone (change)="onSelect21($event)" style="height: 130px;">
+                            <ngx-dropzone-label>Drop Files here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of attachments21" [removable]="true"
+                                (removed)="onRemove21(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+
+                    </div>
+                    <div class="col-md-3">
+                        <textarea rows="3" id="Comments" name="Comments" [(ngModel)]="Comments" type="text"
+                            placeholder="Comments" class="form-control inputfield"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-7"></div>
+                    <div class="col-lg-2">
+                        <button class="form-control newrequest" (click)="cancel()">Cancel</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="form-control newrequest" (click)="Save()" *ngIf="showbtn">Submit</button>
+                    </div>
+
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<br />

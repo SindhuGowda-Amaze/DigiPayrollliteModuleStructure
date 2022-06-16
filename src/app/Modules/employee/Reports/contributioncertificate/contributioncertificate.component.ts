@@ -15,12 +15,6 @@ export class ContributioncertificateComponent implements OnInit {
   showsss:any;
   showPhilhealth:any;
   showPagibig:any;
-  constructor(public DigiofficeService: DigipayrollserviceService, private datePipe: DatePipe) {
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.myDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate() + 7);
-    this.bsRangeValue = [this.bsValue, this.maxDate];
-  }
   search:any;
   stafflist: any;
   term: any;
@@ -36,6 +30,81 @@ export class ContributioncertificateComponent implements OnInit {
   
   p: any = 1;
   count1: any = 10;
+  uniquelist:any;
+
+
+  year:any;
+  month:any;
+  sssrate:any;
+  ss_ec:any;
+  ss_er:any;
+  startmonth:any;
+  endmonth:any;
+  startyear:any;
+  endyear:any;
+  myDate:any;
+  companylist:any;
+  companyname:any;
+  Address:any;
+  fullname:any;
+  paginigec:any;
+  dob:any;
+  PhilHealthEC:any;
+  joiningdate:any;
+  PhilHealth:any;
+  employeemonth:any;
+  emplyeeYear:any;
+  sssno:any;
+  philhealthno:any;
+  pagibigid:any;
+  govtlist:any;
+  results:any;
+  receiptnumber:any;
+  datepaid123:any;
+
+  companyid:any;
+
+  numWords:any;
+  amountInWords:any;
+  Phone:any;
+  email:any;
+  zipcode:any;
+  tin:any;
+  govtlist1:any;
+  employeelist1:any;
+  results1:any;
+  pagidatepaid123:any;
+  pagireceiptnumber:any;
+  logo:any;
+  SSN_No:any;
+  HDMFNumber:any;
+  govtlist2:any;
+  employeelist2:any;
+  results2:any;
+  philreceiptnumber:any;
+  phildatepaid123:any;
+  compphil:any;
+  showss:any;
+  sign:any;
+department:any;
+signname:any;
+stafflist1:any;
+Signature:any;
+// sign:any;
+// department:any;
+// signname:any;
+// stafflist1:any;
+// Signature:any;
+title:any;
+title1:any;
+  
+  constructor(public DigiofficeService: DigipayrollserviceService, private datePipe: DatePipe) {
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.myDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 7);
+    this.bsRangeValue = [this.bsValue, this.maxDate];
+  }
+
   ngOnInit(): void {
     this.month="";
     this.year="";
@@ -235,61 +304,7 @@ public showphilhealth(){
 }
  
 
-  uniquelist:any;
 
-
-  year:any;
-  month:any;
-  sssrate:any;
-  ss_ec:any;
-  ss_er:any;
-  startmonth:any;
-  endmonth:any;
-  startyear:any;
-  endyear:any;
-  myDate:any;
-  companylist:any;
-  companyname:any;
-  Address:any;
-  fullname:any;
-  paginigec:any;
-  dob:any;
-  PhilHealthEC:any;
-  joiningdate:any;
-  PhilHealth:any;
-  employeemonth:any;
-  emplyeeYear:any;
-  sssno:any;
-  philhealthno:any;
-  pagibigid:any;
-  govtlist:any;
-  results:any;
-  receiptnumber:any;
-  datepaid123:any;
-
-  companyid:any;
-
-  numWords:any;
-  amountInWords:any;
-  Phone:any;
-  email:any;
-  zipcode:any;
-  tin:any;
-  govtlist1:any;
-  employeelist1:any;
-  results1:any;
-  pagidatepaid123:any;
-  pagireceiptnumber:any;
-  logo:any;
-  SSN_No:any;
-  HDMFNumber:any;
-  govtlist2:any;
-  employeelist2:any;
-  results2:any;
-  philreceiptnumber:any;
-  phildatepaid123:any;
-  compphil:any;
-  showss:any;
   
   public getempdetails(){
 
@@ -646,18 +661,7 @@ public getpagibig(){
   
 }
 
-sign:any;
-department:any;
-signname:any;
-stafflist1:any;
-Signature:any;
-// sign:any;
-// department:any;
-// signname:any;
-// stafflist1:any;
-// Signature:any;
-title:any;
-title1:any;
+
 public getsign(){
   this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
     debugger

@@ -29,13 +29,13 @@
         <br>
         <br>
         <div class="row">
-            <div class="col-lg-9"></div>
-            <div class="col-lg-1">
-                <button class="button" (click)="Cancel()">CANCEL</button>
+            <div class="col-lg-8"></div>
+            <div class="col-lg-2">
+                <button class="button" (click)="Cancel()" style="width:100%">CANCEL</button>
             </div>
             <div class="col-lg-2">
-                <button type="button" class="button" *ngIf="ID!=undefined" (click)="UpdateRoleType()">UPDATE</button>
-                <button class="button" *ngIf="ID==undefined" (click)="InsertRoleType()">SUBMIT</button>
+                <button type="button" class="button" *ngIf="ID!=undefined" (click)="UpdateRoleType()" style="width:100%">UPDATE</button>
+                <button class="button" *ngIf="ID==undefined" (click)="InsertRoleType()" style="width:100%">SUBMIT</button>
             </div>
         </div>
     </div>

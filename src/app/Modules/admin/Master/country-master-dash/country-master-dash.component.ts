@@ -5,28 +5,29 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-country-master-dash',
   templateUrl: './country-master-dash.component.html',
-  styleUrls: ['./country-master-dash.component.css']
+  styleUrls: ['./country-master-dash.component.css'],
 })
 export class CountryMasterDashComponent implements OnInit {
-
-
-
-  constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
-  ngOnInit(): void {
-    this.GetCountryType();
-  }
   term: any;
-  leavelist: any
+  leavelist: any;
   p: any = 1;
   count1: any = 10;
-  jobListCopy:any;
+  jobListCopy: any;
+  currentUrl: any;
+
+  constructor(public DigipayrollserviceService: DigipayrollserviceService) {}
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+    this.GetCountryType();
+  }
+
   public GetCountryType() {
-    debugger
-    this.DigipayrollserviceService.GetCountryType().subscribe(data => {
-      debugger
+    debugger;
+    this.DigipayrollserviceService.GetCountryType().subscribe((data) => {
+      debugger;
       this.leavelist = data;
-      this.jobListCopy = this.leavelist;  
-    })
+      this.jobListCopy = this.leavelist;
+    });
   }
 
   // public DeleteCountryType(ID:any) {
@@ -38,36 +39,34 @@ export class CountryMasterDashComponent implements OnInit {
   //   })
   // }
 
-
-
   public FilterCountry() {
-    debugger
+    debugger;
     let searchCopy = this.term.toLowerCase();
-    this.leavelist = this.jobListCopy.filter((x: { short: string}) => x.short.toLowerCase().includes(searchCopy))
+    this.leavelist = this.jobListCopy.filter((x: { short: string }) =>
+      x.short.toLowerCase().includes(searchCopy)
+    );
   }
-
 
   public DeleteCountryType(ID: any) {
     Swal.fire({
       title: 'Are You Sure ',
-      text: "Do you want to delete the Selected Record",
+      text: 'Do you want to delete the Selected Record',
       icon: 'warning',
       // icon: 'success',
       showCloseButton: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
     }).then((result) => {
-
       if (result.isConfirmed) {
-        debugger
+        debugger;
         this.DigipayrollserviceService.DeleteCountryType(ID).subscribe(
-          data => {
-
-            location.reload()
-          })
-        Swal.fire('Deleted Successfully...!')
+          (data) => {
+            location.reload();
+          }
+        );
+        Swal.fire('Deleted Successfully...!');
         location.reload();
       }
     });

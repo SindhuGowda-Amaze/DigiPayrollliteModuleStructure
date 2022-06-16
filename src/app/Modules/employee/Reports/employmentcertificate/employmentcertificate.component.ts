@@ -13,12 +13,6 @@ export class EmploymentcertificateComponent implements OnInit {
   showsss:any;
   showPhilhealth:any;
   showPagibig:any;
-  constructor(public DigiofficeService: DigipayrollserviceService, private datePipe: DatePipe) {
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.myDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate() + 7);
-    this.bsRangeValue = [this.bsValue, this.maxDate];
-  }
   search:any;
   stafflist: any;
   term: any;
@@ -89,6 +83,27 @@ export class EmploymentcertificateComponent implements OnInit {
   
   p: any = 1;
   count1: any = 10;
+
+  orgovtlist:any;
+  oremployeelist:any;
+  orresults:any;
+  role:any;
+
+  sign:any;
+  department:any;
+  signname:any;
+  stafflist1:any;
+  Signature:any;
+  title:any;
+  title1:any;
+
+  constructor(public DigiofficeService: DigipayrollserviceService, private datePipe: DatePipe) {
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.myDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 7);
+    this.bsRangeValue = [this.bsValue, this.maxDate];
+  }
+  
   ngOnInit(): void {
     this.month="";
     this.year="";
@@ -166,10 +181,7 @@ export class EmploymentcertificateComponent implements OnInit {
     this.enddate = event.target.value;
 
   }
-  orgovtlist:any;
-  oremployeelist:any;
-  orresults:any;
-  role:any;
+
  
   public getorrecords(){
 
@@ -189,13 +201,7 @@ export class EmploymentcertificateComponent implements OnInit {
 
   }
 
-  sign:any;
-department:any;
-signname:any;
-stafflist1:any;
-Signature:any;
-title:any;
-title1:any;
+
 public getsign(){
   this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
     debugger

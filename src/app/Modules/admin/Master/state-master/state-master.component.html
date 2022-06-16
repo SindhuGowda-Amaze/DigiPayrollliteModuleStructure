@@ -66,11 +66,11 @@
                 </div>
  
                 <div class="row">
-                    <div class="col-lg-10"></div>
-                    <div class="col-lg-1">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
                         <button class="form-control EditDelteBTN" routerLink='/admin/StateMasterDash'>Cancel</button>
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <button type="button" class="form-control EditDelteBTN" *ngIf="ID!=undefined"
                         (click)="UpdateStateType()">Update</button>
                     <button class="form-control EditDelteBTN" *ngIf="ID==undefined" (click)="InsertStateType()">Submit</button>

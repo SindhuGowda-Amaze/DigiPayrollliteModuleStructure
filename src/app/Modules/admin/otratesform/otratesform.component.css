@@ -1,27 +1,25 @@
 .SubmitBTN{
-    background-color: #3247D5;
+
     color: white;
     cursor: pointer;
-    font-weight: bold;
-    width: 80%;
-
+    background-color: #3247D5;
+    border:none;
 }
 
 .SubmitBTN:hover {background-color: #28a745;}
 
 .CancelBTN{
     color: white;
-    cursor: pointer;   
-    font-weight: bold;
+    cursor: pointer;
     background-color: #3247D5;
-    width: 80%;
+    border:none;
+}
+
+.new{
+    color:#0C275A;
 }
 
 
-/* .card{
-    padding: 20px;
-    border-radius: 0px;
-} */
 
 .BOXCARD{
     position: relative;
@@ -36,9 +34,10 @@
     border-bottom-right-radius: 5px;
 }
 
-/* th{
+
+th{
     background-color: #e4e5e6;
-} */
+}
 .dropdown-toggle{
     text-align: left;
 }
@@ -49,23 +48,16 @@
     margin-top: -20px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    font-size: 15px;
-    font-weight: bold;
-    background-color:#02CFFF ;
+    background-color: #02CFFF;
     color:white;
     
 }
 
-.leavereq{
-    font-size: 12px;
-    font-weight: bold;
-}
-
 .FormHeadText{
-    color:#3247D5;
-    font-size: 15px !important;
+    color: #494949 !important;
+    font-size: 20px !important;
     font-weight: bold;
-    margin-left: 5px;
+    /* margin-left: 5px; */
     margin-top: 25px;
     margin-bottom: 0px;
 }
@@ -73,6 +65,19 @@
 /* body{
     color: #494949 !important;
 } */
-.inputfield{
-    background-color: #f2f2f2;
+
+.new{
+    background-color:#02CFFF ;
 }
+.fontheading{
+    font-size: 14px;
+    font-weight: bold;
+    color:#3247D5;
+    }
+    .fonttxt{
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .inputfeild{
+        background-color: #f2f2f2;
+    }

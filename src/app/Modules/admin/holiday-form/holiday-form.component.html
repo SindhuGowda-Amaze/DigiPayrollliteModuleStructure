@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-11">
+                <p class="Heading headingcolor">Holiday Form</p>
+            </div>
+        </div>
+        <!-- <div class="row LocDashboard">
+                <div class="col-lg-12">
+                    <label style="padding-left: 10px;">Add Holiday</label>
+                </div>
+            </div> -->
+        <div class="card">
+            <div class="row leavereq">
+                <div class="col-md-2">
+                    <label>Type<span class="span">*</span></label>
+                </div>
+                <div class="col-md-2">
+                    <label>Holiday<span class="span">*</span></label>
+                </div>
+                <div class="col-md-3">
+                    <label>Holiday Description<span class="span">*</span></label>
+                </div>
+                <div class="col-md-2">
+                    <p>Holiday Date<span class="span">*</span></p>
+                </div>
+              
+
+            </div>
+
+
+            <br>
+            <div class="row leavereq">
+                <div class="col-md-2">
+                    <select class="form-control inputfield" id="HolidayCategory" name="HolidayCategory" [(ngModel)]="HolidayCategory">
+                        <option value="0">Select Type </option>
+                        <option value="General Holiday ">Legal Holiday</option>
+                        <option value="Special Holiday">Special Holiday </option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" placeholder="Holiday Name" placeholder="Holiday"
+                        [(ngModel)]="Holiday" name="Holiday" id="Holiday">
+                </div>
+                <div class="col-md-3">
+                    <textarea rows="3" type="text" class="form-control" placeholder="Holiday Description"
+                        [(ngModel)]="HolidayDescription" name="HolidayDescription" id="Holiday Description"></textarea>
+                </div>
+
+                <div class="col-md-2">
+                    <input type="date" class="form-control" placeholder="HolidayDate" name="HolidayDate"
+                        id="HolidayDate" [(ngModel)]="HolidayDate">
+                </div>
+               
+            </div>
+            <br>
+            <div class="row leavereq">
+                <div class="col-md-3">
+                    <p>Attachment<span class="span">*</span></p>
+                </div>
+
+            </div>
+            <div class="row leavereq">
+                <div class="col-md-3">
+                    <ngx-dropzone (change)="onSelect21($event)" style="height: 130px;">
+                        <ngx-dropzone-label>Drop Files here!</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of attachments21" [removable]="true"
+                            (removed)="onRemove21(f)">
+                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </div>
+                <div class="col-lg-2" *ngIf="ID!=undefined">
+                    <img src="{{attachment}}" style="width:100px;height: 50px;">
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-lg-8"></div>
+                <div class="col-lg-2">
+                    <button type="button" class="button" *ngIf="ID!=undefined"
+                        (click)="update()" style="width:100%">Update</button>
+                    <button class="button" *ngIf="ID==undefined" (click)="Save()" style="width:100%">Submit</button>
+                </div>
+                <div class="col-lg-2">
+                    <button class="button" routerLink='/admin/HolidayDashboard' style="width:100%">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
