@@ -8,13 +8,19 @@ import Swal from 'sweetalert2';
   styleUrls: ['./loan-master-dash.component.css']
 })
 export class LoanMasterDashComponent implements OnInit {
+  term: any;
+  leavelist: any;
+
+  ID:any;
+  currentUrl: any;
+
 
   constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.GetLoanMaster();
   }
-  term: any;
-  leavelist: any
+  
   public GetLoanMaster() {
     debugger
     this.DigipayrollserviceService.GetLoanMaster().subscribe(data => {
@@ -23,7 +29,6 @@ export class LoanMasterDashComponent implements OnInit {
     })
   }
 
-  ID:any;
   GetId(id: any) {
     this.ID = id
   }

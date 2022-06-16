@@ -1,0 +1,151 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5 Heading">
+            <p class="Heading">Expense Request</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10"></div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="row leavereq">
+            <!-- <div class="col-md-2">
+                <label>Project<span class="span">*</span></label>
+            </div> -->
+            <div class="col-md-2">
+                <label>Expense Type<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2" *ngIf="showbenefits">
+                <label>Employee Benefits<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>Date<span class="span" style="color: red;">*</span></label>
+            </div>
+          
+            <div class="col-md-2">
+                <label>Currency<span class="span" style="color: red;">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>Amount<span style="color: red;">*</span></label>
+            </div>
+            <div class="col-md-3">
+                <label>Comments<span style="color: red;">*</span></label>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <!-- <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Test">
+            </div> -->
+            <!-- <div class="col-md-2">
+                <div class="dropdown">
+                    <ng-multiselect-dropdown [placeholder]="'Select Project'" [settings]="dropdownSettings"
+                        [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)">
+                    </ng-multiselect-dropdown>
+                 
+                </div>
+            </div> -->
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <select class="dropdown form-control" [(ngModel)]="ExpenceType" id="ExpenceType" name="ExpenceType"
+                        (change)="getExpenseType()" required>
+                        <option value="">Select Expense Head</option>
+                        <option *ngFor="let expense of expenselist" value="{{expense.id}}">{{expense.expencesName}}
+                        </option>
+                    </select>
+                    <!-- <select class="form-control inputfield">
+                        <option value="Select">Expenses Type</option>
+                        <option value="1">Cab Allowance</option>
+                        <option value="2">Currency Allowance</option>
+                        <option value="3">Fuel Allowance</option>
+                        <option value="4">Medical Allowance</option>
+                        <option value="4">Food Allowance</option>
+                    </select> -->
+                </div>
+            </div>
+            <div class="col-md-2" *ngIf="showbenefits">
+                <div class="dropdown">
+                    <ng-multiselect-dropdown [placeholder]="'Select Benefits'" [settings]="dropdownSettings1"
+                        [data]="dropdownList1" [(ngModel)]="selectedItems1" (onSelect)="onItemSelect1($event)"
+                        (onSelectAll)="onSelectAll1($event)">
+                    </ng-multiselect-dropdown>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="date" class="form-control" name="Date" id="Date" [(ngModel)]="Date" max="{{maxdate}}">
+            </div>
+            <!-- <div class="col-md-2">
+                <input type="text" class="form-control" [(ngModel)]="ExpenceLocation" placeholder="Expense Location"
+                    name="Expense Location" id="Expense Location">
+            </div> -->
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <select class="form-control inputfield" [(ngModel)]="Currency" id="Currency" name="Currency">
+                        <option value="">Select Currency</option>
+                        <option *ngFor="let currency of currencylist" value="{{currency.currency}}">
+                            {{currency.currency}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Amount" [(ngModel)]="ExpenceAmount"
+                    id="Expense Amount" name="ExpenceAmount" (ngModelChange)="checkexpenseamoount($event)">
+            </div>
+            <div class="col-md-3">
+                <textarea type="text" class="form-control" [(ngModel)]="Comments" id="Comments" name="Comments"
+                    placeholder="Write Comments"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row leavereq">
+           
+            <!-- <div class="col-md-2">
+                <label>Approver<span style="color: red;">*</span></label>
+            </div> -->
+            
+            <div class="col-md-2">
+                <label>Attachment<span style="color: red;">*</span></label>
+            </div>
+        </div>
+        <div class="row leavereq">
+            
+            <!-- <div class="col-md-2">
+                <div class="dropdown">
+                    <select class="form-control inputfield" [(ngModel)]="Supervisor" id="Supervisor" name="Supervisor">
+                        <option value="">Select Approver</option>
+                        <option *ngFor="let supervisor of supervisorlist" value="{{supervisor.name}}">{{supervisor.name}}</option>
+                    </select>
+                </div>
+            </div> -->
+           
+            <div class="col-md-2">
+                <ngx-dropzone (change)="onSelect21($event)" style="height: 130px;">
+                    <ngx-dropzone-label>Drop Files here!</ngx-dropzone-label>
+                    <ngx-dropzone-preview *ngFor="let f of attachments21" [removable]="true" (removed)="onRemove21(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+                </ngx-dropzone>
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-2">
+                <button class="button" (click)="Cancel()">Cancel</button>
+            </div>
+            <div class="col-lg-2">
+                <button class="button" (click)="Save()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

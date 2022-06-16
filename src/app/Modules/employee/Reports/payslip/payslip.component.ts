@@ -11,10 +11,6 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./payslip.component.css']
 })
 export class PayslipComponent implements OnInit {
-
- 
-  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
-
   result:any;
   Company_logo:any;
   employeelist:any;
@@ -25,59 +21,8 @@ export class PayslipComponent implements OnInit {
   Company_Name:any;
   company_logo:any;
   Company_logo1:any;
-  ngOnInit(): void {
-    this.Year="";
-    this.month="";
-    this.payrolltype="";
-    this.staffid=sessionStorage.getItem('staffid')
-    this.roleid = sessionStorage.getItem('roledid');
-    this.GetPayGroup();
-
-
-    this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(
-      data => {
-        debugger
-        this.result = data;
-        this.Company_Name=this.result[0].company_Name
-        this.company_logo = this.result[0].company_logo
-      })
-
-
-    
-  
-      this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-        debugger
-        this.employeelist = data.filter(x=>x.id == this.staffid);
-        const key = 'startdate';
-  
-        this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-          [item[key], item])).values()];
-        //  this.uniquelist = [...new Set(data.map(item => item))];
-       
-      });
-   
-    
-
-
-
-  
-   
-
-
-
-  }
-
   employeelist1:any;
   payrolltype:any;
-  public getemployeelist(startdate:any,enddate:any,payrolltype:any){
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist2 = data.filter(x=>x.startdate==startdate && x.enddate==enddate && x.payrolltype == payrolltype );
-      this.payrolltype=payrolltype
-    }
-   
-    )
-  }
   fullname:any;
   payrolldate:any;
   datecovered:any;
@@ -191,6 +136,66 @@ export class PayslipComponent implements OnInit {
   RedundancyPay:any;
   RetranchmentPay:any;
   undertimehours:any;
+  tomail:any;
+  subject:any;
+  message:any;
+ 
+  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+
+
+  ngOnInit(): void {
+    this.Year="";
+    this.month="";
+    this.payrolltype="";
+    this.staffid=sessionStorage.getItem('staffid')
+    this.roleid = sessionStorage.getItem('roledid');
+    this.GetPayGroup();
+
+
+    this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(
+      data => {
+        debugger
+        this.result = data;
+        this.Company_Name=this.result[0].company_Name
+        this.company_logo = this.result[0].company_logo
+      })
+
+
+    
+  
+      this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
+        debugger
+        this.employeelist = data.filter(x=>x.id == this.staffid);
+        const key = 'startdate';
+  
+        this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+        //  this.uniquelist = [...new Set(data.map(item => item))];
+       
+      });
+   
+    
+
+
+
+  
+   
+
+
+
+  }
+
+
+  public getemployeelist(startdate:any,enddate:any,payrolltype:any){
+    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
+      debugger
+      this.employeelist2 = data.filter(x=>x.startdate==startdate && x.enddate==enddate && x.payrolltype == payrolltype );
+      this.payrolltype=payrolltype
+    }
+   
+    )
+  }
+
   public getpayslip(year:any,month:any,payrolltype:any){
     this.sumsalry=0;
     this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
@@ -356,9 +361,7 @@ export class PayslipComponent implements OnInit {
   }
 
 
-  tomail:any;
-  subject:any;
-  message:any;
+
   public sendmail() {
     if (this.attachments2url.length == 0) {
       this.attachments2url[0] = 'abcd';

@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-11">
+                <p class="Heading">Resignation Details</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="row leavereq">
+                <!-- <div class="col-md-3">
+                    <label>Employee<span style="color: red;">*</span></label>
+                </div> -->
+                <div class="col-md-3">
+                    <label>Last Working Date<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-3">
+                    <label>Reason <span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-3">
+                    <label>Comments <span style="color: red;">*</span></label>
+                </div>
+            </div>
+            <div class="row leavereq">
+                <!-- <div class="col-md-3">
+                    <select name="employeeid" class="form-control" id="employeeid" (change)="getemployee($event)" (ngModel)="employeeid">
+                        <option value="">Select Employee</option>
+                        <option *ngFor="let details of employeelist" value="{{details.id}}">{{details.name}}</option>
+                      </select>
+                </div> -->
+                <div class="col-md-3">
+                  <input type="date" class="form-control" [(ngModel)]="date" [min]="mindate">
+                </div>
+                <div class="col-md-3">
+                    <textarea class="form-control" [(ngModel)]="reason"></textarea>
+                </div>
+                <div class="col-md-3">
+                    <textarea class="form-control" [(ngModel)]="comments"></textarea>
+                </div>
+            </div>
+            <br>
+           
+
+            <div class="row">
+                <div class="col-lg-8"></div>
+
+                <div class="col-lg-2">
+                    <button class="button" (click)="save()">Submit</button>
+                </div>
+                <div class="col-lg-2">
+                    <button class="button" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -845,7 +845,7 @@ export class SidebarComponent implements OnInit {
   public Holidays() {
     this.active = 404;
     localStorage.setItem('clickname', 'HOLIDAYS')
-    this.router.navigate(['/HolidayDashboard']);
+    this.router.navigate(['/admin/HolidayDashboard']);
 
   }
 
@@ -887,7 +887,7 @@ export class SidebarComponent implements OnInit {
 
   public Positionmasterdash() {
     debugger
-    this.active = 19;
+    this.active = 111;
     localStorage.setItem('clickname', 'Positionmasterdash')
     this.router.navigate(['/admin/PositionDash']);
 

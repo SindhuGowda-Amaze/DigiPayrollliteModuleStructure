@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DigipayrollserviceService {
+  InsertExceptionLogs(obj: { PageName: any; ErrorMessage: any; }) {
+    throw new Error('Method not implemented.');
+  }
 
   public support = "https://support.amazeone.co/SupportAPI/";
 
@@ -2202,6 +2205,17 @@ export class DigipayrollserviceService {
     debugger;
     this.url = this.host + '/Master/UpdatePassword';
     return this.http.post(this.url, data);
+  }
+  public InsertExceptionLogs(data: any) {
+    debugger;
+    this.url = this.host + '/Master/InsertExceptionLogs';
+    return this.http.post(this.url, data);
+  }
+  public GetExceptionLogs() {
+    return this.http.get<any[]>(
+      this.host + "/Master/GetExceptionLogs"
+
+    );
   }
 
 }

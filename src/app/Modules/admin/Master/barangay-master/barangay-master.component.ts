@@ -8,23 +8,26 @@ import Swal from 'sweetalert2';
   styleUrls: ['./barangay-master.component.css']
 })
 export class BarangayMasterComponent implements OnInit {
-
-
- 
-  constructor(private ActivatedRoute: ActivatedRoute, private DigipayrollserviceService: DigipayrollserviceService) { }
   ID: any;
   leavelist: any;
   Short: any;
   Description: any;
   Countrylist: any;
+  Citylist: any;
+  term: any;
+  CountryID: any;
+  CityID: any;
+  StateID: any;
+  Name: any;
+  currentUrl: any;
+  constructor(private ActivatedRoute: ActivatedRoute, private DigipayrollserviceService: DigipayrollserviceService) { }
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
       // this.StateID = "";
       // this.CountryID="";
       // this.CityID="";
-    this.DigipayrollserviceService.GetCountryType().subscribe(data => {
-      debugger
-      this.Countrylist = data
-    })
+      this.GetCountryType()
     this.GetStateType();
     this.ActivatedRoute.params.subscribe(params => {
       debugger;
@@ -51,7 +54,18 @@ export class BarangayMasterComponent implements OnInit {
     }
     )
   }
-  Citylist: any;
+
+
+  public GetCountryType()
+  {
+    this.DigipayrollserviceService.GetCountryType().subscribe(data => {
+    debugger
+    this.Countrylist = data
+  })
+}
+
+
+ 
   public GetStateID(evene: any) {
     debugger
     this.DigipayrollserviceService.GetCityType().subscribe(data => {
@@ -69,9 +83,7 @@ export class BarangayMasterComponent implements OnInit {
     })
   }
 
-  term: any;
-  CountryID: any;
-  CityID: any;
+
   public GetStateType() {
     debugger
     this.DigipayrollserviceService.GetStateType().subscribe(data => {
@@ -87,8 +99,6 @@ export class BarangayMasterComponent implements OnInit {
   }
 
 
-  StateID: any;
-  Name: any;
   public InsertCityType() {
     debugger;
     if (this.StateID == undefined || this.Name == undefined || this.CityID == undefined) {

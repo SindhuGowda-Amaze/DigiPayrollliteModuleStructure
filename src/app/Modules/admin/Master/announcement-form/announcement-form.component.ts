@@ -10,24 +10,31 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./announcement-form.component.css']
 })
 export class AnnouncementFormComponent implements OnInit {
-
-  constructor(public DigipayrollserviceService: DigipayrollserviceService, public router: Router, public activatedroute: ActivatedRoute, public datepipe: DatePipe) { }
   ID: any;
   leavelist: any;
   Citylist: any;
   CityID: any;
   maxdate: any;
+  Name: any;
+  Description: any;
+  DateTime: any;
+  Time: any;
+  Venue: any;
+  public attachments21: any = [];
+  public attachmentsurl: any = [];
+  public attachments: any = [];
+  currentUrl: any;
+
+  constructor(public DigipayrollserviceService: DigipayrollserviceService, public router: Router, public activatedroute: ActivatedRoute, public datepipe: DatePipe) { }
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
 
     this.maxdate = new Date().toISOString().split("T")[0];
- 
+    this.GetCityType();
 
     this.CityID = 0;
-    this.DigipayrollserviceService.GetCityType().subscribe(data => {
-      debugger
-      this.Citylist = data
-    })
-
+    
     this.activatedroute.params.subscribe(params => {
       debugger;
       this.ID = params['id'];
@@ -51,14 +58,16 @@ export class AnnouncementFormComponent implements OnInit {
     }
     )
   }
-  Name: any;
-  Description: any;
-  DateTime: any;
-  Time: any;
-  Venue: any;
-  public attachments21: any = [];
+  
+  
+public GetCityType(){
+  this.DigipayrollserviceService.GetCityType().subscribe(data => {
+    debugger
+    this.Citylist = data
+  })
+}
 
-  public attachments: any = [];
+  
   onRemove21(event: any) {
     debugger
     console.log(event);
@@ -73,7 +82,7 @@ export class AnnouncementFormComponent implements OnInit {
 
   }
 
-  public attachmentsurl: any = [];
+
 
 
   public save() {
