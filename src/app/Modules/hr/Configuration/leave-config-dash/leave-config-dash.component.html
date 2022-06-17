@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="col-lg-2">
-                    <button class="form-control requestbtn" routerLink="/Leaveconfiguration">Add New</button>
+                    <button class="form-control requestbtn" routerLink="/hr/LeaveConfigForm">Add New</button>
                 </div>
             </div><br>
 
@@ -72,7 +72,7 @@
                                 <td>{{holiday.isAnnualLeaveEligible1}}</td>
 
                                 <td> <button class="upload"
-                                        [routerLink]="['/Leaveconfiguration',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        [routerLink]="['/hr/LeaveConfigForm',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <button class="upload" (click)="DeleteHolidays(holiday.id)">Delete</button>
                                 </td>
 

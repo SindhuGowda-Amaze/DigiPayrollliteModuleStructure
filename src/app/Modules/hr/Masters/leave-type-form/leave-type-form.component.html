@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <P class="Heading1">Leave Type</P>
+            <br>
+            <!-- <div class="row LocDashboard">
+                <div class="col-lg-12" >
+                    <label style="padding-left: 10px;">Add Leave Type</label>
+                </div>
+            </div> -->
+            <div class="card">
+                <div class="row leavereq">
+                    <div class="col-md-2">
+                        <label>Leave Type<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Leave Description<span style="color: red;">*</span></label>
+                    </div>
+                    <!-- <div class="col-md-3">
+                        <label>Entitlement Per Year<span style="color: red;">*</span></label>
+                    </div> -->
+                    <div class="col-md-2">
+                        <label>Carry Forward<span style="color: red;">*</span></label>
+                    </div>
+                </div>
+                <div class="row leavereq">
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" placeholder="Leave Type Name" placeholder="Short"
+                            [(ngModel)]="Short" name="Short" id="Short">
+                    </div>
+                    <div class="col-md-4">
+                        <textarea rows="3" type="text" class="form-control" placeholder="Leave Description"
+                            placeholder="Description" [(ngModel)]="Description" name="Description"
+                            id="Description"></textarea>
+                    </div>
+                    <!-- <div class="col-md-3">
+                        <input type="number" id="Entitlement_Per_Year" name="Entitlement_Per_Year"
+                            [(ngModel)]="Entitlement_Per_Year" class="form-control" placeholder="Enttitlement Per year">
+                    </div> -->
+                    <div class="col-md-2">
+                        <input type="checkbox" id="carry_forward" [(ngModel)]="carry_forward" name="carry_forward">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-10"></div>
+                    <div class="col-lg-1">
+                        <button class="form-control button" routerLink='/hr/LeaveTypeDashboard'>Cancel</button>
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="form-control button" *ngIf="ID!=undefined"
+                            (click)="UpdateLeaveType()">Update</button>
+                        <button class="form-control button" *ngIf="ID==undefined"
+                            (click)="InsertLeaveTypeMaster()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

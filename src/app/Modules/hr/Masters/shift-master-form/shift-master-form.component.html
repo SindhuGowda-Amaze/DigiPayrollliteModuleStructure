@@ -1,0 +1,97 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+            <p class="Heading">Shift Master Details</p>
+        </div>
+        <div class="col-lg-8"></div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <label>Shift Name<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>Rules<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>Shift Timings<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>Grace Period<span class="span">*</span></label>
+            </div>
+
+        </div>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Enter Shift Name" placeholder="Enter Shift Name"
+                [(ngModel)]="Short" name="Short" id="Short">
+                <!-- <div class="dropdown">
+                    <select class="form-control inputfield" id="Short" name="Short" [(ngModel)]="Short">
+                        <option value="">Select Shift Name </option>
+                        <option *ngFor="let name of shiftmasterlist" value="{{name.id}}">{{name.short}}</option>
+
+                    </select>
+                </div> -->
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Enter Rules" placeholder="Enter Rules"
+                    [(ngModel)]="Description" name="Description" id="Description">
+                    <!-- <div class="dropdown">
+                        <select class="form-control inputfield" id="Description" name="Description" [(ngModel)]="Description">
+                            <option value="Select">Enter Rules </option>
+                            <option *ngFor="let name of shiftmasterlist" value="{{name.id}}">{{name.description}}</option>
+    
+                        </select>
+                    </div> -->
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Shift Timings" placeholder="Shift Timings"
+                    [(ngModel)]="ShiftTimeings" name="ShiftTimeings" id="ShiftTimeings">
+                    <!-- <div class="dropdown">
+                        <select class="form-control inputfield" id="ShiftTimeings" name="ShiftTimeings" [(ngModel)]="ShiftTimeings">
+                            <option value="Select">Select Shift Timings </option>
+                            <option *ngFor="let name of shiftmasterlist" value="{{name.id}}">{{name.ShiftTimeings}}</option>
+    
+                        </select>
+                    </div>  -->
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Grace Period" placeholder="Grace Period"
+                    [(ngModel)]="Grace" name="Grace" id="Grace">
+                    <!-- <div class="dropdown">
+                        <select class="form-control inputfield" id="Grace" name="Grace" [(ngModel)]="Grace">
+                            <option value="">Select Grace Period </option>
+                            <option *ngFor="let name of shiftmasterlist" value="{{name.id}}">{{name.Grace}}</option>
+    
+                        </select>
+                    </div> -->
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-2">
+                <button class="button" (click)="Cancel()">CANCEL</button>
+            </div>
+            <div class="col-lg-2">
+                <button type="button" class="button" *ngIf="ID!=undefined"
+                    (click)="UpdateShiftMaster()">UPDATE</button>
+                <button class="button" *ngIf="ID==undefined"
+                    (click)="InsertShiftMaster()">SUBMIT</button>
+            </div>
+           
+        
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>

@@ -12,6 +12,15 @@ export class NewcompanyprofileComponent implements OnInit {
   subsidiaryName:any;
   result: any;
   count: any;
+  show: any;
+  DOB: any;
+  StateID: any;
+  HRSignature:any;
+  CityID: any;
+  Citylist: any;
+  Barangay: any;
+  Provincelist: any;
+    CountryID: any;
   Company_logo : any;
 		  Company_Name : any;
 		  Nature_Of_Business : any;
@@ -254,102 +263,184 @@ AdminSignature:any;
       })
 
 
-      this.DigipayrollserviceService.GetCountryType().subscribe(data => {
-        debugger
+      this.DigipayrollserviceService.GetCountryType()
+      
+      .subscribe({
+        next: data => {
+          debugger
+          debugger
         this.Countrylist = data
+        }, error: (err) => {
+          Swal.fire('Issue in GetCountryType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
+ 
   }
   
 
   GetCompanyProfile() {
     debugger
     this.show=1;
-    this.DigipayrollserviceService.GetCompanyAddressDetails().subscribe(
-      data => {
-     
-    this.result = data;
-		this.result=this.result.filter((x: { id: any; })=>x.id==Number(this.id));
-		this.Company_logo=this.result[0].company_Logo;
-		this.Company_Name=this.result[0].company_Name;
-		this.Nature_Of_Business=this.result[0].nature_Of_Business;
-		this.Address1=this.result[0].address1;
-		this.Address2=this.result[0].address2;
-		this.Zipcode=this.result[0].zipcode;
-		this.RDO=this.result[0].rdo;
-		this.Email=this.result[0].email;
-		this.Phone=this.result[0].phone;
-		this.Password=this.result[0].password;
-		this.Fax=this.result[0].fax;
-		this.Tin=this.result[0].tin;
-		this.SSN_No=this.result[0].ssN_No;
-		this.PhilHealthNumber=this.result[0].philHealthNumber;
-		this.HDMFNumber=this.result[0].hdmfNumber;
-		this.Admin_AuthorisedPerson=this.result[0].admin_AuthorisedPerson;
-		this.Admin_PositionTitle=this.result[0].admin_PositionTitle;
-		this.HR_AuthorisedPerson=this.result[0].hR_AuthorisedPerson;
-		this.HR_PositionTitle=this.result[0].hR_PositionTitle;
-		this.Finance_AuthorisedPerson=this.result[0].finance_AuthorisedPerson;
-		this.Finance_PositionTitle=this.result[0].finance_PositionTitle;
-		this.E_Signatory=this.result[0].e_Signatory;
-    this.subsidiaryName=this.result[0].subsidiaryName;
-    this.CountryID = this.result[0].countryID,
-    this.StateID=this.result[0].stateID,
-    this.CityID=this.result[0].cityID,
-    this.Barangay = this.result[0].barangay,
-    this.AdminSignature = this.result[0].finance_AuthorisedPerson_Signature,
-    this.HRSignature = this.result[0].hR_AuthorisedPerson_Signature
-    this.getstate();
-    this.getcity();
-
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
     
-              
-
-		
-      }
-    )
+    .subscribe({
+      next: data => {
+        debugger
+        this.result = data;
+        this.result=this.result.filter((x: { id: any; })=>x.id==Number(this.id));
+        this.Company_logo=this.result[0].company_Logo;
+        this.Company_Name=this.result[0].company_Name;
+        this.Nature_Of_Business=this.result[0].nature_Of_Business;
+        this.Address1=this.result[0].address1;
+        this.Address2=this.result[0].address2;
+        this.Zipcode=this.result[0].zipcode;
+        this.RDO=this.result[0].rdo;
+        this.Email=this.result[0].email;
+        this.Phone=this.result[0].phone;
+        this.Password=this.result[0].password;
+        this.Fax=this.result[0].fax;
+        this.Tin=this.result[0].tin;
+        this.SSN_No=this.result[0].ssN_No;
+        this.PhilHealthNumber=this.result[0].philHealthNumber;
+        this.HDMFNumber=this.result[0].hdmfNumber;
+        this.Admin_AuthorisedPerson=this.result[0].admin_AuthorisedPerson;
+        this.Admin_PositionTitle=this.result[0].admin_PositionTitle;
+        this.HR_AuthorisedPerson=this.result[0].hR_AuthorisedPerson;
+        this.HR_PositionTitle=this.result[0].hR_PositionTitle;
+        this.Finance_AuthorisedPerson=this.result[0].finance_AuthorisedPerson;
+        this.Finance_PositionTitle=this.result[0].finance_PositionTitle;
+        this.E_Signatory=this.result[0].e_Signatory;
+        this.subsidiaryName=this.result[0].subsidiaryName;
+        this.CountryID = this.result[0].countryID,
+        this.StateID=this.result[0].stateID,
+        this.CityID=this.result[0].cityID,
+        this.Barangay = this.result[0].barangay,
+        this.AdminSignature = this.result[0].finance_AuthorisedPerson_Signature,
+        this.HRSignature = this.result[0].hR_AuthorisedPerson_Signature
+        this.getstate();
+        this.getcity();
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+  
+ 
   }
 
  public getstate()
   {
-    this.DigipayrollserviceService.GetStateType().subscribe(data => {
-      debugger
-      this.Provincelist = data.filter(x => x.countryID == this.CountryID);
-  
+    this.DigipayrollserviceService.GetStateType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        debugger
+        this.Provincelist = data.filter(x => x.countryID == this.CountryID);
+      }, error: (err) => {
+        Swal.fire('Issue in GetStateType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+    
+
   }
 
   public getcity(){
-    this.DigipayrollserviceService.GetCityType().subscribe(data => {
-      debugger
-      this.Citylist = data.filter(x => x.stateID == this.StateID);
-   
+    this.DigipayrollserviceService.GetCityType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.Citylist = data.filter(x => x.stateID == this.StateID);
+      }, error: (err) => {
+        Swal.fire('Issue in Deleting Hoilday');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+    
+    
+
   }
 
   
   GetCompanyWorkPolicy() {
-    this.DigipayrollserviceService.GetCompanyWorkPolicy().subscribe(
-      data => {
+    this.DigipayrollserviceService.GetCompanyWorkPolicy()
+    
+    .subscribe({
+      next: data => {
         debugger
-    this.result = data;
-		this.result=this.result.filter((x: { companyId: any; })=>x.companyId==Number(this.id));
-		this.Work_Days_Per_Year=this.result[0].work_Days_Per_Year;
-		this.Work_Days_Per_Day=this.result[0].work_Days_Per_Day;
-		this.Work_Months_Per_Year=this.result[0].work_Months_Per_Year;
-		this.Work_hour_Start=this.result[0].work_hour_Start;
-		this.Work_hour_End=this.result[0].work_hour_End;
-    this.Break_Hours = this.result[0].break_Hours;
-	
-		
-      }
-    )
+        this.result = data;
+        this.result=this.result.filter((x: { companyId: any; })=>x.companyId==Number(this.id));
+        this.Work_Days_Per_Year=this.result[0].work_Days_Per_Year;
+        this.Work_Days_Per_Day=this.result[0].work_Days_Per_Day;
+        this.Work_Months_Per_Year=this.result[0].work_Months_Per_Year;
+        this.Work_hour_Start=this.result[0].work_hour_Start;
+        this.Work_hour_End=this.result[0].work_hour_End;
+        this.Break_Hours = this.result[0].break_Hours;
+      
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyWorkPolicy');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+    
   }
 
   GetCompanyTaxComputation() {
-    this.DigipayrollserviceService.GetCompanyTaxComputation().subscribe(
-      data => {
+    this.DigipayrollserviceService.GetCompanyTaxComputation()
+    
+    .subscribe({
+      next: data => {
         debugger
-    this.result = data;
+        this.result = data;
 		this.result=this.result.filter((x: { companyId: any; })=>x.companyId==Number(this.id));
 		// this.Tax_Table=this.result[0].tax_Table;
 		// this.Tax_Table_Starts_on=this.result[0].tax_Table_Starts_on;
@@ -357,117 +448,160 @@ AdminSignature:any;
 		this.Non_Tax_Essential_Sealing=this.result[0].non_Tax_Essential_Sealing;
 		this.Deminimis_Exemption=this.result[0].deminimis_Exemption;
     this.PayRoll_Calender=this.result[0].payRoll_Calender;
-      }
-    )
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyTaxComputation');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+ 
   }
 
   GetCompany_GovernmentComputation() {
-    this.DigipayrollserviceService.GetCompany_GovernmentComputation().subscribe(
-      data => {
+    this.DigipayrollserviceService.GetCompany_GovernmentComputation()
+    
+    .subscribe({
+      next: data => {
         debugger
-    this.result = data;
-		this.result=this.result.filter((x: { companyId: any; })=>x.companyId==Number(this.id));
-		this.SSS_Coverage=this.result[0].sss_Coverage;
-		this.SSS_Optional=this.result[0].sss_Optional;
-		this.PhilHealth_Coverage=this.result[0].philHealth_Coverage;
-		this.PhilHealth_Optional=this.result[0].philHealth_Optional;
-		this.HDMF=this.result[0].hdmf;
-    this.HDMF_Employer_Contribution = this.result[0].hdmf_Employer_Contribution;
-    // this.PayRoll_Calender = this.result[0].payRoll_Calender;
-   
-	
-		
-      }
-    )
+        debugger
+        this.result = data;
+        this.result=this.result.filter((x: { companyId: any; })=>x.companyId==Number(this.id));
+        this.SSS_Coverage=this.result[0].sss_Coverage;
+        this.SSS_Optional=this.result[0].sss_Optional;
+        this.PhilHealth_Coverage=this.result[0].philHealth_Coverage;
+        this.PhilHealth_Optional=this.result[0].philHealth_Optional;
+        this.HDMF=this.result[0].hdmf;
+        this.HDMF_Employer_Contribution = this.result[0].hdmf_Employer_Contribution;
+        // this.PayRoll_Calender = this.result[0].payRoll_Calender;
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompany_GovernmentComputation');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+
+    
   }
 
   GetCompany_PayrollComputation() {
-    this.DigipayrollserviceService.GetCompany_PayrollComputation().subscribe(
-      data => {
-        debugger
-    this.result = data;
-		this.result=this.result.filter((x: { companyId: any; })=>x.companyId==Number(this.id));
-
-this.Absent_Deduction_BasicSalary =    this.result[0].absent_Deduction_BasicSalary ,
-this.Absent_Deduction_Deminimis =this.result[0].absent_Deduction_Deminimis ,
-this.Absent_Deduction_Allowance =this.result[0].absent_Deduction_Allowance ,
-this.Absent_Deduction_Reimbursement =this.result[0].absent_Deduction_Reimbursement ,
-this.Absent_Deduction_ECOLA =this.result[0].absent_Deduction_ECOLA ,
-this.Absent_Deduction_Bonus  =this.result[0].absent_Deduction_Bonus  ,
-this.Late_Deduction_Basic_Salary =this.result[0].late_Deduction_Basic_Salary ,
-this.Late_Deduction_Deminimis =this.result[0].late_Deduction_Deminimis ,
-this.Late_Deduction_Allowance =this.result[0].late_Deduction_Allowance ,
-this.Late_Deduction_Reimbursement =this.result[0].late_Deduction_Reimbursement ,
-this.Late_Deduction_ECOLA =this.result[0].late_Deduction_ECOLA ,
-this.Late_Deduction_Bonus =this.result[0].late_Deduction_Bonus ,
-this.Final_Pay_13th_Month=this.result[0].final_Pay_13th_Month,
-this.FinalPay_Deduct_Late=this.result[0].finalPay_Deduct_Late,
-this.FinalPay_Deduct_Absent=this.result[0].finalPay_Deduct_Absent,
-this.OT_Rates_RD =this.result[0].oT_Rates_RD ,
-this.OT_Rates_SH =this.result[0].oT_Rates_SH ,
-this.OT_Rates_LH =this.result[0].oT_Rates_LH ,
-this.OT_Rates_SHRD =this.result[0].oT_Rates_SHRD ,
-this.OT_Rates_LHRD =this.result[0].oT_Rates_LHRD ,
-this.OT_Rates_DHRD =this.result[0].oT_Rates_DHRD ,
-this.OT_Rates_OrdOT =this.result[0].oT_Rates_OrdOT ,
-this.OT_Rates_RDOT =this.result[0].oT_Rates_RDOT ,
-this.OT_Rates_SHOT =this.result[0].oT_Rates_SHOT ,
-this.OT_Rates_LHOT =this.result[0].oT_Rates_LHOT ,
-this.OT_Rates_SHRDOT =this.result[0].oT_Rates_SHRDOT ,
-this.OT_Rates_LHRDOT =this.result[0].oT_Rates_LHRDOT ,
-this.OT_Rates_DHOT =this.result[0].oT_Rates_DHOT ,
-this.OT_Rates_DHRDOT =this.result[0].oT_Rates_DHRDOT ,
-this.OT_Rates_OrdND =this.result[0].oT_Rates_OrdND ,
-this.OT_Rates_RDND =this.result[0].oT_Rates_RDND ,
-this.OT_Rates_SHND =this.result[0].oT_Rates_SHND ,
-this.OT_Rates_LHND =this.result[0].oT_Rates_LHND ,
-this.OT_Rates_SHRDND =this.result[0].oT_Rates_SHRDND ,
-this.OT_Rates_LHRDND =this.result[0].oT_Rates_LHRDND ,
-this.OT_Rates_DHND =this.result[0].oT_Rates_DHND ,
-this.OT_Rates_DHRDND =this.result[0].oT_Rates_DHRDND ,
-this.OT_Rates_OrdNDOT =this.result[0].oT_Rates_OrdNDOT ,
-this.OT_Rates_RDNDOT =this.result[0].oT_Rates_RDNDOT ,
-this.OT_Rates_SHNDOT =this.result[0].oT_Rates_SHNDOT ,
-this.OT_Rates_LHNDOT =this.result[0].oT_Rates_LHNDOT ,
-this.OT_Rates_SHRDNDOT =this.result[0].oT_Rates_SHRDNDOT ,
-this.OT_Rates_LHRDNDOT =this.result[0].oT_Rates_LHRDNDOT ,
-this.OT_Rates_DHNDOT =this.result[0].oT_Rates_DHNDOT ,
-this.OT_Rates_DHRDNDOT =this.result[0].oT_Rates_DHRDNDOT ,
-this.RestDaysMonday =this.result[0].restDaysMonday ,
-this.RestDaysTuesday =this.result[0].restDaysTuesday ,
-this.RestDaysWednesday =this.result[0].restDaysWednesday ,
-this.RestDaysThursday =this.result[0].restDaysThursday ,
-this.RestDaysFriday =this.result[0].restDaysFriday ,
-this.RestDaysSaturday =this.result[0].restDaysSaturday ,
-this.RestDaysSunday =this.result[0].restDaysSunday ,
-this.NewHireProratedComputationBasicSalary =this.result[0].newHireProratedComputationBasicSalary ,
-this.NewHireProratedComputationDeminimis =this.result[0].newHireProratedComputationDeminimis ,
-this.NewHireProratedComputationAllowance =this.result[0].newHireProratedComputationAllowance ,
-this.NewHireProratedComputationReimbursement =this.result[0].newHireProratedComputationReimbursement ,
-this.NewHireProratedComputationECOLA =this.result[0].newHireProratedComputationECOLA ,
-this.ProratedDaily =this.result[0].proratedDaily ,
-this.Proratedabsent =this.result[0].proratedabsent ,
-this.MonthComputationAdvanced =this.result[0].monthComputationAdvanced ,
-this.MonthComputationFullSalary =this.result[0].monthComputationFullSalary ,
-this.ComputationBasic =this.result[0].computationBasic ,
-this.ComputationBasicAdjustment =this.result[0].computationBasicAdjustment ,
-this.ComputationTaxable =this.result[0].computationTaxable ,
-this.ComputationOverTime =this.result[0].computationOverTime ,
-this.ComputationAllowance =this.result[0].computationAllowance ,
-this.ComputationDeminimis =this.result[0].computationDeminimis ,
-this.ComputationReimbursable =this.result[0].computationReimbursable ,
-this.ComputationBonus =this.result[0].computationBonus ,
-this.ComputationSalary =this.result[0].computationSalary ,
-this.ComputationCommission =this.result[0].computationCommission ,
-this.OT_Rates_DH =this.result[0].oT_Rates_DH ,
-this.ComputationECOLA = this.result[0].computationECOLA 
-this.thirteen_Month_Compuatation_Type = this.result[0].thirteen_Month_Compuatation_Type 
-this.thirteen_Month_Deduct_Late =  this.result[0].thirteen_Month_Deduct_Late 
-this.thirteen_Month_Deduct_Absent = this.result[0].thirteen_Month_Deduct_Absent
-this.Periods_Per_Month=this.result[0].periods_Per_Month
-		
-      }
-    )
+    this.DigipayrollserviceService.GetCompany_PayrollComputation()
+    .subscribe({
+      next: data => {
+          debugger
+      this.result = data;
+      this.result=this.result.filter((x: { companyId: any; })=>x.companyId==Number(this.id));
+  
+  this.Absent_Deduction_BasicSalary =    this.result[0].absent_Deduction_BasicSalary ,
+  this.Absent_Deduction_Deminimis =this.result[0].absent_Deduction_Deminimis ,
+  this.Absent_Deduction_Allowance =this.result[0].absent_Deduction_Allowance ,
+  this.Absent_Deduction_Reimbursement =this.result[0].absent_Deduction_Reimbursement ,
+  this.Absent_Deduction_ECOLA =this.result[0].absent_Deduction_ECOLA ,
+  this.Absent_Deduction_Bonus  =this.result[0].absent_Deduction_Bonus  ,
+  this.Late_Deduction_Basic_Salary =this.result[0].late_Deduction_Basic_Salary ,
+  this.Late_Deduction_Deminimis =this.result[0].late_Deduction_Deminimis ,
+  this.Late_Deduction_Allowance =this.result[0].late_Deduction_Allowance ,
+  this.Late_Deduction_Reimbursement =this.result[0].late_Deduction_Reimbursement ,
+  this.Late_Deduction_ECOLA =this.result[0].late_Deduction_ECOLA ,
+  this.Late_Deduction_Bonus =this.result[0].late_Deduction_Bonus ,
+  this.Final_Pay_13th_Month=this.result[0].final_Pay_13th_Month,
+  this.FinalPay_Deduct_Late=this.result[0].finalPay_Deduct_Late,
+  this.FinalPay_Deduct_Absent=this.result[0].finalPay_Deduct_Absent,
+  this.OT_Rates_RD =this.result[0].oT_Rates_RD ,
+  this.OT_Rates_SH =this.result[0].oT_Rates_SH ,
+  this.OT_Rates_LH =this.result[0].oT_Rates_LH ,
+  this.OT_Rates_SHRD =this.result[0].oT_Rates_SHRD ,
+  this.OT_Rates_LHRD =this.result[0].oT_Rates_LHRD ,
+  this.OT_Rates_DHRD =this.result[0].oT_Rates_DHRD ,
+  this.OT_Rates_OrdOT =this.result[0].oT_Rates_OrdOT ,
+  this.OT_Rates_RDOT =this.result[0].oT_Rates_RDOT ,
+  this.OT_Rates_SHOT =this.result[0].oT_Rates_SHOT ,
+  this.OT_Rates_LHOT =this.result[0].oT_Rates_LHOT ,
+  this.OT_Rates_SHRDOT =this.result[0].oT_Rates_SHRDOT ,
+  this.OT_Rates_LHRDOT =this.result[0].oT_Rates_LHRDOT ,
+  this.OT_Rates_DHOT =this.result[0].oT_Rates_DHOT ,
+  this.OT_Rates_DHRDOT =this.result[0].oT_Rates_DHRDOT ,
+  this.OT_Rates_OrdND =this.result[0].oT_Rates_OrdND ,
+  this.OT_Rates_RDND =this.result[0].oT_Rates_RDND ,
+  this.OT_Rates_SHND =this.result[0].oT_Rates_SHND ,
+  this.OT_Rates_LHND =this.result[0].oT_Rates_LHND ,
+  this.OT_Rates_SHRDND =this.result[0].oT_Rates_SHRDND ,
+  this.OT_Rates_LHRDND =this.result[0].oT_Rates_LHRDND ,
+  this.OT_Rates_DHND =this.result[0].oT_Rates_DHND ,
+  this.OT_Rates_DHRDND =this.result[0].oT_Rates_DHRDND ,
+  this.OT_Rates_OrdNDOT =this.result[0].oT_Rates_OrdNDOT ,
+  this.OT_Rates_RDNDOT =this.result[0].oT_Rates_RDNDOT ,
+  this.OT_Rates_SHNDOT =this.result[0].oT_Rates_SHNDOT ,
+  this.OT_Rates_LHNDOT =this.result[0].oT_Rates_LHNDOT ,
+  this.OT_Rates_SHRDNDOT =this.result[0].oT_Rates_SHRDNDOT ,
+  this.OT_Rates_LHRDNDOT =this.result[0].oT_Rates_LHRDNDOT ,
+  this.OT_Rates_DHNDOT =this.result[0].oT_Rates_DHNDOT ,
+  this.OT_Rates_DHRDNDOT =this.result[0].oT_Rates_DHRDNDOT ,
+  this.RestDaysMonday =this.result[0].restDaysMonday ,
+  this.RestDaysTuesday =this.result[0].restDaysTuesday ,
+  this.RestDaysWednesday =this.result[0].restDaysWednesday ,
+  this.RestDaysThursday =this.result[0].restDaysThursday ,
+  this.RestDaysFriday =this.result[0].restDaysFriday ,
+  this.RestDaysSaturday =this.result[0].restDaysSaturday ,
+  this.RestDaysSunday =this.result[0].restDaysSunday ,
+  this.NewHireProratedComputationBasicSalary =this.result[0].newHireProratedComputationBasicSalary ,
+  this.NewHireProratedComputationDeminimis =this.result[0].newHireProratedComputationDeminimis ,
+  this.NewHireProratedComputationAllowance =this.result[0].newHireProratedComputationAllowance ,
+  this.NewHireProratedComputationReimbursement =this.result[0].newHireProratedComputationReimbursement ,
+  this.NewHireProratedComputationECOLA =this.result[0].newHireProratedComputationECOLA ,
+  this.ProratedDaily =this.result[0].proratedDaily ,
+  this.Proratedabsent =this.result[0].proratedabsent ,
+  this.MonthComputationAdvanced =this.result[0].monthComputationAdvanced ,
+  this.MonthComputationFullSalary =this.result[0].monthComputationFullSalary ,
+  this.ComputationBasic =this.result[0].computationBasic ,
+  this.ComputationBasicAdjustment =this.result[0].computationBasicAdjustment ,
+  this.ComputationTaxable =this.result[0].computationTaxable ,
+  this.ComputationOverTime =this.result[0].computationOverTime ,
+  this.ComputationAllowance =this.result[0].computationAllowance ,
+  this.ComputationDeminimis =this.result[0].computationDeminimis ,
+  this.ComputationReimbursable =this.result[0].computationReimbursable ,
+  this.ComputationBonus =this.result[0].computationBonus ,
+  this.ComputationSalary =this.result[0].computationSalary ,
+  this.ComputationCommission =this.result[0].computationCommission ,
+  this.OT_Rates_DH =this.result[0].oT_Rates_DH ,
+  this.ComputationECOLA = this.result[0].computationECOLA 
+  this.thirteen_Month_Compuatation_Type = this.result[0].thirteen_Month_Compuatation_Type 
+  this.thirteen_Month_Deduct_Late =  this.result[0].thirteen_Month_Deduct_Late 
+  this.thirteen_Month_Deduct_Absent = this.result[0].thirteen_Month_Deduct_Absent
+  this.Periods_Per_Month=this.result[0].periods_Per_Month
+      
+        
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompany_PayrollComputation');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+  
   }
 
 
@@ -505,13 +639,31 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
        "barangay":this.Barangay
       
      };
-     this.DigipayrollserviceService.InsertCompany_AddressDetails(json).subscribe(
-       data => {
-         debugger
-          this.companyid1= data;
-          Swal.fire("Successfully Saved!!");
-    
-       })
+     this.DigipayrollserviceService.InsertCompany_AddressDetails(json)
+     
+     .subscribe({
+      next: data => {
+        debugger
+        this.companyid1= data;
+        Swal.fire("Successfully Saved!!");
+      }, error: (err) => {
+        Swal.fire('Issue in Deleting Hoilday');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+     
+ 
+     
+     
+ 
    }
  
  
@@ -525,13 +677,27 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
       "work_hour_End": this.Work_hour_End, 
       "break_Hours": this.Break_Hours,
      }
-     this.DigipayrollserviceService.InsertCompany_WorkPolicy(json).subscribe(
-      data => {
+     this.DigipayrollserviceService.InsertCompany_WorkPolicy(json)
+     
+     .subscribe({
+      next: data => {
         debugger
         let id = data;
         Swal.fire("Successfully Saved!!");
-     
-      })
+      }, error: (err) => {
+        Swal.fire('Issue in Deleting Hoilday');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
    }
 
   
@@ -625,13 +791,30 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
       
      }
 
-     this.DigipayrollserviceService.InsertCompany_PayrollComputation(json).subscribe(
-      data => {
+     this.DigipayrollserviceService.InsertCompany_PayrollComputation(json)
+     
+     
+     .subscribe({
+      next: data => {
         debugger
         let id = data;
         Swal.fire("Successfully Saved!!");
+      }, error: (err) => {
+        Swal.fire('Issue in Deleting Hoilday');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+ 
+     
   
-      })
    }
   
    InsertCompany_TaxComputation (){
@@ -644,12 +827,28 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
       PayRoll_Calender:this.PayRoll_Calender,
       CompanyId: this.companyid1
      }
-     this.DigipayrollserviceService.InsertCompany_TaxComputation(json).subscribe(
-      data => {
+     this.DigipayrollserviceService.InsertCompany_TaxComputation(json)
+     
+     .subscribe({
+      next: data => {
         debugger
         let id = data;
         Swal.fire("Successfully Saved!!");
-      })
+      }, error: (err) => {
+        Swal.fire('Issue in InsertCompany_TaxComputation');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+     
+   
    }
 
 
@@ -664,12 +863,30 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
       "HDMF_Employer_Contribution":this.HDMF_Employer_Contribution,
       // "PayRoll_Calender":this.PayRoll_Calender
     }
-    this.DigipayrollserviceService.InsertCompanyGovernmentComputation(json).subscribe(
-     data => {
-       debugger
-       let id = data;
-       Swal.fire("Successfully Saved!!");
-     })
+    this.DigipayrollserviceService.InsertCompanyGovernmentComputation(json)
+    
+    
+    .subscribe({
+      next: data => {
+        debugger
+        let id = data;
+        Swal.fire("Successfully Saved!!");
+      }, error: (err) => {
+        Swal.fire('Issue in InsertCompanyGovernmentComputation');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+ 
   }
   
   onUpdate(){   
@@ -712,13 +929,30 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
         
         };
       
-        this.DigipayrollserviceService.UpdateCompanyAddressDetails(json).subscribe(
-          data => {
-          debugger
+        this.DigipayrollserviceService.UpdateCompanyAddressDetails(json)
+        
+        .subscribe({
+          next: data => {
+            debugger
           let result = data;
           Swal.fire("Updated Sucessfully");
-        location.href="#/CompanyDashboard";
+        location.href="#/admin/CompanyDashboard";
+          }, error: (err) => {
+            Swal.fire('Issue in UpdateCompanyAddressDetails');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
         })
+        
+ 
+   
     }
    
     }
@@ -737,13 +971,29 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
        
        };
      
-       this.DigipayrollserviceService.UpdateCompanyWorkPolicy(json).subscribe(
-         data => {
-         debugger
-         let result = data;
-         Swal.fire("Updated Sucessfully");
-       location.href="#/CompanyDashboard";
-       })
+       this.DigipayrollserviceService.UpdateCompanyWorkPolicy(json)
+       
+       .subscribe({
+        next: data => {
+          debugger
+          let result = data;
+          Swal.fire("Updated Sucessfully");
+        location.href="#/CompanyDashboard";
+        }, error: (err) => {
+          Swal.fire('Issue in UpdateCompanyWorkPolicyy');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+       
+
      }
 
   
@@ -839,13 +1089,29 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
        
        };
      
-       this.DigipayrollserviceService.UpdateCompanyPayrollComputation(json).subscribe(
-         data => {
-         debugger
-         let result = data;
-         Swal.fire("Updated Sucessfully");
-       location.href="#/CompanyDashboard";
-       })
+       this.DigipayrollserviceService.UpdateCompanyPayrollComputation(json)
+       
+       .subscribe({
+        next: data => {
+          debugger
+          let result = data;
+          Swal.fire("Updated Sucessfully");
+        location.href="#/admin/CompanyDashboard";
+        }, error: (err) => {
+          Swal.fire('Issue in UpdateCompanyPayrollComputation');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+       
+
      }
 
      UpdateCompanyGovtComputation(){
@@ -862,13 +1128,30 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
        
        };
      
-       this.DigipayrollserviceService.UpdateCompanyGovtComputation(json).subscribe(
-         data => {
-         debugger
-         let result = data;
-         Swal.fire("Updated Sucessfully");
-       location.href="#/CompanyDashboard";
-       })
+       this.DigipayrollserviceService.UpdateCompanyGovtComputation(json)
+       
+       .subscribe({
+        next: data => {
+          debugger
+          let result = data;
+          Swal.fire("Updated Sucessfully");
+        location.href="#/admin/CompanyDashboard";
+        }, error: (err) => {
+          Swal.fire('Issue in UpdateCompanyGovtComputation');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+   
+       
+      
      }
 
 
@@ -887,13 +1170,31 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
        
        };
      
-       this.DigipayrollserviceService.UpdateCompany_TaxComputation(json).subscribe(
-         data => {
-         debugger
-         let result = data;
-         Swal.fire("Updated Sucessfully");
-       location.href="#/CompanyDashboard";
-       })
+       this.DigipayrollserviceService.UpdateCompany_TaxComputation(json)
+       
+       .subscribe({
+        next: data => {
+          debugger
+          let result = data;
+          Swal.fire("Updated Sucessfully");
+        location.href="#/admin/CompanyDashboard";
+        }, error: (err) => {
+          Swal.fire('Issue in Deleting Hoilday');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+       
+ 
+       
+
      }
 
 
@@ -923,11 +1224,28 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
   
     public uploadattachments() {
       debugger
-      this.DigipayrollserviceService.ProjectAttachments(this.files).subscribe(res => {
-        debugger
-        this.Company_logo = res;
+      this.DigipayrollserviceService.ProjectAttachments(this.files)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.Company_logo = data;
         alert("ATTACHMENT UPLOADED");
+        }, error: (err) => {
+          Swal.fire('Issue in Deleting Hoilday');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
+
     }
   
     files2: File[] = [];
@@ -948,14 +1266,33 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
   
     public uploadattachments2() {
       debugger
-      this.DigipayrollserviceService.ProjectAttachments(this.files2).subscribe(res => {
-        debugger
-        this.E_Signatory = res;
+      this.DigipayrollserviceService.ProjectAttachments(this.files2)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.E_Signatory = data;
         alert("ATTACHMENT UPLOADED");
+        }, error: (err) => {
+          Swal.fire('Issue in ProjectAttachments');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
+  
+      
+     
     }
 
-    HRSignature:any;
+  
   
     files3: File[] = [];
     onSelect3(event: { addedFiles: any; }) {
@@ -975,11 +1312,31 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
   
     public uploadattachments3() {
       debugger
-      this.DigipayrollserviceService.ProjectAttachments(this.files3).subscribe(res => {
-        debugger
-        this.AdminSignature = res;
-        alert("ATTACHMENT UPLOADED");
+      this.DigipayrollserviceService.ProjectAttachments(this.files3)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.AdminSignature = data;
+          alert("ATTACHMENT UPLOADED");
+        }, error: (err) => {
+          Swal.fire('Issue in ProjectAttachments');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
+ 
+  
+      
+
     }
 
 
@@ -1001,37 +1358,92 @@ this.Periods_Per_Month=this.result[0].periods_Per_Month
   
     public uploadattachments4() {
       debugger
-      this.DigipayrollserviceService.ProjectAttachments(this.files4).subscribe(res => {
-        debugger
-        this.HRSignature = res;
-        alert("ATTACHMENT UPLOADED");
+      this.DigipayrollserviceService.ProjectAttachments(this.files4)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.HRSignature = data;
+          alert("ATTACHMENT UPLOADED");
+        }, error: (err) => {
+          Swal.fire('Issue in ProjectAttachments');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
+     
+
     }
 
 
 
-    Provincelist: any;
-    CountryID: any;
+    
     public GetCountryID(event: any) {
       this.CountryID = event.target.value;
-      this.DigipayrollserviceService.GetStateType().subscribe(data => {
-        debugger
-        this.Provincelist = data.filter(x => x.countryID == this.CountryID)
+      this.DigipayrollserviceService.GetStateType()
+      
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.Provincelist = data.filter(x => x.countryID == this.CountryID)
+        }, error: (err) => {
+          Swal.fire('Issue in GetStateType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
+      
+      
+      
+
     }
-    DOB: any;
-    StateID: any;
-    CityID: any;
-    Citylist: any;
-    Barangay: any;
+ 
     public GetProvinceID(event: any) {
       this.StateID = event.target.value;
-      this.DigipayrollserviceService.GetCityType().subscribe(data => {
-        debugger
-        this.Citylist = data.filter(x => x.stateID == this.StateID)
+      this.DigipayrollserviceService.GetCityType()
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.Citylist = data.filter(x => x.stateID == this.StateID)
+        }, error: (err) => {
+          Swal.fire('Issue in GetCityType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
+      
+
+      
+      
+
     }
-    show: any;
+   
   
     public GetCItyID(event: any) {
       debugger

@@ -24,12 +24,26 @@ export class CompanyDashboardComponent implements OnInit {
 
   public GetCompanyAddressDetails() {
     debugger;
-    this.DigipayrollserviceService.GetCompanyAddressDetails().subscribe(
-      (data) => {
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    
+    .subscribe({
+      next: data => {
         debugger;
         this.result = data;
-      }
-    );
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
   }
 
   public update(id: any) {
@@ -53,11 +67,28 @@ export class CompanyDashboardComponent implements OnInit {
         debugger;
         this.DigipayrollserviceService.DeleteCompany_AddressDetails(
           id
-        ).subscribe((data) => {
-          location.reload();
-        });
-        Swal.fire('Deleted Successfully...!');
+        )
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Deleted Successfully...!');
         location.href = '#/admin/CompanyDashboard';
+          }, error: (err) => {
+            Swal.fire('Issue in DeleteCompany_AddressDetails');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+        
+ 
+       
       }
     });
   }

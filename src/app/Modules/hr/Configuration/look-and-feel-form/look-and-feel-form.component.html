@@ -1,0 +1,86 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-11">
+                    <p class="Heading1">Configure Look and Feel</p>
+                </div>
+            </div>
+            <!-- <div class="row LocDashboard">
+                    <div class="col-lg-12">
+                        <label style="padding-left: 10px;">Add Holiday</label>
+                    </div>
+                </div> -->
+            <div class="card">
+                <div class="row leavereq">
+                    <div class="col-md-2">
+                        <label>Header Color<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Button Color<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-2">
+                        <p>Font Family<span style="color: red;">*</span></p>
+                    </div>
+                    <div class="col-md-3" *ngIf="ID==undefined">
+                        <p>Company Logo<span style="color: red;">*</span></p>
+                    </div>
+
+                </div>
+                <div class="row leavereq">
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" placeholder="Header Color" [(ngModel)]="HeaderColor"
+                            name="HeaderColor" id="HeaderColor">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Button Color Code"
+                            [(ngModel)]="ButtonColor" name="ButtonColor" id="ButtonColor">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" placeholder="Font Family Name" [(ngModel)]="FontName"
+                            name="FontName" id="FontName">
+                    </div>
+                    <div class="col-md-3">
+                        <ngx-dropzone (change)="onSelect21($event)" style="height: 130px;">
+                            <ngx-dropzone-label>Drop Files here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of attachments21" [removable]="true"
+                                (removed)="onRemove21(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-1">
+                        <button class="button" routerLink='/hr/LookAndFeelDash'>Cancel</button>
+                    </div>
+                    <div class="col-lg-1">
+
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="button" *ngIf="ID!=undefined" (click)="Save2()">Update</button>
+                    </div>
+                   
+                    <div class="col-lg-1">
+                        <button class="button" *ngIf="ID==undefined" (click)="Save()">Submit</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

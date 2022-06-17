@@ -28,27 +28,80 @@ export class StateMasterDashComponent implements OnInit {
 
   public GetStateType() {
     debugger;
-    this.DigipayrollserviceService.GetStateType().subscribe((data) => {
-      debugger;
-      this.leavelist = data;
-      this.leavelistCopy = this.leavelist;
-    });
+    this.DigipayrollserviceService.GetStateType()
+    .subscribe({
+      next: data => {
+        debugger;
+        this.leavelist = data;
+        this.leavelistCopy = this.leavelist;
+      }, error: (err) => {
+        Swal.fire('Issue in GetStateType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
+    
+
   }
 
   public GetCountryType() {
     debugger;
-    this.DigipayrollserviceService.GetCountryType().subscribe((data) => {
-      debugger;
+    this.DigipayrollserviceService.GetCountryType()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.leavelist1 = data;
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in GetCountryType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+    
+
   }
 
   public GetFilteredStatesByCountry() {
     debugger;
-    this.DigipayrollserviceService.GetStateType().subscribe((data) => {
-      debugger;
-      this.leavelist = data.filter((x) => x.countryID == this.CountryID);
-    });
+    this.DigipayrollserviceService.GetStateType()
+    
+    .subscribe({
+      next: data => {
+        debugger;
+        this.leavelist = data.filter((x) => x.countryID == this.CountryID);
+      }, error: (err) => {
+        Swal.fire('Issue in GetStateTypey');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+   
   }
 
   public Filterstate() {
@@ -88,13 +141,28 @@ export class StateMasterDashComponent implements OnInit {
       cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.DigipayrollserviceService.DeleteStateType(ID).subscribe(
-          (data: any) => {
+        this.DigipayrollserviceService.DeleteStateType(ID)
+        .subscribe({
+          next: data => {
             debugger;
             Swal.fire('Deleted Successfully');
             this.ngOnInit();
-          }
-        );
+          }, error: (err) => {
+            Swal.fire('Issue in DeleteStateType');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+        
+   
+
       }
     });
   }
