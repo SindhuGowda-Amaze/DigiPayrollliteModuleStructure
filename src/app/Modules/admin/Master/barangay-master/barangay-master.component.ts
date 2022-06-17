@@ -58,38 +58,108 @@ export class BarangayMasterComponent implements OnInit {
 
   public GetCountryType()
   {
-    this.DigipayrollserviceService.GetCountryType().subscribe(data => {
-    debugger
-    this.Countrylist = data
-  })
+    this.DigipayrollserviceService.GetCountryType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.Countrylist = data
+      }, error: (err) => {
+        Swal.fire('Issue in GetCountryType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+        
+    
 }
 
 
  
   public GetStateID(evene: any) {
     debugger
-    this.DigipayrollserviceService.GetCityType().subscribe(data => {
-      debugger
-      this.Citylist = data.filter(x => x.stateID == evene.target.value)
+    this.DigipayrollserviceService.GetCityType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.Citylist = data.filter(x => x.stateID == evene.target.value)
+      }, error: (err) => {
+        Swal.fire('Issue in GetCityType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+    
+    
   }
 
   
   public GetStateID1(stateid: any) {
     debugger
-    this.DigipayrollserviceService.GetCityType().subscribe(data => {
-      debugger
-      this.Citylist = data.filter(x => x.stateID == stateid)
+    this.DigipayrollserviceService.GetCityType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.Citylist = data.filter(x => x.stateID == stateid)
+      }, error: (err) => {
+        Swal.fire('Issue in GetCityType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+    
+    
+
   }
 
 
   public GetStateType() {
     debugger
-    this.DigipayrollserviceService.GetStateType().subscribe(data => {
-      debugger
-      this.leavelist = data
+    this.DigipayrollserviceService.GetStateType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data
+      }, error: (err) => {
+        Swal.fire('Issue in GetStateType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+    
   }
 
 
@@ -112,7 +182,20 @@ export class BarangayMasterComponent implements OnInit {
         'Description': this.Name
 
       }
-      this.DigipayrollserviceService.InsertBarangayMaster(entity).subscribe(data => {
+      this.DigipayrollserviceService.InsertBarangayMaster(entity)
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      .subscribe(data => {
         if (data != 0) {
           Swal.fire("Saved Successfully");
           location.href = "#/admin/BarangayDash";
@@ -134,11 +217,26 @@ export class BarangayMasterComponent implements OnInit {
       'Description': this.Name
 
     }
-    this.DigipayrollserviceService.UpdateBarangayMaster(entity).subscribe(data => {
-      Swal.fire("Updated Successfully");
-      location.href = "#/Barangaymaster";
-
+    this.DigipayrollserviceService.UpdateBarangayMaster(entity)
+    
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire("Updated Successfully");
+      location.href = "#/admin/Barangaymaster";
+      }, error: (err) => {
+        Swal.fire('Issue in UpdateBarangayMaster');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
-
+    
   }
 }

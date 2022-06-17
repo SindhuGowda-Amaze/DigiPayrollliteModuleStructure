@@ -10,12 +10,12 @@
            
             <div class="col-lg-8">
                 <ul>
-                    <li><a class=" Heading" style="color: #3247d5;" routerLink="/Vaccinedashboard" >My Vaccination Details
+                    <li><a class=" Heading" style="color: #3247d5;" routerLink="/hr/VaccineDashboard" >My Vaccination Details
                         </a></li>&nbsp;&nbsp;&nbsp;
                     <!-- <li><a class="active Heading" routerLink="/LeaveListDashboard" ><u>My Leave Details</u> </a></li> -->
-                    <li *ngIf="roleID==2"><a style="color: #3247d5;" class="Heading" routerLink="/TeamVaccinationDetails">My Team Vaccination Details 
+                    <li *ngIf="roleID==2"><a style="color: #3247d5;" class="Heading" routerLink="/managerTeamVaccinationDetails">My Team Vaccination Details 
                             </a></li>
-                    <li *ngIf="roleID==9"><a style="color: #3247d5;" class="Heading" routerLink="/TeamVaccinationDetails">My Team Vaccination Details</a></li>
+                    <li *ngIf="roleID==9"><a style="color: #3247d5;" class="Heading" routerLink="/manager/TeamVaccinationDetails">My Team Vaccination Details</a></li>
                 </ul>
             </div>
            
@@ -70,7 +70,7 @@
             </div>
             <div class="col-md-2">
                 <!-- <button class="form-control requestbtn" routerLink="/AddressDetailsWizard">Add Staff</button> -->
-                <a routerLink="/VaccineForm"><button class="button">Add New</button> </a>
+                <a routerLink="/hr/VaccineForm"><button class="button">Add New</button> </a>
             </div>
         </div>
         <br>

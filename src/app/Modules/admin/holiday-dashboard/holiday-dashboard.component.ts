@@ -29,12 +29,27 @@ export class HolidayDashboardComponent implements OnInit {
 
   public GetHolidays() {
     debugger;
-    this.DigipayrollserviceService.GetHolidays().subscribe((data) => {
-      debugger;
-      this.holidaylist = data;
-      this.holidaylistCopy = this.holidaylist;
-      this.loader = false;
-    });
+    this.DigipayrollserviceService.GetHolidays()
+    
+    .subscribe({
+      next: data => {
+        this.holidaylist = data;
+        this.holidaylistCopy = this.holidaylist;
+        this.loader = false;
+      }, error: (err) => {
+        Swal.fire('Issue in  GetHolidays');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
   }
 
   public DeleteHolidays(ID: any) {
@@ -48,11 +63,27 @@ export class HolidayDashboardComponent implements OnInit {
       cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.DigipayrollserviceService.DeleteHolidays(ID).subscribe((data) => {
-          debugger;
-          Swal.fire('Deleted Successfully');
+        this.DigipayrollserviceService.DeleteHolidays(ID)
+        
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Deleted Successfully');
           this.ngOnInit();
-        });
+          }, error: (err) => {
+            Swal.fire('Issue in Deleting Hoilday');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })       
+        
       }
     });
   }

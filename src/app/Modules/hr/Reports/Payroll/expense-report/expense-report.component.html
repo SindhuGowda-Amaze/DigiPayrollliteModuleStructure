@@ -1,0 +1,224 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row"  style="margin-left: -37px;">
+                
+                    <ul>
+                       
+                        <span ><a class="Heading1" ><u>My Team Expense Report</u>
+                                </a></span>
+
+                    </ul>
+               
+                
+            </div>
+     
+            
+
+            <br />
+          
+            
+            <div class="card">
+                <div class="row leavereq">
+                    <div class="col-md-1">
+                        <p>Filter By</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Start Date</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>End Date</p>
+                    </div>
+                </div>
+                <div class="row leavereq">
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" id="startdate" name="startdate" [(ngModel)]="startdate" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" id="enddate" name="enddate" [(ngModel)]="enddate"
+                            (change)="Getdate($event)" class="form-control">
+                    </div>
+                    <div class="col-lg-4" style="margin-left: 800px;margin-top:-30px;">
+           
+                        <button class="AddButton" (click)="exportexcel()">Export to Excel</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+    <div class="row" >
+        <div class="col-lg-8">
+        </div>
+        
+    </div> <br>
+
+         
+          
+        
+           <br/>
+           
+           
+       
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table" id="downloadaplication">
+                            <thead>
+                                <tr>
+                                    <!-- <th>Select All <input type="checkbox" *ngIf="roleid==2" name="select-all" id="select-all"
+                                            (click)="selectALL(true)"></th> -->
+                                    <th>Employee Name</th>
+                                    <th>Expense Amount</th>
+                                    <th>Expense Head</th>
+                                    <!-- <th>Project Name</th> -->
+                                    <th>Submitted Date</th>
+                                    <!-- <th>Expense Location</th>
+     -->
+                                    <th>Status</th>
+                                    <th>Comments</th>
+                                    <th>Attachments</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let project of projectlist|filter:term">
+                                    <!-- <td><input *ngIf="project.approvalStatus==null " type="checkbox"
+                                            (click)="getCheckbocdetails(project)">
+                                    </td> -->
+                                    <td>{{project.name}}</td>
+                                    <td>{{project.expenceAmount}}</td>
+                                    <td>{{project.expencesName}}</td>
+                                    <!-- <td>{{project.project}}</td> -->
+                                    <td>{{project.date|date}}</td>
+                                    <!-- <td>{{project.expenceLocation}}</td> -->
+                                    <td>
+                                        
+                                        <p *ngIf="project.approvalStatus!='Manager Pending'"> {{project.approvalStatus}}</p>
+                                    </td>
+                                    <td>{{project.comments}}</td>
+                                    <td><a href="{{project.invoiceURL}}" target="blank"> <img
+                                                *ngIf="project.invoiceURL!=null" src="../../assets/images/attachment (1).png"
+                                                style="width:40px;margin-left:10px"></a> </td>
+                                    <td>
+                                        <p *ngIf="project.approvalStatus=='Manager Pending'">
+                                            <img class="img" (click)="UpdateExpencesApproveBySupervisor(project.id)" style="width: 20px;"
+                                                src="assets/images/check-mark.png">
+                                            <img class="imgcancel" (click)="getid(project.id)" style="width: 20px;"
+                                                src="assets/images/cancel (1).png" data-toggle="modal"
+                                                data-target="#Reject">
+                                        </p>
+                                       
+    
+                                    </td> 
+                                </tr>
+    
+    
+                                <!-- <td><input type="checkbox" id="horns" name="horns"></td>
+                                    <td>Michel Floki</td>
+                                    <td>550</td>
+                                    <td>Cab Allowance</td>
+                                    <td>Digi Clinic</td>
+                                    <td>15 Sept 2020</td>
+                                    <td>Miami</td>
+                                   
+                                    <td>Pending</td>
+                                    <td>Pending for Credits</td>
+                                    <td>
+                                        <img src="assets/Images/bill.JPG" alt="Bill.img" data-toggle="modal"
+                                            data-target="#Allocate" style=" width: 100px;">
+                                    </td>
+                                    -->
+    
+    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+          
+          
+              
+              
+            
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+<br><br>
+<div id="Allocate" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Attachment</h1>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-3">
+
+                        </div>
+                        <img src="assets/Images/bill.JPG" alt="Bill.img" style="height: 410px">
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Reject" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Reject Notes</h5>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-3">
+                            Notes
+                        </div>
+                        <div class="col-lg-7">
+                            <textarea rows="3" type="text" [(ngModel)]="Notes"  id="Notes" name="Notes"
+                                class="form-control" placeholder="Notes"></textarea>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-4">
+
+                        </div>
+                        <div class="col-lg-5">
+                            <button class="upload" (click)="UpdateExpencesReject()">Submit</button>
+                        </div>
+                    </div>
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

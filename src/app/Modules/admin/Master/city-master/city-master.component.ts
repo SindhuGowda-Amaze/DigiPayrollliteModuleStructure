@@ -227,7 +227,7 @@ export class CityMasterComponent implements OnInit {
       next: data => {
         debugger
         Swal.fire('Updated Successfully');
-        location.href = '#/CityMasterDash';
+        location.href = '#/admin/CityMasterDash';
       }, error: (err) => {
         Swal.fire('Issue in Updating CityMaster');
         // Insert error in Db Here//
@@ -242,17 +242,7 @@ export class CityMasterComponent implements OnInit {
         )}
     })
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
   
   }
 }

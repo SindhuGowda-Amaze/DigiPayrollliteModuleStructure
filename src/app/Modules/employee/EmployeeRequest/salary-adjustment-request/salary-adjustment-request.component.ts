@@ -9,9 +9,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./salary-adjustment-request.component.css']
 })
 export class SalaryAdjustmentRequestComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
-
+  password1: any;
+  supervisoremail:any;
+  employeename:any;
   EmployeeId: any;
   EmployeeName: any;
   FirstDoseDate: any;
@@ -33,8 +33,29 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
   Period:any;
 
   Type: any
+  Notes: any;
+  Trasnferdate: any;
+  newsupervisor: any;
+  ToDepartment: any;
+  oldsupervisor: any;
+  FromDepartment: any;
+  Tenure: any;
+  public attachmentsurl: any = [];
+
+  holidaylist: any;
+  approval: any;
+  finalnetsalary:any;
+  percDiff:any;
+  salaryAdjustmentType:any;
+  
+ currentUrl: any;
+
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+
+  
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
 
     this.dropdownSettings = {
       singleSelection: true,
@@ -86,20 +107,7 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
 
   }
 
-  Notes: any;
-  Trasnferdate: any;
-  newsupervisor: any;
-  ToDepartment: any;
-  oldsupervisor: any;
-  FromDepartment: any;
-  Tenure: any;
-  public attachmentsurl: any = [];
 
-  holidaylist: any;
-  approval: any;
-  finalnetsalary:any;
-  percDiff:any;
-  salaryAdjustmentType:any;
 
   onItemSelect(item: any) {
     debugger
@@ -125,16 +133,28 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
       }
 
 
-      this.DigiofficeService.InsertSalaryAdjustmentType(eb).subscribe(
+      this.DigiofficeService.InsertSalaryAdjustmentType(eb)
 
-        data => {
+      .subscribe({
+        next: data => {
           debugger
           Swal.fire('Saved Successfully.');
           this.getpassword();
           this.router.navigate(['/employee/salaryadjustment']);
-
-        },
-      )
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
       
     }
    
@@ -144,9 +164,6 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
   
 
 
-  password1: any;
-  supervisoremail:any;
-  employeename:any;
   getpassword() {
     this.DigiofficeService.GetMyDetails().subscribe(data => {
       let temp: any = data.filter(x => x.loginTypeID == 9);
@@ -171,11 +188,26 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
       'cclist': this.supervisoremail,
       'bcclist': this.supervisoremail,
     }
-    this.DigiofficeService.sendemail1(entity1).subscribe(res => {
-      debugger;
-      this.Attactments = [];
+    this.DigiofficeService.sendemail1(entity1)
 
-     
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.Attactments = [];
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
 
   }

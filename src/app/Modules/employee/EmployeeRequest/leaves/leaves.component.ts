@@ -12,24 +12,13 @@ import Swal from 'sweetalert2';
   providers: [DatePipe]
 })
 export class LeavesComponent implements OnInit {
-
+  password1: any;
+  supervisoremail:any;
+  employeename:any;
   Staffleaveenitilment: any
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router, public datePipe: DatePipe) { }
-  public showorhidecontent: any;
-  options: FullCalendarOptions | undefined;
-  events: EventObject[] | undefined;
-  roleid: any;
-  public selectedlanguage: any;
-  public selectedlanguage1: any;
-  public callenderyear: any;
-  public callenderMonth: any;
-  public callenderstartday: any;
-  public callenderendday: any;
-  public callenderdaysdount: any = [];
-  public callenderBindData = new Date();
-  public todaydate = new Date().getDate();
-  public options1: any;
-  public todayDay = this.datePipe.transform(new Date().getDay(), 'EEEE');
+  approvestatus:any;
+  message:any;
+  leaveid:any;
   roledid: any;
   loader:any;
   holidaylist:any;
@@ -42,7 +31,48 @@ export class LeavesComponent implements OnInit {
   month:any;
   day:any;
   payperiod:any;
+  options: FullCalendarOptions | undefined;
+  events: EventObject[] | undefined;
+  roleid: any;
+  
+  startdate: any;
+  enddate: any
+  currentUrl: any;
+  term: any;
+  staffleaves: any;
+
+  LeaveTypeList1: any;
+  medicalLeaveEntitlementlist:any;
+  medicalLeaveEntitlement:any;
+  medicalLeaveEntitlementlistTakenlist:any;
+  medicalLeaveEntitlementTaken:any;
+  medicalLeaveEntitlementBalance:any;
+  marriageLeaveEntitlementlist:any;
+  marriageLeaveEntitlement:any;
+  balancelist:any;
+  marriageLeaveEntitlementlistTakenlist:any;
+  marriageLeaveEntitlementTaken:any;
+  marriageLeaveEntitlementBalance:any;
+  leaveTypeID:any;
+  uniquelist:any;
+  
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router, public datePipe: DatePipe) { }
+  public showorhidecontent: any;
+
+  public selectedlanguage: any;
+  public selectedlanguage1: any;
+  public callenderyear: any;
+  public callenderMonth: any;
+  public callenderstartday: any;
+  public callenderendday: any;
+  public callenderdaysdount: any = [];
+  public callenderBindData = new Date();
+  public todaydate = new Date().getDate();
+  public options1: any;
+  public todayDay = this.datePipe.transform(new Date().getDay(), 'EEEE');
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.loader=true
     this.maxdate =  new Date().toISOString().split("T")[0];
     this.roledid = sessionStorage.getItem('roledid');
@@ -95,21 +125,58 @@ export class LeavesComponent implements OnInit {
 
   }
 
-  startdate: any;
-  enddate: any
+
   public getenddate(event: any) {
     debugger
     if (this.roleid == 1) {
-      this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe(data => {
-        debugger
-        this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
+      this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
+    
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
+
     }
     else {
-      this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe(data => {
-        debugger
-        this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
+      this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
+
     }
 
   }
@@ -123,28 +190,59 @@ export class LeavesComponent implements OnInit {
   //     this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && x.filterdate == this.date);
   //   })
   // }
-  term: any;
-  staffleaves: any;
+
   public getstaffleaves() {
     debugger
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe(data => {
-      debugger
-      this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid'));
-      this.buildcallender(this.staffleaves);
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid'));
+        this.buildcallender(this.staffleaves);
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+    
   }
   public newlevae() {
     debugger
-    this.router.navigate(['/employee/ApplyLeave']);
+    this.router.navigate(['/hr/LeaveForm']);
   }
   medicalurl: any;
   public getmedicalurl(id: any) {
     debugger
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.id == id.id);
-      this.medicalurl = temp[0].medicalUrl;
-    })
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")    
+ .subscribe({
+  next: data => {
+    debugger
+    let temp: any = data.filter(x => x.id == id.id);
+    this.medicalurl = temp[0].medicalUrl;
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
   }
   // public makeunderline(evt:any) {
   //   debugger
@@ -161,17 +259,33 @@ export class LeavesComponent implements OnInit {
 
   public CancelLeave(list: any) {
     debugger
-    this.DigiofficeService.CancelLeave(list.id, list.noOfDays, list.uuid, list.leaveTypeID, 'Cancelled').subscribe(data => {
-      debugger
-      Swal.fire('Cancelled Successfully');
-      this.ngOnInit();
+    this.DigiofficeService.CancelLeave(list.id, list.noOfDays, list.uuid, list.leaveTypeID, 'Cancelled')
+
+
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire('Cancelled Successfully');
+        this.ngOnInit();
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
 
   }
 
-  approvestatus:any;
-  message:any;
-  leaveid:any;
+
   public CancelLeave1(list: any) {
     debugger
    this.leaveid = list.id
@@ -184,72 +298,118 @@ export class LeavesComponent implements OnInit {
       'Status': 'Cancellation Pending',
       'message': this.message
        }
-    this.DigiofficeService.CancelApproved(entity).subscribe(data => {
-     
-        Swal.fire("Submitted Successfully");
-        this.getpassword();
-        this.ngOnInit();
-
-      
-
-    })
+    this.DigiofficeService.CancelApproved(entity)   
+ .subscribe({
+  next: data => {
+    debugger
+    Swal.fire("Submitted Successfully");
+    this.getpassword();
+    this.ngOnInit();
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
   }
 
-  LeaveTypeList1: any;
-  medicalLeaveEntitlementlist:any;
-  medicalLeaveEntitlement:any;
-  medicalLeaveEntitlementlistTakenlist:any;
-  medicalLeaveEntitlementTaken:any;
-  medicalLeaveEntitlementBalance:any;
-  marriageLeaveEntitlementlist:any;
-  marriageLeaveEntitlement:any;
-  balancelist:any;
-  marriageLeaveEntitlementlistTakenlist:any;
-  marriageLeaveEntitlementTaken:any;
-  marriageLeaveEntitlementBalance:any;
-  leaveTypeID:any;
-  uniquelist:any;
+
   public GetLeaveType1() {
     debugger
-    this.DigiofficeService.GetLeaveConfiguration().subscribe(data => {
-      debugger
-      this.LeaveTypeList1 = data;
-      this.medicalLeaveEntitlementlist=data.filter(x=>x.leavetype=='Medical Leave')
-      this.medicalLeaveEntitlement=this.medicalLeaveEntitlementlist[0].yearlyLimit
-      this.marriageLeaveEntitlementlist=data.filter(x=>x.leavetype=='Marriage Leave')
-      this.marriageLeaveEntitlement=this.medicalLeaveEntitlementlist[0].yearlyLimit
-     
-    })
-    this.DigiofficeService.GetLeaveBalanceDetails().subscribe(data => {
-      debugger
-      this.balancelist = data;
-      this.medicalLeaveEntitlementlistTakenlist=data.filter(x=>x.staffID==sessionStorage.getItem('staffid'))
-      const key = 'leaveTypeID';
-      // this.uniquelist = [...new Map(this.medicalLeaveEntitlementlistTakenlist.map((item: { [x: string]: any; }) =>
-      // [(item[key]), item])).values()]
+    this.DigiofficeService.GetLeaveConfiguration()
 
-      this.medicalLeaveEntitlementTaken=0
 
-      for(let i=0;i<=this.medicalLeaveEntitlementlistTakenlist.length;i++){
-       this.leaveTypeID= this.medicalLeaveEntitlementlistTakenlist[i].leaveTypeID
-       this.medicalLeaveEntitlementTaken += this.medicalLeaveEntitlementlistTakenlist[i].noOfDays;
+    .subscribe({
+      next: data => {
+        debugger
+        this.LeaveTypeList1 = data;
+        this.medicalLeaveEntitlementlist=data.filter(x=>x.leavetype=='Medical Leave')
+        this.medicalLeaveEntitlement=this.medicalLeaveEntitlementlist[0].yearlyLimit
+        this.marriageLeaveEntitlementlist=data.filter(x=>x.leavetype=='Marriage Leave')
+        this.marriageLeaveEntitlement=this.medicalLeaveEntitlementlist[0].yearlyLimit
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-    
-      // this.medicalLeaveEntitlementTaken=this.medicalLeaveEntitlementlistTakenlist[0].balanceleave
-      // this.medicalLeaveEntitlementBalance=(this.medicalLeaveEntitlement-this.medicalLeaveEntitlementTaken)
-
-     
     })
-    this.DigiofficeService.GetLeaveBalanceDetails().subscribe(data => {
-      debugger
-      this.marriageLeaveEntitlementlistTakenlist=data.filter(x=>x.leaveTypeID==6 && x.staffID==sessionStorage.getItem('staffid'))
-      this.marriageLeaveEntitlementTaken=this.marriageLeaveEntitlementlistTakenlist[0].balanceleave
-      this.marriageLeaveEntitlementBalance=(this.marriageLeaveEntitlement-this.marriageLeaveEntitlementTaken)
 
-     
+
+
+    this.DigiofficeService.GetLeaveBalanceDetails()
+
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.balancelist = data;
+        this.medicalLeaveEntitlementlistTakenlist=data.filter(x=>x.staffID==sessionStorage.getItem('staffid'))
+        const key = 'leaveTypeID';
+        // this.uniquelist = [...new Map(this.medicalLeaveEntitlementlistTakenlist.map((item: { [x: string]: any; }) =>
+        // [(item[key]), item])).values()]
+  
+        this.medicalLeaveEntitlementTaken=0
+  
+        for(let i=0;i<=this.medicalLeaveEntitlementlistTakenlist.length;i++){
+         this.leaveTypeID= this.medicalLeaveEntitlementlistTakenlist[i].leaveTypeID
+         this.medicalLeaveEntitlementTaken += this.medicalLeaveEntitlementlistTakenlist[i].noOfDays;
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
+    this.DigiofficeService.GetLeaveBalanceDetails()
+
 
   
+ .subscribe({
+  next: data => {
+    debugger
+    this.marriageLeaveEntitlementlistTakenlist=data.filter(x=>x.leaveTypeID==6 && x.staffID==sessionStorage.getItem('staffid'))
+    this.marriageLeaveEntitlementTaken=this.marriageLeaveEntitlementlistTakenlist[0].balanceleave
+    this.marriageLeaveEntitlementBalance=(this.marriageLeaveEntitlement-this.marriageLeaveEntitlementTaken)
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
     
   }
 
@@ -370,9 +530,7 @@ export class LeavesComponent implements OnInit {
     this.buildcallender(this.staffleaves);
   }
 
-  password1: any;
-  supervisoremail:any;
-  employeename:any;
+
   getpassword() {
     this.DigiofficeService.GetMyDetails().subscribe(data => {
       let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
@@ -395,12 +553,27 @@ export class LeavesComponent implements OnInit {
       'cclist': this.supervisoremail,
       'bcclist': this.supervisoremail,
     }
-    this.DigiofficeService.sendemail1(entity1).subscribe(res => {
-      debugger;
-      this.Attactments = [];
+    this.DigiofficeService.sendemail1(entity1)
 
-     
-    })
+   
+ .subscribe({
+  next: data => {
+    debugger
+    this.Attactments = [];
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+}) 
 
   }
 

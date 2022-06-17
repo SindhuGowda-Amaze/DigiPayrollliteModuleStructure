@@ -8,44 +8,82 @@ import Swal from 'sweetalert2';
   styleUrls: ['./salaryadjustment.component.css']
 })
 export class SalaryadjustmentComponent implements OnInit {
-
-  viewMode = 'tab1';
-  constructor(public DigiofficeService: DigipayrollserviceService) { }
+  currentUrl: any;
   roleid: any;
   staffID: any;
-  ngOnInit(): void {
-    this.roleid = sessionStorage.getItem('roledid');
-    this.GetSalaryAdjustmentType();
-    this.staffID = sessionStorage.getItem('staffid');
-  }
+  viewMode = 'tab1';
   p: any = 1;
   count1: any = 10;
   projectlist: any;
   search: any
   projectlist1:any;
+  date: any;
+  medicalUrl: any
+  count:any;
+  projectlist23:any;
+  projectlist14:any;
+  constructor(public DigiofficeService: DigipayrollserviceService) { }
+ 
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+    this.roleid = sessionStorage.getItem('roledid');
+    this.GetSalaryAdjustmentType();
+    this.staffID = sessionStorage.getItem('staffid');
+  }
+
   public GetSalaryAdjustmentType() {
 
     debugger
-    this.DigiofficeService.GetSalaryAdjustmentType().subscribe(data => {
-      debugger
-      this.projectlist = data.filter(x => x.staffID ==this.staffID && ( x.status=='Manager Approved Hr Approved' || x.status=='Manager Approved HR Approved')  )
+    this.DigiofficeService.GetSalaryAdjustmentType()
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.projectlist = data.filter(x => x.staffID ==this.staffID && ( x.status=='Manager Approved Hr Approved' || x.status=='Manager Approved HR Approved')  )
      
-      this.projectlist1 = data.filter(x => x.staffID ==this.staffID && x.status=='Manager Pending Hr Pending' )
-     
+        this.projectlist1 = data.filter(x => x.staffID ==this.staffID && x.status=='Manager Pending Hr Pending' )
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
   }
-  date: any;
+
   public getdate(event: any) {
     debugger
     this.date = event.target.value;
 
-    this.DigiofficeService.GetExpensesListweb().subscribe(data => {
-      debugger
-      this.projectlist1 = data.filter(x => x.userID == this.staffID && x.filterdate == this.date && x.approvalStatus=='Manager Pending')
-    })
+    this.DigiofficeService.GetExpensesListweb()
 
+    .subscribe({
+      next: data => {
+        debugger
+        this.projectlist1 = data.filter(x => x.userID == this.staffID && x.filterdate == this.date && x.approvalStatus=='Manager Pending')
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
   }
-  medicalUrl: any
+
   public getmedicalUrl(medicalUrl: any) {
     debugger
     this.medicalUrl = medicalUrl
@@ -70,35 +108,58 @@ export class SalaryadjustmentComponent implements OnInit {
       }
     })
 
-    
 
-    
-
-  
 
   }
 
-  
 
-  count:any;
-  projectlist23:any;
   public Approve(){
-    this.DigiofficeService.GetSalaryAdjustmentType().subscribe(data => {
-      debugger
-      this.projectlist23 = data.filter(x => x.userID == this.staffID && x.approvalStatus!='Manager Pending' )
-     this.count=this.projectlist23.length
-    })
+    this.DigiofficeService.GetSalaryAdjustmentType()
 
+    .subscribe({
+      next: data => {
+        debugger
+        this.projectlist23 = data.filter(x => x.userID == this.staffID && x.approvalStatus!='Manager Pending' )
+     this.count=this.projectlist23.length
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
 
   }
-  projectlist14:any;
-  public Pending(){
-    this.DigiofficeService.GetSalaryAdjustmentType().subscribe(data => {
-      debugger
-      this.projectlist14 = data.filter(x => x.userID == this.staffID && x.approvalStatus=='Manager Pending' )
-      this.count=this.projectlist14.length
-    })
 
+  public Pending(){
+    this.DigiofficeService.GetSalaryAdjustmentType()
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.projectlist14 = data.filter(x => x.userID == this.staffID && x.approvalStatus=='Manager Pending' )
+        this.count=this.projectlist14.length
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
   }
 
 }

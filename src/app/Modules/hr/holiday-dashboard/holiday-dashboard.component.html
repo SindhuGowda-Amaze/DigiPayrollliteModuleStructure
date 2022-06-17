@@ -1,0 +1,160 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-11">
+                    <p class="Heading">Holiday Dashboard</p>
+                </div>
+            </div>
+
+            <!-- <div>
+                <div>
+                    <ul>
+                        <li><a class="active"> <h3>Holiday Dashboard</h3></a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <hr> -->
+
+            <div class="row FilterClass">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-lg-1" style="color: #0C275A; font-family: 
+                            'Poppins'; margin-top: 5px; font-size: 15px;
+                             font-weight: bold;">
+                                Filter By
+                            </div>
+                            <div class="col-lg-4" style="font-family: 'Poppins';">
+                                <input class="form-control" type="search" placeholder="Search.." (ngModelChange)="Filterholidays()"
+                                    [(ngModel)]="term" name="term">
+                            </div>
+                            <div class="col-lg-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+
+            <!-- <div class="row">
+
+                <div class="col-md-6">
+                    <input class="form-control" type="search" [(ngModel)]="term" placeholder="Search ">
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <p class="show3res">SHOWING <span style="color: black;"> {{holidaylist.length}} </span>RESULTS</p>
+                </div>
+                <div class="col-lg-4" *ngIf="roleid=='1'">
+                    <a routerLink="/HolidayForm"><button class="button">Add New</button> </a>
+                </div>
+            </div><br>
+
+            <!-- <div class="row">
+                <div class="col-md-10">
+                    <p class="show3res">SHOWING <span style="color: black;"> {{holidaylist.length}} </span>RESULTS</p>
+                </div>
+                <div class="col-md-2">
+                    <button class=" form-control btn" routerLink="/HolidayForm">Add New</button>
+                </div>
+
+
+            </div><br> -->
+            <!-- <div class="row" style="margin-left: -99px;">
+                <div class="col-lg-1"></div>
+                <p class="view">View</p> &nbsp; &nbsp;
+                <p class="view" routerLink="/HolidayForm">Modify</p>
+            </div> -->
+            
+            <div class="row">
+                <div class="col-md-12">
+               
+                        <!-- <table class="table table-bordered"> -->
+                        <table class="table"
+                        *ngIf="(holidaylist | paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
+                            <thead>
+                                <tr>
+
+                                    <th>Holiday</th>
+                                    <th>Holiday Description</th>
+                                    <th>Holiday Date</th>
+                                    <th>Attachment</th>
+                                    <th *ngIf="roleid=='1'">Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let holiday of holidaylist|paginate: { itemsPerPage: count1, currentPage: p}">
+                                    <td>{{holiday.holiday}}</td>
+                                    <td>{{holiday.holidayDescription}}</td>
+                                    <td>{{holiday.holidayDate|date}}</td>
+                                    <td>
+                                        <img src="{{holiday.attachment}}" (click)="getmedicalUrl(holiday.attachment)"
+                                            data-toggle="modal" data-target="#Allocate"
+                                            style="width:100px;height: 50px;">
+                                    </td>
+                                    <td *ngIf="roleid=='1'"> <button class="DeleteBTN"
+                                            [routerLink]="['/HolidayForm',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button class="DeleteBTN" (click)="DeleteHolidays(holiday.id)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-left">
+                            <br>
+                            <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                        </div>
+                        <ng-template #noResults>
+                            <div class="card">
+                                <p class="NoResultShow"> No results found</p>
+                            </div>
+                        </ng-template>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="Allocate" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h1></h1>
+                        </div>
+                    </div>
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body ">
+                    <div class="container-fluid">
+                        <div class="row" style="text-align: center;">
+                            <div class="col-lg-4">
+
+                            </div>
+                            <img src="{{file}}" alt="medical.img" style="height: 410px;margin-left: 10px;">
+                        </div>
+
+                        <br />
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

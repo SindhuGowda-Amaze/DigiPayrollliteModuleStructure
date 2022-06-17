@@ -10,24 +10,40 @@ import Swal from 'sweetalert2';
 export class LoanMasterDashComponent implements OnInit {
   term: any;
   leavelist: any;
-
   ID:any;
   currentUrl: any;
 
-
+  
   constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
   ngOnInit(): void {
-    this.currentUrl = window.location.href;
     this.GetLoanMaster();
   }
   
   public GetLoanMaster() {
     debugger
-    this.DigipayrollserviceService.GetLoanMaster().subscribe(data => {
-      debugger
-      this.leavelist = data
+    this.DigipayrollserviceService.GetLoanMaster()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data
+      }, error: (err) => {
+        Swal.fire('Issue in GetLoanMaster');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+   
   }
+
 
   GetId(id: any) {
     this.ID = id
@@ -72,13 +88,30 @@ delete(id:any) {
 
     if (result.isConfirmed) {
       debugger
-      this.DigipayrollserviceService.DeleteLoanMaster(id).subscribe(
-        data => {
-        
-         location.reload() 
-      })
-      Swal.fire('Deleted Successfully...!')   
+      this.DigipayrollserviceService.DeleteLoanMaster(id)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Deleted Successfully...!')   
       this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in DeleteLoanMaster');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+      
+      
+      
+     
     }
   });
 }
@@ -88,17 +121,28 @@ public Disable_Loans(id: any) {
     'ID': id,
     'Enable_Disable': 1
   }
-  this.DigipayrollserviceService.Enable_Disable_Loans(eb).subscribe(
-
-    data => {
+  this.DigipayrollserviceService.Enable_Disable_Loans(eb)
+  
+  .subscribe({
+    next: data => {
       debugger
-      Swal.fire('Disabled Successfully.');
-      this.DigipayrollserviceService.GetLoanMaster().subscribe(data => {
-        debugger
-        this.leavelist = data
-      })
-    },
-  )
+      Swal.fire('Deleted Successfully')
+      this.ngOnInit();
+    }, error: (err) => {
+      Swal.fire('Issue in Enable_Disable_Loans');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
+  
+
 
 }
 
@@ -108,7 +152,32 @@ public Enable_Loans(id: any) {
     'ID': id,
     'Enable_Disable': 0
   }
-  this.DigipayrollserviceService.Enable_Disable_Loans(eb).subscribe(
+  this.DigipayrollserviceService.Enable_Disable_Loans(eb)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .subscribe(
 
     data => {
       debugger

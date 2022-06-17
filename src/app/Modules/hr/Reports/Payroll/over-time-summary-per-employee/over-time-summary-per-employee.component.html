@@ -1,0 +1,187 @@
+
+ <div class="container-fluid">  
+    <br/>
+    <div class="row">
+       <br>
+       <div class="col-lg-12">
+           <p class="Heading1">Overtime Summary Break Down Report</p>
+       </div>
+   </div>
+    <br/>
+    <br/>
+   <div class="row">
+       <div class="col-lg-12">
+           <table class="table">
+               <thead>
+                   <tr class="newFont">
+                       <th class="SelectData">Select</th>
+                       <th>Year</th>
+                       <th>Month</th>
+                       <th>Period</th>
+                      
+                   <tr>
+               </thead>
+               <tbody>
+                   <tr *ngFor="let item of uniquelist">
+                       <td class="SelectData"><input type="checkbox"
+                               (change)="getemployeelist(item.month,item.startyear,item.payrolltype)"
+                               data-toggle="collapse" data-target="#demo"></td>
+                       <td style="color:#0C275A">{{item.endyear}}</td>
+                       <td style="color:#0C275A">{{item.month}}</td>
+                       <td style="color:#0C275A">{{item.payrolltype}}</td>
+                      
+
+                   </tr>
+
+               </tbody>
+           </table>
+         
+       </div>
+        
+   </div><br>
+</div> 
+<br/>
+<br/>
+<br/> 
+<br/>
+<br/>
+<br/>
+<div class="container-fluid" id="demo" class="collapse">
+    
+   <div class="card" >
+           <div class="row ">
+               <div class="col-lg-1 space">
+                   <p style="color:#0C275A">Filter By</p>
+               </div>
+               <div class="col-lg-4">
+                   <p>Search
+                       <input class="form-control" type="search" [(ngModel)]="term"
+                           style="color:#0C275A;font-family: 'Poppins'" 
+                           placeholder="Search for Staff...">
+               </div>
+               <div class="col-lg-2">
+                   <p>Role
+                       <br> <select class="form-control" id="RoleType" name="RoleType" 
+                           [(ngModel)]="RoleType" (change)="FilterRoleType()">
+                           <option value="">Select Role</option>
+                           <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
+                           </option>
+                       </select>
+                   </p>
+               </div>
+               <div class="col-lg-2">
+                   <p>Department
+                       <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                           (change)="filterByDepartment()">
+                           <option value="">Select Department</option>
+                           <option value="{{item.department_name}}" *ngFor="let item of Departmentlist">
+                               {{item.department_name}}
+                           </option>
+                       </select>
+                   </p>
+               </div>
+           </div>
+           
+       </div>
+       <br/>
+       <br/>
+       <br/>
+       <div class="row">
+        <div class="col-lg-8">
+            <p class="active Heading1" style="text-align: center;">Employees in selected Period</p>
+            <a class="active fontheading" (click)="selectALL(true)" 
+                >Select ALL</a>
+        </div>
+        <div class="col-lg-4">
+        </div>
+       
+
+    </div>
+   <div class="row">
+       <div class="col-lg-12">
+           <table class="table table-bordered fonttxt">
+               <thead>
+                   <tr class="newFont">
+                       <th class="SelectData">Select</th>
+                       <th>Employee ID</th>
+                       <th>Employee Name</th>
+                       <th>Department</th>
+                       <th>Role</th>
+                       <th>Status</th>
+                       <th>Pay Group</th>
+                   </tr>
+                   <tr *ngFor="let item of timedetails|filter:term">
+                       <td class="SelectData"><input type="checkbox" value="item.value" [(ngModel)]="item.checked"
+                        (click)="getpayslip(item.id,item.startdate,item.enddate,$event,item)" ></td>
+                               <td>{{item.employeeid1}}</td>
+                               <td>{{item.staffname}}</td>
+                               <td>{{item.department_name}}</td>
+                               <td>{{item.role}}</td>
+                      
+                       <td>Active</td>
+
+                       <td>{{item.paygroup}}</td>
+                   </tr>
+               </thead>
+           </table>
+       </div>
+       
+   </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="row" *ngIf="showleaseforprint==1">
+   <div class="col-lg-8">
+   </div>
+   <div class="col-lg-4" style="margin-left: 800px;">
+       <button class="AddButton" (click)="convetToPDF1()">Convert To PDF </button> &nbsp;&nbsp;
+       <button class="AddButton" (click)="exportexcel()">Export to Excel</button>
+   </div>
+</div> <br>
+
+<div class="row" *ngIf="showleaseforprint==1">
+   <div class="col-lg-12">
+       <div class="row">
+           <div class="col-lg-12" style="overflow:auto;">
+            <table class="table" id="lvs">
+                <thead>
+                    <tr class="thwidth">
+                        <th class="thwidth">Employee Name</th>
+                        <th class="thwidth">Date</th>
+                        <th class="thwidth">Start Time</th>
+                        <th class="thwidth">End Time</th>
+                        <!-- <th class="thwidth">Day</th> -->
+                        <th class="thwidth">OT</th>
+                        <th class="thwidth">Night OT</th>
+                      
+                        <th class="thwidth">Comments</th>
+                        <th class="thwidth">Status</th>
+
+                       
+
+                    </tr>
+                    <tr
+                        *ngFor="let time of timedetails1|filter:term |paginate: { itemsPerPage: count1, currentPage: p}">
+                        <td>{{time.staffname}}</td>
+                        <td>{{time.date|date}}</td>
+                        <!-- <td>{{time.day}}</td> -->
+                        <td>{{time.startTime|date:'HH:mm'}}</td>
+                        <td>{{time.endTime|date:'HH:mm'}}</td>
+                        <td>{{time.noofhours}}</td>
+                        <td>{{time.nightot}}</td>
+                        
+                        <td>{{time.comments}}</td>
+                        <td>{{time.status}}</td>
+
+
+                        </tr>
+
+                </thead>
+            </table>
+           </div>
+       </div>
+
+   </div>
+</div>

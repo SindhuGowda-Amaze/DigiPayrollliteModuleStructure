@@ -257,7 +257,7 @@ export class HRDashboardComponent implements OnInit {
   }
 
   public Profilecompletion(){
-    this.router.navigate(['/EmployeeForm' ,this.staffID ])
+    this.router.navigate(['/hr/ProfileCompletionForm' ,this.staffID ])
   
    }
  

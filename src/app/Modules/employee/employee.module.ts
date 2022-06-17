@@ -16,7 +16,7 @@ import { PayslipComponent } from './Reports/payslip/payslip.component';
 import { ContributioncertificateComponent } from './Reports/contributioncertificate/contributioncertificate.component';
 import { CertificateofloanComponent } from './Reports/certificateofloan/certificateofloan.component';
 import { EmploymentcertificateComponent } from './Reports/employmentcertificate/employmentcertificate.component';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ApplyLeaveComponent } from './EmployeeRequest/apply-leave/apply-leave.component';
@@ -56,7 +56,8 @@ import { EmployeeResignformComponent } from './EmployeeRequest/employee-resignfo
     FormsModule ,
     NgxDropzoneModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ]
 })
 export class EmployeeModule { }
