@@ -9,8 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./shift-master-form.component.css']
 })
 export class ShiftMasterFormComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+  currentUrl: any;
   ID: any;
   shiftmasterlist: any;
   Short: any;
@@ -18,9 +17,13 @@ export class ShiftMasterFormComponent implements OnInit {
   ShiftTimeings: any
   Grace: any
 
+  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+ 
 
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
+
     // this.Grace="";
     // this.Short="";
     this.GetShiftMaster();
@@ -32,28 +35,62 @@ export class ShiftMasterFormComponent implements OnInit {
       }
       else {
 
-        this.DigiofficeService.GetShiftMaster().subscribe(
-          data => {
+        this.DigiofficeService.GetShiftMaster()
+        .subscribe({
+          next: data => {
             debugger
-
             this.shiftmasterlist = data;
             this.Short = this.shiftmasterlist[0].short;
             this.Description = this.shiftmasterlist[0].description;
             this.ShiftTimeings = this.shiftmasterlist[0].shiftTimeings;
             this.Grace = this.shiftmasterlist[0].grace;
-          },
-        );
+          }, error: (err) => {
+            Swal.fire('Issue in Getting ShiftMaster');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+  
+        
+        
+        
+       
       }
     }
     )
   }
 public GetShiftMaster(){
-  this.DigiofficeService.GetShiftMaster().subscribe(
-    data => {
+  this.DigiofficeService.GetShiftMaster()
+  .subscribe({
+    next: data => {
       debugger
       this.shiftmasterlist = data;
-    },
-  );
+    }, error: (err) => {
+      Swal.fire('Issue in Getting ShiftMaster');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+
+  
+  
+ 
 }
 
   
