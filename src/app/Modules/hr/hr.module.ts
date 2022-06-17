@@ -69,6 +69,15 @@ import { PayrollCutOffDatesComponent } from './Configuration/payroll-cut-off-dat
 import { CutOffConfigurationFormComponent } from './Configuration/cut-off-configuration-form/cut-off-configuration-form.component';
 import { RemittanceConfigDashComponent } from './Configuration/remittance-config-dash/remittance-config-dash.component';
 import { RemittanceConfigFormComponent } from './Configuration/remittance-config-form/remittance-config-form.component';
+import { LookAndFeelFormComponent } from './Configuration/look-and-feel-form/look-and-feel-form.component';
+import { LeaveConfigFormComponent } from './Configuration/leave-config-form/leave-config-form.component';
+import { AttendanceConfigFormComponent } from './Configuration/attendance-config-form/attendance-config-form.component';
+import { LeaveTypeDashboardComponent } from './Masters/leave-type-dashboard/leave-type-dashboard.component';
+import { LeaveTypeFormComponent } from './Masters/leave-type-form/leave-type-form.component';
+import { ShiftMasterDashComponent } from './Masters/shift-master-dash/shift-master-dash.component';
+import { ShiftMasterFormComponent } from './Masters/shift-master-form/shift-master-form.component';
+import { SeparationTypeDashComponent } from './Masters/separation-type-dash/separation-type-dash.component';
+import { SeparationTypeFormComponent } from './Masters/separation-type-form/separation-type-form.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.circles
@@ -134,7 +143,16 @@ const ngWizardConfig: NgWizardConfig = {
     PayrollCutOffDatesComponent,
     CutOffConfigurationFormComponent,
     RemittanceConfigDashComponent,
-    RemittanceConfigFormComponent
+    RemittanceConfigFormComponent,
+    LookAndFeelFormComponent,
+    LeaveConfigFormComponent,
+    AttendanceConfigFormComponent,
+    LeaveTypeDashboardComponent,
+    LeaveTypeFormComponent,
+    ShiftMasterDashComponent,
+    ShiftMasterFormComponent,
+    SeparationTypeDashComponent,
+    SeparationTypeFormComponent
   ],
   imports: [
     CommonModule,

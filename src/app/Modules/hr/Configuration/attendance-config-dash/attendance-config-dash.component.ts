@@ -1,35 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
-
 @Component({
   selector: 'app-attendance-config-dash',
   templateUrl: './attendance-config-dash.component.html',
   styleUrls: ['./attendance-config-dash.component.css']
 })
+
 export class AttendanceConfigDashComponent implements OnInit {
 
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
+  constructor(public DigiofficeService: DigipayrollserviceService) { }
+  Search: any;
+  loader: any;
+  AttendConfiglist: any
+  date: any;
+  currentUrl: any;
 
   ngOnInit(): void {
-    this.loader=true;
+    this.currentUrl = window.location.href;
+    this.loader = true;
     this.GetAttendanceConfiguration();
   }
-  Search:any;
-  loader:any;
-  AttendConfiglist:any
-  date:any;
+
   public GetAttendanceConfiguration() {
     debugger
-    this.DigipayrollServiceService.GetAttendanceConfiguration().subscribe(data => {
-      debugger
-      this.AttendConfiglist = data
-      this.loader=false;
-    })
+    this.DigiofficeService.GetAttendanceConfiguration()
+      .subscribe({
+        next: data => {
+          debugger
+          this.AttendConfiglist = data;
+          this.loader = false;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Attendance Configuration');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
-
- 
-
 
   public DeleteAttendanceConfiguration(ID: any) {
     debugger
@@ -42,14 +57,29 @@ export class AttendanceConfigDashComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.DigipayrollServiceService.DeleteAttendanceConfiguration(ID).subscribe(data => {
-          debugger
-         Swal.fire('Deleted Successfully...!')
-         location.reload();
-        })
+        this.DigiofficeService.DeleteAttendanceConfiguration(ID)
+          .subscribe({
+            next: data => {
+              debugger
+              Swal.fire('Deleted Successfully...!')
+              location.reload();
+              this.loader = false;
+            }, error: (err) => {
+              Swal.fire('Issue in Deleting Attendance Configuration');
+              // Insert error in Db Here//
+              var obj = {
+                'PageName': this.currentUrl,
+                'ErrorMessage': err.error.message
+              }
+              this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                data => {
+                  debugger
+                },
+              )
+            }
+          })
       }
     })
-
   }
 
 }

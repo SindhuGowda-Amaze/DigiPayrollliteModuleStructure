@@ -100,7 +100,7 @@ export class EmployeeResignformComponent implements OnInit {
   }
 
   cancel() {
-    location.href = "/employee/resignation";
+    location.href = "/#/employee/resignation";
   }
 
 

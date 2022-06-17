@@ -8,38 +8,41 @@ import Swal from 'sweetalert2';
   styleUrls: ['./ot-rates.component.css']
 })
 export class OtRatesComponent implements OnInit {
-
+  Otlist:any;
   ID:any;
+  currentUrl: any;
+  loader: any;
   constructor(private DigipayrollServiceService: DigipayrollserviceService, private ActivatedRoute:ActivatedRoute) { }
-
   ngOnInit(): void {
     debugger
+    this.currentUrl = window.location.href
     this.GetOTRates();
   }
-
-
-  Otlist:any;
-
-  public GetOTRates() {
+  public GetOTRates(
+  ) {
     debugger
-    this.DigipayrollServiceService.GetOTRates().subscribe(data=>{
-      debugger
-      this.Otlist=data ;
-      debugger
-     })
+    this.DigipayrollServiceService.GetOTRates()
+   
+    .subscribe({
+      next: data => {
+        debugger
+        this.Otlist=data ;
+        this.loader=false;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    }) 
   }
-
-
-  // delete(id: any){
-  //   debugger;
-  //   this.DigipayrollServiceService.DeleteOTRates(id).subscribe(
-  //     data => {
-  //      Swal.fire('Deleted Successfully...!')   
-  //      location.reload() 
-  //   })
-  // }
-
-  
 
 delete(id:any) {
   Swal.fire({
@@ -56,10 +59,24 @@ delete(id:any) {
 
     if (result.isConfirmed) {
       debugger
-      this.DigipayrollServiceService.DeleteOTRates(id).subscribe(
-        data => {
-        
-         location.reload() 
+      this.DigipayrollServiceService.DeleteOTRates(id) 
+      .subscribe({
+        next: data => {
+          debugger
+          location.reload() 
+        }, error: (err) => {
+          Swal.fire('Issue in deleted otrates');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
       Swal.fire('Deleted Successfully...!')   
       this.GetOTRates();

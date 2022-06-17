@@ -32,7 +32,7 @@ export class ResignationComponent implements OnInit {
   }
 
   add() {
-    location.href = "/employee/EmployeeResignform";
+    location.href = "/#/employee/EmployeeResignform";
   }
 
 

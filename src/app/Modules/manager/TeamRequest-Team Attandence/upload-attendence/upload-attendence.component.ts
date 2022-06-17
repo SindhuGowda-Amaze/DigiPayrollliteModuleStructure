@@ -358,6 +358,7 @@ export class UploadAttendenceComponent implements OnInit {
 
   public cancel() {
     location.reload();
+    // location.href = "#/manager/UploadAttendence";
   }
 
 }

@@ -128,15 +128,15 @@ export class VaccineFormComponent implements OnInit {
 
   public cancel() {
     debugger
-    if (this.roledid == 1) {
-      this.router.navigate(['/hr/VaccineDashboard']);
+    // if (this.roledid == 1) {
+    //   this.router.navigate(['/hr/VaccineDashboard']);
 
-    } else if (this.roledid == 2) {
-      this.router.navigate(['/manager/ManagerDashboard']);
-    }
-    else {
-      this.router.navigate(['/hr/HRDashboard']);
-    }
+    // } else if (this.roledid == 2) {
+    //   this.router.navigate(['/manager/ManagerDashboard']);
+    // }
+    // else {
+      this.router.navigate(['/hr/VaccineDashboard']);
+  //   }
 
   }
 

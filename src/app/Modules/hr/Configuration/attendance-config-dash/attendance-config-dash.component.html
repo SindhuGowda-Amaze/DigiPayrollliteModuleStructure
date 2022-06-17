@@ -26,7 +26,7 @@
 
         </div>
         <div class="col-md-2">
-            <button class=" form-control requestbtn " routerLink="/Attendenceconfig">Add New</button>
+            <button class=" form-control requestbtn " routerLink="/hr/AttendanceConfigForm">Add New</button>
         </div>
     </div>
     <br>
@@ -59,7 +59,7 @@
                         <td>{{AttendConfig.underTime}}</td>
                         <td>{{AttendConfig.regularization}}</td>
                         <td> <button class="upload"
-                                [routerLink]="['/Attendenceconfig',AttendConfig.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                [routerLink]="['/hr/AttendanceConfigForm',AttendConfig.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="upload"
                                 (click)="DeleteAttendanceConfiguration(AttendConfig.id)">Delete</button>
                         </td>

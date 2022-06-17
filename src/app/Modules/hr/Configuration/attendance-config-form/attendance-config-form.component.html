@@ -1,0 +1,117 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-11">
+                <p class="Heading" style="color: #3247D5; font-family: 'Poppins';">Attendance Configuration</p>
+            </div>
+        </div>
+        <!-- <div class="row LocDashboard">
+                <div class="col-lg-12">
+                    <label style="padding-left: 10px;">Add Holiday</label>
+                </div>
+            </div> -->
+        <div class="card">
+
+            <div class="row leavereq">
+                <div class="col-md-3">
+                    <label>Shift<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-3">
+                    <label>Office Start Time<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-3">
+                    <label>Office End Time<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-3">
+                    <p>Early Check in Time<span style="color: red;">*</span></p>
+                </div>
+                <!-- <div class="col-md-3" *ngIf="ID==undefined">
+                    <p>Attachment<span style="color: red;">*</span></p>
+                </div> -->
+
+            </div>
+            <div class="row leavereq">
+                <div class="col-md-3">
+                    <select class="form-control inputfield" [(ngModel)]="shiftid" id="shiftid" name="shiftid">
+                        <option value="0">Select</option>
+                        <option value="1">General Shift</option>
+                        <option value="2">Morning Shift</option>
+                        <option value="3">Afternoon Shift</option>
+                        <option value="4">Night Shift</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="time" class="form-control" [(ngModel)]="startingTime" placeholder="Leave Code"
+                        name="LeaveCode" id="LeaveCode">
+                </div>
+                <div class="col-md-3">
+                    <input type="time" class="form-control" [(ngModel)]="endTime" placeholder="Leave Code"
+                        name="LeaveCode" id="LeaveCode">
+                </div>
+                <div class="col-md-3">
+                    <input type="time" class="form-control" [(ngModel)]="earlyCheckInTime" placeholder="Leave Code"
+                        name="LeaveCode" id="LeaveCode">
+                </div>
+            </div>
+            <br>
+            <div class="row leavereq">
+                <div class="col-md-3">
+                    <label>Grace Period (In Minutes)<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-3">
+                    <label>Undertime (In Hr)<span style="color: red;"></span></label>
+                </div>
+                <div class="col-md-3">
+                    <p>Regularization<span style="color: red;">*</span></p>
+                </div>
+            </div>
+            <div class="row leavereq">
+                <div class="col-md-3">
+                    <input type="number" class="form-control" [(ngModel)]="gracePeriod"
+                        placeholder="Grace Period (In Minutes)" name="Description" id="Description">
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control" [(ngModel)]="underTime" placeholder="Undertime (In Hr)"
+                        name="Leave Message" id="Leave Message">
+                </div>
+
+                <div class="col-md-3">
+                    <select class="form-control inputfield" [(ngModel)]="regularization" id="LeaveType" name="LeaveType"
+                        [(ngModel)]="LeaveType">
+                      
+                        <option value="Select">Select</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+
+
+            <div class="row">
+                <div class="col-lg-3"></div>
+
+                <div class="col-lg-4">
+                    <button class="button" routerLink='/hr/AttendanceConfigDash'>Cancel</button>
+                    <button type="button" class="button" *ngIf="ID!=undefined"
+                        (click)="UpdateHolidays()">Update</button>
+                    <button class="button" *ngIf="ID==undefined" (click)="OnSubmit()">Submit</button>
+
+                </div>
+                <div class="col-lg-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

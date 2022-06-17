@@ -408,7 +408,7 @@ export class AddExpenseComponent implements OnInit {
 
   public Cancel() {
     debugger
-    location.href = "/employee/expense";
+    location.href = "/#/employee/expense";
   }
 
 

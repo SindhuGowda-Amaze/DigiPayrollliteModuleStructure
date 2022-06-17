@@ -65,14 +65,14 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 2;
     localStorage.setItem('clickname', 'Shift Master')
-    this.router.navigate(['/Shiftmasterdash']);
+    this.router.navigate(['/hr/ShiftMasterDash']);
   }
 
   public SeparationType() {
     debugger
     this.active = 2;
     localStorage.setItem('clickname', 'Separation Type')
-    this.router.navigate(['/SeparationTypeDash']);
+    this.router.navigate(['/hr/SeparationTypeDash']);
   }
 
 
@@ -230,7 +230,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 11;
     localStorage.setItem('clickname', 'LEAVE ENTITLEMENT ')
-    this.router.navigate(['/LeaveTypeDashboard']);
+    this.router.navigate(['/hr/LeaveTypeDashboard']);
   }
   public Salarydetailsdash() {
     debugger
@@ -817,8 +817,14 @@ export class SidebarComponent implements OnInit {
   public UploadAttendence() {
     debugger
     this.active = 94;
+    if(this.roleid==9){
+    localStorage.setItem('clickname', 'UPLOAD ATTENDANCE')
+    this.router.navigate(['/manager/UploadAttendence']);
+  }
+  else{
     localStorage.setItem('clickname', 'UPLOAD ATTENDANCE')
     this.router.navigate(['#/manager/UploadAttendence']);
+  }
   }
 
   public EmployeeJobHistory() {
