@@ -1,0 +1,214 @@
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-11">
+                    <p class="Heading1">Leaves Configuration</p>
+                </div>
+            </div>
+            <!-- <div class="row LocDashboard">
+                    <div class="col-lg-12">
+                        <label style="padding-left: 10px;">Add Holiday</label>
+                    </div>
+                </div> -->
+            <div class="card">
+
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <label>Leave Category<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Description<span style="color: red;">*</span></label>
+                    </div>
+
+                    <div class="col-md-3">
+                        <p>Gender<span style="color: red;"></span></p>
+                    </div>
+
+                </div>
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <select class="form-control inputfield" id="LeaveCategory" (change)="GetLeaveName()"  name="LeaveCategory"
+                            [(ngModel)]="LeaveCategory" >
+                            <option value="Select">Select</option>
+                            <option   value="{{leavetype.id}}" *ngFor="let leavetype of LeaveTypeList">
+                                {{leavetype.description}} </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Description" name="Description"
+                            [(ngModel)]="Description" id="Description">
+                    </div>
+
+                    <div class="col-md-3">
+                        <select class="form-control inputfield" id="Gender" name="Gender" [(ngModel)]="Gender">
+                            <option value="">Select</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+
+
+                <br>
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <label>Marital Status<span style="color: red;"></span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Max Children<span style="color: red;"></span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Max Remaining Leave Balance<span style="color: red;"></span></p>
+                    </div>
+                </div>
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <select class="form-control inputfield" id="MaritalStatus" name="MaritalStatus"
+                            [(ngModel)]="MaritalStatus">
+                            <option value="">Select</option>
+                            <option value="1">Married</option>
+                            <option value="2">UnMarried</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Max Children" name="MaxChildren"
+                            [(ngModel)]="MaxChildren" id="MaxChildren">
+                    </div>
+
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Max Remaining Leave Balance"
+                            [(ngModel)]="MaxRemainingLeaveBal" name="MaxRemainingLeaveBal" id="MaxRemainingLeaveBal">
+                    </div>
+                </div>
+                <br>
+
+
+                <br>
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <label>Allowed During Notice Period<span style="color: red;"></span></label>
+                    </div>
+                    <div class="col-md-3"
+                        *ngIf="LeaveCategory!=37 && LeaveCategory!=35&& LeaveCategory!=36&& LeaveCategory!=39">
+                        <label>Monthly Limit<span style="color: red;"></span></label>
+                    </div>
+                    <div class="col-md-3"
+                        *ngIf="LeaveCategory!=37 && LeaveCategory!=35&& LeaveCategory!=36&& LeaveCategory!=39">
+                        <p>Yearly Limit<span style="color: red;"></span></p>
+                    </div>
+                </div>
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Allowed During Notice Period"
+                            [(ngModel)]="AllowedDuringNotice" name="AllowedDuringNotice" id="AllowedDuringNotice">
+                    </div>
+                    <div class="col-md-3"
+                        *ngIf="LeaveCategory!=37 && LeaveCategory!=35&& LeaveCategory!=36&& LeaveCategory!=39">
+                        <input type="text" class="form-control" placeholder="Monthly Limit" name="MonthlyLimit"
+                            [(ngModel)]="MonthlyLimit" id="MonthlyLimit">
+                    </div>
+
+                    <div class="col-md-3"
+                        *ngIf="LeaveCategory!=37 && LeaveCategory!=35&& LeaveCategory!=36&& LeaveCategory!=39">
+                        <input type="text" class="form-control" placeholder="Yearly Limit" name="YearlyLimit"
+                            [(ngModel)]="YearlyLimit" id="YearlyLimit">
+                    </div>
+                </div>
+                <br>
+
+
+                <br>
+
+                <div class="row leavereq">
+                    <div class="col-lg-2">
+                        <p>Is Cashable:</p>
+                        <input type="checkbox" id="IsCashable" name="IsCashable" value="0" [(ngModel)]="IsCashable">
+                    </div>
+                    <div class="col-lg-2">
+                        <p>Allow for Next Month:</p>
+                        <input type="checkbox" id="MonthlyCapping" name="MonthlyCapping" value="0"
+                            [(ngModel)]="MonthlyCapping">
+                    </div>
+
+                    <div class="col-lg-2">
+                        <p>Allow for Next Year:</p>
+                        <input type="checkbox" id="AllowForNextYear" name="AllowForNextYear" value="0"
+                            [(ngModel)]="AllowForNextYear">
+                    </div>
+                    <div class="col-lg-2">
+                        <p>Auto Approval:</p>
+                        <input type="radio" id="AutoApproval" name="AutoApproval" [(ngModel)]="AutoApproval"
+                            value="Auto Approval">
+
+                    </div>
+                    <div class="col-lg-2">
+                        <p>Manager Approval:</p>
+                        <input type="radio" id="AutoApproval" name="AutoApproval" [(ngModel)]="AutoApproval"
+                            value="Manager Approval">
+                    </div>
+                    <!-- <div class="col-lg-2">
+                        <p>HR Approval:</p>
+                        <input type="radio" id="AutoApproval" name="AutoApproval" [(ngModel)]="AutoApproval"
+                            value="HR Approval">
+
+                    </div> -->
+                </div>
+                <br>
+                <div class="row leavereq">
+
+                    <!-- <div class="col-lg-2">
+                        <p> Two Level Approval:</p>
+                        <input type="radio" id="AutoApproval" name="AutoApproval" [(ngModel)]="AutoApproval"
+                            value="Two Level Approval">
+                    </div> -->
+                    <div class="col-lg-2">
+                        <p>Is Sick Leave Eligible:</p>
+                        <input type="checkbox" id="IsSickLeaveEligible" name="IsSickLeaveEligible" value="0"
+                            [(ngModel)]="IsSickLeaveEligible">
+                    </div>
+                    <div class="col-lg-3">
+                        <p>Is Tenure Leave Eligible:</p>
+                        <input type="checkbox" id="IsTenureLeaveEligible" name="IsTenureLeaveEligible" value="0"
+                            [(ngModel)]="IsTenureLeaveEligible">
+                    </div>
+                    <div class="col-lg-3">
+                        <p>Is Annual Leave Eligible:</p>
+                        <input type="checkbox" id="IsAnnualLeaveEligible" name="IsAnnualLeaveEligible" value="0"
+                            [(ngModel)]="IsAnnualLeaveEligible">
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-3"></div>
+
+                    <div class="col-lg-2">
+                        <button class="form-control requestbtn" routerLink='/hr/LeaveConfigDash'>Cancel</button>
+
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="form-control requestbtn" *ngIf="ID!=undefined"
+                            (click)="UpdateHolidays()">UPDATE</button>
+                        <button class=" form-control requestbtn" *ngIf="ID==undefined"
+                            (click)="InsertHolidays()">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

@@ -1,0 +1,78 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="Heading">Shift Master</p>
+        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        <br>
+        <div class="row">
+            <div class="col-lg-1">
+                <p class="filter">Filter By </p>
+            </div>
+            <div class="col-lg-2">
+                <input type="date" class="form-control">
+            </div>
+            <div class="col-lg-5">
+                <input class="form-control" placeholder="search">
+            </div>
+        </div> <br>
+    </div> <br>
+
+    <div class="row">
+        <div class="col-md-10">
+            <p class="show3res">SHOWING <span >{{shiftmasterlist.length}} </span>RESULTS</p>
+        </div>
+        <div class="col-md-2">
+            <button class="button" routerLink="/hr/ShiftMasterForm">Add New</button>
+        </div>
+    </div>
+    <br>
+    <div class="row row1">
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container-fluid">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Shift Name</th>
+                            <th>Rules</th>
+                            <th>Shift Timings</th>
+                            <th>Grace Period</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let shifting of shiftmasterlist">
+                            <td>{{shifting.short}}</td>
+                            <td>{{shifting.description}}</td>
+                            <td>{{shifting.shiftTimeings}}</td>
+                            <td>{{shifting.grace}}</td>
+                            <td>
+                                <button class="upload"
+                                [routerLink]="['/hr/ShiftMasterForm',shifting.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="upload" (click)="delete(shifting.id)">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />

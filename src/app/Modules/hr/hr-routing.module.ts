@@ -60,6 +60,15 @@ import { PayrollCutOffDatesComponent } from './Configuration/payroll-cut-off-dat
 import { CutOffConfigurationFormComponent } from './Configuration/cut-off-configuration-form/cut-off-configuration-form.component';
 import { RemittanceConfigDashComponent } from './Configuration/remittance-config-dash/remittance-config-dash.component';
 import { RemittanceConfigFormComponent } from './Configuration/remittance-config-form/remittance-config-form.component';
+import { LookAndFeelFormComponent } from './Configuration/look-and-feel-form/look-and-feel-form.component';
+import { LeaveConfigFormComponent } from './Configuration/leave-config-form/leave-config-form.component';
+import { AttendanceConfigFormComponent } from './Configuration/attendance-config-form/attendance-config-form.component';
+import { LeaveTypeDashboardComponent } from './Masters/leave-type-dashboard/leave-type-dashboard.component';
+import { LeaveTypeFormComponent } from './Masters/leave-type-form/leave-type-form.component';
+import { ShiftMasterDashComponent } from './Masters/shift-master-dash/shift-master-dash.component';
+import { ShiftMasterFormComponent } from './Masters/shift-master-form/shift-master-form.component';
+import { SeparationTypeDashComponent } from './Masters/separation-type-dash/separation-type-dash.component';
+import { SeparationTypeFormComponent } from './Masters/separation-type-form/separation-type-form.component';
 
 const routes: Routes = [{ path: '', component: HrComponent },
 {path:'HRDashboard',component:HRDashboardComponent},
@@ -75,8 +84,14 @@ const routes: Routes = [{ path: '', component: HrComponent },
 {path:'ExitformalityDash',component:ExitformalityDashComponent},
 {path:'BankAdviceList',component:BankAdviceListComponent},
 {path:'AttendanceConfigDash',component:AttendanceConfigDashComponent},
+{path:'AttendanceConfigForm',component:AttendanceConfigFormComponent},
+{path:'AttendanceConfigForm/:id',component:AttendanceConfigFormComponent},
 {path:'LeaveConfigDash',component:LeaveConfigDashComponent},
+{path:'LeaveConfigForm',component:LeaveConfigFormComponent},
+{path:'LeaveConfigForm/:id',component:LeaveConfigFormComponent},
 {path:'LookAndFeelDash',component:LookAndFeelDashComponent},
+{path:'LookAndFeelForm',component:LookAndFeelFormComponent},
+{path:'LookAndFeelForm/:id',component:LookAndFeelFormComponent},
 {path:'MonthlyAmmortizationReport',component:MonthlyAmmortizationReportComponent},
 {path:'MonthlyReport',component:MonthlyReportComponent},
 {path:'PayrollSummaryReport',component:PayrollSummaryReportComponent},
@@ -106,6 +121,7 @@ const routes: Routes = [{ path: '', component: HrComponent },
 {path:'HolidayDashboard',component:HolidayDashboardComponent},
 {path:'VaccineDashboard',component:VaccineDashboardComponent},
 {path:'VaccineForm',component:VaccineFormComponent},
+{path:'VaccineForm/:id',component:VaccineFormComponent},
 {path:'HRLeaveRequest',component:HRLeaveRequestComponent},
 {path:'LeaveForm',component:LeaveFormComponent},
 {path:'LeaveForm/:id',component:LeaveFormComponent},
@@ -127,8 +143,16 @@ const routes: Routes = [{ path: '', component: HrComponent },
 {path:'CutOffConfigurationForm',component:CutOffConfigurationFormComponent},
 {path:'RemittanceConfigDash',component:RemittanceConfigDashComponent},
 {path:'RemittanceConfigForm',component:RemittanceConfigFormComponent},
-
-
+{path:'RemittanceConfigForm/:id',component:RemittanceConfigFormComponent},
+{path:'LeaveTypeDashboard',component:LeaveTypeDashboardComponent},
+{path:'LeaveTypeForm',component:LeaveTypeFormComponent},
+{path:'LeaveTypeForm/:id',component:LeaveTypeFormComponent},
+{path:'ShiftMasterDash',component:ShiftMasterDashComponent},
+{path:'ShiftMasterForm',component:ShiftMasterFormComponent},
+{path:'ShiftMasterForm/:id',component:ShiftMasterFormComponent},
+{path:'SeparationTypeDash',component:SeparationTypeDashComponent},
+{path:'SeparationTypeForm',component:SeparationTypeFormComponent},
+{path:'SeparationTypeForm/:id',component:SeparationTypeFormComponent},
 ];
 
 
