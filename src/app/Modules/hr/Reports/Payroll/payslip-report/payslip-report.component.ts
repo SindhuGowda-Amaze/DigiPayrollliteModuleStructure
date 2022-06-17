@@ -11,8 +11,72 @@ import Swal from 'sweetalert2';
   styleUrls: ['./payslip-report.component.css']
 })
 export class PayslipReportComponent implements OnInit {
-
-  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+  currentUrl: any;
+  title:any;
+  title1:any;
+  stafflist1:any;
+  signname:any;
+  Signature:any;
+  tomail:any;
+  subject:any;
+  message:any;
+  fullname:any;
+  payrolldate:any;
+  datecovered:any;
+  department:any;
+  role:any;
+  tin:any;
+  PhilHealth:any;
+  SSS:any;
+  hdmf:any;
+  deminimisamount:any;
+  BaseSalary:any;
+  lopamount:any;
+  sssamount:any;
+  philHealthContribution:any;
+  pagBig:any;
+  tax:any;
+  netMonthSalary:any;
+  deductions:any;
+  startdate:any;
+  GrossSalary:any;
+  enddate:any;
+  semimonthly:any;
+  basicday:any;
+  basichour:any;
+  loanpayout:any;
+  nontax:any;
+  deniminimis_amount:any;
+  Benefits:any;
+  OT:any;
+  noofhours:any;
+  type:any;
+  sumsalry:any;
+  rounoff:any;
+  yearGrossSal:any;
+  yearlydeminims:any;
+  yearSSSRate:any;
+  yeartax:any;
+  yearPhilihealth:any;
+  yearPagibigRate:any;
+  semiadjustment:any;
+  monthlysalaryperperiod:any;
+  noofdaysinperiod:any;
+  OtHours:any;
+  NightOtAmount:any;
+  NightOtHours:any;
+  regularothours:any;
+  regularotamount:any;
+  Compensation:any;
+  semideductions:any;
+  yeargrosspaysalary:any;
+  LoanType:any;
+  employeelist1:any;
+  payrolltype:any;
+  Department:any;
+  RoleType:any;
+  term:any;
+  employeelist213:any;
   viewMode = 'tab1';
   result:any;
   showleaseforprint:any;
@@ -36,7 +100,11 @@ export class PayslipReportComponent implements OnInit {
   dollarUSLocale:any;
   Departmentlist:any;
   RoleTypeList:any;
+
+  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+  
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.staffid=sessionStorage.getItem('staffid')
     this.roleid = sessionStorage.getItem('roledid');
     this.getsign();
@@ -44,37 +112,100 @@ export class PayslipReportComponent implements OnInit {
     this.dollarUSLocale = Intl.NumberFormat('en-US');
 
     
-    this.DigipayrollServiceService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
-
-    this.DigipayrollServiceService.GetRoleType().subscribe(data => {
-      debugger
-      this.RoleTypeList = data;
-    });
-
-
-    this.DigipayrollServiceService.GetCompany_PayrollComputation().subscribe(
-      data => {
+    this.DigipayrollServiceService.GetDepartment()
+    .subscribe({
+      next: data => {
         debugger
-    this.result1 = data;
-		
-    this.ComputationBasic =this.result1[0].computationBasic ,
-    this.ComputationDeminimis =this.result1[0].computationDeminimis 
-
-		
+        this.Departmentlist = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Department');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-    )
+    })
+
+    
+    
+
+    this.DigipayrollServiceService.GetRoleType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.RoleTypeList = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting RoleType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
+
+    this.DigipayrollServiceService.GetCompany_PayrollComputation()
+    .subscribe({
+      next: data => {
+        debugger
+        this.result1 = data;
+		
+        this.ComputationBasic =this.result1[0].computationBasic ,
+        this.ComputationDeminimis =this.result1[0].computationDeminimis 
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Company_PayrollComputation');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
 
 
-    this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(
-      data => {
+    this.DigipayrollServiceService.GetCompanyAddressDetails()
+    .subscribe({
+      next: data => {
         debugger
         this.result = data;
         this.Company_Name=this.result[0].company_Name
         this.company_logo = this.result[0].company_logo
-      })
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
 
 
     
@@ -133,7 +264,7 @@ export class PayslipReportComponent implements OnInit {
   }
 
 
-  employeelist213:any;
+ 
 
   public get13themployeelist(Year:any){
     this.DigipayrollServiceService.GetThirteenthMonthSalary().subscribe(data => {
@@ -147,8 +278,7 @@ export class PayslipReportComponent implements OnInit {
 
  
 
-  RoleType:any;
-  term:any;
+ 
 public FilterRoleType() {
   debugger
   this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
@@ -163,7 +293,7 @@ public FilterRoleType() {
   
 
 }
-Department:any;
+
 
 public filterByDepartment() {
   debugger
@@ -180,8 +310,7 @@ public filterByDepartment() {
 
 }
 
-  employeelist1:any;
-  payrolltype:any;
+ 
   public getemployeelist(startdate:any,enddate:any,payrolltype:any){
     this.payrolltype=payrolltype
     this.startdate = startdate 
@@ -202,63 +331,15 @@ public filterByDepartment() {
   // }
 
 
-  fullname:any;
-  payrolldate:any;
-  datecovered:any;
-  department:any;
-  role:any;
-  tin:any;
-  PhilHealth:any;
-  SSS:any;
-  hdmf:any;
-  deminimisamount:any;
-  BaseSalary:any;
-  lopamount:any;
-  sssamount:any;
-  philHealthContribution:any;
-  pagBig:any;
-  tax:any;
-  netMonthSalary:any;
-  deductions:any;
-  startdate:any;
-  GrossSalary:any;
-  enddate:any;
-  semimonthly:any;
-  basicday:any;
-  basichour:any;
-  loanpayout:any;
-  nontax:any;
-  deniminimis_amount:any;
-  Benefits:any;
-  OT:any;
-  noofhours:any;
-  type:any;
-  sumsalry:any;
-  rounoff:any;
-  yearGrossSal:any;
-  yearlydeminims:any;
-  yearSSSRate:any;
-  yeartax:any;
-  yearPhilihealth:any;
-  yearPagibigRate:any;
-  semiadjustment:any;
-  monthlysalaryperperiod:any;
-  noofdaysinperiod:any;
-  OtHours:any;
-  NightOtAmount:any;
-  NightOtHours:any;
-  regularothours:any;
-  regularotamount:any;
-  Compensation:any;
-  semideductions:any;
-  yeargrosspaysalary:any;
-  LoanType:any;
+  
   public getpayslip(id:any,payrolltype:any,month:any){
     this.sumsalry=0;
     this.showleaseforprint=1;
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist1 = data.filter(x=>x.id==id && x.payrolltype== payrolltype && x.month==month);
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist1 = data.filter(x=>x.id==id && x.payrolltype== payrolltype && x.month==month);
       this.monthlysalaryperperiod = this.employeelist1[0].monthlysalaryperperiod
       this.LoanType = this.employeelist1[0].loanType
       this.fullname =  this.employeelist1[0].staffname + this.employeelist1[0].lastName ,
@@ -313,8 +394,27 @@ public filterByDepartment() {
       this.semideductions = this.employeelist1[0].deductions
       this.yeargrosspaysalary = this.employeelist1[0].yeargrosspaysalary
 
-    }
-    )
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
+    
+    
+    
+    
+   
   }
 
 
@@ -378,9 +478,7 @@ public filterByDepartment() {
   }
 
 
-  tomail:any;
-  subject:any;
-  message:any;
+  
   public sendmail() {
     if (this.attachments2url.length == 0) {
       this.attachments2url[0] = 'abcd';
@@ -500,19 +598,33 @@ this.files.splice(this.files.indexOf(event),1);
   }
 
 
-  title:any;
-title1:any;
-stafflist1:any;
-signname:any;
-Signature:any;
+  
 public getsign(){
-  this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
-    debugger
-    this.stafflist1 = data;
+  this.DigipayrollServiceService.GetCompanyAddressDetails()
+  .subscribe({
+    next: data => {
+      debugger
+      this.stafflist1 = data;
     this.signname = this.stafflist1[0].hR_AuthorisedPerson;
     this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature;
     this.title1 = this.stafflist1[0].hR_PositionTitle;
-  });
+    }, error: (err) => {
+      Swal.fire('Issue in Getting CompanyAddressDetails');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+
+  
+  
 }
 
 

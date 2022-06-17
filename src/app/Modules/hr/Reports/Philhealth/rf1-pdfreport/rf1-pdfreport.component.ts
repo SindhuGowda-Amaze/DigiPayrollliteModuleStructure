@@ -14,7 +14,6 @@ export class RF1PDFReportComponent implements OnInit {
 
   showleaseforprint: any;
   loader: any;
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
   stafflist: any;
   companylist: any;
   companyname: any;
@@ -51,110 +50,11 @@ export class RF1PDFReportComponent implements OnInit {
   tin8:any;
   tin9:any;
   E_Signatory:any;
-
-
-  ID:any;
-  ngOnInit(): void {
-    this.month = "";
-    this.Year = "";
-    this.sign="";
-    this.showleaseforprint = 0;
-    this.loader = false
-   
-
-
-  
-     
-    
-
-
-    this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
-      this.companylist = data
-      this.companyid = this.companylist[0].id,
-        this.companyname = this.companylist[0].company_Name,
-        this.Address = this.companylist[0].address1 + this.companylist[0].address2
-      this.Phone = this.companylist[0].phone
-      this.email = this.companylist[0].email
-      this.zipcode = this.companylist[0].zipcode
-      this.tin = this.companylist[0].tin
-      this.tin1 = this.tin.charAt(0)
-      this.tin2 = this.tin.charAt(1)
-      this.tin3 = this.tin.charAt(2)
-      this.tin4 = this.tin.charAt(3)
-      this.tin5 = this.tin.charAt(4)
-      this.tin6 = this.tin.charAt(5)
-      this.tin7 = this.tin.charAt(6)
-      this.tin8 = this.tin.charAt(7)
-      this.tin9 = this.tin.charAt(8)
-
-      this.PhilHealthNumber = this.companylist[0].philHealthNumber;
-      this.PhilHealthNumber1 = this.PhilHealthNumber.charAt(0)
-      this.PhilHealthNumber2 = this.PhilHealthNumber.charAt(1)
-      this.PhilHealthNumber3 = this.PhilHealthNumber.charAt(2)
-      this.PhilHealthNumber4 = this.PhilHealthNumber.charAt(3)
-      this.PhilHealthNumber5 = this.PhilHealthNumber.charAt(4)
-      this.PhilHealthNumber6 = this.PhilHealthNumber.charAt(5)
-      this.PhilHealthNumber7 = this.PhilHealthNumber.charAt(6)
-      this.PhilHealthNumber8 = this.PhilHealthNumber.charAt(7)
-      this.PhilHealthNumber9 = this.PhilHealthNumber.charAt(8)
-      this.PhilHealthNumber10 = this.PhilHealthNumber.charAt(9)
-      this.PhilHealthNumber11 = this.PhilHealthNumber.charAt(10)
-      this.PhilHealthNumber12 = this.PhilHealthNumber.charAt(11)
-
-  
-    })
-
-
-  }
-
-
-
-
-
-
   employeelist:any;
   uniquelist:any;
   MonthlyPhilihealth:any;
   sum:any;
   uniquelistchnuk:any;
-
-  
-  public showpdf(){
-       
-    this.DigiofficeService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
-      this.employeelist = data.filter(x => x.employeeMonth == this.month && x.emplyeeYear == this.Year);
-      const key = 'monthstaffid'
-
-      this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-
-        this.uniquelistchnuk = this.uniquelist.reduce((resultArray: any[][], item: any, index: number) => {
-          const chunkIndex = Math.floor(index / 10)
-  
-          if (!resultArray[chunkIndex]) {
-            resultArray[chunkIndex] = [] // start a new chunk
-          }
-  
-          resultArray[chunkIndex].push(item)
-  
-          return resultArray
-        }, [])
-
-
-        this.sum = 0;
-        for (let i = 0; i < this.uniquelist.length; i++) {
-          this.sum += this.employeelist[i].monthlyPhilihealth;
-        }
-
-    
-     
-    });
-    this.showleaseforprint = 1;
-  }
-
-
   fullname: any;
   sign: any;
   department: any;
@@ -163,13 +63,158 @@ export class RF1PDFReportComponent implements OnInit {
   Year: any;
   month: any;
   Signature: any;
-  public getsign(){
-    this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
+  ID:any;
+  currentUrl: any;
+  constructor(public DigipayrollserviceService: DigipayrollserviceService, public router: Router) { }
+ 
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+    this.month = "";
+    this.Year = "";
+    this.sign="";
+    this.showleaseforprint = 0;
+    this.loader = false
+   this.GetCompanyAddressDetails();
+
+  }
+
+public GetCompanyAddressDetails(){
+  this.DigipayrollserviceService.GetCompanyAddressDetails()
+  
+  .subscribe({
+    next: data => {
       debugger
+    this.companylist = data
+    this.companyid = this.companylist[0].id,
+      this.companyname = this.companylist[0].company_Name,
+      this.Address = this.companylist[0].address1 + this.companylist[0].address2
+    this.Phone = this.companylist[0].phone
+    this.email = this.companylist[0].email
+    this.zipcode = this.companylist[0].zipcode
+    this.tin = this.companylist[0].tin
+    this.tin1 = this.tin.charAt(0)
+    this.tin2 = this.tin.charAt(1)
+    this.tin3 = this.tin.charAt(2)
+    this.tin4 = this.tin.charAt(3)
+    this.tin5 = this.tin.charAt(4)
+    this.tin6 = this.tin.charAt(5)
+    this.tin7 = this.tin.charAt(6)
+    this.tin8 = this.tin.charAt(7)
+    this.tin9 = this.tin.charAt(8)
+
+    this.PhilHealthNumber = this.companylist[0].philHealthNumber;
+    this.PhilHealthNumber1 = this.PhilHealthNumber.charAt(0)
+    this.PhilHealthNumber2 = this.PhilHealthNumber.charAt(1)
+    this.PhilHealthNumber3 = this.PhilHealthNumber.charAt(2)
+    this.PhilHealthNumber4 = this.PhilHealthNumber.charAt(3)
+    this.PhilHealthNumber5 = this.PhilHealthNumber.charAt(4)
+    this.PhilHealthNumber6 = this.PhilHealthNumber.charAt(5)
+    this.PhilHealthNumber7 = this.PhilHealthNumber.charAt(6)
+    this.PhilHealthNumber8 = this.PhilHealthNumber.charAt(7)
+    this.PhilHealthNumber9 = this.PhilHealthNumber.charAt(8)
+    this.PhilHealthNumber10 = this.PhilHealthNumber.charAt(9)
+    this.PhilHealthNumber11 = this.PhilHealthNumber.charAt(10)
+    this.PhilHealthNumber12 = this.PhilHealthNumber.charAt(11)
+
+    }, error: (err) => {
+      Swal.fire('Issue in GetCompanyAddressDetails');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
+
+
+}
+
+
+
+
+ 
+
+  
+  public showpdf(){
+       
+    this.DigipayrollserviceService.GetEmployeeSalaryMonthly()
+    
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist = data.filter(x => x.employeeMonth == this.month && x.emplyeeYear == this.Year);
+        const key = 'monthstaffid'
+  
+        this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+          [(item[key]), item])).values()]
+  
+          this.uniquelistchnuk = this.uniquelist.reduce((resultArray: any[][], item: any, index: number) => {
+            const chunkIndex = Math.floor(index / 10)
+    
+            if (!resultArray[chunkIndex]) {
+              resultArray[chunkIndex] = [] // start a new chunk
+            }
+    
+            resultArray[chunkIndex].push(item)
+    
+            return resultArray
+          }, [])
+  
+  
+          this.sum = 0;
+          for (let i = 0; i < this.uniquelist.length; i++) {
+            this.sum += this.employeelist[i].monthlyPhilihealth;
+          }
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeSalaryMonthly');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
+    
+    
+
+    this.showleaseforprint = 1;
+  }
+
+
+  public getsign(){
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.stafflist1 = data;
       this.signname = this.stafflist1[0].hR_AuthorisedPerson
       this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in Deleting Hoilday');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
+
   }
   // public getsign() {
   //   this.DigiofficeService.GetMyDetails().subscribe(data => {

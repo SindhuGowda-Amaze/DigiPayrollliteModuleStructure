@@ -3,6 +3,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payroll-summary-report',
@@ -10,9 +11,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./payroll-summary-report.component.css']
 })
 export class PayrollSummaryReportComponent implements OnInit {
-
-  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
-
+  currentUrl: any;
   result: any;
   Company_logo: any;
   employeelist: any;
@@ -20,82 +19,13 @@ export class PayrollSummaryReportComponent implements OnInit {
   p: any = 1;
   p1 : any = 1;
   count1: any = 10;
-  ngOnInit(): void {
-    this.GetPayGroup();
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist = data;
-      const key = 'startdate';
-
-      this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
-      //  this.uniquelist = [...new Set(data.map(item => item))];
-
-    });
-
-
-  }
-
   employeelist1: any;
   uniquelist1: any;
   employeelist1Copy: any;
   search: any
   count: any;
-  public getemployeelist(startdate: any, enddate: any, payrolltype: any) {
-    this.payslipid = false
-    this.startdate = startdate
-    this.enddate = enddate
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist1 = data.filter(x => x.startdate == startdate && x.enddate == enddate && x.payrolltype == payrolltype);
-      this.employeelist1Copy = this.employeelist1
-
-      const key = 'id';
-      this.uniquelist1 = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
-    }
-    )
-  }
-
-  public filterStaff() {
-    debugger
-    let searchCopy = this.search.toLowerCase();
-    this.employeelist1 = this.employeelist1Copy.filter((x: { staffname: string, id: String }) => (x.staffname.toLowerCase().includes(searchCopy),
-      x.id.toString().includes(searchCopy)));
-    this.count = this.employeelist1.length;
-  }
-
-
-
-
   playslipid: any
   selecallbtn: any;
-  selectALL(checked: boolean) { // pass true or false to check or uncheck all
-    this.selecallbtn = true;
-    this.playslipid = true;
-    if (this.employeelist1.every((val: { checked: boolean; }) => val.checked == true)) {
-      this.employeelist1.forEach((val: { checked: boolean; }) => { val.checked = false });
-
-    }
-    else {
-      debugger
-      this.employeelist1.forEach((val: { checked: boolean; }) => { val.checked = true });
-
-    }
-
-
-
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.showleaseforprint = 2
-      
-      this.employeelist2 = data.filter(x => x.startdate == this.startdate && x.enddate == this.enddate);
-    }
-    )
-
-  }
-
-
   fullname: any;
   payrolldate: any;
   datecovered: any;
@@ -134,6 +64,116 @@ export class PayrollSummaryReportComponent implements OnInit {
   adjustment: any;
   loanpayout: any;
   selectedid: any = [];
+  showleaseforprint: any;
+
+  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+
+  
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+    this.GetPayGroup();
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist = data;
+      const key = 'startdate';
+
+      this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+        [item[key], item])).values()];
+      }, error: (err) => {
+        Swal.fire('Issue in Getting EmployeeSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
+
+
+  }
+
+ 
+  public getemployeelist(startdate: any, enddate: any, payrolltype: any) {
+    this.payslipid = false
+    this.startdate = startdate
+    this.enddate = enddate
+    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
+      debugger
+      this.employeelist1 = data.filter(x => x.startdate == startdate && x.enddate == enddate && x.payrolltype == payrolltype);
+      this.employeelist1Copy = this.employeelist1
+
+      const key = 'id';
+      this.uniquelist1 = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+        [item[key], item])).values()];
+    }
+    )
+  }
+
+  public filterStaff() {
+    debugger
+    let searchCopy = this.search.toLowerCase();
+    this.employeelist1 = this.employeelist1Copy.filter((x: { staffname: string, id: String }) => (x.staffname.toLowerCase().includes(searchCopy),
+      x.id.toString().includes(searchCopy)));
+    this.count = this.employeelist1.length;
+  }
+
+
+
+
+ 
+  selectALL(checked: boolean) { // pass true or false to check or uncheck all
+    this.selecallbtn = true;
+    this.playslipid = true;
+    if (this.employeelist1.every((val: { checked: boolean; }) => val.checked == true)) {
+      this.employeelist1.forEach((val: { checked: boolean; }) => { val.checked = false });
+
+    }
+    else {
+      debugger
+      this.employeelist1.forEach((val: { checked: boolean; }) => { val.checked = true });
+
+    }
+
+
+
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.showleaseforprint = 2
+      
+      this.employeelist2 = data.filter(x => x.startdate == this.startdate && x.enddate == this.enddate);
+      }, error: (err) => {
+        Swal.fire('Issue in Getting EmployeeSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
+    
+
+  }
+
+
+ 
   public getpayslip(id: any, startdate: any, enddate: any, event:any ,item:any) {
     this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
       debugger
@@ -205,11 +245,28 @@ export class PayrollSummaryReportComponent implements OnInit {
 
   public GetPayGroup() {
     debugger
-    this.DigipayrollServiceService.GetPayGroup().subscribe(
-      data => {
+    this.DigipayrollServiceService.GetPayGroup()
+    .subscribe({
+      next: data => {
         debugger
         this.result = data;
-      })
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
+    
   }
 
   fileName = 'Payroll Summery Reports.xlsx';
@@ -290,16 +347,33 @@ export class PayrollSummaryReportComponent implements OnInit {
 
   public uploadattachments() {
     debugger
-    this.DigipayrollServiceService.AttachmentsUpload(this.files).subscribe(res => {
-      debugger
-      this.Company_logo = res;
-      alert("ATTACHMENT UPLOADED");
+    this.DigipayrollServiceService.AttachmentsUpload(this.files)
+    .subscribe({
+      next: data => {
+        debugger
+        this.Company_logo = data;
+        alert("ATTACHMENT UPLOADED");
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+    
   }
 
 
 
-  showleaseforprint: any;
+  
   public showpdf() {
     this.showleaseforprint = 1;
   }

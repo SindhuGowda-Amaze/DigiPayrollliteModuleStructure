@@ -49,7 +49,7 @@
                     <p class="show3res">SHOWING <span style="color: black;"> {{holidaylist.length}} </span>RESULTS</p>
                 </div>
                 <div class="col-lg-4" *ngIf="roleid=='1'">
-                    <a routerLink="/HolidayForm"><button class="button">Add New</button> </a>
+                    <a routerLink="/admin/HolidayForm"><button class="button">Add New</button> </a>
                 </div>
             </div><br>
 
@@ -97,7 +97,7 @@
                                             style="width:100px;height: 50px;">
                                     </td>
                                     <td *ngIf="roleid=='1'"> <button class="DeleteBTN"
-                                            [routerLink]="['/HolidayForm',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            [routerLink]="['/admin/HolidayForm',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <button class="DeleteBTN" (click)="DeleteHolidays(holiday.id)">Delete</button>
                                     </td>
                                 </tr>
