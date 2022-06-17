@@ -9,28 +9,64 @@ import Swal from 'sweetalert2';
   styleUrls: ['./shift-master-dash.component.css']
 })
 export class ShiftMasterDashComponent implements OnInit {
+  currentUrl: any;
 
   constructor(public DigiofficeService: DigipayrollserviceService) { }
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.GetShiftMaster();
   }
 
   shiftmasterlist: any
   public GetShiftMaster() {
     debugger
-    this.DigiofficeService.GetShiftMaster().subscribe(data => {
-      debugger
-      this.shiftmasterlist = data
-    })
+    this.DigiofficeService.GetShiftMaster()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.shiftmasterlist = data
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ShiftMaste');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
   }
 
   public delete(id: any) {
     debugger
-    this.DigiofficeService.DeleteShiftMaster(id).subscribe(data => {
-      debugger
-      Swal.fire('Deleted Successfully');
-      this.ngOnInit();
-    })
+    this.DigiofficeService.DeleteShiftMaster(id)
+
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Deleted Successfully');
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Getting DeleteShiftMaster');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
 
   }
 }
