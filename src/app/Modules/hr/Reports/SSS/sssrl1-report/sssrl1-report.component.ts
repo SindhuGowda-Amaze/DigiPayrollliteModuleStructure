@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sssrl1-report',
@@ -9,9 +10,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
   styleUrls: ['./sssrl1-report.component.css']
 })
 export class SSSRL1ReportComponent implements OnInit {
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
-
+  currentUrl: any;
   Month: any;
   Year: any;
   Person: any;
@@ -37,7 +36,24 @@ export class SSSRL1ReportComponent implements OnInit {
   count: any;
   province: any;
   cityname: any;
+  emailid: any;
+  EmployeeNo: any;
+  PhilhealthNo: any;
+  basesalary: any;
+  dateofjoining: any;
+  role: any;
+  fullname: any;
+  sign: any;
+  department: any;
+  signname: any;
+  stafflist1: any;
+  signature1: any;
+
+  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
+
+ 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
 
     this.showleaseforprint = 0;
     this.month = "";
@@ -49,9 +65,11 @@ export class SSSRL1ReportComponent implements OnInit {
   uniquelistchnuk: any;
   public showpdf() {
 
-    this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
-      this.employeelist = data.filter(x => x.employeeMonth == this.month && String(x.emplyeeYear) == this.year);
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist = data.filter(x => x.employeeMonth == this.month && String(x.emplyeeYear) == this.year);
       this.showleaseforprint = 1;
       const key = 'monthstaffid';
 
@@ -77,50 +95,72 @@ export class SSSRL1ReportComponent implements OnInit {
       }, [])
 
       console.log(this.uniquelistchnuk);
-
-
-      this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
-        debugger
-        this.companylist = data
-        this.companyid = this.companylist[0].id,
-          this.companyname = this.companylist[0].company_Name,
-          this.Address = this.companylist[0].address1 + this.companylist[0].address2
-        this.Phone = this.companylist[0].phone
-        this.email = this.companylist[0].email
-        this.zipcode = this.companylist[0].zipcode
-        this.tin = this.companylist[0].tin
-        this.province = this.companylist[0].province
-        this.cityname = this.companylist[0].cityname
-
-
-
-      })
-    });
-
+      }, error: (err) => {
+        Swal.fire('Issue in EmployeeSalaryMonthly');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+      this.DigipayrollServiceService.GetCompanyAddressDetails()
+      .subscribe({
+        next: data => {
+          debugger
+          this.companylist = data
+          this.companyid = this.companylist[0].id,
+            this.companyname = this.companylist[0].company_Name,
+            this.Address = this.companylist[0].address1 + this.companylist[0].address2
+          this.Phone = this.companylist[0].phone
+          this.email = this.companylist[0].email
+          this.zipcode = this.companylist[0].zipcode
+          this.tin = this.companylist[0].tin
+          this.province = this.companylist[0].province
+          this.cityname = this.companylist[0].cityname
+  
+        }, error: (err) => {
+          Swal.fire('Issue in Getting CompanyAddressDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })     
   }
-
-
-
-
-  emailid: any;
-  EmployeeNo: any;
-  PhilhealthNo: any;
-  basesalary: any;
-  dateofjoining: any;
-  role: any;
-  fullname: any;
-  sign: any;
-  department: any;
-  signname: any;
-  stafflist1: any;
-  signature1: any;
   public getsign(){
-    this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
-      this.stafflist1 = data;
+    this.DigipayrollServiceService.GetCompanyAddressDetails()
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist1 = data;
       this.signname = this.stafflist1[0].hR_AuthorisedPerson
       this.signature1 = this.stafflist1[0].hR_AuthorisedPerson_Signature
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in Getting CompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })    
   }
   
   // public getsign() {
@@ -131,9 +171,6 @@ export class SSSRL1ReportComponent implements OnInit {
   //     this.signature1 = this.stafflist1[0].signature
   //   });
   // }
-
-
-
   public convetToPDF1() {
     debugger
 
