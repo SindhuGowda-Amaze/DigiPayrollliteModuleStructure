@@ -31,8 +31,14 @@
                                 </p>
                                 <p>Status <span style="color: red;">*</span>
                                     <br>
-                                    <input type="text" class="form-control" placeholder="Status" id="Status"
-                                        name="Status" [(ngModel)]="Status">
+                                    <select class="form-control inputfield" id="Status" name="Status"
+                                        [(ngModel)]="Status" placeholder="Select Title">
+                                        <option value="0" selected>Select Status</option>
+                                        <option value="Married" selected>Married</option>
+                                        <option value="Single" selected>Single</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" placeholder="Status" id="Status"
+                                        name="Status" [(ngModel)]="Status"> -->
                                 </p>
                                 <p>Date of Joining <span style="color: red;">*</span>
                                     <input type="date" class="form-control" id="JoiningDate" name="JoiningDate"
@@ -80,8 +86,15 @@
 
                                 <p>Personal Email <span style="color: red;">*</span>
                                     <br> <input type="text" id="Personal_Email" name="Personal Email"
-                                        [(ngModel)]="Personal_Email" class="form-control" placeholder="">
+                                        [(ngModel)]="Personal_Email" class="form-control" placeholder="Personal Email">
                                 </p>
+                                
+                                    <p>Is Solo Parent </p>
+                                    <input type="checkbox" id="Is_Solo_Parent" name="Is_Solo_Parent"
+                                        [(ngModel)]="Is_Solo_Parent">
+
+                       
+                              
                             </div>
                             <div class="col-lg-2 Text">
                                 <p>Last Name <span style="color: red;">*</span>
@@ -102,6 +115,9 @@
                                         onkeypress="return /[0-9]/i.test(event.key)" maxlength="10" class="form-control"
                                         placeholder="Mobile">
                                 </p>
+                                <p>Hiring Date <span style="color: red;">*</span>
+                                    <input type="date" class="form-control" id="HiringDate" name="HiringDate" [(ngModel)]="HiringDate">
+                                    </p>
                             </div>
 
                             <div class="col-lg-1"></div>
@@ -112,17 +128,17 @@
 
                             </div>
                             <div class="col-lg-2 Text">
-                                <p>Role <span style="color: red;">*</span>
+                                <p>Position <span style="color: red;">*</span>
                                     <br> <select class="form-control" id="RoleType" name="RoleType"
                                         (change)='getRoleType($event)' [(ngModel)]="RoleType">
-                                        <option value="">Select Role</option>
+                                        <option value="">Select Position</option>
                                         <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
                                         </option>
                                     </select>
                                 </p>
 
                             </div>
-                            <div class="col-lg-2 Text" >
+                            <div class="col-lg-2 Text">
                                 <p>Manager <span style="color: red;">*</span>
                                     <!-- <br> <select class="form-control" id="Supervisor" name="Supervisor"
                                         [(ngModel)]="Supervisor">
@@ -132,11 +148,12 @@
                                         </option>
                                     </select> -->
 
-                                    <ng-multiselect-dropdown  [placeholder]="'Select Name'" [settings]="dropdownSettings"
-                                    [data]="supervisorlist" [(ngModel)]="Supervisor" (onSelect)="onItemSelect($event)"  class="fonttxt">
-                                   </ng-multiselect-dropdown>
+                                    <ng-multiselect-dropdown [placeholder]="'Select Name'" [settings]="dropdownSettings"
+                                        [data]="supervisorlist" [(ngModel)]="Supervisor"
+                                        (onSelect)="onItemSelect($event)" class="fonttxt">
+                                    </ng-multiselect-dropdown>
 
-                                 
+
 
                                 </p>
 
@@ -157,15 +174,15 @@
                                 <p>Level <span style="color: red; ">*</span>
                                     <select class="form-control" id="level" name="level" [(ngModel)]="level">
                                         <option value="">Select Level</option>
-                                        <option value="1"> Level 1 (CEO) </option>
-                                        <option value="3"> Level 2 (Senior President) </option>
-                                        <option value="4"> Level 3 (Vice President) </option>
-                                        <option value="2"> Level 4 (Director) </option>
-                                        <option value="5"> Level 5 (Senior Manager) </option>
-                                        <option value="6"> Level 6 (Manager) </option>
-                                        <option value="7"> Level 7 (Team Lead) </option>
-                                        <option value="8"> Level 8 (Senior Developer) </option>
-                                        <option value="9"> Level 9 (Developer) </option>
+                                        <option value="1"> Level 1  </option>
+                                        <option value="2"> Level 2  </option>
+                                        <option value="3"> Level 3  </option>
+                                        <option value="4"> Level 4  </option>
+                                        <option value="5"> Level 5  </option>
+                                        <option value="6"> Level 6  </option>
+                                        <option value="7"> Level 7  </option>
+                                        <option value="8"> Level 8  </option>
+                                        <option value="9"> Level 9  </option>
 
                                     </select>
                                 </p>
@@ -214,11 +231,12 @@
                             </div>
                             <div class="col-lg-2 Text">
                                 <select class="form-control inputfield" placeholder="Pay Group" id="Paygroup"
-                                [(ngModel)]="Paygroup">
-                                <option value="Select one">Select one</option>
-                                <option *ngFor="let role of payrolllist" value="{{role.description}}">{{role.description}}</option>
-    
-                               </select>
+                                    [(ngModel)]="Paygroup">
+                                    <option value="Select one">Select one</option>
+                                    <option *ngFor="let role of payrolllist" value="{{role.description}}">
+                                        {{role.description}}</option>
+
+                                </select>
                                 <!-- <select class="form-control" >
                                     <option value="Select one">Select one</option>
                                     <option value="Rank and file">Rank and file</option>
@@ -337,7 +355,28 @@
                         </div>
                     </div><br>
 
-
+                    <div class="card card-padding">
+                        <label class="label">Rest Days</label>
+                        <hr>
+                        <div class="row Text">
+                            <!-- <div class="col-lg-2">
+                                <p>Shift Information:</p>
+                                <select class="form-control" id="ShiftType" name="ShiftType" [(ngModel)]="ShiftType">
+                                    <option value="">Select Shift</option>
+                                    <option *ngFor="let role of Shiflist" value="{{role.id}}">{{role.description}}
+                                    </option>
+                                </select>
+                            </div> -->
+                            <div class="col-lg-2">
+                                <p>Rest Days:</p>
+                                <ng-multiselect-dropdown [placeholder]="'Select Rest Day'"
+                                    [settings]="dropdownSettingsresdays" [data]="restdaylist"
+                                    [(ngModel)]="restdaysarray" (onSelect)="onItemSelect2($event)" class="fonttxt">
+                                </ng-multiselect-dropdown>
+                                <p *ngIf="ID!=undefined">{{Restdays}}</p>
+                            </div>
+                        </div>
+                    </div> <br>
                     <div class="card card-padding">
                         <label class="label">Ethnicity Information</label>
                         <hr>
@@ -472,6 +511,7 @@
 
 
                             </div>
+                            
                         </div>
                     </div> <br>
                     <div class="card card-padding">
@@ -580,7 +620,7 @@
                     <div class="col-lg-2">
                         <p>Job Role <span style="color: red;">*</span></p>
                         <input class="form-control" id="JobRole" name="JobRole" [(ngModel)]="JobRole"
-                            onkeypress="return /[A-Z]/i.test(event.key)" placeholder="Job Role">
+                            placeholder="Job Role">
                     </div>
                 </div><br>
                 <div class="row Details">
@@ -757,12 +797,12 @@
                         <!-- <input class="form-control" placeholder="" id="Province" name="Province" [(ngModel)]="Province"> -->
                     </div>
                     <div class="col-lg-2">
-                        <p>District
+                        <p>City
                             <span style="color: red;">*</span>
                         </p>
                         <select class="form-control inputfield" id="CityID" name="CityID" [(ngModel)]="CityID"
                             (change)="GetCItyID($event)">
-                            <option class="textcolor" value="0">Select District </option>
+                            <option class="textcolor" value="0">Select City </option>
                             <option class="textcolor" *ngFor="let role of Citylist" value="{{role.id}}">
                                 {{role.short}}
                             </option>
@@ -907,7 +947,7 @@
                     <div class="col-lg-2">
                         <p>Dependent Name </p>
                         <input class="form-control" id="DependentName" name="DependentName" [(ngModel)]="DependentName"
-                            onkeypress="return /[A-Z]/i.test(event.key)" placeholder="Dependent Name">
+                            placeholder="Dependent Name">
                     </div>
                     <div class="col-lg-2">
                         <p>Relationship </p>
@@ -915,7 +955,7 @@
                             placeholder="Relationship1">
                             <option value="Select One">Select Relationship</option>
                             <option value="Brother">Brother</option>
-                            <option value="aughter">Daughter</option>
+                            <option value="Daughter">Daughter</option>
                             <option value="Father">Father </option>
                             <option value="Grand Parent">Grand Parent</option>
                             <option value="Grand Child">Grand Child</option>
@@ -954,7 +994,7 @@
                     </div>
                     <div class="col-lg-2">
                         <p>Is Dependent</p>
-                        <input type="checkbox" id="Is_Dependent" name="Is_Dependent">
+                        <input type="checkbox" id="Is_Dependent" name="Is_Dependent" [(ngModel)]="Is_Dependent">
                     </div>
                     <div class="col-lg-2">
                         <p>ID Number </p>
@@ -1337,19 +1377,20 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <input type="text" class="form-control" id="EducationGrade" name="EducationGrade" [(ngModel)]="EducationGrade"
-                            placeholder="Education Grade">
+                        <input type="text" class="form-control" id="EducationGrade" name="EducationGrade"
+                            [(ngModel)]="EducationGrade" placeholder="Education Grade">
                     </div>
                     <div class="col-md-3">
-                        <input type="Date" class="form-control" id="StartDateMonth" name="StartDateMonth"
-                            [(ngModel)]="StartDateMonth" placeholder="Start Date Month">
+                        <input type="date" class="form-control" id="StartDateMonth" name="StartDateMonth"
+                            [(ngModel)]="StartDateMonth" placeholder="Start  Month">
                     </div>
                     <div class="col-md-3">
-                        <input type="Date" class="form-control" id="EndDateMonth" name="EndDateMonth"
-                            [(ngModel)]="EndDateMonth" placeholder="End Date Month">
+                        <input type="date" class="form-control" id="EndDateMonth" name="EndDateMonth"
+                            [(ngModel)]="EndDateMonth" placeholder="Start Year">
 
                     </div>
                 </div><br>
+
                 <div class="row">
                     <div class="col-lg-5"></div>
                     <div class="col-lg-4">
@@ -1400,11 +1441,13 @@
                     </div>
                     <div class="col-md-2">
                         <input type="text" class="form-control" placeholder="Account Holder Name" id="AccountHolderName"
-                            name="AccountHolderName" [(ngModel)]="AccountHolderName">
+                            onkeypress="return /[a-z]/i.test(event.key)" name="AccountHolderName"
+                            [(ngModel)]="AccountHolderName">
                     </div>
                     <div class="col-md-2">
                         <input type="text" class="form-control" placeholder="Bank Account Number" id="BankAccountNumber"
-                            name="BankAccountNumber" [(ngModel)]="BankAccountNumber">
+                            onkeypress="return /[0-9]/i.test(event.key)" maxlength="12" name="BankAccountNumber"
+                            [(ngModel)]="BankAccountNumber">
                     </div>
                 </div><br>
                 <div class="row">

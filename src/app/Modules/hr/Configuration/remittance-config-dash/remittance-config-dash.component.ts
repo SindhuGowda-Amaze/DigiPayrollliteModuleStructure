@@ -79,6 +79,6 @@ export class RemittanceConfigDashComponent implements OnInit {
           })
       }
     })
-
   }
+  
 }
