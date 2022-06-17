@@ -60,14 +60,31 @@ export class LoanMasterComponent implements OnInit {
         LoanType23: this.LoanType,
         Description: this.Description,
       };
-      this.DigipayrollserviceService.InsertLoanMaster(entity).subscribe(
-        (data) => {
+      this.DigipayrollserviceService.InsertLoanMaster(entity)
+      
+      .subscribe({
+        next: data => {
+          debugger
           if (data != 0) {
             Swal.fire('Saved Successfully');
             location.href = '#/admin/LoanMasterDash';
           }
-        }
-      );
+        }, error: (err) => {
+          Swal.fire('Issue in InsertLoanMaster');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+      
+      
+  
     }
   }
 
@@ -79,11 +96,28 @@ export class LoanMasterComponent implements OnInit {
       Short: this.Short,
       Description: this.Description,
     };
-    this.DigipayrollserviceService.UpdateLoanMaster(entity).subscribe(
-      (data) => {
+    this.DigipayrollserviceService.UpdateLoanMaster(entity)
+    
+    .subscribe({
+      next: data => {
+        debugger
         Swal.fire('Updated Successfully');
-        location.href = '#/LoanMasterDash';
-      }
-    );
+        location.href = '#/admin/LoanMasterDash';
+      }, error: (err) => {
+        Swal.fire('Issue in UpdateLoanMaster');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+   
+    
   }
 }

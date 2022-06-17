@@ -79,7 +79,7 @@ export class BankComponent implements OnInit {
       Swal.fire('Please Select the Record to Modify');
       // location.href = "/PayGroup"
     } else {
-      location.href = '#/BankForm/' + this.id;
+      location.href = '#/admin/BankForm/' + this.id;
     }
   }
 }
