@@ -10,10 +10,12 @@ import Swal from 'sweetalert2';
 export class OtRatesComponent implements OnInit {
 
   ID:any;
+  currentUrl: any;
   constructor(private DigipayrollServiceService: DigipayrollserviceService, private ActivatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     debugger
+    this.currentUrl = window.location.href
     this.GetOTRates();
   }
 
@@ -22,7 +24,8 @@ export class OtRatesComponent implements OnInit {
 
   public GetOTRates() {
     debugger
-    this.DigipayrollServiceService.GetOTRates().subscribe(data=>{
+    this.DigipayrollServiceService.GetOTRates()
+    .subscribe(data=>{
       debugger
       this.Otlist=data ;
       debugger

@@ -9,16 +9,24 @@ import Swal from 'sweetalert2';
   styleUrls: ['./otrequest.component.css']
 })
 export class OTrequestComponent implements OnInit {
-
-  viewMode = 'tab1';
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+  
+  currentUrl: any;
   roleid: any;
   locatorlist: any;
   term: any;
   staffid:any;
   loader:any;
   attendancelist: any;
+  viewMode = 'tab1';
+  date: any;
+  edate: any;
+  timedetails:any;
+  count:any;
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+
   ngOnInit(): void {
+    
+   this.currentUrl = window.location.href;
     this.loader=true;
     this.GetMyOverTimeDetails();
     this.roleid = sessionStorage.getItem('roledid');
@@ -33,50 +41,110 @@ export class OTrequestComponent implements OnInit {
     //   this.locatorlist = data.filter(x => x.staffID == sessionStorage.getItem('staffid'));
     // })
   }
-  date: any;
-  edate: any;
-  timedetails:any;
-  count:any;
+
   public getdate() {
     debugger
-    this.DigiofficeService.GetStaffOverTimeDetails().subscribe(data => {
-      debugger
-      this.attendancelist = data.filter(x => x.staffID == sessionStorage.getItem('staffid') && (x.filterdate >= this.date && x.filterdate1 <= this.edate));
+    this.DigiofficeService.GetStaffOverTimeDetails()
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.attendancelist = data.filter(x => x.staffID == sessionStorage.getItem('staffid') && (x.filterdate >= this.date && x.filterdate1 <= this.edate));
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
- 
     
   }
 
 
 public getdate1(){
-  this.DigiofficeService.GetStaffOverTimeDetails().subscribe(data=>{
-    debugger
-    this.timedetails=data.filter(x=>x.staffID==this.staffid && (x.filterdate >= this.date && x.filterdate <= this.edate) );
-    this.count=this.timedetails.length
-  },
-  )
+  this.DigiofficeService.GetStaffOverTimeDetails()
+  .subscribe({
+    next: data => {
+      debugger
+      this.timedetails=data.filter(x=>x.staffID==this.staffid && (x.filterdate >= this.date && x.filterdate <= this.edate) );
+      this.count=this.timedetails.length
+    }, error: (err) => {
+      Swal.fire('Issue in Getting City Type');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+
+
+
 }
  
   public CancelLeave(list: any) {
     debugger
-    this.DigiofficeService.DeleteStaffOverTimeDetails(list.id).subscribe(data => {
-      debugger
-      Swal.fire('Cancelled Successfully');
-      this.ngOnInit();
-    })
+    this.DigiofficeService.DeleteStaffOverTimeDetails(list.id)
 
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire('Cancelled Successfully');
+      this.ngOnInit();
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
   }
 
   public GetMyOverTimeDetails()
   {
     debugger
-   this.DigiofficeService.GetStaffOverTimeDetails().subscribe(data=>{
-      debugger
-      this.timedetails=data.filter(x=>x.staffID==this.staffid);
-      this.count=this.timedetails.length
-      this.loader=false;
-    },
-    )
+   this.DigiofficeService.GetStaffOverTimeDetails()
+
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.timedetails=data.filter(x=>x.staffID==this.staffid);
+        this.count=this.timedetails.length
+        this.loader=false;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
   }
 
 }

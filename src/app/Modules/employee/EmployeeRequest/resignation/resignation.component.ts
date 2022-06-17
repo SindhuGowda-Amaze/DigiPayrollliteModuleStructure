@@ -8,9 +8,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./resignation.component.css']
 })
 export class ResignationComponent implements OnInit {
-
-
-  constructor(private DigiofficeService: DigipayrollserviceService) { }
   Employeelist: any;
   mangerid: any;
   Show: any;
@@ -20,7 +17,13 @@ export class ResignationComponent implements OnInit {
   count: any;
   monthid: any;
   dummemplist: any;
+  
+   currentUrl: any;
+
+  constructor(private DigiofficeService: DigipayrollserviceService) { }
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.mangerid = localStorage.getItem('ManagerID');
     this.staffid = sessionStorage.getItem('staffid');
     this.roleid = sessionStorage.getItem('roledid');
@@ -37,75 +40,181 @@ export class ResignationComponent implements OnInit {
 
   public GetEmployeeResignation() {
   
-      this.DigiofficeService.GetStaffExitFormality().subscribe(
-        data => {
+      this.DigiofficeService.GetStaffExitFormality()
+
+      .subscribe({
+        next: data => {
           debugger
           this.Employeelist = data.filter(x => x.staffID == this.staffid);
           this.dummemplist = data;
           this.count = this.Employeelist.length;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-      )
+      })
     
    
   }
 
   submit(id: any) {
-    this.DigiofficeService.AcceptEmployeeResignation(id, 1).subscribe(data => {
-      Swal.fire("Saved Successfully");
+    this.DigiofficeService.AcceptEmployeeResignation(id, 1)
+
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire("Saved Successfully");
       this.GetEmployeeResignation()
-    })
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    }) 
   }
 
 
   accept(id: any) {
-    this.DigiofficeService.AcceptEmployeeResignation(id, 2).subscribe(
-      data => {
+    this.DigiofficeService.AcceptEmployeeResignation(id, 2)
+
+    .subscribe({
+      next: data => {
+        debugger
         Swal.fire("Accepted Successfully");
         this.GetEmployeeResignation()
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
-    )
+    })
   }
 
   reject(id: any) {
-    this.DigiofficeService.AcceptEmployeeResignation(id, 3).subscribe(
-      data => {
+    this.DigiofficeService.AcceptEmployeeResignation(id, 3)
+
+    .subscribe({
+      next: data => {
+        debugger
         Swal.fire("Reject Successfully");
         this.GetEmployeeResignation();
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-    )
+    })
   }
 
 
   HRAccept(id: any) {
-    this.DigiofficeService.AcceptEmployeeResignation(id, 4).subscribe(
-      data => {
+    this.DigiofficeService.AcceptEmployeeResignation(id, 4)
+
+    .subscribe({
+      next: data => {
+        debugger
         Swal.fire("HR Accepted");
         this.GetEmployeeResignation();
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-    )
+    })
   }
 
 
 
   HRReject(id: any) {
-    this.DigiofficeService.AcceptEmployeeResignation(id, 5).subscribe(
-      data => {
+    this.DigiofficeService.AcceptEmployeeResignation(id, 5)
+
+    .subscribe({
+      next: data => {
+        debugger
         Swal.fire("HR Rejected");
         this.GetEmployeeResignation();
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-    )
+    })
   }
 
 
   getchangemonth(event: any) {
     this.monthid = event.target.value;
     if (this.monthid != 0) {
-      this.DigiofficeService.GetStaffExitFormality().subscribe(
-        data => {
-          debugger
-      this.Employeelist = data.filter((x: { lastdateWorkigDateMonth: any; }) => x.lastdateWorkigDateMonth == this.monthid)
-        })
+      this.DigiofficeService.GetStaffExitFormality()
+
+
+        .subscribe({
+          next: data => {
+            debugger
+            this.Employeelist = data.filter((x: { lastdateWorkigDateMonth: any; }) => x.lastdateWorkigDateMonth == this.monthid)
+          }, error: (err) => {
+            Swal.fire('Issue in Getting City Type');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        }) 
     }
     else {
       this.GetEmployeeResignation();

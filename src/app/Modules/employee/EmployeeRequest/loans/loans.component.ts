@@ -9,12 +9,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./loans.component.css']
 })
 export class LoansComponent implements OnInit {
-
+  currentUrl: any;
   viewMode = 'tab1';
- 
- 
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
-
+  id: any;
+  SanctionAmount: any;
+  period: any;
   stafflist: any;
   roledid: any;
   term: any;
@@ -31,9 +30,16 @@ export class LoansComponent implements OnInit {
   RoleTypeList:any;
   myDate:any;
   loader:any;
+  stafflistnewrequest1:any;
+  stafflist2:any;
+  stafflistapproved1:any;
+
+ 
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+ 
 
   ngOnInit(): void {
-    
+    this.currentUrl = window.location.href;
     this.RoleType="";
     this.Department="";
     this.myDate = new Date();
@@ -89,55 +95,118 @@ export class LoansComponent implements OnInit {
 
   public FilterRoleType() {
     debugger
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x=>x.roleType==this.RoleType);
-      this.count = this.stafflist.length;
-    });
+    this.DigiofficeService.GetMyDetails()   
+ .subscribe({
+  next: data => {
+    debugger
+    this.stafflist = data.filter(x=>x.roleType==this.RoleType);
+    this.count = this.stafflist.length;
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
  
   }
-  stafflistnewrequest1:any;
-  stafflist2:any;
-  stafflistapproved1:any;
-  public newrequest(){
-    this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
-      debugger
-      this.stafflist2 = data.filter(x => x.staffID == sessionStorage.getItem('staffid'));
-      this.count = this.stafflist2.length;
-      
-      this.stafflistnewrequest1=this.stafflist2.filter((x:{status: string,staffID: string})=>x.status!='HR Approved' && x.staffID == sessionStorage.getItem('staffid'))
-      this.count = this.stafflistnewrequest1.length;
 
-      this.loader=false
- 
+  public newrequest(){
+    this.DigiofficeService.GetEmployeeLoans()
+
+
     
-    });
+ .subscribe({
+  next: data => {
+    debugger
+    this.stafflist2 = data.filter(x => x.staffID == sessionStorage.getItem('staffid'));
+    this.count = this.stafflist2.length;
+    
+    this.stafflistnewrequest1=this.stafflist2.filter((x:{status: string,staffID: string})=>x.status!='HR Approved' && x.staffID == sessionStorage.getItem('staffid'))
+    this.count = this.stafflistnewrequest1.length;
+
+    this.loader=false
+
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
 
   }
 
   public Approved(){
-    this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
-      debugger
-      this.stafflist2 = data.filter(x => x.staffID == sessionStorage.getItem('staffid'));
-      this.count = this.stafflist2.length;
-      
-      this.stafflistnewrequest1=this.stafflist2.filter((x:{status: string,staffID: string})=>x.status=='HR Approved' && x.staffID == sessionStorage.getItem('staffid'))
-      this.count = this.stafflistnewrequest1.length;
-         this.loader=false
+    this.DigiofficeService.GetEmployeeLoans()
+
     
-    });
+ .subscribe({
+  next: data => {
+    debugger
+    this.stafflist2 = data.filter(x => x.staffID == sessionStorage.getItem('staffid'));
+    this.count = this.stafflist2.length;
+    
+    this.stafflistnewrequest1=this.stafflist2.filter((x:{status: string,staffID: string})=>x.status=='HR Approved' && x.staffID == sessionStorage.getItem('staffid'))
+    this.count = this.stafflistnewrequest1.length;
+       this.loader=false
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
 
   }
 
   public filterByDepartment(){
     debugger
-    this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x=>x.department==this.Department);
-      this.stafflistnewrequest=this.stafflist.filter((x:{status: string,department:string})=>x.status=='HR Pending' && x.department==this.Department)
-      this.stafflistapproved=this.stafflist.filter((x:{status: string,department:string})=>x.status=='HR Approved' && x.department==this.Department )
-      this.count = this.stafflist.length;
-    });
+    this.DigiofficeService.GetEmployeeLoans()
+
+    
+ .subscribe({
+  next: data => {
+    debugger
+    this.stafflist = data.filter(x=>x.department==this.Department);
+    this.stafflistnewrequest=this.stafflist.filter((x:{status: string,department:string})=>x.status=='HR Pending' && x.department==this.Department)
+    this.stafflistapproved=this.stafflist.filter((x:{status: string,department:string})=>x.status=='HR Approved' && x.department==this.Department )
+    this.count = this.stafflist.length;
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
  
   }
 
@@ -159,10 +228,27 @@ export class LoansComponent implements OnInit {
   public getdate(event: any) {
     debugger
     this.date = event.target.value;
-    this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x => x.filterdate == this.date);
-    });
+    this.DigiofficeService.GetEmployeeLoans()
+ 
+    
+ .subscribe({
+  next: data => {
+    debugger
+    this.stafflist = data.filter(x => x.filterdate == this.date);
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
   }
 
   public CancelLeave(list: any) {
@@ -177,13 +263,26 @@ export class LoansComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.DigiofficeService.DeleteEmployeeLoans(list.id).subscribe(data => {
-          debugger
-          Swal.fire('Cancelled Successfully')
-          this.ngOnInit();
-        })
-
-      
+        this.DigiofficeService.DeleteEmployeeLoans(list.id)
+.subscribe({
+  next: data => {
+    debugger
+    Swal.fire('Cancelled Successfully')
+    this.ngOnInit();
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
       }
     })
   }
@@ -193,9 +292,7 @@ export class LoansComponent implements OnInit {
    
 
 
-  id: any;
-  SanctionAmount: any;
-  period: any;
+
   public Approve(item: any) {
     debugger
     this.id = item.id;
@@ -209,11 +306,29 @@ export class LoansComponent implements OnInit {
       
 
     }
-    this.DigiofficeService.UpdateEmployeeLoansByHR(entity).subscribe(data => {
-      Swal.fire("Updated Successfully");
-      location.reload();
+    this.DigiofficeService.UpdateEmployeeLoansByHR(entity)
 
+
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire("Updated Successfully");
+        location.reload();
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
   }
 
 

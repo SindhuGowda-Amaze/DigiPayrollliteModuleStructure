@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-attendance',
@@ -33,51 +34,118 @@ export class AttendanceComponent implements OnInit {
   public GetAttendance() {
     debugger
     this.DigiofficeService.GetAttendance()
-    .subscribe(data => {
-      debugger
-  
+    .subscribe({
+      next: data => {
+        debugger
         this.attendancelist = data.filter(x => x.userID == this.staffID)
         this.loader=false;
-    
-      
-        
-
-    })
-
-
-
-
-    
-    
-    this.DigiofficeService.GetAttendanceConfiguration().subscribe(data => {
-      debugger
-      let temp: any = data;
-      if (temp.length != 0) {
-        this.startingTime1 = temp[0].startingTime;
-        this.endTime1 = temp[0].endTime;
-      } else {
-        this.startingTime1 = '10:00';
-        this.endTime1 = '19:00';
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
     })
-  
+
+
+    
+    
+    this.DigiofficeService.GetAttendanceConfiguration()
+
+    .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data;
+        if (temp.length != 0) {
+          this.startingTime1 = temp[0].startingTime;
+          this.endTime1 = temp[0].endTime;
+        } else {
+          this.startingTime1 = '10:00';
+          this.endTime1 = '19:00';
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+
+
   }
 
  
   public getenddate(event: any) {
     debugger
     if (this.roleid == 1) {
-      this.DigiofficeService.GetAttendance().subscribe(data => {
-        debugger
-        this.attendancelist = data.filter(x => x.userID == this.staffID && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
+      this.DigiofficeService.GetAttendance()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.attendancelist = data.filter(x => x.userID == this.staffID && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
+
+
+      
     }
+
     else {
-      this.DigiofficeService.GetAttendance().subscribe(data => {
-        debugger
-        this.attendancelist = data.filter(x => x.userID == this.staffID && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
+      this.DigiofficeService.GetAttendance()
+ 
+      .subscribe({
+        next: data => {
+          debugger
+          this.attendancelist = data.filter(x => x.userID == this.staffID && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
+
+
+
+
+
     }
 
   }

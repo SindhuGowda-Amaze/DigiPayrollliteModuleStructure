@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class ApplyloansComponent implements OnInit {
 
-  
+  currentUrl: any;
   EmployeeId: any;
   EmployeeName: any;
   FirstDoseDate: any;
@@ -50,6 +50,8 @@ export class ApplyloansComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
+    this.currentUrl = window.location.href;
     this.LoanType = "";
     this.roledid = sessionStorage.getItem('roledid');
     this.staffID = sessionStorage.getItem('staffid')
@@ -117,27 +119,30 @@ export class ApplyloansComponent implements OnInit {
       }
 
 
-      this.DigiofficeService.InsertEmployeeLoans(eb).subscribe(
-
-        data => {
+      this.DigiofficeService.InsertEmployeeLoans(eb)
+       .subscribe({
+        next: data => {
           debugger
           Swal.fire('Saved Successfully.');
           this.getpassword();
           this.router.navigate(['/employee/loans']);
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
-        },
-      )
-      
     }
-   
-
-
-
-      
-
-
-
-
+  
 
 
     }
@@ -157,17 +162,37 @@ export class ApplyloansComponent implements OnInit {
 
   
   getpassword() {
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      let temp: any = data.filter(x => x.loginTypeID == 9);
-      let temp1: any = data.filter(x => x.id ==  sessionStorage.getItem('staffid'));
-      if (temp.length != 0) {
-        this.supervisoremail = temp[0].emailID;
-        this.employeename= temp1[0].name
-        
-        this.sendemail();
-      }
+    this.DigiofficeService.GetMyDetails()
 
+    .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data.filter(x => x.loginTypeID == 9);
+        let temp1: any = data.filter(x => x.id ==  sessionStorage.getItem('staffid'));
+        if (temp.length != 0) {
+          this.supervisoremail = temp[0].emailID;
+          this.employeename= temp1[0].name
+          
+          this.sendemail();
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
+
+
   }
   
   public Attactments = [];
@@ -180,12 +205,28 @@ export class ApplyloansComponent implements OnInit {
       'cclist': this.supervisoremail,
       'bcclist': this.supervisoremail,
     }
-    this.DigiofficeService.sendemail1(entity1).subscribe(res => {
-      debugger;
-      this.Attactments = [];
+    this.DigiofficeService.sendemail1(entity1)
 
-     
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.Attactments = [];
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
 
   }
  
