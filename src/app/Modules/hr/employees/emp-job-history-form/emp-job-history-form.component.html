@@ -38,7 +38,7 @@
                         </ng-multiselect-dropdown>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" placeholder="Company Code" name="ComapanyName"
+                        <input type="text" class="form-control" placeholder="Company " name="ComapanyName"
                             [(ngModel)]="ComapanyName" id="ComapanyName">
                     </div>
                     <div class="col-md-3">
@@ -52,20 +52,20 @@
                     <div class="col-md-3">
                         <p>End Date<span style="color: red;">*</span></p>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <p>Last Employment<span style="color: red;">*</span></p>
-                    </div>
+                    </div> -->
 
                 </div>
                 <div class="row leavereq">
 
                     <div class="col-md-3">
-                        <input type="date" class="form-control" placeholder="Leave Code" name="enddate"
-                            [(ngModel)]="enddate" id="enddate">
+                        <input type="date" class="form-control" placeholder="Leave Code" (change)="getyear($event)" name="enddate"
+                            [(ngModel)]="enddate" id="enddate" >
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <input type="checkbox"  [(ngModel)]="checked">
-                    </div>
+                    </div> -->
                     
                 </div>
                 <div class="row leavereq" *ngIf="checked==true">
@@ -77,7 +77,10 @@
                     </div>
 
                     <div class="col-md-3">
-                        <label> Tax For Year<span style="color: red;">*</span></label>
+                        <label> Tax For Year <span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label> Thirteenth Bonus <span style="color: red;">*</span></label>
                     </div>
                 </div>
                 
@@ -96,21 +99,25 @@
                         <input type="number" class="form-control" placeholder="Tax For Year" name="tax"
                             [(ngModel)]="tax" id="tax">
                     </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Thirteenth Bonus" name="thirteenthbonus"
+                            [(ngModel)]="thirteenthbonus" id="thirteenthbonus">
+                    </div>
                 </div>
                 <br>
                 <div class="row leavereq" *ngIf="checked==true">
 
                     <div class="col-md-3">
-                        <label>SSS for Year<span style="color: red;">*</span></label>
+                        <label>SSS for Year (only employee share)<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-md-3">
                         <label>Loans for Year<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-md-3">
-                        <label>Pag-IBIG for Year<span style="color: red;">*</span></label>
+                        <label>Pag-IBIG for Year (only employee share)<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-md-3">
-                        <label>Phil-Health for Year<span style="color: red;">*</span></label>
+                        <label>Phil-Health for Year (only employee share)<span style="color: red;">*</span></label>
                     </div>
                 </div>
                 <div class="row leavereq" *ngIf="checked==true">
@@ -124,14 +131,42 @@
                             [(ngModel)]="loan" id="loan">
                     </div>
                     <div class="col-md-3">
-                        <input type="number" class="form-control" placeholder="Pag-IBIG for Year" name="loan" id="loan">
+                        <input type="number" class="form-control" placeholder="Pag-IBIG for Year" name="pagibig" id="pagibig"  [(ngModel)]="pagibig" >
                     </div>
                     <div class="col-md-3">
-                        <input type="number" class="form-control" placeholder="Phil-Health for Year" name="loan"
-                            id="loan">
+                        <input type="number" class="form-control" placeholder="Phil-Health for Year"  name="philhealth" id="philhealth"  [(ngModel)]="philhealth">
                     </div>
                 </div>
                 <br>
+                <div class="row leavereq" *ngIf="checked==true">
+
+                    <div class="col-md-3">
+                        <label>Other Forms Of Compensation (For P250 K and below )<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Previous Employer Tin<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Previous Employer Address<span style="color: red;">*</span></label>
+                    </div>
+                    
+                </div>
+                <div class="row leavereq" *ngIf="checked==true">
+
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Others" name="Compensation"
+                            [(ngModel)]="Compensation" id="Compensation">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="employertin" name="employertin"
+                            [(ngModel)]="employertin" id="employertin">
+                    </div>
+                    <div class="col-md-3">
+                        <textarea rows="3" type="Address" class="form-control" placeholder="Others" name="Address"
+                            [(ngModel)]="Address" id="Address"></textarea>
+                    </div>
+                    
+                </div>
                 <div class="row">
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
@@ -157,6 +192,13 @@
                                     <th *ngIf="checked==true">tax</th>
                                     <th *ngIf="checked==true">sss</th>
                                     <th *ngIf="checked==true">loan</th>
+                                  
+                                      <th *ngIf="checked==true">Pagibig</th>
+                                      <th *ngIf="checked==true">Philhealth</th>
+                                      <th *ngIf="checked==true">Thirteenth Bonus</th>
+                                      <th *ngIf="checked==true">Other Compensation</th>
+                                      <th *ngIf="checked==true">Employer Tin</th>
+                                      <th *ngIf="checked==true">Address</th>
                                     
                                 </tr>
                                 <tr *ngFor="let details of keyresultArray">
@@ -168,6 +210,14 @@
                                     <td *ngIf="checked==true">{{details.tax}}</td>
                                     <td *ngIf="checked==true">{{details.sss}}</td>
                                     <td *ngIf="checked==true">{{details.loan}}</td>
+                                    <td *ngIf="checked==true">{{details.Pagibig}}</td>
+                                    <td *ngIf="checked==true">{{details.Philhealth}}</td>
+                                    
+                                     <td *ngIf="checked==true">{{details.thirteenthbonus}}</td>
+                                    <td *ngIf="checked==true">{{details.Compensation}}</td>
+                                    
+                                    <td *ngIf="checked==true">{{details.employertin}}</td>
+                                    <td *ngIf="checked==true">{{details.Address}}</td>
 
         
                                 </tr>

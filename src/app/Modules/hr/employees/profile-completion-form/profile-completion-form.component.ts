@@ -5,26 +5,25 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
-
 @Component({
   selector: 'app-profile-completion-form',
   templateUrl: './profile-completion-form.component.html',
   styleUrls: ['./profile-completion-form.component.css']
 })
+
 export class ProfileCompletionFormComponent implements OnInit {
 
+  constructor(public DigiofficeService: DigipayrollserviceService, private ngWizardService: NgWizardService, public router: Router, private activatedroute: ActivatedRoute, public datepipe: DatePipe) { }
   stepStates = {
     normal: STEP_STATE.normal,
     disabled: STEP_STATE.disabled,
     error: STEP_STATE.error,
     hidden: STEP_STATE.hidden
   };
-
   config: NgWizardConfig = {
     selected: 0,
     theme: THEME.circles,
     toolbarSettings: {
-
     }
   };
   dropdownList: any = [];
@@ -60,10 +59,8 @@ export class ProfileCompletionFormComponent implements OnInit {
   Blood_Group: any;
   DependentName: any;
   Relationship: any;
-
   DateOfBirth: any;
   Address: any;
-
   Is_Dependent: any;
   Id_Number: any;
   Is_Child_Adopted: any;
@@ -72,23 +69,18 @@ export class ProfileCompletionFormComponent implements OnInit {
   Gender1: any;
   Working_Status: any;
   Request_Type: any;
-
   Dependent: any;
   Percentage: any;
   NomineeType: any;
   GuardianName: any;
   GuardianRelationship: any;
-
   ParentCompany: any;
-
   AssignedCompany: any;
   ComapanyName: any;
-
   StartDate: any;
   EndDate: any;
   Salary: any;
   CurrentEmployer: any;
-
   EducationType: any;
   Qualification: any;
   NameOfQualification: any;
@@ -101,7 +93,6 @@ export class ProfileCompletionFormComponent implements OnInit {
   StartDateYear: any;
   EndDateMonth: any;
   EndDateYear: any;
-
   NameOfBank: any;
   AccountHolderName: any;
   BankAccountNumber: any;
@@ -135,7 +126,6 @@ export class ProfileCompletionFormComponent implements OnInit {
   ProbationPeriod: any;
   ConfirmationDueDate: any;
   ConfirmationStatus: any;
-
   AddressType: any;
   Relationship1: any;
   FindPlace: any;
@@ -158,22 +148,17 @@ export class ProfileCompletionFormComponent implements OnInit {
   EmergencyContactLandLineNumber: any;
   EmergencyContact_EmailID: any;
   EmergencyContact_Address: any;
-
   StaffID: any;
   ID: any;
   BuildingID: any;
-
-
   PhoneNo: any;
   EmailID: any;
   TypeID: any;
   Attachment: any;
   JoiningDate: any;
-
   LeavesPerMonth: any;
   WorkTimings: any;
   ContactNumber: any;
-
   EmployeeID: any;
   ChaildTotal: any;
   MedicalLeaveEntitlement: any;
@@ -188,26 +173,56 @@ export class ProfileCompletionFormComponent implements OnInit {
   loader: any;
   EducationGrade: any;
   level: any;
-
-  constructor(public DigiofficeService: DigipayrollserviceService, private ngWizardService: NgWizardService, public router: Router, private activatedroute: ActivatedRoute, public datepipe: DatePipe) { }
-
+  Is_Solo_Parent: any
   leavelist: any;
   myDate: any;
   Departmentlist: any;
   Bankslist: any;
-  result:any;
+  result: any;
   Religion1: any;
   supervisorlist12: any;
-  payrolllist:any;
+  payrolllist: any;
+  dropdownSettingsresdays: any;
+  restdaylist: any;
+  Restdays: any;
+  Restdays1: any;
+  currentUrl: any;
+
   ngOnInit(): void {
-
-      this.DigiofficeService.GetPayGroup().subscribe(
-      data => {
-        debugger
-        this.payrolllist = data;
-      })
-
-
+    this.currentUrl = window.location.href;
+    this.GetPayGroup();
+    this.dropdownSettingsresdays = {
+      singleSelection: false,
+      idField: 'name',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+    this.restdaylist = [
+      {
+        'name': 'Monday'
+      },
+      {
+        'name': 'Tuesday'
+      },
+      {
+        'name': 'Wednesday'
+      },
+      {
+        'name': 'Thursday'
+      },
+      {
+        'name': 'Friday'
+      },
+      {
+        'name': 'Saturday'
+      },
+      {
+        'name': 'Sunday'
+      }
+    ]
     this.Department = "";
     this.RoleType = "";
     this.level = "";
@@ -217,6 +232,7 @@ export class ProfileCompletionFormComponent implements OnInit {
     this.StateID = 0;
     this.CityID = 0;
     this.Barangay = 0;
+    this.Status = 0;
     this.showtable = 0;
     this.Relationship1 = 'Select One'
     this.Gender1 = '';
@@ -244,28 +260,13 @@ export class ProfileCompletionFormComponent implements OnInit {
     this.EmployeeStatus = "";
     this.Supervisor = "";
     this.Country_Of_Birth = "";
-
     this.RoleType = "";
     this.Department = " ";
     this.Paygroup = "";
     this.NoticePeriod = "";
-
     this.loader = true;
-  
-
-    this.DigiofficeService.GetBanks().subscribe(
-      data => {
-        debugger
-        this.result = data;
-      })
-
-
-    this.DigiofficeService.GetCountryType().subscribe(data => {
-      debugger
-      this.Countrylist = data
-
-    })
-
+    this.GetBanks();
+    this.GetCountryType();
     this.dropdownSettings = {
       singleSelection: true,
       idField: 'id',
@@ -275,34 +276,70 @@ export class ProfileCompletionFormComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+    this.GetBankDetails();
+    this.Is_Disabled = false
+    this.showtable = 0;
+    this.myDate = new Date().toISOString().split("T")[0];
+    this.GetRoleType();
+    this.GetMyDetails();
+    this.GetDepartment();
+    this.ActivatedRouteCall();
+  }
 
+  public GetPayGroup() {
+    this.DigiofficeService.GetPayGroup().subscribe(
+      data => {
+        debugger
+        this.payrolllist = data;
+      })
+  }
 
+  public GetBanks() {
+    this.DigiofficeService.GetBanks().subscribe(
+      data => {
+        debugger
+        this.result = data;
+      })
+  }
+
+  public GetCountryType() {
+    this.DigiofficeService.GetCountryType().subscribe(data => {
+      debugger
+      this.Countrylist = data;
+    })
+  }
+
+  public GetBankDetails() {
     this.DigiofficeService.GetBankDetails().subscribe(data => {
       debugger
       this.Bankslist = data
       this.loader = false;
     })
+  }
 
-
-    this.Is_Disabled = false
-    this.showtable = 0;
-    this.myDate = new Date().toISOString().split("T")[0];
-
+  public GetRoleType() {
     this.DigiofficeService.GetRoleType().subscribe(data => {
       debugger
       this.RoleTypeList = data;
     });
+  }
+
+  public GetMyDetails() {
     this.DigiofficeService.GetMyDetails().subscribe(data => {
       debugger
-      this.supervisorlist = data.filter(x => x.type == 2);
+      this.supervisorlist = data.filter(x => x.loginTypeID == 2);
       this.loader = false;
     });
+  }
 
+  public GetDepartment() {
     this.DigiofficeService.GetDepartment().subscribe(data => {
       debugger
       this.Departmentlist = data;
     });
+  }
 
+  public ActivatedRouteCall() {
     this.activatedroute.params.subscribe(params => {
       debugger;
       this.ID = params['id'];
@@ -374,7 +411,6 @@ export class ProfileCompletionFormComponent implements OnInit {
           this.Mobile = "",
           this.Is_Dependent = " ",
           this.Id_Number = " ",
-          this.Is_Child_Adopted = " ",
           this.Race = " ",
           // this.CitizenShip = " ",
           this.Country_Of_Birth = " ",
@@ -398,7 +434,6 @@ export class ProfileCompletionFormComponent implements OnInit {
           this.InstitutionName = " ",
           this.Country = " ",
           this.ScoreType = " ",
-
           this.StartDateMonth = " ",
           this.StartDateYear = " ",
           this.EndDateMonth = " ",
@@ -418,22 +453,19 @@ export class ProfileCompletionFormComponent implements OnInit {
           this.VisaIssueDate = " ",
           this.VisaExpiryDate = " ",
           this.EmployeeName = " ",
-
           this.Designation = " ",
           this.PayRateType = " ",
           this.PayStructure = " ",
           this.EffectiveFromDate = " ",
           this.Reason = " "
-
       }
       else {
-
         this.DigiofficeService.GetMyDetails().subscribe(
           data => {
             debugger
-
             this.leavelist = data.filter(x => x.id == this.ID);
-            this.Title = this.leavelist[0].title,
+            this.HiringDate = this.datepipe.transform(this.leavelist[0].hiringDate, 'yyyy-MM-dd'),
+              this.Title = this.leavelist[0].title,
               this.Name = this.leavelist[0].name,
               this.Middle_Name = this.leavelist[0].middle_Name,
               this.Last_Name = this.leavelist[0].last_Name,
@@ -449,6 +481,7 @@ export class ProfileCompletionFormComponent implements OnInit {
               this.Date_Of_Marriage = this.datepipe.transform(this.leavelist[0].date_Of_Marriage, 'yyyy-MM-dd')
             }
             this.Personal_Email = this.leavelist[0].personal_Email,
+              this.Is_Solo_Parent = this.leavelist[0].is_Solo_Parent,
               this.Mobile = this.leavelist[0].mobile,
               this.Religion = this.leavelist[0].religion,
               this.Citizen_Ship = this.leavelist[0].citizen_Ship,
@@ -464,15 +497,15 @@ export class ProfileCompletionFormComponent implements OnInit {
               this.DOB = this.datepipe.transform(this.leavelist[0].dob, 'yyyy-MM-dd'),
               this.JoiningDate = this.datepipe.transform(this.leavelist[0].joiningDate, 'yyyy-MM-dd'),
               this.RoleType = this.leavelist[0].type,
-              this.Supervisor = this.leavelist[0].supervisor,
-              this.DigiofficeService.GetMyDetails().subscribe(data => {
-                debugger
-                this.supervisorlist12 = data.filter(x => x.id == this.Supervisor);
-                this.loader = false;
-                this.Supervisor = this.supervisorlist12
-              });
-
-
+              this.Supervisor1 = this.leavelist[0].supervisor,
+              this.Restdays = this.leavelist[0].restDays;
+            this.Restdays1 = this.leavelist[0].restDays;
+            this.DigiofficeService.GetMyDetails().subscribe(data => {
+              debugger
+              this.supervisorlist12 = data.filter(x => x.id == this.Supervisor1);
+              this.loader = false;
+              this.Supervisor = this.supervisorlist12
+            });
             this.Paygroup = this.leavelist[0].paygroup,
               this.PagiBig_ID = this.leavelist[0].pagiBig_ID,
               this.PagiBigAccountNo = this.leavelist[0].pagiBigAccountNo,
@@ -481,57 +514,11 @@ export class ProfileCompletionFormComponent implements OnInit {
               this.PHILHEALTH_NO = this.leavelist[0].philhealtH_NO,
               this.SSSNO = this.leavelist[0].sssno,
               this.PagibigMembership = this.leavelist[0].pagibigMembership,
-              this.level = this.leavelist[0].level
-
-            this.Department = this.leavelist[0].department;
-
-
-
-
-            this.DigiofficeService.GetPositionDetails().subscribe(
-              data => {
-                debugger
-
-                this.leavelist = data.filter(x => x.staffId == this.ID);
-                this.EmployeeCode = this.leavelist[0].employeeCode,
-                  this.OfficialEmail = this.leavelist[0].officialEmail,
-                  this.Band = this.leavelist[0].band,
-                  this.Grade = this.leavelist[0].grade,
-                  this.JobRole = this.leavelist[0].jobRole,
-                  this.Manager = this.leavelist[0].manager,
-                  this.EmployeeType = this.leavelist[0].employeeType,
-                  this.EmployeeStatus = this.leavelist[0].employeeStatus,
-                  this.NoticePeriod = this.leavelist[0].noticePeriod,
-                  this.ProbationPeriod = this.leavelist[0].probationPeriod,
-                  this.ConfirmationDueDate = this.datepipe.transform(this.leavelist[0].confirmationDueDate, 'yyyy-MM-dd'),
-                  this.ConfirmationStatus = this.leavelist[0].confirmationStatus,
-                  this.EmployeeName = this.leavelist[0].employeeName
-                this.loader = false;
-
-
-              },
-            );
-
-            this.DigiofficeService.GetEmploymentDetails().subscribe(
-              data => {
-                debugger
-
-                this.employmentlist = data.filter(x => x.staffID == this.ID).splice(0, 1);
-                this.ComapanyName = this.employmentlist[0].comapanyName
-                this.Title = this.employmentlist[0].title
-                this.StartDate = this.employmentlist[0].startDate
-                this.EndDate = this.employmentlist[0].endDate
-                this.Salary = this.employmentlist[0].salary
-                this.loader = false;
-              },
-            );
-
-
-
+              this.level = this.leavelist[0].level,
+              this.Department = this.leavelist[0].department;
             this.DigiofficeService.GetMyAddressDetails().subscribe(
               data => {
-                debugger
-
+                debugger;
                 this.leavelist = data.filter(x => x.staffId == this.ID);
                 this.AddressType = this.leavelist[0].addressType,
                   this.Relationship = this.leavelist[0].relationship,
@@ -566,31 +553,45 @@ export class ProfileCompletionFormComponent implements OnInit {
                 this.getstate();
                 this.getcity();
                 this.getbarangay();
-
-                //  this.CountryID = this.leavelist[0].countryID,
-                //   this.DigiofficeService.GetStateType().subscribe(data => {
-                //     debugger
-                //     this.Provincelist = data.filter(x => x.countryID == this.CountryID);
-                //     this.StateID = this.leavelist[0].stateID;
-                //     this.DigiofficeService.GetCityType().subscribe(data => {
-                //       debugger
-                //       this.Citylist = data.filter(x => x.stateID == this.StateID);
-                //       this.CityID = this.leavelist[0].cityID,
-                //         this.show = 1;
-                //       this.Barangay = this.leavelist[0].barangay
-                // })
               })
-
-
+            this.DigiofficeService.GetPositionDetails().subscribe(
+              data => {
+                debugger
+                this.leavelist = data.filter(x => x.staffId == this.ID);
+                this.EmployeeCode = this.leavelist[0].employeeCode,
+                  this.OfficialEmail = this.leavelist[0].official_Email,
+                  this.Band = this.leavelist[0].band,
+                  this.Grade = this.leavelist[0].grade,
+                  this.JobRole = this.leavelist[0].job_Role,
+                  this.Manager = this.leavelist[0].manager,
+                  this.EmployeeType = this.leavelist[0].employee_Type,
+                  this.EmployeeStatus = this.leavelist[0].employement_Status,
+                  this.NoticePeriod = this.leavelist[0].notice_Period,
+                  this.ProbationPeriod = this.leavelist[0].probation_Period,
+                  this.ConfirmationDueDate = this.datepipe.transform(this.leavelist[0].confirmation_Due_Date, 'yyyy-MM-dd'),
+                  this.ConfirmationStatus = this.leavelist[0].confirmation_Status,
+                  this.EmployeeName = this.leavelist[0].employeeName
+                this.loader = false;
+              },
+            );
+            this.DigiofficeService.GetEmploymentDetails().subscribe(
+              data => {
+                debugger
+                this.employmentlist = data.filter(x => x.staffID == this.ID).splice(0, 1);
+                this.ComapanyName = this.employmentlist[0].comapanyName
+                this.Title = this.employmentlist[0].title
+                this.StartDate = this.employmentlist[0].startDate
+                this.EndDate = this.employmentlist[0].endDate
+                this.Salary = this.employmentlist[0].salary
+                this.loader = false;
+              },
+            );
             this.loader = false;
           },
         );
-
-
         this.DigiofficeService.GetDependentDetails().subscribe(
           data => {
             debugger
-
             this.leavelist = data.filter(x => x.staffId == this.ID);
             this.cb = this.leavelist[0].cb,
               this.Religion = this.leavelist[0].religion,
@@ -605,19 +606,14 @@ export class ProfileCompletionFormComponent implements OnInit {
               this.Is_Child_Adopted = this.leavelist[0].is_Child_Adopted,
               this.Race = this.leavelist[0].race,
               this.CitizenShip = this.leavelist[0].citizenShip,
-
               this.Working_Status = this.leavelist[0].working_Status,
               this.Request_Type = this.leavelist[0].request_Type
-
             this.loader = false;
           },
         );
-
-
         this.DigiofficeService.GetNomination().subscribe(
           data => {
             debugger
-
             this.leavelist = data.filter(x => x.staffId == this.ID);
             this.Dependent = this.leavelist[0].dependent,
               this.Percentage = this.leavelist[0].percentage,
@@ -625,14 +621,8 @@ export class ProfileCompletionFormComponent implements OnInit {
               this.GuardianName = this.leavelist[0].guardianName,
               this.GuardianRelationship = this.leavelist[0].guardianRelationship
             this.loader = false;
-
-
-
           },
         );
-
-
-
         this.DigiofficeService.GetEducationDetails().subscribe(
           data => {
             debugger
@@ -652,11 +642,9 @@ export class ProfileCompletionFormComponent implements OnInit {
             this.loader = false;
           },
         );
-
         this.DigiofficeService.GetBankDetails().subscribe(
           data => {
             debugger
-
             this.leavelist = data.filter(x => x.staffId == this.ID);
             this.NameOfBank = this.leavelist[0].nameOfBank,
               this.AccountHolderName = this.leavelist[0].accountHolderName,
@@ -664,11 +652,9 @@ export class ProfileCompletionFormComponent implements OnInit {
             this.loader = false;
           },
         );
-
         this.DigiofficeService.GetID_Details().subscribe(
           data => {
             debugger
-
             let temp: any = data.filter(x => x.staffId == this.ID);
             this.IDType = temp[0].idType,
               this.Number = temp[0].number,
@@ -680,7 +666,6 @@ export class ProfileCompletionFormComponent implements OnInit {
             this.loader = false;
           },
         );
-
         this.DigiofficeService.GetVisaDetails().subscribe(
           data => {
             debugger
@@ -690,11 +675,8 @@ export class ProfileCompletionFormComponent implements OnInit {
               this.VisaIssueDate = this.datepipe.transform(this.leavelist[0].visaIssueDate, 'yyyy-MM-dd'),
               this.VisaExpiryDate = this.datepipe.transform(this.leavelist[0].visaExpiryDate, 'yyyy-MM-dd')
             this.loader = false;
-
           },
         );
-
-
         this.DigiofficeService.GetSalaryDetails().subscribe(
           data => {
             debugger
@@ -707,13 +689,10 @@ export class ProfileCompletionFormComponent implements OnInit {
               this.EffectiveFromDate = this.datepipe.transform(this.leavelist[0].effectiveFromDate, 'yyyy-MM-dd'),
               this.Reason = this.leavelist[0].reason
             this.loader = false;
-
           },
         );
-
       }
-    }
-    )
+    })
   }
 
   getstate() {
@@ -826,6 +805,10 @@ export class ProfileCompletionFormComponent implements OnInit {
     }
     else {
 
+      this.Restdays = '';
+      for (let i = 0; i < this.restdaysarray1.length; i++) {
+        this.Restdays = this.Restdays + this.restdaysarray1[i].name + ','
+      }
 
       var eb = {
         'BuildingID': 56,
@@ -849,8 +832,8 @@ export class ProfileCompletionFormComponent implements OnInit {
         'ResignationDate': this.JoiningDate,
         'ChaildTotal': 10,
         'MedicalLeaveEntitlement': 10,
-        'MaternitityLeaveEntitlement': 10,
-        'PaternitityLeaveEntitlement': 10,
+        'MaternitityLeaveEntitlement': 105,
+        'PaternitityLeaveEntitlement': 7,
         'CompassionateLeaveEntitlement': 10,
         'Leavesfrompreviousyear': 10,
         'ExtendedChildcareLeaveEntitlement': 10,
@@ -888,16 +871,18 @@ export class ProfileCompletionFormComponent implements OnInit {
         'EMPLOYEE_TIN': this.EMPLOYEE_TIN,
         'PHILHEALTH_NO': this.PHILHEALTH_NO,
         'SSSNO': this.SSSNO,
-
+        'Restdays': this.Restdays,
         'department': this.Department,
-        'Level': this.level
+        'Level': this.level,
+        'Is_Solo_Parent': this.Is_Solo_Parent == undefined ? 0 : this.Is_Solo_Parent,
+        'HiringDate': this.HiringDate
 
       }
       this.DigiofficeService.InsertMyDetails(eb).subscribe(
 
         data => {
           debugger
-          if (data == 0) {
+          if (data == 10) {
             Swal.fire('User Already Exists')
           }
           else {
@@ -929,10 +914,21 @@ export class ProfileCompletionFormComponent implements OnInit {
   }
 
 
-
+  HiringDate: any;
   Supervisor1: any;
   public Update() {
     debugger
+
+    this.Restdays = '';
+    for (let i = 0; i < this.restdaysarray1.length; i++) {
+      this.Restdays = this.Restdays + this.restdaysarray1[i].name + ','
+    }
+
+
+    if (this.Restdays == '') {
+      this.Restdays = this.Restdays1
+    }
+
 
     var eb = {
       'ID': this.ID,
@@ -991,8 +987,11 @@ export class ProfileCompletionFormComponent implements OnInit {
       'EMPLOYEE_TIN': this.EMPLOYEE_TIN,
       'PHILHEALTH_NO': this.PHILHEALTH_NO,
       'SSSNO': this.SSSNO,
+      'Restdays': this.Restdays,
       'department': this.Department,
-      'Level': this.level
+      'Level': this.level,
+      'Is_Solo_Parent': this.Is_Solo_Parent == undefined ? 0 : this.Is_Solo_Parent,
+      'HiringDate': this.HiringDate
 
     }
     this.DigiofficeService.UpdateStaff(eb).subscribe(
@@ -1026,16 +1025,15 @@ export class ProfileCompletionFormComponent implements OnInit {
     debugger
 
     var eb = {
-
       'DependentName': this.DependentName == undefined ? null : this.DependentName,
-      'Relationship': this.Relationship == undefined ? null : this.Relationship,
+      'Relationship': this.Relationship1 == undefined ? null : this.Relationship1,
       'Gender': this.Gender1 == undefined ? null : this.Gender1,
       'DateOfBirth': this.DateOfBirth == " " ? this.DOB : this.DateOfBirth,
       'Address': this.Address == undefined ? null : this.Address,
       'Mobile': this.Mobile == undefined ? null : this.Mobile,
-      'Is_Dependent': this.Is_Dependent == undefined ? null : this.Is_Dependent,
+      'Is_Dependent': this.Is_Dependent == " " ? 0 : this.Is_Dependent,
       'Id_Number': this.Id_Number == undefined ? null : this.Id_Number,
-      'Is_Child_Adopted': this.Is_Child_Adopted == undefined ? null : this.Is_Child_Adopted,
+      'Is_Child_Adopted': this.Is_Child_Adopted == undefined ? 0 : this.Is_Child_Adopted,
       'Race': this.Race == undefined ? null : this.Race,
       'CitizenShip': this.CitizenShip == undefined ? null : this.CitizenShip,
       'Country_Of_Birth': this.cb == undefined ? null : this.cb,
@@ -1043,8 +1041,6 @@ export class ProfileCompletionFormComponent implements OnInit {
       'Working_Status': this.Working_Status == undefined ? null : this.Working_Status,
       'Request_Type': this.Request_Type == undefined ? null : this.Request_Type,
       'StaffID': this.StaffID
-
-
 
     }
     this.DigiofficeService.InsertDependentDetails(eb).subscribe(
@@ -1273,7 +1269,7 @@ export class ProfileCompletionFormComponent implements OnInit {
         'subDistrictPostcode': this.SubDistrictPostcode,
         'Mobile': this.Mobile1,
         'LandLineFax': this.LandLineFax,
-        'IsCorrespondance': this.IsCorrespondance,
+        'IsCorrespondance': 0,
         'RequestType': this.RequestType,
         'EmergencyContactName': this.EmergencyContactName,
         'EmergencyContactRelationship': this.EmergencyContactRelationship,
@@ -1359,9 +1355,9 @@ export class ProfileCompletionFormComponent implements OnInit {
       'DateOfBirth': this.DateOfBirth == " " ? this.DOB : this.DateOfBirth,
       'Address': this.Address == undefined ? null : this.Address,
       'Mobile': this.Mobile == undefined ? null : this.Mobile,
-      'Is_Dependent': this.Is_Dependent == undefined ? null : this.Is_Dependent,
+      'Is_Dependent': this.Is_Dependent == undefined ? 0 : this.Is_Dependent,
       'Id_Number': this.Id_Number == undefined ? null : this.Id_Number,
-      'Is_Child_Adopted': this.Is_Child_Adopted == undefined ? null : this.Is_Child_Adopted,
+      'Is_Child_Adopted': this.Is_Child_Adopted == undefined ? 0 : this.Is_Child_Adopted,
       'Race': this.Race == undefined ? null : this.Race,
       'CitizenShip': this.CitizenShip == undefined ? null : this.CitizenShip,
       'Country_Of_Birth': this.cb == undefined ? null : this.cb,
@@ -1467,6 +1463,17 @@ export class ProfileCompletionFormComponent implements OnInit {
       },
     )
   }
+
+  public restdaysarray: any = [];
+  public restdaysarray1: any = [];
+
+  onItemSelect2(item: any) {
+    debugger
+    console.log(item);
+    this.restdaysarray1.push(item)
+  }
+
+
 
   public UpdateID_Details() {
     debugger

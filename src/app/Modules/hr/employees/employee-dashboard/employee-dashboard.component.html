@@ -1,10 +1,10 @@
+<app-loader *ngIf="loader"></app-loader>
 <div class="container-fluid">
     <div>
         <ul>
             <p class="Heading1">Staff Dashboard</p>
         </ul>
     </div>
-    <app-loader *ngIf="loader"></app-loader>
     <div class="card">
 
         <div class="row">
@@ -55,7 +55,12 @@
     <div class="row FilterClass">
         <div class="col-lg-12">
             <div class="row">
-                <div class="col-md-8"></div>
+                <div class="col-md-6"></div>
+               
+                <div class="col-md-2">
+                    <button class="form-control requestbtn" (click)="exportexcel()">Export to Excel</button>
+
+                </div>
                 <div class="col-md-2">
                     <button class="form-control requestbtn" routerLink="/hr/ProfileCompletionForm" style="    width: 88%;">Add
                         New</button>
@@ -79,7 +84,7 @@
                         <th>Employee Id</th>
                         <th>Employee Name</th>
                         <th>Gender</th>
-                        <th>Role</th>
+                        <th>Position</th>
                         <th>Department</th>
                         <th>Level</th>
                         <th>Phone Number</th>
@@ -92,12 +97,14 @@
                 <tbody>
                     <tr *ngFor="let item of stafflist|paginate: { itemsPerPage: count1, currentPage: p}">
 
-                        <td>000{{item.id}}</td>
+                        <!-- <td>000{{item.id}}</td> -->
+                         <td>{{item.employeeCode}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.gender}}</td>
                         <td>{{item.role}}</td>
                         <td>{{item.department_name}}</td>
                         <td>{{item.levelname}}</td>
+                       
                         <td>{{item.mobile}}</td>
                         <td>{{item.emailID}}</td>
                         <td>{{item.joiningDate|date}}</td>
