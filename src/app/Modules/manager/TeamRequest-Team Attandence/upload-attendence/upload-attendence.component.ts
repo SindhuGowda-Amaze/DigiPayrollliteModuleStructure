@@ -10,8 +10,20 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./upload-attendence.component.css']
 })
 export class UploadAttendenceComponent implements OnInit {
-
-  constructor(private DigipayrollServiceService: DigipayrollserviceService, private ActivatedRoute: ActivatedRoute, private datepipe: DatePipe) { }
+  currentUrl: any;
+  dropdownList2: any;
+  RoleID: any;
+  uniquelist: any;
+  LeaveTypeList: any;
+  Holiday: any
+  HolidayDescription: any;
+  HolidayDate: any;
+  Attachment: any;
+  loader: any;
+  starttime: any;
+  endtime: any;
+  holidaylist: any;
+  ipaddress: any;
   ID: any;
   leavelist: any;
   Short: any;
@@ -31,10 +43,20 @@ export class UploadAttendenceComponent implements OnInit {
 
   selectedItems1: any = [];
   dropdownSettings1: any = {};
-  result:any;
-  AutoApproval:any;
-  ManualApply:any;
+  result: any;
+  AutoApproval: any;
+  ManualApply: any;
+  startdate: any;
+  enddate: any;
+  SigninDate: any;
+  SignoutDate: any;
+  UserID: any;
+  alldates: any;
+
+  constructor(private DigipayrollServiceService: DigipayrollserviceService, private ActivatedRoute: ActivatedRoute, private datepipe: DatePipe) { }
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.RoleID = "";
     this.Department = "";
     this.GetLeaveType();
@@ -42,20 +64,53 @@ export class UploadAttendenceComponent implements OnInit {
     //   debugger
     //   this.RoleTypeList = data;
     // });
-    this.DigipayrollServiceService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
-    this.DigipayrollServiceService.GetOtConfiguration().subscribe(
-      data => {
-        debugger
-        this.result = data;
-        this.AutoApproval = this.result[0].approvalStatus;
-        this.ManualApply = this.result[0].manualApply;
+    this.DigipayrollServiceService.GetDepartment()
+      .subscribe({
+        next: data => {
+          debugger
+          this.Departmentlist = data;
+        }, error: (err) => {
+          Swal.fire('Issue in GettingDepartment');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
 
-      },
-    );
+
+    this.DigipayrollServiceService.GetOtConfiguration()
+      .subscribe({
+        next: data => {
+          debugger
+          this.result = data;
+          this.AutoApproval = this.result[0].approvalStatus;
+          this.ManualApply = this.result[0].manualApply;
+
+        }, error: (err) => {
+          Swal.fire('Issue in GettingOtConfiguration');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
+
 
     this.dropdownSettings = {
       singleSelection: true,
@@ -95,16 +150,32 @@ export class UploadAttendenceComponent implements OnInit {
       }
       else {
 
-        this.DigipayrollServiceService.GetHolidays().subscribe(
-          data => {
-            debugger
-            this.leavelist = data.filter(x => x.id == this.ID);
-            this.Holiday = this.leavelist[0].holiday
-            this.HolidayDescription = this.leavelist[0].holidayDescription
-            this.HolidayDate = this.datepipe.transform(this.leavelist[0].holidayDate, 'yyyy-MM-dd');
+        this.DigipayrollServiceService.GetHolidays()
+          .subscribe({
+            next: data => {
+              debugger
+              this.leavelist = data.filter(x => x.id == this.ID);
+              this.Holiday = this.leavelist[0].holiday
+              this.HolidayDescription = this.leavelist[0].holidayDescription
+              this.HolidayDate = this.datepipe.transform(this.leavelist[0].holidayDate, 'yyyy-MM-dd');
 
-          },
-        );
+            }, error: (err) => {
+              Swal.fire('Issue in Getting City Type');
+              // Insert error in Db Here//
+              var obj = {
+                'PageName': this.currentUrl,
+                'ErrorMessage': err.error.message
+              }
+              this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+                data => {
+                  debugger
+                },
+              )
+            }
+          })
+
+
+
       }
     }
     )
@@ -114,27 +185,41 @@ export class UploadAttendenceComponent implements OnInit {
     debugger
   }
 
-  startdate: any;
-  enddate: any;
-  SigninDate: any;
-  SignoutDate: any;
-  UserID: any
+
   onItemSelect(item: any) {
     debugger
     console.log(item);
     this.EmployeeId = item.id;
     this.UserID = item.id
 
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.id == this.EmployeeId);
-      this.EmployeeName = temp[0].name;
-      this.DigipayrollServiceService.GetDeMinimisMapping().subscribe(data => {
-        debugger
-        let temp1: any = data.filter(x => x.roleID == temp[0].roleType);
+    this.DigipayrollServiceService.GetMyDetails()
+      .subscribe({
+        next: data => {
+          debugger
+          let temp: any = data.filter(x => x.id == this.EmployeeId);
+          this.EmployeeName = temp[0].name;
+          this.DigipayrollServiceService.GetDeMinimisMapping().subscribe(data => {
+            debugger
+            let temp1: any = data.filter(x => x.roleID == temp[0].roleType);
 
+          })
+        }, error: (err) => {
+          Swal.fire('Issue in Getting MyDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
-    })
+
+
+
   }
   onItemSelect1(item: any) {
     debugger
@@ -160,7 +245,7 @@ export class UploadAttendenceComponent implements OnInit {
     // this.attachments.push(abcd[0]);
 
   }
-  alldates: any
+
   public getDatesBetweenDates = (startDate: string | number | Date, endDate: string | number | Date) => {
     let dates: any = []
     //to avoid modifying the original date
@@ -174,7 +259,7 @@ export class UploadAttendenceComponent implements OnInit {
     return dates
 
   }
-  ipaddress: any
+
   public attachmentsurl: any = [];
 
   public addDays(originalDate: string | number, days: number) {
@@ -195,17 +280,14 @@ export class UploadAttendenceComponent implements OnInit {
 
     return [year, month, day].join('-');
   }
-  loader: any;
-  starttime: any;
-  endtime: any;
-  holidaylist: any;
+
   public Save() {
     debugger
-    if(this.Department==undefined||this.RoleID==undefined||this.selectedItems==undefined||this.startdate==undefined
-      ||this.enddate==undefined||this.selectedItems1==undefined||this.starttime==undefined||this.endtime==undefined){
-        Swal.fire("Please fill the Mandatory Fields")
+    if (this.Department == undefined || this.RoleID == undefined || this.selectedItems == undefined || this.startdate == undefined
+      || this.enddate == undefined || this.selectedItems1 == undefined || this.starttime == undefined || this.endtime == undefined) {
+      Swal.fire("Please fill the Mandatory Fields")
     }
-    else{
+    else {
       if (this.startdate > this.enddate) {
         Swal.fire("Start date must be less than end date")
       } else {
@@ -218,32 +300,32 @@ export class UploadAttendenceComponent implements OnInit {
         for (let i = 0; i <= this.alldates.length; i++) {
           var options = { hour12: false };
 
-         if(this.AutoApproval=='Auto Approval'){
-          var entity = {
-            'UserID': this.UserID,
-            'SigninDate': this.formatDate(this.alldates[i]) + "," + this.starttime,
-            'SignoutDate': this.formatDate(this.alldates[i]) + "," + this.endtime,
-            'punchinip': this.ipaddress,
-            'punchoutip': this.ipaddress,
-            'ApprovalStatus': 'Manager Approved HR Approved'
-          }
-          this.DigipayrollServiceService.UploadbulkAttendanceWeb(entity).subscribe(data => {
+          if (this.AutoApproval == 'Auto Approval') {
+            var entity = {
+              'UserID': this.UserID,
+              'SigninDate': this.formatDate(this.alldates[i]) + "," + this.starttime,
+              'SignoutDate': this.formatDate(this.alldates[i]) + "," + this.endtime,
+              'punchinip': this.ipaddress,
+              'punchoutip': this.ipaddress,
+              'ApprovalStatus': 'Manager Approved HR Approved'
+            }
+            this.DigipayrollServiceService.UploadbulkAttendanceWeb(entity).subscribe(data => {
 
-          })
-         }
-         else if (this.AutoApproval=='Manager Approval'){
-          var entity = {
-            'UserID': this.UserID,
-            'SigninDate': this.formatDate(this.alldates[i]) + "," + this.starttime,
-            'SignoutDate': this.formatDate(this.alldates[i]) + "," + this.endtime,
-            'punchinip': this.ipaddress,
-            'punchoutip': this.ipaddress,
-            'ApprovalStatus': 'Manager Pending'
+            })
           }
-          this.DigipayrollServiceService.UploadbulkAttendanceWeb(entity).subscribe(data => {
+          else if (this.AutoApproval == 'Manager Approval') {
+            var entity = {
+              'UserID': this.UserID,
+              'SigninDate': this.formatDate(this.alldates[i]) + "," + this.starttime,
+              'SignoutDate': this.formatDate(this.alldates[i]) + "," + this.endtime,
+              'punchinip': this.ipaddress,
+              'punchoutip': this.ipaddress,
+              'ApprovalStatus': 'Manager Pending'
+            }
+            this.DigipayrollServiceService.UploadbulkAttendanceWeb(entity).subscribe(data => {
 
-          })
-         }
+            })
+          }
 
         }
         Swal.fire('Attendance Added Successfully');
@@ -270,10 +352,7 @@ export class UploadAttendenceComponent implements OnInit {
 
 
 
-  Holiday: any
-  HolidayDescription: any;
-  HolidayDate: any;
-  Attachment: any;
+
   public InsertHolidays() {
     debugger;
 
@@ -315,7 +394,7 @@ export class UploadAttendenceComponent implements OnInit {
     })
 
   }
-  LeaveTypeList: any;
+
   public GetLeaveType() {
     debugger
     this.DigipayrollServiceService.GetLeaveType().subscribe(data => {
@@ -323,36 +402,55 @@ export class UploadAttendenceComponent implements OnInit {
       this.LeaveTypeList = data;
     })
   }
-  RoleID: any
-  uniquelist:any
+
   public GetRoleID(event: any) {
     debugger
     // this.RoleID = event.target.value;
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
+    this.DigipayrollServiceService.GetMyDetails()
+      .subscribe({
+        next: data => {
+          debugger
+          this.RoleTypeList = data.filter(x => x.department == this.Department);
+
+          const key = 'role';
 
 
-      this.RoleTypeList = data.filter(x => x.department==this.Department);
+          this.uniquelist = [...new Map(this.RoleTypeList.map((item: { [x: string]: any; }) =>
+            [(item[key]), item])).values()]
 
-      const key = 'role';
+        }, error: (err) => {
+          Swal.fire('Issue in Getting MyDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
 
-        this.uniquelist = [...new Map(this.RoleTypeList.map((item: { [x: string]: any; }) =>
-          [(item[key]), item])).values()]
 
 
-    })
   }
 
 
-  dropdownList2:any;
+
   public Getemployee(event: any) {
     debugger
     this.RoleID = event.target.value;
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      this.dropdownList2 = data.filter(x => x.roleType == this.RoleID && x.department==this.Department);
-    })
+    this.DigipayrollServiceService.GetMyDetails()
+
+
+
+      .subscribe(data => {
+        debugger
+        this.dropdownList2 = data.filter(x => x.roleType == this.RoleID && x.department == this.Department);
+      })
   }
   public LeaveType: any
 
