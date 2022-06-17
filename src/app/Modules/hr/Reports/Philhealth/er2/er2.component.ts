@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-er2',
@@ -9,68 +10,13 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
   styleUrls: ['./er2.component.css']
 })
 export class ER2Component implements OnInit {
-
-  showleaseforprint:any;
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
   stafflist:any;
   employeeid:any;
   uniquelist:any;
   dropdownSettings: any = {};
-  ngOnInit(): void {
-    this.sign="";
-    this.showleaseforprint = 0;
-    
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.stafflist = data;
-
-
-      
-    const key = 'staffID'
-
-    this.uniquelist  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
-
-
-      this.dropdownSettings = {
-        singleSelection: true,
-        idField: 'staffID',
-        textField: 'staffname',
-        selectAllText: 'Select All',
-        unSelectAllText: 'UnSelect All',
-        itemsShowLimit: 3,
-        allowSearchFilter: true
-      };
-
-
-    });
-
-
- 
-
-
-   
- 
-
-
-    
-    
-  
-
-
-  }
-
+  showleaseforprint:any;
   staffID:any;
-
-  Employee:any
-  onItemSelect(item: any) {
-    debugger
-    console.log(item);
-    this.staffID = item.staffID
-  }
-
-
-
+  Employee:any;
   emailid:any;
   EmployeeNo:any;
   PhilhealthNo:any;
@@ -83,57 +29,170 @@ export class ER2Component implements OnInit {
   signname:any;
   stafflist1:any;
   Signature:any;
-  public getsign(){
-    this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
+  companylist:any;
+  companyid:any;
+  companyname:any;
+  Address:any;
+  currentUrl: any;
+
+  constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
+
+  ngOnInit(): void {
+    
+   this.currentUrl = window.location.href;
+    this.sign="";
+    this.showleaseforprint = 0;
+    this.GetEmployeeSalary();
+
+  }
+
+ public  GetEmployeeSalary(){
+  this.DigipayrollserviceService.GetEmployeeSalary()
+  
+  
+  .subscribe({
+    next: data => {
       debugger
+      this.stafflist = data;
+  
+  
+      
+    const key = 'staffID'
+  
+    this.uniquelist  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+      [(item[key]), item])).values()]
+  
+  
+      this.dropdownSettings = {
+        singleSelection: true,
+        idField: 'staffID',
+        textField: 'staffname',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 3,
+        allowSearchFilter: true
+      };
+  
+    }, error: (err) => {
+      Swal.fire('Issue in GetEmployeeSalary');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
+  
+
+}
+
+
+ 
+  onItemSelect(item: any) {
+    debugger
+    console.log(item);
+    this.staffID = item.staffID
+  }
+
+
+
+
+  public getsign(){
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.stafflist1 = data;
       this.signname = this.stafflist1[0].hR_AuthorisedPerson
       this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
   }
   
 
 
   public showpdf(){
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x=>x.id==this.staffID);
-      this.emailid = this.stafflist[0].emailID
-      this.EmployeeNo = this.stafflist[0].id
-      this.PhilhealthNo = this.stafflist[0].philhealtH_NO,
-      this.role = this.stafflist[0].role,
-      this.basesalary = this.stafflist[0].baseSal,
-      this.dateofjoining = this.stafflist[0].joiningDate,
-      this.fullname = this.stafflist[0].fullname,
-      this.department = this.stafflist[0].role
-      this.showleaseforprint = 1;
-    });
-  
-    this.DigipayrollServiceService.GetCompanyProfile().subscribe(data => {
-      debugger
-      this.companylist = data
-      this.companyid = this.companylist[0].id,
-      this.companyname = this.companylist[0].company_Name,
-      this.Address = this.companylist[0].address1 + this.companylist[0].address2
-      // this.Phone = this.companylist[0].phone
-      // this.email= this.companylist[0].email
-      // this.zipcode = this.companylist[0].zipcode
-      // this.tin = this.companylist[0].tin
-
-
-
+    this.DigipayrollserviceService.GetMyDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist = data.filter(x=>x.id==this.staffID);
+        this.emailid = this.stafflist[0].emailID
+        this.EmployeeNo = this.stafflist[0].id
+        this.PhilhealthNo = this.stafflist[0].philhealtH_NO,
+        this.role = this.stafflist[0].role,
+        this.basesalary = this.stafflist[0].baseSal,
+        this.dateofjoining = this.stafflist[0].joiningDate,
+        this.fullname = this.stafflist[0].fullname,
+        this.department = this.stafflist[0].role
+        this.showleaseforprint = 1;
+      }, error: (err) => {
+        Swal.fire('Issue in Deleting Hoilday');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
-
+    
 
   
-   
+    this.DigipayrollserviceService.GetCompanyProfile()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.companylist = data
+        this.companyid = this.companylist[0].id,
+        this.companyname = this.companylist[0].company_Name,
+        this.Address = this.companylist[0].address1 + this.companylist[0].address2
+        // this.Phone = this.companylist[0].phone
+        // this.email= this.companylist[0].email
+        // this.zipcode = this.companylist[0].zipcode
+        // this.tin = this.companylist[0].tin
+  
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyProfile');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+
 
   }
 
-  companylist:any;
-  companyid:any;
-  companyname:any;
-  Address:any;
+ 
 
   public showpdf1(){
     this.showleaseforprint = 1;
