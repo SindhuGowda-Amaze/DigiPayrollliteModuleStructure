@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service'
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ot-rates',
@@ -10,10 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 export class OtRatesComponent implements OnInit {
 
   ID:any;
+  currentUrl: any;
   constructor(private DigipayrollServiceService: DigipayrollserviceService, private ActivatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     debugger
+    this.currentUrl = window.location.href
     this.GetOTRates();
   }
 
@@ -22,7 +25,8 @@ export class OtRatesComponent implements OnInit {
 
   public GetOTRates() {
     debugger
-    this.DigipayrollServiceService.GetOTRates().subscribe(data=>{
+    this.DigipayrollServiceService.GetOTRates()
+    .subscribe(data=>{
       debugger
       this.Otlist=data ;
       debugger
