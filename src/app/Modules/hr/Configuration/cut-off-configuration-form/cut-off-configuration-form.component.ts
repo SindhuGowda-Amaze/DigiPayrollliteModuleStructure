@@ -44,59 +44,60 @@ export class CutOffConfigurationFormComponent implements OnInit {
       }
       else {
         this.DigipayrollServiceService.GetPayrollCutOffDate()
-        .subscribe({
-          next: data => {
-            debugger
-            this.leavelist = data.filter(x => x.id == this.ID);
-            this.payrolltype = this.leavelist[0].payperiod
-            this.CutOffDate = this.leavelist[0].filterdate
-            this.Comments = this.leavelist[0].comments
-          }, error: (err) => {
-            Swal.fire('Issue in Getting Payroll Cutoff Date');
-            // Insert error in Db Here//
-            var obj = {
-              'PageName': this.currentUrl,
-              'ErrorMessage': err.error.message
+          .subscribe({
+            next: data => {
+              debugger
+              this.leavelist = data.filter(x => x.id == this.ID);
+              this.payrolltype = this.leavelist[0].payperiod
+              this.CutOffDate = this.leavelist[0].filterdate
+              this.Comments = this.leavelist[0].comments
+            }, error: (err) => {
+              Swal.fire('Issue in Getting Payroll Cutoff Date');
+              // Insert error in Db Here//
+              var obj = {
+                'PageName': this.currentUrl,
+                'ErrorMessage': err.error.message
+              }
+              this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+                data => {
+                  debugger
+                },
+              )
             }
-            this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
-              data => {
-                debugger
-              },
-            )
-          }
-        })
-        this.loader=false;
+          })
+        this.loader = false;
       }
     })
   }
 
   public InsertPayrollCutOffDate() {
     debugger;
-      var entity = {
+    var entity = {
       payperiod: this.payrolltype,
       CutOffDate: this.CutOffDate,
       Comments: this.Comments
     }
     this.DigipayrollServiceService.InsertPayrollCutOffDate(entity)
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire("Saved Successfully");
-      location.reload();
-      }, error: (err) => {
-        Swal.fire('Issue in Inserting Payroll Cutoff Date');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Saved Successfully");
+          location.reload();
+          this.loader=false;
+        }, error: (err) => {
+          Swal.fire('Issue in Inserting Payroll Cutoff Date');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
 
   public UpdatePayrollCutOffDate() {
@@ -108,25 +109,26 @@ export class CutOffConfigurationFormComponent implements OnInit {
       Comments: this.Comments
     }
     this.DigipayrollServiceService.UpdatePayrollCutOffDate(entity)
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire("Saved Successfully");
-        location.reload();
-      }, error: (err) => {
-        Swal.fire('Issue in Updating Payroll Cutoff Date');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Saved Successfully");
+          location.reload();
+          this.loader=false;
+        }, error: (err) => {
+          Swal.fire('Issue in Updating Payroll Cutoff Date');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
 
   reload() {
