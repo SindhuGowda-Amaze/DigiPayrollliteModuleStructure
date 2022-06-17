@@ -34,13 +34,29 @@ export class CityMasterDashComponent implements OnInit {
  
   public GetCityType() {
     debugger
-    this.DigipayrollserviceService.GetCityType().subscribe(data => {
-      debugger
-      this.leavelist = data
+    this.DigipayrollserviceService.GetCityType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data
       this.leavelistCopy=this.leavelist ;
+      }, error: (err) => {
+        Swal.fire('Issue in Deleting Hoilday');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
-  }
-
+  } 
+  
+    
   public Filtercity() {
     debugger
     let searchCopy = this.term.toLowerCase();
@@ -50,19 +66,51 @@ export class CityMasterDashComponent implements OnInit {
 
   public GetCityTypeByfilter() {
     debugger
-    this.DigipayrollserviceService.GetCityType().subscribe(data => {
-      debugger
-      this.leavelist = data.filter(x=>x.stateID==this.StateID)
+    this.DigipayrollserviceService.GetCityType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data.filter(x=>x.stateID==this.StateID)
+      }, error: (err) => {
+        Swal.fire('Issue in GetCityType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+
   }
 
   public GetCityTypeByfilterByCountry() {
     debugger
-    this.DigipayrollserviceService.GetCityType().subscribe(data => {
-      debugger
-      this.leavelist = data.filter(x=>x.countryID==this.CountryID)
+    this.DigipayrollserviceService.GetCityType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data.filter(x=>x.countryID==this.CountryID)
+      }, error: (err) => {
+        Swal.fire('Issue in GetCityType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
-    this.GetStateType()
+    
+
   }
 
 
@@ -70,20 +118,53 @@ export class CityMasterDashComponent implements OnInit {
  
   public GetCountryType() {
     debugger
-    this.DigipayrollserviceService.GetCountryType().subscribe(data => {
-      debugger
-      this.leavelist1 = data
+    this.DigipayrollserviceService.GetCountryType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist1 = data
+      }, error: (err) => {
+        Swal.fire('Issue in GetCountryType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+
   }
 
 
 
   public GetStateType() {
     debugger
-    this.DigipayrollserviceService.GetStateType().subscribe(data => {
-      debugger
-      this.leavelist2 = data.filter(x=>x.countryID==this.CountryID)
+    this.DigipayrollserviceService.GetStateType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist2 = data.filter(x=>x.countryID==this.CountryID)
+      }, error: (err) => {
+        Swal.fire('Issue in GetStateType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+ 
   }
 
 
@@ -120,14 +201,33 @@ export class CityMasterDashComponent implements OnInit {
 
     if (result.isConfirmed) {
       debugger
-      this.DigipayrollserviceService.DeleteCityType(ID).subscribe(data => {
-        
-         location.reload() 
-      })
-      Swal.fire('Deleted Successfully...!')   
+      this.DigipayrollserviceService.DeleteCityType(ID)
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Deleted Successfully...!')   
       this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in DeleteCityType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+      
+  
+     
     }
-  });
+  });    
+      
+      
+  
 }
 }
 

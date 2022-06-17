@@ -31,6 +31,7 @@ export class AddExpenseComponent implements OnInit {
   ExpenceAmount: any
   Supervisor: any
   Comments: any
+  currentUrl: any;
 
 
 
@@ -50,12 +51,12 @@ export class AddExpenseComponent implements OnInit {
     this.GetCurrencyMaster()
     this.GetSupervisor()
     this.staffID = sessionStorage.getItem('staffid');
+    this.currentUrl = window.location.href;
 
     this.DigiofficeService.GetProjectMasterList().subscribe(data => {
       debugger
       this.dropdownList = data;
     })
-
 
 
     this.dropdownSettings = {
@@ -104,10 +105,33 @@ export class AddExpenseComponent implements OnInit {
   expenselist: any
   public GetExpensesMaster() {
     debugger
-    this.DigiofficeService.GetExpensesMaster().subscribe(data => {
-      debugger
-      this.expenselist = data
+    this.DigiofficeService.GetExpensesMaster()
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.expenselist = data
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
+
+
+
+
+
   }
 
 
@@ -115,40 +139,119 @@ export class AddExpenseComponent implements OnInit {
     debugger
     if (this.ExpenceType == 18) {
       this.showbenefits = 1;
-      this.DigiofficeService.GetEmployeeBenfits().subscribe(data => {
-        debugger
-        this.dropdownList1 = data;
+      this.DigiofficeService.GetEmployeeBenfits()
+
+      .subscribe({
+        next: data => {
+       
+          debugger
+          this.dropdownList1 = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
+
+
     }
   }
 
 
   public GetProjectMasterList() {
     debugger
-    this.DigiofficeService.GetProjectMasterList().subscribe(data => {
-      debugger
-      this.projectlist = data
+    this.DigiofficeService.GetProjectMasterList()
+  
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.projectlist = data
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
+
   }
 
 
 
   public GetCurrencyMaster() {
     debugger
-    this.DigiofficeService.GetCurrencyMaster().subscribe(data => {
-      debugger
-      this.currencylist = data
+    this.DigiofficeService.GetCurrencyMaster()
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.currencylist = data
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
+
+
   }
 
 
 
   public GetSupervisor() {
     debugger
-    this.DigiofficeService.GetSupervisor().subscribe(data => {
-      debugger
-      this.supervisorlist = data
+    this.DigiofficeService.GetSupervisor()
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.supervisorlist = data
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
+
   }
 
 
@@ -181,7 +284,8 @@ export class AddExpenseComponent implements OnInit {
 
     }
     else{
-      this.DigiofficeService.ProjectAttachments(this.attachments21).subscribe(res => {
+      this.DigiofficeService.ProjectAttachments(this.attachments21)
+      .subscribe(res => {
         debugger
         this.attachmentsurl.push(res);
         this.attachments.length = 0;
@@ -213,13 +317,31 @@ export class AddExpenseComponent implements OnInit {
 
 
     }
-    this.DigiofficeService.InsertExpensesWEB(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Saved Successfully");
-        this.InsertNotification();
-      }
+    this.DigiofficeService.InsertExpensesWEB(entity)
 
+    .subscribe({
+      next: data => {
+        debugger
+        if (data != 0) {
+          Swal.fire("Saved Successfully");
+          this.InsertNotification();
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
 
   }
 
@@ -240,14 +362,31 @@ export class AddExpenseComponent implements OnInit {
 
 
     }
-    this.DigiofficeService.InsertNotification(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Saved Successfully");
-        location.href = "/employee/expense";
+    this.DigiofficeService.InsertNotification(entity)
 
+    .subscribe({
+      next: data => {
+        if (data != 0) {
+          Swal.fire("Saved Successfully");
+          location.href = "/employee/expense";
+  
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
     })
+
+
   }
 
   public Cancel() {
@@ -259,7 +398,8 @@ export class AddExpenseComponent implements OnInit {
   public checkexpenseamoount(event: any) {
     debugger
 
-    this.DigiofficeService.GetExpensesMaster().subscribe(data => {
+    this.DigiofficeService.GetExpensesMaster()
+    .subscribe(data => {
       debugger
       let temp: any = data.filter(x => x.id == this.ExpenceType);
       let maxamount: any = temp[0].maxClaimable;
@@ -269,6 +409,10 @@ export class AddExpenseComponent implements OnInit {
       }
     })
 
+
+
+
+    
   }
 
 

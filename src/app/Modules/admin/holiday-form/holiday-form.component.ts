@@ -28,9 +28,12 @@ export class HolidayFormComponent implements OnInit {
   attachments: any = [];
   attachmentsurl: any = [];
   currentUrl: any;
- 
- 
-  constructor(public DigipayrollserviceService: DigipayrollserviceService, private activatedroute: ActivatedRoute,private datepipe: DatePipe) {}
+
+  constructor(
+    public DigipayrollserviceService: DigipayrollserviceService,
+    private activatedroute: ActivatedRoute,
+    private datepipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
@@ -62,9 +65,25 @@ export class HolidayFormComponent implements OnInit {
   }
 
   public GetCityType() {
-    this.DigipayrollserviceService.GetCityType().subscribe((data) => {
-      debugger;
-      this.Citylist = data;
+    this.DigipayrollserviceService.GetCityType()
+    .subscribe({
+      next: (data) => {
+        debugger;
+        this.Citylist = data;
+      },
+      error: (err) => {
+        Swal.fire('Issue in  GetCityType');
+        // Insert error in Db Here//
+        var obj = {
+          PageName: this.currentUrl,
+          ErrorMessage: err.error.message,
+        };
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          (data) => {
+            debugger;
+          }
+        );
+      },
     });
   }
 
@@ -84,26 +103,53 @@ export class HolidayFormComponent implements OnInit {
 
   public Save() {
     debugger;
-    this.DigipayrollserviceService.ProjectAttachments(
-      this.attachments21
-    ).subscribe((res) => {
-      debugger;
-      this.attachmentsurl.push(res);
-      this.attachments21.length = 0;
-      this.InsertHolidays();
-      debugger;
+    this.DigipayrollserviceService.ProjectAttachments(this.attachments21)
+    .subscribe({
+      next: (data) => {
+        debugger;
+        this.attachmentsurl.push(res);
+        this.attachments21.length = 0;
+        this.InsertHolidays();
+      },
+      error: (err) => {
+        Swal.fire('Issue in ProjectAttachments');
+        // Insert error in Db Here//
+        var obj = {
+          PageName: this.currentUrl,
+          ErrorMessage: err.error.message,
+        };
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          (data) => {
+            debugger;
+          }
+        );
+      },
     });
   }
   public update() {
     debugger;
-    this.DigipayrollserviceService.ProjectAttachments(
-      this.attachments21
-    ).subscribe((res) => {
-      debugger;
-      this.attachmentsurl.push(res);
-      this.attachments21.length = 0;
-      this.UpdateHolidays();
-      debugger;
+    this.DigipayrollserviceService.ProjectAttachments(this.attachments21)
+    .subscribe({
+      next: (data) => {
+        debugger;
+        debugger;
+        this.attachmentsurl.push(res);
+        this.attachments21.length = 0;
+        this.UpdateHolidays();
+      },
+      error: (err) => {
+        Swal.fire('Issue in ProjectAttachments');
+        // Insert error in Db Here//
+        var obj = {
+          PageName: this.currentUrl,
+          ErrorMessage: err.error.message,
+        };
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          (data) => {
+            debugger;
+          }
+        );
+      },
     });
   }
 
@@ -116,11 +162,28 @@ export class HolidayFormComponent implements OnInit {
       Attachment: this.attachmentsurl[0],
       HolidayCategory: this.HolidayCategory,
     };
-    this.DigipayrollserviceService.InsertHolidays(entity).subscribe((data) => {
-      if (data != 0) {
-        Swal.fire('Saved Successfully');
-        location.href = '#/HolidayDashboard';
-      }
+    this.DigipayrollserviceService.InsertHolidays(entity)
+    .subscribe({
+      next: (data) => {
+        debugger;
+        if (data != 0) {
+          Swal.fire('Saved Successfully');
+          location.href = '#/admin/HolidayDashboard';
+        }
+      },
+      error: (err) => {
+        Swal.fire('Issue in InsertHolidays');
+        // Insert error in Db Here//
+        var obj = {
+          PageName: this.currentUrl,
+          ErrorMessage: err.error.message,
+        };
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          (data) => {
+            debugger;
+          }
+        );
+      },
     });
   }
 
@@ -138,10 +201,30 @@ export class HolidayFormComponent implements OnInit {
       HolidayCategory: this.HolidayCategory,
       Region: this.Region,
     };
-    this.DigipayrollserviceService.UpdateHolidays(entity).subscribe((data) => {
-      console.log(data);
-      Swal.fire('Updated Successfully');
-      location.href = '#/HolidayDashboard';
+    this.DigipayrollserviceService.UpdateHolidays(entity)
+    .subscribe({
+      next: (data) => {
+        debugger;
+        console.log(data);
+        Swal.fire('Updated Successfully');
+        location.href = '#/admin/HolidayDashboard';
+      },
+      error: (err) => {
+        Swal.fire('Issue in UpdateHolidays ');
+        // Insert error in Db Here//
+        var obj = {
+          PageName: this.currentUrl,
+          ErrorMessage: err.error.message,
+        };
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          (data) => {
+            debugger;
+          }
+        );
+      },
     });
   }
+}
+function res(res: any) {
+  throw new Error('Function not implemented.');
 }

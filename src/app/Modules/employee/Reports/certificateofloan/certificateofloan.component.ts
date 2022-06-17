@@ -71,9 +71,13 @@ export class CertificateofloanComponent implements OnInit {
  hdmfYear:any;
  hdmfDatePaid:any;
  hdmfAmount:any;
+ currentUrl: any;
+ 
   constructor(public DigiofficeService: DigipayrollserviceService, private datePipe: DatePipe){}
 
   ngOnInit(): void {
+    
+   this.currentUrl = window.location.href;
     this.month="";
     this.year="";
     this.sign="";
@@ -161,6 +165,7 @@ else{
   });
 
 });
+
 
   }
 

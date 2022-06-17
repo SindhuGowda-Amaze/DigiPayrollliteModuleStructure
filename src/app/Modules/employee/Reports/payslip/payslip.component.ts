@@ -139,11 +139,14 @@ export class PayslipComponent implements OnInit {
   tomail:any;
   subject:any;
   message:any;
+  currentUrl: any;
+  DigiofficeService: any;
  
   constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
 
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.Year="";
     this.month="";
     this.payrolltype="";
@@ -187,18 +190,34 @@ export class PayslipComponent implements OnInit {
 
 
   public getemployeelist(startdate:any,enddate:any,payrolltype:any){
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist2 = data.filter(x=>x.startdate==startdate && x.enddate==enddate && x.payrolltype == payrolltype );
-      this.payrolltype=payrolltype
+    this.DigipayrollServiceService.GetEmployeeSalary()
+  
+ .subscribe({
+  next: data => {
+    debugger
+    this.employeelist2 = data.filter(x=>x.startdate==startdate && x.enddate==enddate && x.payrolltype == payrolltype );
+    this.payrolltype=payrolltype
+  }, error: (err) => {
+    Swal.fire('Issue in Getting City Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
     }
-   
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      () => {
+        debugger
+      },
     )
+  }
+})
+
   }
 
   public getpayslip(year:any,month:any,payrolltype:any){
     this.sumsalry=0;
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe(data => {
       debugger
       this.employeelist1 = data.filter(x=>x.id==this.staffid && x.payrolltype== payrolltype && x.month==month && x.endyear==year);
       if(this.employeelist1.length==0)
@@ -324,15 +343,18 @@ export class PayslipComponent implements OnInit {
 
     }
     )
+    
   }
 
   public GetPayGroup() {
     debugger
-    this.DigipayrollServiceService.GetPayGroup().subscribe(
+    this.DigipayrollServiceService.GetPayGroup()
+    .subscribe(
       data => {
         debugger
         this.result = data;
       })
+      
   }
 
 

@@ -27,11 +27,30 @@ export class PayGroupComponent implements OnInit {
   }
   public GetPayGroup() {
     debugger
-    this.DigipayrollserviceService.GetPayGroup().subscribe(
-      data => {
+    this.DigipayrollserviceService.GetPayGroup()
+    
+    .subscribe({
+      next: data => {
         debugger
         this.result = data;
-      })
+      }, error: (err) => {
+        Swal.fire('Issue in GetPayGroup');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+    
+    
+
   }
 
   // public Ondelete(id: any) {
@@ -61,13 +80,30 @@ export class PayGroupComponent implements OnInit {
 
     if (result.isConfirmed) {
       debugger
-      this.DigipayrollserviceService.DeletePayGroup(id).subscribe(
-        data => {
-        
-         location.reload() 
+      this.DigipayrollserviceService.DeletePayGroup(id)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Deleted Successfully...!')   
+          this.GetPayGroup();
+        }, error: (err) => {
+          Swal.fire('Issue in DeletePayGroup');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
-      Swal.fire('Deleted Successfully...!')   
-      this.GetPayGroup();
+      
+   
+
+     
     }
   });
 }
@@ -84,7 +120,7 @@ export class PayGroupComponent implements OnInit {
     }
 
     else {
-      location.href = "#/PayGroupForm/" + this.id;
+      location.href = "#/admin/PayGroupForm/" + this.id;
     }
   }
 }

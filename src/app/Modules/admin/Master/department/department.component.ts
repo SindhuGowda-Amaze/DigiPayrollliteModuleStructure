@@ -24,10 +24,27 @@ export class DepartmentComponent implements OnInit {
   }
   public GetDepartment() {
     debugger;
-    this.DigipayrollserviceService.GetDepartment().subscribe((data) => {
-      debugger;
-      this.result = data;
-    });
+    this.DigipayrollserviceService.GetDepartment()
+    .subscribe({
+      next: data => {
+        debugger
+        this.result = data;
+      }, error: (err) => {
+        Swal.fire('Issue in GetDepartment');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+
   }
 
   GetId(id: any) {
@@ -58,13 +75,28 @@ export class DepartmentComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         debugger;
-        this.DigipayrollserviceService.DeleteDepartment(id).subscribe(
-          (data) => {
-            location.reload();
-          }
-        );
-        Swal.fire('Deleted Successfully...!');
-        this.GetDepartment();
+        this.DigipayrollserviceService.DeleteDepartment(id)
+        
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Deleted Successfully...!');
+            this.GetDepartment();
+          }, error: (err) => {
+            Swal.fire('Issue in DeleteDepartment');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+      
+      
       }
     });
   }

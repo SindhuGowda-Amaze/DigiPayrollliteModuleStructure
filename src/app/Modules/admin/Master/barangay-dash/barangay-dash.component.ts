@@ -26,11 +26,28 @@ export class BarangayDashComponent implements OnInit {
   
   public GetBarangayMaster() {
     debugger
-    this.DigipayrollserviceService.GetBarangayMaster().subscribe(data => {
-      debugger
-      this.leavelist = data
+    this.DigipayrollserviceService.GetBarangayMaster()
+    
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data
       this.leavelistCopy= this.leavelist;
+      }, error: (err) => {
+        Swal.fire('Issue in GetBarangayMaster');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+     
   }
 
   public FilterBarabgay() {
@@ -43,27 +60,82 @@ export class BarangayDashComponent implements OnInit {
 
   public GetStateType() {
     debugger
-    this.DigipayrollserviceService.GetStateType().subscribe(data => {
-      debugger
-      this.leavelist1 = data
+    this.DigipayrollserviceService.GetStateType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist1 = data
+      }, error: (err) => {
+        Swal.fire('Issue in GetStateType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+    
   }
 
 
   public DeleteCityType(ID: any) {
     debugger
-    this.DigipayrollserviceService.DeleteBarangayMaster(ID).subscribe(data => {
-      debugger
-      Swal.fire('Deleted SuccessFully');
+    this.DigipayrollserviceService.DeleteBarangayMaster(ID)
+    
+    
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire('Deleted SuccessFully');
       this.ngOnInit();
+      }, error: (err) => {
+        Swal.fire('Issue in DeleteBarangayMaster');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+    
+    
+    
   }
 
   public GetFilteredCitiesBystateID() {
-    this.DigipayrollserviceService.GetCityType().subscribe(data => {
-      debugger
-      this.leavelist = data.filter(x => x.stateID == this.stateID)
+    this.DigipayrollserviceService.GetCityType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data.filter(x => x.stateID == this.stateID)
+      }, error: (err) => {
+        Swal.fire('Issue in GetCityType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+    
+    
+    
+    
+  
   }
 
 }

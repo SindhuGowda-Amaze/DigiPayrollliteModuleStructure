@@ -30,10 +30,28 @@ export class BankComponent implements OnInit {
   }
   public GetBanks() {
     debugger;
-    this.DigipayrollserviceService.GetBanks().subscribe((data) => {
-      debugger;
+    this.DigipayrollserviceService.GetBanks()
+    .subscribe({
+      next: data => {
+        debugger;
       this.result = data;
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in GetBanks');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+    
+
   }
 
   // public Ondelete(id:any) {
@@ -60,11 +78,30 @@ export class BankComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         debugger;
-        this.DigipayrollserviceService.DeleteBanks(id).subscribe((data) => {
-          location.reload();
-        });
-        Swal.fire('Deleted Successfully...!');
+        this.DigipayrollserviceService.DeleteBanks(id)
+        
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Deleted Successfully...!');
         this.GetBanks();
+          }, error: (err) => {
+            Swal.fire('Issue in DeleteBanks');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+        
+        
+
+       
       }
     });
   }
@@ -79,7 +116,7 @@ export class BankComponent implements OnInit {
       Swal.fire('Please Select the Record to Modify');
       // location.href = "/PayGroup"
     } else {
-      location.href = '#/BankForm/' + this.id;
+      location.href = '#/admin/BankForm/' + this.id;
     }
   }
 }

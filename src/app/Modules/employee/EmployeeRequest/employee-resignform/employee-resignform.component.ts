@@ -14,10 +14,12 @@ export class EmployeeResignformComponent implements OnInit {
   comments: any;
   reason: any;
   mindate:any;
+  currentUrl: any;
 
   constructor(private DigiofficeService: DigipayrollserviceService) { }
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.employeeid = sessionStorage.getItem('staffid');
     this.mindate = new Date().toISOString().split("T")[0];
     this.GetMyDetails();
@@ -29,11 +31,29 @@ export class EmployeeResignformComponent implements OnInit {
   // }
 
   public GetMyDetails() {
-    this.DigiofficeService.GetMyDetails().subscribe(
-      data => {
+    this.DigiofficeService.GetMyDetails()
+
+    .subscribe({
+      next: data => {
+        debugger
         this.employeelist = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-    )
+    })
+
+
+
   }
 
 
@@ -50,13 +70,33 @@ export class EmployeeResignformComponent implements OnInit {
         "lastworkingdate": this.date,
         "type1": 10
       }
-      this.DigiofficeService.InsertStaffExitFormality(entity).subscribe(
-        data => {
+      this.DigiofficeService.InsertStaffExitFormality(entity)
+
+      .subscribe({
+        next: data => {
+          debugger
           Swal.fire("Saved Successfully");
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-      )
+      })
+
+
+
+
+
     }
-  
+    
   }
 
   cancel() {

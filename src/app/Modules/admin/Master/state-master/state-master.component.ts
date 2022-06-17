@@ -46,10 +46,28 @@ export class StateMasterComponent implements OnInit {
 
   public GetCountryType() {
     debugger;
-    this.DigipayrollserviceService.GetCountryType().subscribe((data) => {
-      debugger;
-      this.leavelist1 = data;
-    });
+    this.DigipayrollserviceService.GetCountryType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        debugger;
+        this.leavelist1 = data;
+      }, error: (err) => {
+        Swal.fire('Issue in GetCountryType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+ 
   }
 
   public InsertStateType() {
@@ -70,14 +88,31 @@ export class StateMasterComponent implements OnInit {
         Short: this.Short,
         Description: this.Description,
       };
-      this.DigipayrollserviceService.InsertStateType(entity).subscribe(
-        (data) => {
+      this.DigipayrollserviceService.InsertStateType(entity)
+      
+      .subscribe({
+        next: data => {
+          debugger
           if (data != 0) {
             Swal.fire('Saved Successfully');
             location.href = '#/admin/StateMasterDash';
           }
-        }
-      );
+        }, error: (err) => {
+          Swal.fire('Issue in InsertStateType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+      
+      
+   
     }
   }
 
@@ -89,9 +124,28 @@ export class StateMasterComponent implements OnInit {
       Short: this.Short,
       Description: this.Description,
     };
-    this.DigipayrollserviceService.UpdateStateType(entity).subscribe((data) => {
-      Swal.fire('Updated Successfully');
+    this.DigipayrollserviceService.UpdateStateType(entity)
+    
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire('Updated Successfully');
       location.href = '#/admin/StateMasterDash';
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in UpdateStateType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+
   }
 }

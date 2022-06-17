@@ -40,17 +40,31 @@ export class AnnouncementDashboardComponent implements OnInit {
 
   public GetAnnouncements() {
     debugger;
-    this.DigipayrollserviceService.GetAnnouncementsByBuildingID(56).subscribe(
-      (data) => {
-        debugger;
+    this.DigipayrollserviceService.GetAnnouncementsByBuildingID(56)
+    
+    .subscribe({
+      next: data => {
         this.annnounecemnetlist = data.filter(
           (x) => x.filterdate >= this.todaydate
         );
         this.annnounecemnetlist1 = data.filter(
           (x) => x.filterdate < this.todaydate
         );
-      }
-    );
+      }, error: (err) => {
+        Swal.fire('Issue in GetAnnouncements');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+  
   }
 
   delete(id: any) {
@@ -66,13 +80,27 @@ export class AnnouncementDashboardComponent implements OnInit {
       confirmButtonText: 'OK',
     }).then((result) => {
       if (result.value == true) {
-        this.DigipayrollserviceService.DeleteAnnouncement(id).subscribe(
-          (data) => {
-            debugger;
+        this.DigipayrollserviceService.DeleteAnnouncement(id)
+        
+        .subscribe({
+          next: data => {
+            debugger
             Swal.fire('Deleted Successfully...!');
             this.ngOnInit();
-          }
-        );
+          }, error: (err) => {
+            Swal.fire('Issue in DeleteAnnouncement');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+        
       }
     });
   }

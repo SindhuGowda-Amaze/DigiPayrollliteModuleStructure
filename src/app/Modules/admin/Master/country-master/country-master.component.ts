@@ -27,14 +27,31 @@ export class CountryMasterComponent implements OnInit {
       if (this.ID == undefined) {
         (this.Short = ''), (this.Description = '');
       } else {
-        this.DigipayrollserviceService.GetCountryType().subscribe((data) => {
-          debugger;
-
-          this.leavelist = data.filter((x) => x.id == this.ID);
+        this.DigipayrollserviceService.GetCountryType()
+        
+        .subscribe({
+          next: data => {
+            debugger
+            this.leavelist = data.filter((x) => x.id == this.ID);
 
           this.Short = this.leavelist[0].short;
           this.Description = this.leavelist[0].description;
-        });
+          }, error: (err) => {
+            Swal.fire('Issue in GetCountryType');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+        
+
+  
       }
     });
   }
@@ -49,14 +66,32 @@ export class CountryMasterComponent implements OnInit {
         Short: this.Short,
         Description: this.Description,
       };
-      this.DigipayrollserviceService.InsertCountryType(entity).subscribe(
-        (data) => {
+      this.DigipayrollserviceService.InsertCountryType(entity)
+      
+      
+      .subscribe({
+        next: data => {
+          debugger
           if (data != 0) {
             Swal.fire('Saved Successfully');
             location.href = '#/admin/CountryMasterDash';
           }
-        }
-      );
+        }, error: (err) => {
+          Swal.fire('Issue in InsertCountryType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+      
+ 
+      
     }
   }
 
@@ -68,11 +103,27 @@ export class CountryMasterComponent implements OnInit {
       Short: this.Short,
       Description: this.Description,
     };
-    this.DigipayrollserviceService.UpdateCountryType(entity).subscribe(
-      (data) => {
+    this.DigipayrollserviceService.UpdateCountryType(entity)
+    
+    .subscribe({
+      next: data => {
+        debugger
         Swal.fire('Updated Successfully');
         location.href = '#/CountryMasterDash';
-      }
-    );
+      }, error: (err) => {
+        Swal.fire('Issue in UpdateCountryType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
   }
 }
