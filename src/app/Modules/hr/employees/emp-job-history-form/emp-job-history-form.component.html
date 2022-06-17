@@ -1,0 +1,208 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-11">
+                    <p class="Heading1">Job History</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <label>Role<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Employee<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Company<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Start Date<span style="color: red;">*</span></p>
+                    </div>
+
+                </div>
+                <div class="row leavereq">
+                    <div class="col-md-3">
+                        <select class="form-control" id="RoleID" name="RoleID" [(ngModel)]="RoleID"
+                            (change)="GetRoleID($event)">
+                            <option value="">Select Role</option>
+                            <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <ng-multiselect-dropdown [placeholder]="'Select Staff'" [settings]="dropdownSettings"
+                            [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Company Code" name="ComapanyName"
+                            [(ngModel)]="ComapanyName" id="ComapanyName">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" placeholder="Leave Code" name="startdate"
+                            [(ngModel)]="startdate" id="startdate">
+                    </div>
+                </div>
+                <br />
+                <div class="row leavereq">
+
+                    <div class="col-md-3">
+                        <p>End Date<span style="color: red;">*</span></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Last Employment<span style="color: red;">*</span></p>
+                    </div>
+
+                </div>
+                <div class="row leavereq">
+
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" placeholder="Leave Code" name="enddate"
+                            [(ngModel)]="enddate" id="enddate">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="checkbox"  [(ngModel)]="checked">
+                    </div>
+                    
+                </div>
+                <div class="row leavereq" *ngIf="checked==true">
+                    <div class="col-md-3">
+                        <label>Basic Salary for year<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>De-minimis For Year<span style="color: red;">*</span></label>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label> Tax For Year<span style="color: red;">*</span></label>
+                    </div>
+                </div>
+                
+                <div class="row leavereq" *ngIf="checked==true">
+
+                  
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Basic Salary Per Year" name="Salary"
+                            [(ngModel)]="Salary" id="Salary">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="De-minimis For Year" name="deminimis"
+                            [(ngModel)]="deminimis" id="deminimis">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Tax For Year" name="tax"
+                            [(ngModel)]="tax" id="tax">
+                    </div>
+                </div>
+                <br>
+                <div class="row leavereq" *ngIf="checked==true">
+
+                    <div class="col-md-3">
+                        <label>SSS for Year<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Loans for Year<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Pag-IBIG for Year<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Phil-Health for Year<span style="color: red;">*</span></label>
+                    </div>
+                </div>
+                <div class="row leavereq" *ngIf="checked==true">
+
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="SSS for Year" name="sss"
+                            [(ngModel)]="sss" id="sss">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Loans for Year" name="loan"
+                            [(ngModel)]="loan" id="loan">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Pag-IBIG for Year" name="loan" id="loan">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Phil-Health for Year" name="loan"
+                            id="loan">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button class="button" (click)="SaveDetails()">Add</button>
+                    </div>
+        
+                    <div class="col-lg-2">
+                        <button class="button" routerLink="/hr/EmploymentJobHistory">Cancel</button>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row" *ngIf="tablecount==1">
+                    <div class="col-lg-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Comapany Name</th>
+                                    <th>Start Date </th>
+                                    <th>End Date </th>
+                                    <th *ngIf="checked==true">Salary</th>
+                                    <th *ngIf="checked==true">deminimis</th>
+                                    <th *ngIf="checked==true">tax</th>
+                                    <th *ngIf="checked==true">sss</th>
+                                    <th *ngIf="checked==true">loan</th>
+                                    
+                                </tr>
+                                <tr *ngFor="let details of keyresultArray">
+                                    <td>{{details.ComapanyName}}</td>
+                                    <td>{{details.StartDate}}</td>
+                                    <td>{{details.EndDate}}</td>
+                                    <td *ngIf="checked==true">{{details.Salary}}</td>
+                                    <td *ngIf="checked==true">{{details.deminimis}}</td>
+                                    <td *ngIf="checked==true">{{details.tax}}</td>
+                                    <td *ngIf="checked==true">{{details.sss}}</td>
+                                    <td *ngIf="checked==true">{{details.loan}}</td>
+
+        
+                                </tr>
+                            </thead>
+                        </table>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-7">
+                             
+                            </div>
+                          
+                            <div class="col-lg-3">
+                                <button class="EditDelteBTN" routerLink="/hr/EmploymentJobHistory">Cancel</button>
+                               
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="EditDelteBTN" (click)="Save()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+        
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

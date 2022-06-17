@@ -1,0 +1,78 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-11">
+                    <p class="Heading1" >Remittance Cutoff Date Configuration</p>
+                </div>
+            </div>
+            <!-- <div class="row LocDashboard">
+                    <div class="col-lg-12">
+                        <label style="padding-left: 10px;">Add Holiday</label>
+                    </div>
+                </div> -->
+            <div class="card">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-11">
+                    <div class="row leavereq">
+                        <div class="col-lg-3">
+                            <p>Payperiod</p>
+                            <select name="payrolltype" id="payrolltype" class="form-control input" [(ngModel)]="payrolltype" >
+                                <option value="">Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                                   
+                              </select>
+                         </div>
+                    <div class="col-lg-3">
+                        <p>Cut Off Date</p>
+                        <input class="form-control input" type="date" [(ngModel)]="CutOffDate" placeholder="SBR OR Number"><br>
+                    </div>
+                    <div class="col-lg-3">
+                        <p>Comments</p>
+                        <textarea class="form-control input" rows="4" [(ngModel)]="Comments" placeholder="Comments"></textarea><br>
+                    </div>
+                        
+                       
+                       
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                   
+                </div>
+             
+                <br>
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-2">
+                        <button type="button" routerLink="/hr/RemittanceConfigDash" class="form-control requestbtn" 
+                        >Cancel</button> 
+                    </div>
+    
+                    
+                    <div class="col-lg-2">
+                        <button type="button" class="form-control button" *ngIf="ID!=undefined"
+                        (click)="UpdateRemittanceCutOffDate()">Update</button>
+                    <button class="form-control button" *ngIf="ID==undefined" (click)="InsertRemittanceCutOffDate()">Save</button>
+                        
+                    <!-- <button class=" form-control requestbtn" *ngIf="ID==undefined" (click)="InsertRemittanceCutOffDate()">Save</button> -->
+                    <br/>
+                    <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

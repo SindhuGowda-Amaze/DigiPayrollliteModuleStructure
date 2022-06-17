@@ -31,6 +31,7 @@ import { YTDReportComponent } from './Reports/Payroll/ytdreport/ytdreport.compon
 import { YTDReportAdjustmentComponent } from './Reports/Payroll/ytdreport-adjustment/ytdreport-adjustment.component';
 import { PayslipReportComponent } from './Reports/Payroll/payslip-report/payslip-report.component';
 import { SSSR5ReportComponent } from './Reports/SSS/sssr5-report/sssr5-report.component';
+import { SSSR3ReportComponent } from './Reports/SSS/sssr3-report/sssr3-report.component';
 import { SSSML1ReportComponent } from './Reports/SSS/sssml1-report/sssml1-report.component';
 import { SSSRL1ReportComponent } from './Reports/SSS/sssrl1-report/sssrl1-report.component';
 import { ER2Component } from './Reports/Philhealth/er2/er2.component';
@@ -44,6 +45,34 @@ import { BIR1601CReportComponent } from './Reports/BIR/bir1601-creport/bir1601-c
 import { BIR1604CReportComponent } from './Reports/BIR/bir1604-creport/bir1604-creport.component';
 import { BIR1604CFReportComponent } from './Reports/BIR/bir1604-cfreport/bir1604-cfreport.component';
 import { BIR2316ReportComponent } from './Reports/BIR/bir2316-report/bir2316-report.component';
+import { ProfileCompletionFormComponent } from './employees/profile-completion-form/profile-completion-form.component';
+import { NgWizardConfig, NgWizardModule, THEME } from 'ng-wizard';
+import { HolidayDashboardComponent } from './holiday-dashboard/holiday-dashboard.component';
+import { VaccineDashboardComponent } from './vaccine-dashboard/vaccine-dashboard.component';
+import { VaccineFormComponent } from './vaccine-form/vaccine-form.component';
+import { StaffSalaryFormComponent } from './employees/staff-salary-form/staff-salary-form.component';
+import { EmpJobHistoryFormComponent } from './employees/emp-job-history-form/emp-job-history-form.component';
+import { LeaveFormComponent } from './Requests/leave-form/leave-form.component';
+import { LoanFormComponent } from './Requests/loan-form/loan-form.component';
+import { PayRollRunsFormComponent } from './pay-roll-runs-form/pay-roll-runs-form.component';
+import { ExpenseReportComponent } from './Reports/Payroll/expense-report/expense-report.component';
+import { ModifiedAttendanceReportComponent } from './Reports/Payroll/modified-attendance-report/modified-attendance-report.component';
+import { OverTimeSummaryPerEmployeeComponent } from './Reports/Payroll/over-time-summary-per-employee/over-time-summary-per-employee.component';
+import { OvertimeSummaryReportComponent } from './Reports/Payroll/overtime-summary-report/overtime-summary-report.component';
+import { GeneralLedgerReportComponent } from './Reports/Payroll/general-ledger-report/general-ledger-report.component';
+import { SSSBreakdownComponent } from './Reports/SSS/sssbreakdown/sssbreakdown.component';
+import { BIRAlphaList7Component } from './Reports/BIR/biralpha-list7/biralpha-list7.component';
+import { BIR1603ReportComponent } from './Reports/BIR/bir1603-report/bir1603-report.component';
+import { BIR1604FReportComponent } from './Reports/BIR/bir1604-freport/bir1604-freport.component';
+import { BIR1700ReportComponent } from './Reports/BIR/bir1700-report/bir1700-report.component';
+import { PayrollCutOffDatesComponent } from './Configuration/payroll-cut-off-dates/payroll-cut-off-dates.component';
+import { CutOffConfigurationFormComponent } from './Configuration/cut-off-configuration-form/cut-off-configuration-form.component';
+import { RemittanceConfigDashComponent } from './Configuration/remittance-config-dash/remittance-config-dash.component';
+import { RemittanceConfigFormComponent } from './Configuration/remittance-config-form/remittance-config-form.component';
+
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.circles
+};
 @NgModule({
   declarations: [
     HrComponent,
@@ -81,7 +110,31 @@ import { BIR2316ReportComponent } from './Reports/BIR/bir2316-report/bir2316-rep
     BIR1601CReportComponent,
     BIR1604CReportComponent,
     BIR1604CFReportComponent,
-    BIR2316ReportComponent
+    BIR2316ReportComponent,
+    ProfileCompletionFormComponent,
+    HolidayDashboardComponent,
+    VaccineDashboardComponent,
+    VaccineFormComponent,
+    StaffSalaryFormComponent,
+    EmpJobHistoryFormComponent,
+    LeaveFormComponent,
+    LoanFormComponent,
+    PayRollRunsFormComponent,
+    ExpenseReportComponent,
+    ModifiedAttendanceReportComponent,
+    OverTimeSummaryPerEmployeeComponent,
+    OvertimeSummaryReportComponent,
+    GeneralLedgerReportComponent,
+    SSSBreakdownComponent,
+    SSSR3ReportComponent,
+    BIRAlphaList7Component,
+    BIR1603ReportComponent,
+    BIR1604FReportComponent,
+    BIR1700ReportComponent,
+    PayrollCutOffDatesComponent,
+    CutOffConfigurationFormComponent,
+    RemittanceConfigDashComponent,
+    RemittanceConfigFormComponent
   ],
   imports: [
     CommonModule,
@@ -92,7 +145,8 @@ import { BIR2316ReportComponent } from './Reports/BIR/bir2316-report/bir2316-rep
     NgMultiSelectDropDownModule.forRoot(),
     Ng2SearchPipeModule,
     GaugeModule.forRoot(),
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    NgWizardModule.forRoot(ngWizardConfig),
   ]
 })
 export class HrModule { }

@@ -184,14 +184,15 @@ export class SidebarComponent implements OnInit {
   public OtRates() {
     debugger
     localStorage.setItem('clickname', 'OT RATES')
-    this.router.navigate(['/OtRates']);
+    this.router.navigate(['/admin/OtRates']);
   }
-  public TaxTable() {
-    debugger
-    this.active = 6;
-    localStorage.setItem('clickname', 'TAXTABLE')
-    this.router.navigate(['/TaxTable']);
-  }
+  
+  // public TaxTable() {
+  //   debugger
+  //   this.active = 'TaxTable';
+  //   localStorage.setItem('clickname', 'TAXTABLE')
+  //   this.router.navigate(['/admin/TaxTable']);
+  // }
 
   public BarangayMaster() {
     debugger
@@ -278,7 +279,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 25;
     localStorage.setItem('clickname', 'GOVT OR RECORDS')
-    this.router.navigate(['/Government']);
+    this.router.navigate(['/hr/Government']);
   }
 
 
@@ -417,7 +418,7 @@ export class SidebarComponent implements OnInit {
         const login: any = document.getElementById('login') as HTMLElement
 
         if (login.value == 4876) {
-          location.href = '/hr/SalaryDetailsDash';
+          location.href = '#/hr/SalaryDetailsDash';
           localStorage.setItem('clickname', 'Staff Salary')
 
         }
@@ -537,7 +538,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = '1603';
     localStorage.setItem('clickname', 'BIR 1603')
-    this.router.navigate(['/Bir1603']);
+    this.router.navigate(['/hr/BIR1603Report']);
   }
 
 
@@ -545,14 +546,14 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'BIR1700';
     localStorage.setItem('clickname', 'BIR 1700')
-    this.router.navigate(['/Bir1700']);
+    this.router.navigate(['/hr/BIR1700Report']);
   }
 
   public Bir1604F() {
     debugger
     this.active = '1604F';
     localStorage.setItem('clickname', 'BIR 1604-F')
-    this.router.navigate(['/Bir1604F']);
+    this.router.navigate(['/hr/BIR1604FReport']);
   }
 
   public SSSRL1Report1() {
@@ -579,7 +580,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'sssbreakdown';
     localStorage.setItem('clickname', 'R5 REPORT')
-    this.router.navigate(['/Sssbreakdown']);
+    this.router.navigate(['/hr/SSSBreakdown']);
   }
   public SSSML1Report() {
     debugger
@@ -782,7 +783,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'OTRATES';
     localStorage.setItem('clickname', 'OT RATES')
-    this.router.navigate(['/OtRates']);
+    this.router.navigate(['/admin/OtRates']);
   }
 
   REFERENCES() {
@@ -796,7 +797,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'vaccinationdash';
     localStorage.setItem('clickname', 'VACCINATION DETAILS')
-    this.router.navigate(['#/manager/Vaccinedashboard']);
+    this.router.navigate(['/hr/VaccineDashboard']);
   }
 
   public Leaveconfig() {
@@ -844,7 +845,7 @@ export class SidebarComponent implements OnInit {
   public Holidays() {
     this.active = 404;
     localStorage.setItem('clickname', 'HOLIDAYS')
-    this.router.navigate(['/admin/HolidayDashboard']);
+    this.router.navigate(['/hr/HolidayDashboard']);
 
   }
 
@@ -866,7 +867,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'alphalist';
     localStorage.setItem('clickname', 'ALPHALIST 7')
-    this.router.navigate(['/Biralphalist7']);
+    this.router.navigate(['/hr/BIRAlphaList7']);
   }
 
   public grievance() {
@@ -905,7 +906,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 19;
     localStorage.setItem('clickname', 'ExpenseReport')
-    this.router.navigate(['/ExpenseReport']);
+    this.router.navigate(['/hr/ExpenseReport']);
 
   }
 
@@ -928,41 +929,41 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'service';
     localStorage.setItem('clickname', 'CUTOFF CONFIG')
-    this.router.navigate(['/PayrollCutOffDates']);
+    this.router.navigate(['/hr/PayrollCutOffDates']);
   }
 
   public Remittance() {
     debugger
     this.active = 'service';
     localStorage.setItem('clickname', 'REMITTANCE CONFIG')
-    this.router.navigate(['/RemittanceConfigurationDash']);
+    this.router.navigate(['/hr/RemittanceConfigDash']);
   }
 
   public TAXTABLE() {
     debugger
     this.active = 'TaxTable';
     localStorage.setItem('clickname', 'ANNUAL TAX TABLE')
-    this.router.navigate(['/TaxtableAnnual']);
+    this.router.navigate(['/admin/TaxTable']);
   }
 
   public Overtimesummaryperemployee() {
     debugger
     this.active = 'Overtimesummaryperemployee';
     localStorage.setItem('clickname', 'OVERTIME SUMMARY')
-    this.router.navigate(['/OverTimeSummaryPerEmployee']);
+    this.router.navigate(['/hr/OverTimeSummaryPerEmployee']);
   }
   public Overtimesummary() {
     debugger
     this.active = 'overtimesummary';
     localStorage.setItem('clickname', 'OVERTIME SUMMARY')
-    this.router.navigate(['/OvertimeSummaryreport']);
+    this.router.navigate(['/hr/OvertimeSummaryReport']);
   }
 
   public ModifiedAttendance() {
     debugger
     this.active = 'ModifiedAttendance';
     localStorage.setItem('clickname', 'OVERTIME SUMMARY')
-    this.router.navigate(['/ModifiedAttendanceReport']);
+    this.router.navigate(['/hr/ModifiedAttendanceReport']);
   }
 
 
@@ -970,7 +971,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'Generalledger';
     localStorage.setItem('clickname', 'GENERAL LEDGER')
-    this.router.navigate(['/GenralLedgerReport']);
+    this.router.navigate(['/hr/GeneralLedgerReport']);
   }
 
 

@@ -1,0 +1,434 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-5"></div>
+            <div class="col-lg-4">
+                <a href="" class="Heading fontheading">BIR 1603</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p> Select Year</p>
+            </div>
+
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" [(ngModel)]="year">
+                    <option value="">Select</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p> Select Quarter</p>
+            </div>
+
+            <div class="col-lg-2">
+                <select name="quarter" id="quarter" class="form-control" [(ngModel)]="quarter">
+                    <option value="">Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+        </div><br>
+
+
+        <br>
+
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p>Signatory Person</p>
+            </div>
+            <div class="col-lg-2">
+                <select name="cars" id="Month" class="form-control" (change)="getsign()" [(ngModel)]="sign">
+                    <option value="">Select</option>
+                    <!-- <option value="Admin">Admin</option> -->
+                    <option value="HR">HR</option>
+                    <!-- <option value="Finance">Finance</option> -->
+                </select>
+            </div>
+        </div> <br>
+
+        <div class="row FilterClass fontheading">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <p>Search</p>
+            </div>
+            <div class="col-lg-2">
+                <input type="text" placeholder="Search" class="form-control" [(ngModel)]="search" />
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+
+
+
+
+
+
+<!-- <div class="row">
+    <div class="col-lg-5"></div>
+    <div class="col-lg-3">
+        <button class="generate"">GENERATE DAT FILE</button>
+        <p>Generate DAT file for all employees</p>
+    </div>
+</div> --><br>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered fonttxt">
+            <thead>
+                <tr class="newFont">
+                    <th colspan="6">ALPHALIST OF EMPLOYEES</th>
+                </tr>
+                <tr class="newFont">
+                    <!-- <th><input type="checkbox"></th> -->
+                    <th>Select</th>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Employee Status</th>
+                    <th><input type="checkbox">Substitute </th>
+                    <th>Posting Status</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of uniquelist1|paginate: { itemsPerPage: count1, currentPage: p}">
+                    <td class="SelectData"><input type="checkbox" (change)="getempdetails(item.id)">
+                    </td>
+                    <td>000{{item.id}}</td>
+                    <td>{{item.name}} {{item.last_Name}}</td>
+                    <td>Active</td>
+                    <td class="SelectData"><input type="checkbox"></td>
+                    <td>Unposted</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-right">
+        <br>
+        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+    </div>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-2">
+        <br>
+        <button class="AddButton" (click)="showpdf()">PRINT</button>
+    </div>
+</div>
+<br>
+<br><br>
+<div class="row" *ngIf="showleaseforprint==1">
+    <!-- <div class="col-lg-5">
+
+</div>
+<div class="col-lg-3">
+   <button class="button1" (click)="convetToPDF1()">Convert To PDF </button>
+</div> -->
+
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-4">
+        <!-- <button class="loan1" (click)="convetToPDF1()">CONVERT To PDF</button> -->
+        <button class="AddButton" (click)="convetToPDF1()">CONVERT To PDF</button>
+    </div>
+    <div class="col-lg-3">
+    </div><br>
+
+
+
+    <div id="downloadaplication" style="    position: absolute;
+    position: absolute;
+    left: 50%;
+    margin-left: -492px;
+    top: 400px;
+    width: 918px;
+    height: 1408px;
+    border-style: outset;
+    overflow: hidden;
+    margin-top: 640px;">
+        <div id="page1-div" style="position:relative;width:918px;height:1722px;">
+            <img width="918" height="1512" src="assets/images/target001.png" alt="background image" />
+            <p style="position:absolute;top:30px;left:31px;white-space:nowrap" class="ft10">(To be filled up by the BIR)
+            </p>
+            <p style="position:absolute;top:44px;left:58px;white-space:nowrap" class="ft11"><b>DLN:</b></p>
+            <p style="position:absolute;top:44px;left:598px;white-space:nowrap" class="ft11"><b>PSOC:</b></p>
+            <p style="position:absolute;top:44px;left:716px;white-space:nowrap" class="ft11"><b>&#160; &#160;PSIC:</b>
+            </p>
+            <p style="position:absolute;top:163px;left:32px;white-space:nowrap" class="ft12">&#160; Fill in all
+                applicable spaces. Mark all appropriate boxes with an “X”.&#160;</p>
+            <p style="position:absolute;top:182px;left:31px;white-space:nowrap" class="ft11"><b>1</b>&#160;For the Year
+                
+            </p>
+            <p style="position:absolute;    top: 212px;left: 49px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{year}}
+            </p>
+            
+            <p style="position:absolute;top:182px;left:128px;white-space:nowrap" class="ft11"><b>2 &#160;</b>Quarter</p>
+            <p *ngIf="quarter==1" style="position: absolute; top: 199px;left: 154px;white-space: nowrap;font-size: 13px;" class="ft11"><b> &#160;</b>&#10004;</p>
+            <p *ngIf="quarter==2"  style="position: absolute; top: 199px;left: 200px;white-space: nowrap;font-size: 13px;" class="ft11"><b> &#160;</b>&#10004;</p>
+            <p *ngIf="quarter==3"  style="position: absolute; top: 199px;left: 246px;white-space: nowrap;font-size: 13px;" class="ft11"><b> &#160;</b>&#10004;</p>
+            <p *ngIf="quarter==4"  style="position: absolute; top: 199px;left: 323px;white-space: nowrap;font-size: 13px;" class="ft11"><b> &#160;</b>&#10004;</p>
+            <p  style="position: absolute; top: 199px;left: 431px;white-space: nowrap;font-size: 13px;" class="ft11"><b> &#160;</b>3</p>
+            <p style="position:absolute;    top: 272px;left: 104px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin1}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 126px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin2}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 148px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin3}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 196px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin4}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 217px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin5}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 239px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin6}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 293px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin7}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 311px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin8}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 333px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin9}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 374px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin10}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 402px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin11}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 423px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{tin12}}
+            </p>
+            <p style="position:absolute;    top: 272px;left: 713px;white-space:nowrap" class="ft11"><b></b>&#160;
+                IT
+            </p>
+            <p style="position:absolute;    top: 316px;left: 80px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{companyname}}
+            </p>
+            <p style="position:absolute;    top: 365px;left: 120px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{Address}}
+            </p>
+            <p style="position:absolute;    top: 316px;left: 721px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{Phone}}
+            </p>
+            <p style="position:absolute;    top: 365px;left: 721px;white-space:nowrap" class="ft11"><b></b>&#160;
+                {{zipcode}}
+            </p>
+            <p style="position:absolute;    top: 419px;left: 71px;white-space:nowrap" class="ft11"><b></b>&#160;
+                &#10004;
+            </p>
+            <p   style="    position: absolute;top: 212px;left: 677px;white-space: nowrap;font-size: 13px;" class="ft11"><b> &#160;</b>&#10004;</p>
+            <p   style="    position: absolute;top: 212px;left: 726px;white-space: nowrap;font-size: 13px;" class="ft11"><b> &#160;</b>&#10004;</p>
+            <p style="position:absolute;top:182px;left:391px;white-space:nowrap" class="ft11"><b>3</b></p>
+            <p style="position:absolute;top:182px;left:408px;white-space:nowrap" class="ft13">Months Reflected in this
+                Return</p>
+            <p style="position:absolute;top:182px;left:624px;white-space:nowrap" class="ft11"><b>4</b></p>
+            <p style="position:absolute;top:182px;left:641px;white-space:nowrap" class="ft13">Amended</p>
+            <p style="position:absolute;top:182px;left:716px;white-space:nowrap" class="ft11"><b>5</b></p>
+            <p style="position:absolute;top:181px;left:738px;white-space:nowrap" class="ft13">Any Taxes</p>
+            <p style="position:absolute;top:195px;left:58px;white-space:nowrap" class="ft13">(YYYY)</p>
+            <p style="position:absolute;top:195px;left:641px;white-space:nowrap" class="ft13">Return?</p>
+            <p style="position:absolute;top:195px;left:738px;white-space:nowrap" class="ft13">Withheld?</p>
+            <p style="position:absolute;top:222px;left:145px;white-space:nowrap" class="ft13">1st</p>
+            <p style="position:absolute;top:222px;left:195px;white-space:nowrap" class="ft13">2nd &#160; &#160; &#160;
+                &#160;3rd</p>
+            <p style="position:absolute;top:222px;left:315px;white-space:nowrap" class="ft13">&#160; 4th</p>
+            <p style="position:absolute;top:222px;left:391px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:222px;left:647px;white-space:nowrap" class="ft13">&#160;Yes</p>
+            <p style="position:absolute;top:222px;left:696px;white-space:nowrap" class="ft13">No</p>
+            <p style="position:absolute;top:222px;left:738px;white-space:nowrap" class="ft13">&#160; Yes&#160;&#160;
+                &#160; &#160; &#160;No</p>
+            <p style="position:absolute;top:245px;left:31px;white-space:nowrap" class="ft11"><b>Part I</b></p>
+            <p style="position:absolute;top:245px;left:311px;white-space:nowrap" class="ft11"><b>B a c k g r o u n d
+                    &#160; &#160;I n f o r m a t i o n</b></p>
+            <p style="position:absolute;top:261px;left:31px;white-space:nowrap" class="ft11"><b>6</b></p>
+            <p style="position:absolute;top:263px;left:58px;white-space:nowrap" class="ft13">TIN</p>
+            <p style="position:absolute;top:263px;left:454px;white-space:nowrap" class="ft11"><b>7</b></p>
+            <p style="position:absolute;top:263px;left:472px;white-space:nowrap" class="ft13">RDO Code</p>
+            <p style="position:absolute;top:262px;left:548px;white-space:nowrap" class="ft11"><b>&#160; &#160; &#160;
+                    &#160; &#160;8 &#160;&#160;</b>Line of Business/</p>
+            <p style="position:absolute;top:279px;left:548px;white-space:nowrap" class="ft13">&#160; &#160; &#160;
+                &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;Occupation</p>
+            <p style="position:absolute;top:295px;left:31px;white-space:nowrap" class="ft11"><b>9</b></p>
+            <p style="position:absolute;top:296px;left:58px;white-space:nowrap" class="ft13">Withholding Agent's
+                Name&#160;(Last Name, First Name, Middle Name for Individuals)/(Registered Name for Non-Individuals)</p>
+            <p style="position:absolute;top:295px;left:694px;white-space:nowrap" class="ft11"><b>10 &#160;</b>Telephone
+                No<b>.</b></p>
+            <p style="position:absolute;top:344px;left:31px;white-space:nowrap" class="ft11"><b>11</b></p>
+            <p style="position:absolute;top:346px;left:58px;white-space:nowrap" class="ft13">Registered Address</p>
+            <p style="position:absolute;top:345px;left:694px;white-space:nowrap" class="ft11"><b>12</b>&#160; &#160;Zip
+                Code</p>
+            <p style="position:absolute;top:398px;left:31px;white-space:nowrap" class="ft11"><b>13</b></p>
+            <p style="position:absolute;top:398px;left:58px;white-space:nowrap" class="ft13">Category of Withholding
+                Agent</p>
+            <p style="position:absolute;top:398px;left:357px;white-space:nowrap" class="ft11"><b>14&#160;</b>Are there
+                payees availing of tax relief under Special Law or International Tax Treaty?</p>
+            <p style="position:absolute;top:425px;left:95px;white-space:nowrap" class="ft13">Private</p>
+            <p style="position:absolute;top:425px;left:162px;white-space:nowrap" class="ft13">Government</p>
+            <p style="position:absolute;top:425px;left:408px;white-space:nowrap" class="ft13">&#160; Yes</p>
+            <p style="position:absolute;top:425px;left:472px;white-space:nowrap" class="ft13">No</p>
+            <p style="position:absolute;top:425px;left:506px;white-space:nowrap" class="ft13">If yes, specify</p>
+            <p style="position:absolute;top:443px;left:31px;white-space:nowrap" class="ft11"><b>Part II</b></p>
+            <p style="position:absolute;top:443px;left:361px;white-space:nowrap" class="ft11"><b>C O M P U T A T I O N
+                    &#160; &#160;O F &#160; T A X</b></p>
+            <p style="position:absolute;top:460px;left:487px;white-space:nowrap" class="ft13">Percen-</p>
+            <p style="position:absolute;top:460px;left:559px;white-space:nowrap" class="ft13">Tax Base</p>
+            <p style="position:absolute;top:477px;left:145px;white-space:nowrap" class="ft13">Recipients</p>
+            <p style="position:absolute;top:477px;left:320px;white-space:nowrap" class="ft13">ATC</p>
+            <p style="position:absolute;top:477px;left:496px;white-space:nowrap" class="ft13">tage</p>
+            <p style="position:absolute;top:477px;left:553px;white-space:nowrap" class="ft13">Grossed-up</p>
+            <p style="position:absolute;top:493px;left:490px;white-space:nowrap" class="ft13">Divisor</p>
+            <p style="position:absolute;top:493px;left:543px;white-space:nowrap" class="ft13">Monetary Value</p>
+            <p style="position:absolute;top:510px;left:31px;white-space:nowrap" class="ft11"><b>15</b></p>
+            <p style="position:absolute;top:510px;left:58px;white-space:nowrap" class="ft13">Alien &amp; Filipino
+                employed &amp;</p>
+            <p style="position:absolute;top:526px;left:58px;white-space:nowrap" class="ft19">occupying the same
+                position<br />as those of aliens employed&#160;</p>
+            <p style="position:absolute;top:542px;left:315px;white-space:nowrap" class="ft13">WI 320</p>
+            <p style="position:absolute;top:542px;left:496px;white-space:nowrap" class="ft13">85%</p>
+            <p style="position:absolute;top:542px;left:645px;white-space:nowrap" class="ft13">15%</p>
+            <p style="position:absolute;top:557px;left:58px;white-space:nowrap" class="ft110">in selected
+                multinational&#160;<br />companies</p>
+            <p style="position:absolute;top:585px;left:41px;white-space:nowrap" class="ft11"><b>16&#160;</b>Non-resident
+                Alien not Engaged</p>
+            <p style="position:absolute;top:603px;left:58px;white-space:nowrap" class="ft13">in Trade or Business</p>
+            <p style="position:absolute;top:621px;left:31px;white-space:nowrap" class="ft11"><b>17</b></p>
+            <p style="position:absolute;top:621px;left:58px;white-space:nowrap" class="ft13">Others ( In General)*</p>
+            <p style="position:absolute;top:621px;left:315px;white-space:nowrap" class="ft13">WI 360</p>
+            <p style="position:absolute;top:644px;left:31px;white-space:nowrap" class="ft11"><b>18</b></p>
+            <p style="position:absolute;top:644px;left:58px;white-space:nowrap" class="ft13">Total&#160;</p>
+            <p style="position:absolute;top:644px;left:315px;white-space:nowrap" class="ft11"><b>&#160; 18A</b></p>
+            <p style="position:absolute;top:644px;left:641px;white-space:nowrap" class="ft11"><b>18B</b></p>
+            <p style="position:absolute;top:664px;left:31px;white-space:nowrap" class="ft11"><b>19</b></p>
+            <p style="position:absolute;top:664px;left:58px;white-space:nowrap" class="ft13">&#160; &#160; Less:
+                &#160;Taxes Remitted in Return previously filed, if this is an Amended Return</p>
+            <p style="position:absolute;top:664px;left:641px;white-space:nowrap" class="ft11"><b>19</b></p>
+            <p style="position:absolute;top:682px;left:31px;white-space:nowrap" class="ft11"><b>20</b></p>
+            <p style="position:absolute;top:682px;left:58px;white-space:nowrap" class="ft13">Tax&#160;Still Due/
+                (Overremittance)</p>
+            <p style="position:absolute;top:685px;left:548px;white-space:nowrap" class="ft13">&#160;</p>
+            <p style="position:absolute;top:685px;left:641px;white-space:nowrap" class="ft11"><b>20</b></p>
+            <p style="position:absolute;top:699px;left:31px;white-space:nowrap" class="ft11"><b>21</b></p>
+            <p style="position:absolute;top:699px;left:58px;white-space:nowrap" class="ft13">&#160; &#160; Add:
+                &#160;Penalties</p>
+            <p style="position:absolute;top:713px;left:186px;white-space:nowrap" class="ft13">Surcharge</p>
+            <p style="position:absolute;top:713px;left:411px;white-space:nowrap" class="ft13">Interest</p>
+            <p style="position:absolute;top:713px;left:537px;white-space:nowrap" class="ft13">Compromise</p>
+            <p style="position:absolute;top:730px;left:58px;white-space:nowrap" class="ft11"><b>&#160;21A</b></p>
+            <p style="position:absolute;top:733px;left:333px;white-space:nowrap" class="ft11"><b>&#160; 21B</b></p>
+            <p style="position:absolute;top:733px;left:489px;white-space:nowrap" class="ft11"><b>&#160; &#160;21C</b>
+            </p>
+            <p style="position:absolute;top:733px;left:641px;white-space:nowrap" class="ft11"><b>21D</b></p>
+            <p style="position:absolute;top:771px;left:31px;white-space:nowrap" class="ft11"><b>22</b></p>
+            <p style="position:absolute;top:771px;left:58px;white-space:nowrap" class="ft13">Total Amount Still Due/
+                (Overremittance)</p>
+            <p style="position:absolute;top:777px;left:641px;white-space:nowrap" class="ft11"><b>22</b></p>
+            <p style="position:absolute;top:791px;left:58px;white-space:nowrap" class="ft13">For late filers with
+                overremittance, extend amount of penalties (Item 21D to 22)</p>
+            <p style="position:absolute;top:807px;left:58px;white-space:nowrap" class="ft13">If overremittance, mark one
+                box only:</p>
+            <p style="position:absolute;top:807px;left:408px;white-space:nowrap" class="ft13">To be Refunded</p>
+            <p style="position:absolute;top:806px;left:517px;white-space:nowrap" class="ft13">To be issued a Tax Credit
+                Certificate</p>
+            <p style="position:absolute;top:823px;left:58px;white-space:nowrap" class="ft13">I declare, under the
+                &#160;penalties of perjury, that this return has been made in good faith, verified by me, and to the
+                &#160;best of my knowlege and belief,</p>
+            <p style="position:absolute;top:840px;left:31px;white-space:nowrap" class="ft13">&#160;is true and correct,
+                pursuant to the provisions of the National Internal Revenue Code, as amended, and the regulations issued
+                under authority thereof.</p>
+            <p style="position:absolute;top:868px;left:58px;white-space:nowrap" class="ft11"><b>23</b></p>
+            <p style="position:absolute;top:868px;left:528px;white-space:nowrap" class="ft11"><b>24</b></p>
+            <p style="position:absolute;top:884px;left:128px;white-space:nowrap" class="ft13">Taxpayer/Authorized Agent
+                Signature over Printed Name</p>
+                <p style="position:absolute;top:849px;left:128px;white-space:nowrap" class="ft13">
+                   <img src="{{Signature}}" style="    width: 47px;height: 30px; margin-top: 2px;"/>  {{signname}}</p>
+            <p style="position:absolute;top:884px;left:577px;white-space:nowrap" class="ft13">Title/Position of
+                Signatory</p>
+                <p style="position:absolute;    top: 863px;left:577px;white-space:nowrap" class="ft13">
+                    {{title1}}</p>
+            <p style="position:absolute;top:910px;left:31px;white-space:nowrap" class="ft11"><b>&#160;Part III</b></p>
+            <p style="position:absolute;top:910px;left:315px;white-space:nowrap" class="ft11"><b>Details of Payment</b>
+            </p>
+            <p style="position:absolute;top:911px;left:715px;white-space:nowrap" class="ft13">Stamp of Receiving</p>
+            <p style="position:absolute;top:926px;left:174px;white-space:nowrap" class="ft11"><b>Drawee Bank/</b></p>
+            <p style="position:absolute;top:926px;left:441px;white-space:nowrap" class="ft11"><b>&#160; &#160; &#160;
+                    &#160; Date</b></p>
+            <p style="position:absolute;top:926px;left:719px;white-space:nowrap" class="ft13">Office and Date of</p>
+            <p style="position:absolute;top:944px;left:40px;white-space:nowrap" class="ft11"><b>Particulars</b></p>
+            <p style="position:absolute;top:944px;left:190px;white-space:nowrap" class="ft11"><b>&#160;Agency</b></p>
+            <p style="position:absolute;top:944px;left:333px;white-space:nowrap" class="ft11"><b>&#160; Number</b></p>
+            <p style="position:absolute;top:942px;left:420px;white-space:nowrap" class="ft11"><b>&#160;MM</b></p>
+            <p style="position:absolute;top:942px;left:454px;white-space:nowrap" class="ft11"><b>DD YYYY</b></p>
+            <p style="position:absolute;top:944px;left:548px;white-space:nowrap" class="ft11"><b>&#160; &#160; &#160;
+                    &#160; &#160; &#160; &#160; &#160; &#160; Amount</b></p>
+            <p style="position:absolute;top:943px;left:745px;white-space:nowrap" class="ft13">Receipt</p>
+            <p style="position:absolute;top:962px;left:31px;white-space:nowrap" class="ft11"><b>25</b></p>
+            <p style="position:absolute;top:962px;left:58px;white-space:nowrap" class="ft13">Cash/ Bank</p>
+            <p style="position:absolute;top:978px;left:58px;white-space:nowrap" class="ft13">&#160; &#160;Debit Memo</p>
+            <p style="position:absolute;top:977px;left:528px;white-space:nowrap" class="ft14"><b>&#160; 25</b></p>
+            <p style="position:absolute;top:995px;left:31px;white-space:nowrap" class="ft11"><b>26</b></p>
+            <p style="position:absolute;top:995px;left:58px;white-space:nowrap" class="ft13">Check</p>
+            <p style="position:absolute;top:1010px;left:74px;white-space:nowrap" class="ft14"><b>26A</b></p>
+            <p style="position:absolute;top:1010px;left:195px;white-space:nowrap" class="ft14"><b>&#160; &#160; &#160;
+                    &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; 26B</b></p>
+            <p style="position:absolute;top:1010px;left:405px;white-space:nowrap" class="ft14"><b>26C</b></p>
+            <p style="position:absolute;top:1010px;left:528px;white-space:nowrap" class="ft14"><b>&#160;26D</b></p>
+            <p style="position:absolute;top:1030px;left:31px;white-space:nowrap" class="ft11"><b>27</b></p>
+            <p style="position:absolute;top:1030px;left:58px;white-space:nowrap" class="ft13">Others</p>
+            <p style="position:absolute;top:1045px;left:74px;white-space:nowrap" class="ft14"><b>27A</b></p>
+            <p style="position:absolute;top:1045px;left:195px;white-space:nowrap" class="ft14"><b>&#160; &#160; &#160;
+                    &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;27B</b></p>
+            <p style="position:absolute;top:1045px;left:405px;white-space:nowrap" class="ft14"><b>27C</b></p>
+            <p style="position:absolute;top:1045px;left:528px;white-space:nowrap" class="ft14"><b>&#160;27D</b></p>
+            <p style="position:absolute;top:1068px;left:31px;white-space:nowrap" class="ft13">Machine Validation/Revenue
+                Official Receipt Details (If not filed with the bank)</p>
+            <p style="position:absolute;top:1102px;left:31px;white-space:nowrap" class="ft14"><b>*</b>Note: For Tax Rate
+                and Percentage of Others (In General), please see instruction at the back</p>
+            <p style="position:absolute;top:590px;left:314px;white-space:nowrap" class="ft13">WI 330</p>
+            <p style="position:absolute;top:593px;left:499px;white-space:nowrap" class="ft13">75%</p>
+            <p style="position:absolute;top:592px;left:643px;white-space:nowrap" class="ft13">25%</p>
+            <p style="position:absolute;top:83px;left:86px;white-space:nowrap" class="ft10">Re&#160;publika ng Pilipinas
+            </p>
+            <p style="position:absolute;top:91px;left:86px;white-space:nowrap" class="ft10">Kagawa&#160;ran ng
+                Pana&#160;nalapi</p>
+            <p style="position:absolute;top:100px;left:86px;white-space:nowrap" class="ft15">Kawanihan ng Rentas
+                Internas</p>
+            <p style="position:absolute;top:62px;left:230px;white-space:nowrap" class="ft16"><b>&#160;
+                    &#160;&#160;&#160;Quarterly Remittance Return</b></p>
+            <p style="position:absolute;top:90px;left:213px;white-space:nowrap" class="ft16"><b>&#160; &#160; &#160;of
+                    Final Income Taxes Withheld</b></p>
+            <p style="position:absolute;top:83px;left:601px;white-space:nowrap" class="ft17"><b>1603</b></p>
+            <p style="position:absolute;top:115px;left:583px;white-space:nowrap" class="ft15">&#160; &#160;
+                &#160;&#160;&#160;&#160;&#160;</p>
+            <p style="position:absolute;top:127px;left:582px;white-space:nowrap" class="ft15">&#160; &#160; &#160;
+                &#160; &#160; &#160;July 1999 (ENCS)&#160;</p>
+            <p style="position:absolute;top:69px;left:613px;white-space:nowrap" class="ft15">BIR Form No.</p>
+            <p style="position:absolute;top:133px;left:41px;white-space:nowrap" class="ft18"><b>On Fringe&#160;Benefits
+                    Paid to Employees Other than&#160;Rank and&#160;File</b></p>
+            <p style="position:absolute;top:467px;left:354px;white-space:nowrap" class="ft111">&#160; &#160; &#160;
+                Monetary Value of<br />&#160; &#160; &#160; &#160; &#160;Fringe Benefit</p>
+            <p style="position:absolute;top:467px;left:642px;white-space:nowrap" class="ft111">Tax<br />Rate</p>
+            <p style="position:absolute;top:466px;left:706px;white-space:nowrap" class="ft111">&#160;Tax
+                Required<br />To Be Withheld</p>
+            <p style="position:absolute;top:1469px;left:456px;white-space:nowrap" class="ft12">&#160;</p>
+        </div>
+    </div>

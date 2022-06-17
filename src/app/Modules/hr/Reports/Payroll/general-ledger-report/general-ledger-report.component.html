@@ -1,0 +1,138 @@
+
+ <div class="container-fluid">  
+    <br/>
+    <div class="row">
+       <br>
+       <div class="col-lg-12">
+           <p class="Heading1">General Ledger</p>
+       </div>
+   </div>
+    <br/>
+    <br/>
+   <div class="row">
+       <div class="col-lg-12">
+           <table class="table">
+               <thead>
+                   <tr class="newFont">
+                       <th class="SelectData">Select</th>
+                       <th>Year</th>
+                       <th>Month</th>
+                       <th>Period</th>
+                      
+                   <tr>
+               </thead>
+               <tbody>
+                   <tr *ngFor="let item of uniquelist">
+                       <td class="SelectData"><input type="checkbox"
+                               (change)="getemployeelist(item.month,item.year,item.payrolltype)"
+                               data-toggle="collapse" data-target="#demo"></td>
+                       <td style="color:#0C275A">{{item.endyear}}</td>
+                       <td style="color:#0C275A">{{item.month}}</td>
+                       <td style="color:#0C275A">{{item.payrolltype}}</td>
+                      
+
+                   </tr>
+
+               </tbody>
+           </table>
+         
+       </div>
+        
+   </div><br>
+</div> 
+<br/>
+<br/>
+<br/> 
+<br/>
+<br/>
+<br/>
+<div class="container-fluid" id="demo" class="collapse">
+   <div class="row">
+       <div class="col-lg-2"></div>
+       <div class="col-lg-8">
+           <p class="active Heading1" style="text-align: center;">Employees in selected Period</p>
+           
+       </div>
+    
+      
+
+   </div>
+   <div class="row">
+       <div class="col-lg-12">
+           <table class="table table-bordered fonttxt">
+               <thead>
+                   <tr class="newFont">
+                       <th class="SelectData">Select</th>
+                       <th>Employee ID</th>
+                       <th>Employee Name</th>
+                       <th>Status</th>
+                       <th>Pay Group</th>
+                   </tr>
+                   <tr *ngFor="let item of timedetails">
+                       <td class="SelectData"><input type="checkbox" value="item.value" [(ngModel)]="item.checked"
+                           (click)="getpayslip(item.id,item.startdate,item.enddate)" ></td>
+                               <td>{{item.id}}</td>
+                               <td>{{item.staffname}}</td>
+                      
+                       <td>Active</td>
+
+                       <td>{{item.paygroup}}</td>
+                   </tr>
+               </thead>
+           </table>
+       </div>
+       
+   </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="row" *ngIf="showleaseforprint==1">
+   <div class="col-lg-8">
+   </div>
+   <div class="col-lg-4" style="margin-left: 800px;">
+       <button class="AddButton" (click)="convetToPDF1()">Convert To PDF </button> &nbsp;&nbsp;
+       <button class="AddButton" (click)="exportexcel()">Export to Excel</button>
+   </div>
+</div> <br>
+
+<div class="row" *ngIf="showleaseforprint==1">
+   <div class="col-lg-12">
+       <div class="row">
+           <div class="col-lg-12" style="overflow:auto;">
+               <table class="table table-bordered" id="downloadaplication">
+                   <thead>
+                       <tr class="newFont">
+                           <th>Employee Id</th>
+                           <th>Employee Name</th>
+                           <th>Department</th>
+                           <th>Role</th>
+                           <th>Debit</th>
+                           <th>Credit</th>
+                           
+                         
+                          
+                          
+                           
+                       </tr>
+                       <tr *ngFor="let item of timedetails1">
+                           <td>{{item.id}}</td>
+                           <td>{{item.staffname}}</td>
+                           <td>{{item.department_name}}</td>
+                           <td>{{item.role}}</td>
+                           <td>{{item.compensation|number:'1.2-2' }} </td>
+                           <td>{{item.deductions-item.semiadjustment|number:'1.2-2'}}</td>
+                           
+                           
+                           
+                         
+                       </tr>
+
+                   </thead>
+               </table>
+           </div>
+       </div>
+
+   </div>
+</div>

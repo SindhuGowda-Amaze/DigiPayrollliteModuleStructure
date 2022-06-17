@@ -8,22 +8,31 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./tax-table.component.css']
 })
 export class TaxTableComponent implements OnInit {
-
-  SSSdatalist: any;
-
-  constructor(private DigiPayrollService:DigipayrollserviceService,private ActivatedRoute:ActivatedRoute) { }
-
+  taxdetails:any;
+  currentUrl: string | undefined;
+  constructor(private DigipayrollServiceService:DigipayrollserviceService,private ActivatedRoute:ActivatedRoute) { }
   ngOnInit(): void {
-    this.GetTaxtable();
+    this.currentUrl = window.location.href;
+    this.GetTaxtableAnnual();
   }
-
-  public GetTaxtable() {
+  public GetTaxtableAnnual() {
     debugger
-    this.DigiPayrollService.GetTaxtable().subscribe(data=>{
-      debugger
-       this.SSSdatalist=data[0] ;
-     })
-  }
+    this.DigipayrollServiceService.GetTaxtableAnnual()
 
+
+
+
+
+
+
+    
+    .subscribe(
+      data => {
+        debugger
+        this.taxdetails = data;
+      })
+  }
 
 }
+
+

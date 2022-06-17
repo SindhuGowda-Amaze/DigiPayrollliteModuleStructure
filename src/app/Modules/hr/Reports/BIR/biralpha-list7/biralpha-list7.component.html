@@ -1,0 +1,417 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-4">
+                    <a href="" class="Heading fontheading">Alpha List 7.0</a>
+                </div>
+            </div>
+            <hr>
+            <div class="row FilterClass fontheading">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2">
+                    <p> Select Year</p>
+                </div>
+
+                <div class="col-lg-2">
+                    <select name="Year" id="Year" class="form-control"  [(ngModel)]="year">
+                        <option value="Select">Select</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+            </div><br>
+
+            <div class="row FilterClass fontheading">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2">
+                    <p>Amended Return:</p>
+                </div>
+
+                <div class="col-lg-2">
+                    <select name="cars" id="Month" class="form-control">
+                        <option value="Select">Select</option>
+                        <option value="2021">Yes</option>
+                        <option value="2020">No</option>
+                       
+                    </select>
+                </div>
+            </div><br>
+
+            <!-- <div class="row FilterClass fontheading">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2">
+                    <p>No. of Sheets:</p>
+                </div>
+
+                <div class="col-lg-2">
+                   <input type="text" class="form-control" placeholder="0">
+                </div>
+            </div><br> -->
+
+            <!-- <div class="row FilterClass fontheading">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2">
+                    <p>It will include:</p>
+                </div>
+            </div>
+          
+            <div class="row FilterClass fontheading">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" checked disabled>
+                        <label class="form-check-label"  >Normal Payroll</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" checked disabled>
+                        <label class="form-check-label"  >13th Month</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >Part Time</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >Special Run</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >Special Run Part Time</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >YTD Upload</label>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >Final Pay</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >Final Pay Part Time</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >Adjustments</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >Reimbursements</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" >
+                        <label class="form-check-label"  >Commission</label>
+                    </div>
+
+                </div>
+            </div> -->
+            <br>
+
+
+            <!-- <div class="row">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-3">
+                    <button class="generate" >GENERATE DAT FILE</button>
+                    <p>Generate DAT file for all employees</p>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                        <table class="table table-bordered fonttxt">
+                                <thead>
+                                        <tr class="newFont">
+                                            <th colspan="2"><div class="col-lg-8">
+                                               
+                                                <a class="active fontheading" (click)="selectALL(true)" >Select ALL</a>
+                                            </div></th>
+                                                <th colspan="4">ALPHALIST OF EMPLOYEES</th>
+                                        </tr>
+                                        <tr class="newFont">
+                                                <!-- <th><input type="checkbox"></th> -->
+                                                <th>Select</th>
+                                                <th>Employee ID</th>
+                                                <th>Name</th>
+                                                <th>Employee Status</th>
+                                                <!-- <th><input type="checkbox">Substitute </th>
+                                                <th>Posting Status</th> -->
+        
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        <tr *ngFor="let item of uniquelist1|paginate: { itemsPerPage: count1, currentPage: p}">
+                                                <td class="SelectData"><input type="checkbox" (change)="getempdetails(item.id)" type="checkbox" value="item.value" [(ngModel)]="item.checked">
+                                                </td>
+                                                <td>000{{item.id}}</td>
+                                                <td>{{item.name}} {{item.last_Name}}</td>
+                                                <td>Active</td>
+                                                <!-- <td class="SelectData"><input type="checkbox"></td>
+                                                <td>Unposted</td> -->
+                                        </tr>
+                                </tbody>
+                        </table>
+                </div>
+                <!-- <div class="text-right">
+                        <br>
+                        <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                </div> -->
+                <div class="col-lg-1">
+                </div>
+                <div class="col-lg-3">
+                </div>
+                <div class="col-lg-2">
+                        <!-- <br>
+                        <button class="AddButton" (click)="showpdf()">PRINT</button> -->
+                </div>
+        </div>
+        <br>
+        <br><br>
+
+            <div class="row">
+                <div class="col-lg-5"></div>
+                <div *ngIf="showonebtn==true"class="col-lg-3"><button class="generate1" (click)="Showdata1()">GENERATE SCHEDULE 1</button><br>
+                    <span style="font-size: 9px;color: grey;">Employees who are
+                        Active, Terminated or Resigned</span></div>
+                       
+                <div *ngIf="showallbtn==true" class="col-lg-3"><button  class="generate1" (click)="Showdata2()">GENERATE SCHEDULE 2</button><br>
+                    <span style="font-size: 9px;color: grey;">Employees who are
+                        Minimum wage earners</span></div>       
+            </div><br>
+
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-lg-10"></div>
+    <div class="col-lg-2">
+        <button > Export to Excel </button>
+    </div>
+</div> -->
+<div class="row" *ngIf="showtable1==1||showtable2==1">
+
+    <div class="col-lg-5"></div>
+    <div class="col-lg-4">
+        <button class="button1" (click)="exportexcel()">Export To Excel</button>
+    </div>
+</div>
+<br>
+
+<div class="row rowwidth" *ngIf="showtable1==1" >
+    <div class="col-lg-12" style="overflow:auto;">
+        <table class="table table-bordered fonttxt" id="download">
+            <thead>
+                 <tr>
+                    <th colspan="18" style="text-align: center;">PRESENT EMPLOYER</th>
+                    <th colspan="14" style="text-align: center;">PREVIOUS EMPLOYER</th>
+                    <th colspan="8"></th>
+                   
+                    
+                </tr>
+                <tr>
+                    <th colspan="8"></th>
+                    <th colspan="5">NON Taxable</th>
+                    <th colspan="4">Taxable</th>
+                    <th colspan="5"></th>
+                     <th colspan="1"></th>
+                    <th colspan="5">Non Taxable</th>
+                    <th colspan="4">Taxable</th>
+                    <th colspan="2">TOTAL TAXABLE</th>
+                    <th colspan="3">TOTAL WITHHELD</th>
+                    <th colspan="2">YEAR END ADJUSTMENT</th>
+                     <th colspan="2"></th>
+                </tr>
+                <tr class="newFont" >
+                    <th>Seq No.</th>
+                    <th>Name Of The Employees (First Name,Last Name)</th>
+                    <th>Nationality / Resident</th>
+                    <th>Cuurent Employee Status*</th>
+                    <th>Period Of Employement From</th>
+                    <th>Period Of Employement To</th>
+                     <th>Reason of Separation </th>
+                     <th>Gross Compensation Income </th>
+                     <th>13th Month Pay and Other Benefits</th>
+                     <th>De Minimis Benefits</th>
+                     <th>SSS, GSIS, PHIC &PAG-IBIG CONTRIBUTIONS
+                        AND UNION DUES (Employee shared only)
+                     </th>
+                     <th>Salaries(P250k below) & Other Forms Of Compensation  </th>
+                     <th>Total Non-Taxable/Exempt Compensation Income</th>
+                     <th>basic Salary (Net of SSS,GSIS,PHIC,HDMF Contri,& Union Dues)</th>
+                     <th>13th Month Pay & Other Benefits </th>
+                     <th>Salaries & Other Forms of Compensation</th>
+                     <th>Total Taxable Compensation Income </th>
+                     <th>TAXPAYER IDENTIFICATION NUMBER</th>
+                     <th>Employement Status </th>
+                     <th>Previous Employement Startdate </th>
+                     <th>Previous Employement Enddate </th>
+                     <th>Reason of Separation ,if applicable(**)</th>
+                     <th>Gross Compensation Previous Employer </th>
+                     <th>13th Month Pay & Other Benefits </th>
+                     <th>Deminimis Benefits</th>
+                     <th>SSS,GSIS,PHIC & PAG-IBIG Contributions And Union Dues </th>
+                     <th>Salaries(P250k & below)& Other Forms of Compensation</th>
+                     <th>Total Non-Taxable/ Exempt Compensation(Previous Employer)</th>
+                     <th>Basic Salary (Net of SSS,GSIS,PHIC,HDMF Contri & Union Dues)</th>
+                     <th>13th Month Pay & Other Benefits</th>
+                     <th>Salaries & Other Forms Of Compensation</th>
+                     <th>Total  Taxable Compensation </th>
+                     <th>Total Taxable Compensation Income (Present And Previous Employee)</th>
+                     <th>Tax Due (Jan- Dec )</th>
+                     <th>Tax Witheld Previous Employer</th>
+                     <th>Tax Withheld Present Employer</th>
+                     <th>Amt Withheld & Paid For In December or Last Salary </th>
+                     <th>Over Withheld tax Refunded To Employee</th>
+                     <th>Amount Of Tax Withheld As Adjusted</th>
+                     <th>Subtitled Filing Yes/No</th>
+                </tr>
+                 <tr>
+                    <td>{{id}}</td>
+                    <td>{{staffname}}</td>
+                    <td>NA</td>
+                    <td>Active</td>
+                    <td>{{joiningdate}}</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                    <td>{{yearlybasesalary}}</td>
+                    <td>NA</td>
+                   <td>{{yearlydeminims}}</td>
+                   <td>{{employeeshares}}</td>
+                   <td>{{otherbenefits}}</td>
+                   <td>{{totalnontaxable}}</td>
+                   <td>0</td>
+                   <td>0</td>
+                   <td>{{yearsalary}}</td>
+                   <td>{{yearsalary}}</td>
+                   <td>{{employeetin}}</td>
+                   <td>INACTIVE</td>
+                   <td>{{previousstartdate|date}}</td>
+                   <td>{{previousenddate|date}}</td>
+                   <td>NA</td>
+                   <td>{{previoussalary}}</td>
+                   <td>{{previousthirteenth}}</td>
+                   <td>{{previousdeminims}}</td>
+                   <td>{{previousemployeeshare}}</td>
+                   <td>{{previouscompensation}}</td>
+                   <td>{{totalpreviousnontax}}</td>
+                   <td>0</td>
+                   <td>0</td>
+                   <td>{{previoussalary}}</td>
+                   <td>{{previoussalary}}</td>
+                   <td>{{totaltaxablesalary}}</td>
+                   <td>0</td>
+                   <td>{{previoustax}}</td>
+                   <td>{{yeartax}}</td>
+                   <td>{{previoustax + yeartax}} </td>
+                   <td>{{previoustax + yeartax}} </td>
+                   <td>{{previoustax + yeartax}} </td>
+                   <td>Yes</td>
+                </tr>            
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div class="row rowwidth" *ngIf="showtable2==1" >
+    <div class="col-lg-12" style="overflow:auto;">
+        <table class="table table-bordered fonttxt" id="download">
+            <thead>
+                <tr class="newFont" >
+                    <th>Seq No.</th>
+                    <th>Name Of The Employees (First Name,Last Name)</th>
+                    <th>Nationality / Resident</th>
+                    <th>Cuurent Employee Status*</th>
+                    <th>Period Of Employement From</th>
+                    <th>Period Of Employement To</th>
+                     <th>Reason of Separation </th>
+                     <th>Gross Compensation Income </th>
+                     <th>13th Month Pay and Other Benefits</th>
+                     <th>De Minimis Benefits</th>
+                     <th>SSS, GSIS, PHIC &PAG-IBIG CONTRIBUTIONS
+                        AND UNION DUES (Employee shared only)
+                     </th>
+                     <th>Salaries(P250k below) & Other Forms Of Compensation  </th>
+                     <th>Total Non-Taxable/Exempt Compensation Income</th>
+                     <th>basic Salary (Net of SSS,GSIS,PHIC,HDMF Contri,& Union Dues)</th>
+                     <th>13th Month Pay & Other Benefits </th>
+                     <th>Salaries & Other Forms of Compensation</th>
+                     <th>Total Taxable Compensation Income </th>
+                     <th>TAXPAYER IDENTIFICATION NUMBER</th>
+                     <th>Employement Status </th>
+                     <th>Previous Employement Startdate </th>
+                     <th>Previous Employement Enddate </th>
+                     <th>Reason of Separation ,if applicable(**)</th>
+                     <th>Gross Compensation Previous Employer </th>
+                     <th>13th Month Pay & Other Benefits </th>
+                     <th>Deminimis Benefits</th>
+                     <th>SSS,GSIS,PHIC & PAG-IBIG Contributions And Union Dues </th>
+                     <th>Salaries(P250k & below)& Other Forms of Compensation</th>
+                     <th>Total Non-Taxable/ Exempt Compensation(Previous Employer)</th>
+                     <th>Basic Salary (Net of SSS,GSIS,PHIC,HDMF Contri & Union Dues)</th>
+                     <th>13th Month Pay & Other Benefits</th>
+                     <th>Salaries & Other Forms Of Compensation</th>
+                     <th>Total  Taxable Compensation </th>
+                     <th>Total Taxable Compensation Income (Present And Previous Employee)</th>
+                     <th>Tax Due (Jan- Dec )</th>
+                     <th>Tax Witheld Previous Employer</th>
+                     <th>Tax Withheld Present Employer</th>
+                     <th>Amt Withheld & Paid For In December or Last Salary </th>
+                     <th>Over Withheld tax Refunded To Employee</th>
+                     <th>Amount Of Tax Withheld As Adjusted</th>
+                     <th>Subtitled Filing Yes/No</th>
+                </tr>
+                 <tr *ngFor="let item of newarray">
+                    <td>{{item.id}}</td>
+                    <td>{{item.staffname}}</td>
+                    <td>NA</td>
+                    <td>Active</td>
+                    <td>{{item.joiningdate}}</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                    <td>{{item.yearlybasesalary}}</td>
+                    <td>NA</td>
+                   <td>{{item.yearlydeminims}}</td>
+                   <td>{{item.employeeshares}}</td>
+                   <td>{{item.otherbenefits}}</td>
+                   <td>{{item.totalnontaxable}}</td>
+                   <td>0</td>
+                   <td>0</td>
+                   <td>{{item.yearsalary}}</td>
+                   <td>{{item.yearsalary}}</td>
+                   <td>{{item.employeetin}}</td>
+                   <td>INACTIVE</td>
+                   <td>{{item.previousstartdate|date}}</td>
+                   <td>{{item.previousenddate|date}}</td>
+                   <td>NA</td>
+                   <td>{{item.previoussalary}}</td>
+                   <td>{{item.previousthirteenth}}</td>
+                   <td>{{item.previousdeminims}}</td>
+                   <td>{{item.previousemployeeshare}}</td>
+                   <td>{{item.previouscompensation}}</td>
+                   <td>{{item.totalpreviousnontax}}</td>
+                   <td>0</td>
+                   <td>0</td>
+                   <td>{{item.previoussalary}}</td>
+                   <td>{{item.previoussalary}}</td>
+                   <td>{{item.totaltaxablesalary}}</td>
+                   <td>0</td>
+                   <td>{{item.previoustax}}</td>
+                   <td>{{item.yeartax}}</td>
+                   <td>{{item.previoustax + item.yeartax}} </td>
+                   <td>{{item.previoustax + item.yeartax}} </td>
+                   <td>{{item.previoustax + item.yeartax}} </td>
+                   <td>Yes</td>
+                </tr>      
+            </thead>
+        </table>
+    </div>
+</div>

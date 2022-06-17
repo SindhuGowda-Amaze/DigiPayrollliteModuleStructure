@@ -16,9 +16,15 @@ import { PayslipComponent } from './Reports/payslip/payslip.component';
 import { ContributioncertificateComponent } from './Reports/contributioncertificate/contributioncertificate.component';
 import { CertificateofloanComponent } from './Reports/certificateofloan/certificateofloan.component';
 import { EmploymentcertificateComponent } from './Reports/employmentcertificate/employmentcertificate.component';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ApplyLeaveComponent } from './EmployeeRequest/apply-leave/apply-leave.component';
+import { ApplyloansComponent } from './EmployeeRequest/applyloans/applyloans.component';
+import { ApplyOTComponent } from './EmployeeRequest/apply-ot/apply-ot.component';
+import { SalaryAdjustmentRequestComponent } from './EmployeeRequest/salary-adjustment-request/salary-adjustment-request.component';
+import { AddExpenseComponent } from './EmployeeRequest/add-expense/add-expense.component';
+import { EmployeeResignformComponent } from './EmployeeRequest/employee-resignform/employee-resignform.component';
 
 
 @NgModule({
@@ -35,7 +41,13 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     PayslipComponent,
     ContributioncertificateComponent,
     CertificateofloanComponent,
-    EmploymentcertificateComponent
+    EmploymentcertificateComponent,
+    ApplyLeaveComponent,
+    ApplyloansComponent,
+    ApplyOTComponent,
+    SalaryAdjustmentRequestComponent,
+    AddExpenseComponent,
+    EmployeeResignformComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +56,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     FormsModule ,
     NgxDropzoneModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ]
 })
 export class EmployeeModule { }
