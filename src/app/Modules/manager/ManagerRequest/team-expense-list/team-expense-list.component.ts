@@ -8,46 +8,101 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
   styleUrls: ['./team-expense-list.component.css']
 })
 export class TeamExpenseListComponent implements OnInit {
-
+  term: any
+  currentUrl: any;
+  expencesName: any;
+  Decription: any;
+  Notes: any;
+  projectlist: any;
+  projectlist1: any;
   viewMode = 'tab1';
   staffID: any;
   roleid: any
   constructor(public DigiofficeService: DigipayrollserviceService) { }
   ngOnInit(): void {
+
+    this.currentUrl = window.location.href;
     this.GetExpensesListweb();
     this.GetExpensesListweb1();
     this.staffID = sessionStorage.getItem('staffid');
     this.roleid = sessionStorage.getItem('roledid');
   }
-  term: any
-  
-  projectlist: any;
-  projectlist1:any;
+
   public GetExpensesListweb() {
     debugger
-    this.DigiofficeService.GetExpensesListweb().subscribe(data => {
-      debugger
-      this.projectlist1 = data.filter(x => x.supervisor == this.staffID && (x.approvalStatus=='Manager Pending Finance Pending'  || x.approvalStatus==null))
-     
-    })
+    this.DigiofficeService.GetExpensesListweb()
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.projectlist1 = data.filter(x => x.supervisor == this.staffID && (x.approvalStatus == 'Manager Pending Finance Pending' || x.approvalStatus == null))
+
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpensesListweb');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   public GetExpensesListweb1() {
     debugger
-    this.DigiofficeService.GetExpensesListweb().subscribe(data => {
-      debugger
-      this.projectlist = data.filter(x => x.supervisor == this.staffID && x.approvalStatus!='Manager Pending Finance Pending'  && x.approvalStatus!=null)
-     
-    })
+    this.DigiofficeService.GetExpensesListweb()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.projectlist = data.filter(x => x.supervisor == this.staffID && x.approvalStatus != 'Manager Pending Finance Pending' && x.approvalStatus != null)
+
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpensesListweb');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
   }
   date: any;
   public Getdate(event: any) {
     debugger
     this.date = event?.target.value
-    this.DigiofficeService.GetExpensesListweb().subscribe(data => {
-      debugger
-      this.projectlist = data.filter(x => x.supervisor == this.staffID && x.filterdate == this.date)
-    })
+    this.DigiofficeService.GetExpensesListweb()
+      .subscribe({
+        next: data => {
+          debugger
+          this.projectlist = data.filter(x => x.supervisor == this.staffID && x.filterdate == this.date)
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpensesListweb');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
   }
 
   selecallbtn: any;
@@ -73,20 +128,37 @@ export class TeamExpenseListComponent implements OnInit {
         ApproveBit: 1
 
       }
-      this.DigiofficeService.UpdateExpencesApproveBySupervisor(entity).subscribe(data => {
-        Swal.fire("Approved Successfully");
-        location.reload()
-        // location.href = "#/Companydashbaord";
-      })
+      this.DigiofficeService.UpdateExpencesApproveBySupervisor(entity)
+
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire("Approved Successfully");
+            location.reload()
+            // location.href = "#/Companydashbaord";
+          }, error: (err) => {
+            Swal.fire('Issue in Getting ApproveBySupervisor');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+
+
     }
     this.ngOnInit();
   }
 
 
 
-  expencesName: any;
-  Decription: any;
-  Notes: any;
+
   public UpdateExpencesApproveBySupervisor(id: any) {
     debugger;
     var entity = {
@@ -95,11 +167,29 @@ export class TeamExpenseListComponent implements OnInit {
       ApproveBit: 1
 
     }
-    this.DigiofficeService.UpdateExpencesApproveBySupervisor(entity).subscribe(data => {
-      Swal.fire("Approved Successfully");
-      location.reload()
-      // location.href = "#/Companydashbaord";
-    })
+    this.DigiofficeService.UpdateExpencesApproveBySupervisor(entity)
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Approved Successfully");
+          location.reload()
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpencesApproveBySupervisor');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
 
   }
   id: any;
@@ -117,13 +207,30 @@ export class TeamExpenseListComponent implements OnInit {
       Status: 'Manager Rejected',
 
     }
-    this.DigiofficeService.UpdateExpencesReject(entity).subscribe(data => {
-      Swal.fire("Rejected Successfully");
-      location.reload()
-      // location.href = "#/Companydashbaord";
+    this.DigiofficeService.UpdateExpencesReject(entity)
 
 
-    })
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Rejected Successfully");
+          location.reload()
+          // location.href = "#/Companydashbaord";
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpencesReject');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
 
   }
   temp: any;
