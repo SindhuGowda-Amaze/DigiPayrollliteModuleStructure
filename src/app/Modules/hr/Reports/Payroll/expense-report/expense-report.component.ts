@@ -14,8 +14,19 @@ export class ExpenseReportComponent implements OnInit {
   loader:any;
   viewMode = 'tab1';
   staffID: any;
-  roleid: any
-  constructor(public DigiofficeService: DigipayrollserviceService) { }
+  roleid: any;
+  enddate:any;
+  term: any
+  startdate:any;
+  projectlist: any;
+  projectlist1: any;
+  date: any;
+  selecallbtn: any;
+  expencesName: any;
+  Decription: any;
+  Notes: any;
+  id: any;
+  constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
   ngOnInit(): void {
     this.GetExpensesListweb();
     this.GetExpensesListweb1();
@@ -23,15 +34,11 @@ export class ExpenseReportComponent implements OnInit {
     this.roleid = sessionStorage.getItem('roledid');
   }
 
-  enddate:any;
-  term: any
-  startdate:any;
-  projectlist: any;
-  projectlist1: any;  
+  
 
   public GetExpensesListweb() {
     debugger
-    this.DigiofficeService.GetExpensesListweb().subscribe(data => {
+    this.DigipayrollserviceService.GetExpensesListweb().subscribe(data => {
       debugger
       this.projectlist1 = data.filter(x => (x.status == 'Manager Pending'))
 
@@ -40,23 +47,22 @@ export class ExpenseReportComponent implements OnInit {
 
   public GetExpensesListweb1() {
     debugger
-    this.DigiofficeService.GetExpensesListweb().subscribe(data => {
+    this.DigipayrollserviceService.GetExpensesListweb().subscribe(data => {
       debugger
       this.projectlist = data.filter(x =>  x.status == 'Manager Approved' && x.approvalStatus != null)
 
     })
   }
-  date: any;
+
   public Getdate(event: any) {
     debugger
     this.date = event?.target.value
-    this.DigiofficeService.GetExpensesListweb().subscribe(data => {
+    this.DigipayrollserviceService.GetExpensesListweb().subscribe(data => {
       debugger
       this.projectlist = data.filter(x => (x.filterdate >= this.startdate && x.filterdate <= this.enddate) &&  x.status == 'Manager Approved' )
     })
   }
 
-  selecallbtn: any;
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
     this.selecallbtn = true;
     var inputs = document.getElementsByTagName("input");
@@ -80,7 +86,7 @@ export class ExpenseReportComponent implements OnInit {
         ApproveBit: 1
 
       }
-      this.DigiofficeService.UpdateExpencesApproveBySupervisor(entity).subscribe(data => {
+      this.DigipayrollserviceService.UpdateExpencesApproveBySupervisor(entity).subscribe(data => {
         Swal.fire("Approved Successfully");
         location.reload()
         // location.href = "#/Companydashbaord";
@@ -91,9 +97,7 @@ export class ExpenseReportComponent implements OnInit {
 
 
 
-  expencesName: any;
-  Decription: any;
-  Notes: any;
+  
   public UpdateExpencesApproveBySupervisor(id: any) {
     debugger;
     var entity = {
@@ -102,14 +106,14 @@ export class ExpenseReportComponent implements OnInit {
       ApproveBit: 1
 
     }
-    this.DigiofficeService.UpdateExpencesApproveBySupervisor(entity).subscribe(data => {
+    this.DigipayrollserviceService.UpdateExpencesApproveBySupervisor(entity).subscribe(data => {
       Swal.fire("Approved Successfully");
       location.reload()
       // location.href = "#/Companydashbaord";
     })
 
   }
-  id: any;
+
   public getid(id: any) {
     this.id = id
 
@@ -124,7 +128,7 @@ export class ExpenseReportComponent implements OnInit {
       Status: 'Manager Rejected',
 
     }
-    this.DigiofficeService.UpdateExpencesReject(entity).subscribe(data => {
+    this.DigipayrollserviceService.UpdateExpencesReject(entity).subscribe(data => {
       Swal.fire("Rejected Successfully");
       location.reload()
       // location.href = "#/Companydashbaord";

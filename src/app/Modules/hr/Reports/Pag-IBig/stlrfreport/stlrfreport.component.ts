@@ -14,8 +14,6 @@ import { DatePipe } from '@angular/common';
 })
 export class STLRFReportComponent implements OnInit {
 
-  constructor(private DigipayrollServiceService: DigipayrollserviceService, private ActivatedRoute: ActivatedRoute, private datePipe: DatePipe) { }
-
   Month:any;
   Year:any;
   Loan:any;
@@ -23,32 +21,11 @@ export class STLRFReportComponent implements OnInit {
   showleaseforprint:any;
   loader:any;
   myDate:any;
-  ngOnInit(): void {
-this.Loan="";
-this.Month="";
-this.Year="";
-this.sign="";
-    this.showleaseforprint = 0;
-    this.loader=false;
-
-    this.myDate = new Date();
-  }
-
-
   fullname:any;
   sign:any;
   department:any;
   signname:any;
   stafflist1:any;
-  public getsign(){
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      this.stafflist1 = data.filter(x => x.department_name == this.sign);
-      this.signname = this.stafflist1[0].fullname
-    });
-  }
-
-
   employeelist:any;
   uniquelist:any;
   MonthlyAdjustment:any;
@@ -63,26 +40,95 @@ this.sign="";
   companyid:any;
   MobileNumber:any;
   pagibigno:any;
+  stafflist:any;
+  uniquelist1:any;
+  results:any;
+  stafflist2:any;
+  Province:any;
+  Barangay:any;
+  cityname:any;
+  Zipcode:any;
+  currentUrl: any;
+
+  constructor(private DigipayrollServiceService: DigipayrollserviceService, private ActivatedRoute: ActivatedRoute, private datePipe: DatePipe) { }
+
+  ngOnInit(): void {
+this.currentUrl = window.location.href;
+this.Loan="";
+this.Month="";
+this.Year="";
+this.sign="";
+    this.showleaseforprint = 0;
+    this.loader=false;
+
+    this.myDate = new Date();
+  }
+
+
+  
+  public getsign(){
+    this.DigipayrollServiceService.GetMyDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist1 = data.filter(x => x.department_name == this.sign);
+        this.signname = this.stafflist1[0].fullname
+      }, error: (err) => {
+        Swal.fire('Issue in  GetMyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
+
+  }
+
+
   public showpdf(){
   
-    this.DigipayrollServiceService.GetEmployeeLoans().subscribe(data => {
-      debugger
+    this.DigipayrollServiceService.GetEmployeeLoans()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.employeelist = data.filter(x=>x.employeeMonth==this.Month && String(x.emplyeeYear)==this.Year && x.loanType==this.Loan && x.paidamount!=0);
       const key = 'monthstaffid'
       if( this.employeelist.length==0){
         Swal.fire('No Records Found')
       }
       else{
-        this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
-          debugger
-          this.companylist = data
-          this.companyid = this.companylist[0].id,
-          this.companyname = this.companylist[0].company_Name,
-          this.Address = this.companylist[0].address
-         this.MobileNumber = this.companylist[0].address
-         this.pagibigno = this.companylist[0].hdmfNumber
-    
-    
+        this.DigipayrollServiceService.GetCompanyAddressDetails()
+        
+        .subscribe({
+          next: data => {
+            debugger
+            this.companylist = data
+            this.companyid = this.companylist[0].id,
+            this.companyname = this.companylist[0].company_Name,
+            this.Address = this.companylist[0].address
+           this.MobileNumber = this.companylist[0].address
+           this.pagibigno = this.companylist[0].hdmfNumber
+      
+          }, error: (err) => {
+            Swal.fire('Issue in GetCompanyAddressDetails');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
         })
 
         this.showleaseforprint = 1;
@@ -105,33 +151,56 @@ this.sign="";
      
 
       }
-      
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeLoans');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
 
+    
 
-      });
   }
 
 
-  stafflist:any;
-  uniquelist1:any;
  
-  results:any;
-  stafflist2:any;
-  Province:any;
-  Barangay:any;
-  cityname:any;
-  Zipcode:any;
 public getemployee(){
 
    
-  this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-    debugger
-    this.stafflist = data.filter(x => x.emplyeeYear==this.Year && x.monthlyAdjustment!=0 );
-  });
+  this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+  
+  .subscribe({
+    next: data => {
+      debugger
+      this.stafflist = data.filter(x => x.emplyeeYear==this.Year && x.monthlyAdjustment!=0 );
+    }, error: (err) => {
+      Swal.fire('Issue in GetEmployeeSalaryMonthly');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
 
 
-  this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
-    debugger
+
+  this.DigipayrollServiceService.GetCompanyAddressDetails()
+  
+  .subscribe({
+    next: data => {
+      debugger
     this.companylist = data
     this.companyid = this.companylist[0].id,
     this.companyname = this.companylist[0].company_Name,
@@ -142,14 +211,28 @@ public getemployee(){
    this.Barangay = this.companylist[0].barangay
    this.cityname = this.companylist[0].cityname
    this.Zipcode = this.companylist[0].zipcode
-
+    }, error: (err) => {
+      Swal.fire('Issue in GetCompanyAddressDetails');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
   })
 
  
 if(this.stafflist.length!=0){
   const key = 'id'
-  this.DigipayrollServiceService.GetEmployeeLoans().subscribe(data => {
-    debugger
+  this.DigipayrollServiceService.GetEmployeeLoans()
+  
+  .subscribe({
+    next: data => {
+      debugger
     this.stafflist2 = data.filter(x => x.loanType==this.Loan );
 
     this.results = this.stafflist2.map((val: { staffID: any; }) => {
@@ -169,8 +252,20 @@ if(this.stafflist.length!=0){
         for (let i = 0; i < this.results.length; i++) {
           this.MonthlyAdjustment += this.uniquelist[i].monthlyAdjustment;
         }
-  
-  });
+    }, error: (err) => {
+      Swal.fire('Issue in GetEmployeeLoans');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
+
 
 }
 

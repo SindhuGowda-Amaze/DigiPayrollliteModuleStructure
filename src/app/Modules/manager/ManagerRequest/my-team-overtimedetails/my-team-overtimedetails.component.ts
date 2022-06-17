@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class MyTeamOvertimedetailsComponent implements OnInit {
 
   viewMode = 'tab1';
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
   selecallbtn: any;
   projectlist: any;
   attendancelist: any;
@@ -47,7 +46,11 @@ export class MyTeamOvertimedetailsComponent implements OnInit {
   day: any
   attendancelistcopy: any;
   timedetails: any;
+  currentUrl: any;
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.Department = "";
     this.RoleType = "";
     this.roleid = sessionStorage.getItem('roledid');
@@ -73,12 +76,28 @@ export class MyTeamOvertimedetailsComponent implements OnInit {
 
   public GetMyOverTimeDetails() {
     debugger
-    this.DigiofficeService.GetStaffOverTimeDetails().subscribe(data => {
-      debugger
-      this.timedetails = data.filter(x=>x.supervisor==sessionStorage.getItem('staffid'));
-      this.count = this.timedetails.length
-    },
-    )
+    this.DigiofficeService.GetStaffOverTimeDetails()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.timedetails = data.filter(x => x.supervisor == sessionStorage.getItem('staffid'));
+          this.count = this.timedetails.length
+        }, error: (err) => {
+          Swal.fire('Issue in Getting StaffOverTimeDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
   }
 
   public getovertime() {
@@ -87,17 +106,35 @@ export class MyTeamOvertimedetailsComponent implements OnInit {
     //   debugger
     //   this.projectlist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid'))
     // })
-    this.DigiofficeService.GetAttendance().subscribe(data => {
-      debugger
-      if (this.roleid == 9) {
-        this.attendancelist = data
-      }
-      else{
-        this.attendancelist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid') && x.ot > 0 && (x.approvalStatus==null || x.approvalStatus=='Manager Pending HR Pending' || x.approvalStatus=='Manager Pending' || x.approvalStatus=='Manager Approved HR Pending' || x.approvalStatus=='Manager Approved' || x.approvalStatus=='Manager Rejected'))
-        this.attendancelistcopy=this.attendancelist
-      }
+    this.DigiofficeService.GetAttendance()
 
-    })
+      .subscribe({
+        next: data => {
+          debugger
+          if (this.roleid == 9) {
+            this.attendancelist = data
+          }
+          else {
+            this.attendancelist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid') && x.ot > 0 && (x.approvalStatus == null || x.approvalStatus == 'Manager Pending HR Pending' || x.approvalStatus == 'Manager Pending' || x.approvalStatus == 'Manager Approved HR Pending' || x.approvalStatus == 'Manager Approved' || x.approvalStatus == 'Manager Rejected'))
+            this.attendancelistcopy = this.attendancelist
+          }
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Attendance');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
+
 
   }
 
@@ -117,109 +154,192 @@ export class MyTeamOvertimedetailsComponent implements OnInit {
 
   public ManagerLeaveApprove(id: any) {
     debugger
-    
-      var entity = {
-        'ID': id.id,
-        'ApprovalStatus': 'Manager Approved',
-        'UserID':  id.userID
-        
-  
-      }
-      this.DigiofficeService.ApproveOtRequest(entity).subscribe(data => {
-     
+
+    var entity = {
+      'ID': id.id,
+      'ApprovalStatus': 'Manager Approved',
+      'UserID': id.userID
+
+
+    }
+    this.DigiofficeService.ApproveOtRequest(entity)
+
+
+      .subscribe({
+        next: data => {
+          debugger
           Swal.fire("Approved Successfully");
           this.ngOnInit();
-  
-        
-  
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ApproveOtRequest');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
-     
-   
-   
+
 
 
   }
 
   public ManagerReject(id: any) {
     debugger
-    
-      var entity = {
-        'ID': id.id,
-        'ApprovalStatus': 'Manager Rejected',
-        'UserID':  id.userID
-        
-  
-      }
-      this.DigiofficeService.ApproveOtRequest(entity).subscribe(data => {
-     
+
+    var entity = {
+      'ID': id.id,
+      'ApprovalStatus': 'Manager Rejected',
+      'UserID': id.userID
+
+
+    }
+    this.DigiofficeService.ApproveOtRequest(entity)
+
+      .subscribe({
+        next: data => {
+          debugger
           Swal.fire("Rejected Successfully");
           this.ngOnInit();
-  
-        
-  
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ApproveOtRequest');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
-     
-   
-   
+
+
 
 
   }
 
   public ManagerLeaveReject(id: any) {
     debugger
-    
-      var entity = {
-        'ID': id.id,
-        'ApprovalStatus': 'Manager Rejected',
-        'UserID':  id.userID
-        
-  
-      }
-      this.DigiofficeService.ApproveOtRequest(entity).subscribe(data => {
-        
+
+    var entity = {
+      'ID': id.id,
+      'ApprovalStatus': 'Manager Rejected',
+      'UserID': id.userID
+
+
+    }
+    this.DigiofficeService.ApproveOtRequest(entity)
+
+
+
+      .subscribe({
+        next: data => {
+          debugger
           Swal.fire("Rejected Successfully");
           this.ngOnInit();
-  
-        
-  
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ApproveOtRequest');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
-     
-    
-  
-   
+
 
 
   }
-  
+
 
   public FilterRoleType() {
     debugger
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      debugger
-      this.attendancelist = data.filter(x => x.roleType == this.RoleType || (x.supervisor == sessionStorage.getItem('staffid') && x.ot > 0));
-      this.count = this.attendancelist.length;
-    });
+    this.DigiofficeService.GetMyDetails()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.attendancelist = data.filter(x => x.roleType == this.RoleType || (x.supervisor == sessionStorage.getItem('staffid') && x.ot > 0));
+          this.count = this.attendancelist.length;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
   }
 
   public filterByDepartment() {
     debugger
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      debugger
-      this.attendancelist = data.filter(x => x.department == this.Department || (x.supervisor == sessionStorage.getItem('staffid') && x.ot > 0));
-      this.count = this.attendancelist.length;
-    });
+    this.DigiofficeService.GetMyDetails()
 
+      .subscribe({
+        next: data => {
+          debugger
+          this.attendancelist = data.filter(x => x.department == this.Department || (x.supervisor == sessionStorage.getItem('staffid') && x.ot > 0));
+          this.count = this.attendancelist.length;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting MyDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
 
   edate: any;
   public getdate() {
     debugger
-    this.DigiofficeService.GetAttendance().subscribe(data => {
-      debugger
-      this.attendancelist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid') && (x.filterdate >= this.date && x.filterdate1 <= this.edate))
-    })
+    this.DigiofficeService.GetAttendance()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.attendancelist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid') && (x.filterdate >= this.date && x.filterdate1 <= this.edate))
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Attendance');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   temp: any;
@@ -282,15 +402,28 @@ export class MyTeamOvertimedetailsComponent implements OnInit {
       'daytype': this.day
 
     }
-    this.DigiofficeService.InsertStaffOverTimeDetails(eb).subscribe(
+    this.DigiofficeService.InsertStaffOverTimeDetails(eb)
 
-      data => {
-        debugger
-        Swal.fire('Saved successfully.');
-        this.router.navigate(['/MyOverTimeDetails']);
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Saved successfully.');
+          this.router.navigate(['/MyOverTimeDetails']);
+        }, error: (err) => {
+          Swal.fire('Issue in Getting StaffOverTimeDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
-      },
-    )
   }
 
   id: any;
@@ -306,52 +439,76 @@ export class MyTeamOvertimedetailsComponent implements OnInit {
   public ManagerOTApprove(id: any) {
     debugger
 
-      var entity = {
-        'ID': id.id,
-        'Status': 'Manager Approved',
+    var entity = {
+      'ID': id.id,
+      'Status': 'Manager Approved',
 
 
-      }
-      this.DigiofficeService.UpdateOtFromManager(entity).subscribe(data => {
+    }
+    this.DigiofficeService.UpdateOtFromManager(entity)
 
-        Swal.fire("Approved Successfully");
-        this.ngOnInit();
-
-
-
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Approved Successfully");
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Getting OtFromManager');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
-    
-  
-   
-    
+
+
+
   }
-  id1:any;
-  public getid(id:any){
-    this.id1=id
+  id1: any;
+  public getid(id: any) {
+    this.id1 = id
   }
-  RejectReason:any;
+  RejectReason: any;
 
   public ManagerOTReject() {
     debugger
 
-      var entity = {
-        'ID': this.id1,
-        'Status': 'Manager Rejected',
-        'RejectReason': this.RejectReason
+    var entity = {
+      'ID': this.id1,
+      'Status': 'Manager Rejected',
+      'RejectReason': this.RejectReason
 
 
-      }
-      this.DigiofficeService.UpdateOtFromManager(entity).subscribe(data => {
+    }
+    this.DigiofficeService.UpdateOtFromManager(entity)
 
-        Swal.fire("Rejected Successfully");
-        this.ngOnInit();
-
-
-
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Rejected Successfully");
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
-    
-  
-   
-    
+
+
+
   }
 }

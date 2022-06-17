@@ -11,10 +11,26 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./my-team-leavedetails.component.css']
 })
 export class MyTeamLeavedetailsComponent implements OnInit {
-
+  currentUrl: any;
   IntID: boolean = false;
   public ID: any = [];
   temp: any
+  password1: any;
+  supervisoremail: any;
+  employeename: any;
+  employeeemail: any;
+  term: any;
+  staffleaves: any;
+  staffleaves1: any;
+  leaveconfig: any;
+  leaveTypeID: any;
+  autoApproval: any;
+  id: any;
+  edate: any;
+  sdte: any;
+  Notes: any;
+
+
   constructor(public DigiofficeService: DigipayrollserviceService, public router: Router, public datePipe: DatePipe) { }
   public showorhidecontent: any;
   options: FullCalendarOptions | undefined;
@@ -32,29 +48,46 @@ export class MyTeamLeavedetailsComponent implements OnInit {
   public options1: any;
   public todayDay = this.datePipe.transform(new Date().getDay(), 'EEEE');
   public selecallbtn: any;
-  approved:any;
+  approved: any;
   roledid: any;
-  month:any;
+  month: any;
   viewMode = 'tab1';
   ngOnInit(): void {
-    this.approved=0
+    this.currentUrl = window.location.href;
+    this.approved = 0
     this.selecallbtn = false;
-    this.month=new Date().getMonth();
+    this.month = new Date().getMonth();
     this.roledid = sessionStorage.getItem('roledid');
     this.getstaffleaves();
   }
 
-  term: any;
-  staffleaves: any;
-  staffleaves1: any;
+
   public getstaffleaves() {
     debugger
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
-      debugger
-      this.staffleaves = data.filter((x: { supervisor: string | null; status : string }) => x.supervisor == sessionStorage.getItem('staffid') && x.status != 'Manager Pending HR Pending' &&  x.status != 'Manager Pending' );
-      this.staffleaves1 = data.filter((x: { supervisor: string | null; status: any }) => x.supervisor == sessionStorage.getItem('staffid') && (x.status == 'Manager Pending HR Pending' || x.status == 'Manager Pending' || x.status== 'Cancellation Pending'));
-      this.buildcallender(this.staffleaves);
-    })
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.staffleaves = data.filter((x: { supervisor: string | null; status: string }) => x.supervisor == sessionStorage.getItem('staffid') && x.status != 'Manager Pending HR Pending' && x.status != 'Manager Pending');
+          this.staffleaves1 = data.filter((x: { supervisor: string | null; status: any }) => x.supervisor == sessionStorage.getItem('staffid') && (x.status == 'Manager Pending HR Pending' || x.status == 'Manager Pending' || x.status == 'Cancellation Pending'));
+          this.buildcallender(this.staffleaves);
+        }, error: (err) => {
+          Swal.fire('Issue in Getting StaffLeaves');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
   }
   public newlevae() {
     debugger
@@ -70,12 +103,12 @@ export class MyTeamLeavedetailsComponent implements OnInit {
   };
 
 
-  public Approved(){
-    this.approved=1
+  public Approved() {
+    this.approved = 1
   }
 
-  public Pending(){
-    this.approved=0
+  public Pending() {
+    this.approved = 0
   }
 
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
@@ -115,62 +148,113 @@ export class MyTeamLeavedetailsComponent implements OnInit {
         'NoOfDays': this.ID[i].noOfDays
 
       }
-      this.DigiofficeService.ApproveStaffLeavesNew(entity).subscribe(data => {
-        if (data != 0) {
-          Swal.fire("Approved Successfully");
-          this.ngOnInit();
+      this.DigiofficeService.ApproveStaffLeavesNew(entity)
 
-        }
+        .subscribe({
+          next: data => {
+            debugger
+            if (data != 0) {
+              Swal.fire("Approved Successfully");
+              this.ngOnInit();
 
-      })
+            }
+          }, error: (err) => {
+            Swal.fire('Issue in Getting StaffLeavesNew');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+
+
+
     }
     this.ngOnInit();
   }
-  leaveconfig:any;
-  leaveTypeID:any;
-  autoApproval:any;
+
   public ManagerLeaveApprove(id: any) {
     debugger
-    
-    if (id.status == 'Manager Pending'){
+
+    if (id.status == 'Manager Pending') {
       var entity = {
         'ID': id.id,
         'Status1': 'Manager Approved',
         'StaffName': id.staffID,
         'LeaveTypeID': id.leaveTypeID,
         'NoOfDays': id.noOfDays,
-  
+
       }
-      this.DigiofficeService.ApproveStaffLeavesNew(entity).subscribe(data => {
-        if (data != 0) {
-          Swal.fire("Approved Successfully");
-          this.getpassword('Approved',id.staffID)
-          this.ngOnInit();
-  
-        }
-  
-      })
+      this.DigiofficeService.ApproveStaffLeavesNew(entity)
+
+        .subscribe({
+          next: data => {
+            debugger
+            if (data != 0) {
+              Swal.fire("Approved Successfully");
+              this.getpassword('Approved', id.staffID)
+              this.ngOnInit();
+
+            }
+          }, error: (err) => {
+            Swal.fire('Issue in Getting StaffLeavesNew');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+
+
     }
-    else if  (id.status == 'Cancellation Pending'){
+    else if (id.status == 'Cancellation Pending') {
       var entity = {
         'ID': id.id,
         'Status1': 'Manager Approved HR Pending',
         'StaffName': id.staffID,
         'LeaveTypeID': id.leaveTypeID,
         'NoOfDays': id.noOfDays,
-  
+
       }
-    
-        this.DigiofficeService.ApproveCancelledLeave(entity).subscribe(data => {
-          debugger
-          Swal.fire('Cancelled Successfully');
-          this.getpassword('Cancellation Approved',id.staffID)
-          this.ngOnInit();
+
+      this.DigiofficeService.ApproveCancelledLeave(entity)
+
+
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Cancelled Successfully');
+            this.getpassword('Cancellation Approved', id.staffID)
+            this.ngOnInit();
+          }, error: (err) => {
+            Swal.fire('Issue in Getting CancelledLeave');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
         })
-    
-      
+
     }
-  
+
 
 
   }
@@ -184,12 +268,28 @@ export class MyTeamLeavedetailsComponent implements OnInit {
     //   this.staffleaves = data.filter((x: { supervisor: string | null; filterdate: any; }) => x.supervisor == sessionStorage.getItem('staffid') && x.filterdate == this.date);
     // })
 
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
-      debugger
-      this.staffleaves1 = data.filter((x: { supervisor: string | null; status : string ,month:string,endmonth:string}) => x.supervisor == sessionStorage.getItem('staffid') && x.status == 'Manager Pending HR Pending' ||  x.status == 'Manager Pending' && x.month == (this.month+1)  );
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
 
-    })
- 
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.staffleaves1 = data.filter((x: { supervisor: string | null; status: string, month: string, endmonth: string }) => x.supervisor == sessionStorage.getItem('staffid') && x.status == 'Manager Pending HR Pending' || x.status == 'Manager Pending' && x.month == (this.month + 1));
+        }, error: (err) => {
+          Swal.fire('Issue in Getting StaffLeaves');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
   }
 
   public ManagerLeaveDecline() {
@@ -201,22 +301,37 @@ export class MyTeamLeavedetailsComponent implements OnInit {
       'StartDate': this.sdte,
       'EndDate': this.edate,
     }
-    this.DigiofficeService.UpdateStaffLeaves(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Rejected Successfully");
-        this.getpassword('Rejected',this.id)
-        location.reload();
+    this.DigiofficeService.UpdateStaffLeaves(entity)
 
-      }
+      .subscribe({
+        next: data => {
+          debugger
+          if (data != 0) {
+            Swal.fire("Rejected Successfully");
+            this.getpassword('Rejected', this.id)
+            location.reload();
 
-    })
+          }
+
+        }, error: (err) => {
+          Swal.fire('Issue in Getting StaffLeaves');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
 
   }
 
-  id: any;
-  edate: any;
-  sdte: any;
-  Notes: any;
+
   public GetRejectID(list: any) {
     this.id = list.id;
     this.sdte = list.sdte;
@@ -262,7 +377,7 @@ export class MyTeamLeavedetailsComponent implements OnInit {
 
     if (evn.target.value == 1) {
       this.showorhidecontent = true;
-     
+
     }
     else {
       this.showorhidecontent = false;
@@ -324,9 +439,9 @@ export class MyTeamLeavedetailsComponent implements OnInit {
           this.callenderdaysdount[currenteventlist[0].date - 1]['StartTime'] = MaintainanceList[j].startTime;
           this.callenderdaysdount[currenteventlist[0].date - 1]['EndTime'] = MaintainanceList[j].endTime;
           this.callenderdaysdount[currenteventlist[0].date - 1]['mantainenceHtml'] =
-          this.callenderdaysdount[currenteventlist[0].date - 1]['mantainenceHtml'] =
-          // "<span class='event_PendingBookCommunity'> Leave ID : " + MaintainanceList[j].id +
-          "<br>  Staff Name  :" + MaintainanceList[j].staffName + " <br> " 
+            this.callenderdaysdount[currenteventlist[0].date - 1]['mantainenceHtml'] =
+            // "<span class='event_PendingBookCommunity'> Leave ID : " + MaintainanceList[j].id +
+            "<br>  Staff Name  :" + MaintainanceList[j].staffName + " <br> "
           // "<br>  Reason : " + MaintainanceList[j].leaveReason +
           "</span>";
         }
@@ -335,16 +450,34 @@ export class MyTeamLeavedetailsComponent implements OnInit {
 
     }
   }
-  staffleaves2:any;
-  date234:any;
-  changeStatus1(date:any) {
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
-      debugger
-      this.staffleaves2 = data.filter((x: { supervisor: string | null , sdate: string;edate : string  }) => x.supervisor == sessionStorage.getItem('staffid') &&  x.sdate >= date && date <= x.edate   );
-      this.date234=date
-    })
+  staffleaves2: any;
+  date234: any;
+  changeStatus1(date: any) {
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.staffleaves2 = data.filter((x: { supervisor: string | null, sdate: string; edate: string }) => x.supervisor == sessionStorage.getItem('staffid') && x.sdate >= date && date <= x.edate);
+          this.date234 = date
+        }, error: (err) => {
+          Swal.fire('Issue in Getting StaffLeaves');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
   }
+
 
   public ShowMaintenanceRequest(evn: any) {
     debugger;
@@ -375,25 +508,39 @@ export class MyTeamLeavedetailsComponent implements OnInit {
 
   }
 
-  password1: any;
-  supervisoremail:any;
-  employeename:any;
-  employeeemail:any;
-  getpassword(status:any,staffid:any) {
-    debugger;
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      let temp: any = data.filter(x => x.id == staffid);
-      if (temp.length != 0) {
-        this.employeeemail = temp[0].official_Email;
-        this.employeename = temp[0].name;
-        this.sendemail(status);
-      }
 
-    })
+  getpassword(status: any, staffid: any) {
+    debugger;
+    this.DigiofficeService.GetMyDetails()
+      .subscribe({
+        next: data => {
+          debugger
+          let temp: any = data.filter(x => x.id == staffid);
+          if (temp.length != 0) {
+            this.employeeemail = temp[0].official_Email;
+            this.employeename = temp[0].name;
+            this.sendemail(status);
+          }
+        }, error: (err) => {
+          Swal.fire('Issue in Getting MyDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
   }
-  
+
   public Attactments = [];
-  public sendemail(status:any) {
+  public sendemail(status: any) {
     var entity1 = {
       'emailto': this.employeeemail,
       'emailsubject': 'Leave Application',
@@ -402,17 +549,31 @@ export class MyTeamLeavedetailsComponent implements OnInit {
       'cclist': this.employeeemail,
       'bcclist': this.employeeemail,
     }
-    this.DigiofficeService.sendemail1(entity1).subscribe(res => {
-      debugger;
-      this.Attactments = [];
+    this.DigiofficeService.sendemail1(entity1)
 
-      
-    })
+      .subscribe({
+        next: data => {
+          debugger
+          this.Attactments = [];
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
   }
 
 
-  
+
   // public ShowMaintenanceRequest(evn: any) {
   //   debugger;
   //   var html = evn.srcElement.innerText.split(': ');
