@@ -232,7 +232,7 @@ export class ApplyLeaveComponent implements OnInit {
   
         }
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting LeaveType');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -274,7 +274,7 @@ export class ApplyLeaveComponent implements OnInit {
             this.InserStaffLeave()
           }
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting ProjectAttachmentse');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -310,7 +310,7 @@ export class ApplyLeaveComponent implements OnInit {
             Swal.fire('You Dont have Medical Leave')
           }
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting MyDetails');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -339,7 +339,7 @@ export class ApplyLeaveComponent implements OnInit {
           Swal.fire('You Dont have Marriage Leave')
         }
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting MyDetails');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -371,7 +371,7 @@ export class ApplyLeaveComponent implements OnInit {
             Swal.fire('You Can not Apply Maternity  Leave');
           }
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting MyDetails');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -473,7 +473,7 @@ export class ApplyLeaveComponent implements OnInit {
             this.InsertNotification();
           }
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting StaffLeave');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -614,7 +614,7 @@ export class ApplyLeaveComponent implements OnInit {
             })
           }
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting LeaveConfiguration');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -663,7 +663,7 @@ export class ApplyLeaveComponent implements OnInit {
   
         }
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting Notification');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -708,15 +708,33 @@ export class ApplyLeaveComponent implements OnInit {
   
 
   getpassword() {
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-      if (temp.length != 0) {
-        this.supervisoremail = temp[0].supervisoremail;
-        this.employeename = temp[0].name;
-        this.sendemail();
+    this.DigiofficeService.GetMyDetails()
+   .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+        if (temp.length != 0) {
+          this.supervisoremail = temp[0].supervisoremail;
+          this.employeename = temp[0].name;
+          this.sendemail();
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
     })
+
+
+
   }
   
   public Attactments = [];
@@ -737,7 +755,7 @@ export class ApplyLeaveComponent implements OnInit {
         debugger
         this.Attactments = [];
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting sendemail1');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,

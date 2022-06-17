@@ -38,7 +38,7 @@ export class EmployeeResignformComponent implements OnInit {
         debugger
         this.employeelist = data;
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting MyDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -77,7 +77,7 @@ export class EmployeeResignformComponent implements OnInit {
           debugger
           Swal.fire("Saved Successfully");
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting StaffExitFormality');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,

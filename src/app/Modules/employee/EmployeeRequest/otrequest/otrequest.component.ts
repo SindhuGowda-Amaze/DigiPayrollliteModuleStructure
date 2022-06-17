@@ -51,7 +51,7 @@ export class OTrequestComponent implements OnInit {
         debugger
         this.attendancelist = data.filter(x => x.staffID == sessionStorage.getItem('staffid') && (x.filterdate >= this.date && x.filterdate1 <= this.edate));
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting StaffOverTimeDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -76,7 +76,7 @@ public getdate1(){
       this.timedetails=data.filter(x=>x.staffID==this.staffid && (x.filterdate >= this.date && x.filterdate <= this.edate) );
       this.count=this.timedetails.length
     }, error: (err) => {
-      Swal.fire('Issue in Getting City Type');
+      Swal.fire('Issue in Getting StaffOverTimeDetailse');
       // Insert error in Db Here//
       var obj = {
         'PageName': this.currentUrl,
@@ -104,7 +104,7 @@ public getdate1(){
         Swal.fire('Cancelled Successfully');
       this.ngOnInit();
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting StaffOverTimeDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -132,7 +132,7 @@ public getdate1(){
         this.count=this.timedetails.length
         this.loader=false;
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting StaffOverTimeDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
