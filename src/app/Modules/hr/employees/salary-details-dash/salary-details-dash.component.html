@@ -60,7 +60,7 @@
                     <p class="show3res">SHOWING <span style="color: #3247D5;">{{leavelist.length}} </span>RESULTS</p>
                 </div>
                 <div class="col-md-4">
-                    <button class=" AddButton" routerLink="/Addstaffsalary">Add</button>
+                    <button class=" AddButton" routerLink="/hr/StaffSalaryForm">Add</button>
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                                 <td>{{holiday.deniminimis_amount}}</td>
                                 <td>{{holiday.totalnet}}</td>
                                 <td> <button class="upload"
-                                        [routerLink]="['/Addstaffsalary',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        [routerLink]="['/hr/StaffSalaryForm',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <!-- <button class="upload" (click)="DeleteCountryType(holiday.id)">Delete</button> -->
                                 </td>
                             </tr>

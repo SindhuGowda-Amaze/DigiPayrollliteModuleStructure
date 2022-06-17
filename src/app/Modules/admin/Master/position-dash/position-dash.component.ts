@@ -22,10 +22,27 @@ export class PositionDashComponent implements OnInit {
 
   public GetRoleType() {
     debugger;
-    this.DigipayrollserviceService.GetRoleType().subscribe((data) => {
-      debugger;
-      this.roletypeList = data;
-    });
+    this.DigipayrollserviceService.GetRoleType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.roletypeList = data;
+      }, error: (err) => {
+        Swal.fire('Issue in GetRoleType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+  
   }
 
   public delete(ID: any) {
@@ -42,11 +59,28 @@ export class PositionDashComponent implements OnInit {
       confirmButtonText: 'OK',
     }).then((result) => {
       if (result.value == true) {
-        this.DigipayrollserviceService.DeleteRoleType(ID).subscribe((data) => {
-          debugger;
-          Swal.fire('Deleted Successfully');
-          location.reload();
-        });
+        this.DigipayrollserviceService.DeleteRoleType(ID)
+        
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Deleted Successfully');
+            location.reload();
+          }, error: (err) => {
+            Swal.fire('Issue in DeleteRoleType');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+        
+
       }
     });
   }

@@ -20,9 +20,9 @@ export class AnnouncementFormComponent implements OnInit {
   DateTime: any;
   Time: any;
   Venue: any;
-  public attachments21: any = [];
-  public attachmentsurl: any = [];
-  public attachments: any = [];
+   attachments21: any = [];
+  attachmentsurl: any = [];
+  attachments: any = [];
   currentUrl: any;
 
   constructor(public DigipayrollserviceService: DigipayrollserviceService, public router: Router, public activatedroute: ActivatedRoute, public datepipe: DatePipe) { }
@@ -61,10 +61,25 @@ export class AnnouncementFormComponent implements OnInit {
   
   
 public GetCityType(){
-  this.DigipayrollserviceService.GetCityType().subscribe(data => {
-    debugger
-    this.Citylist = data
+  this.DigipayrollserviceService.GetCityType()
+  .subscribe({
+    next: data => {
+      debugger
+      this.Citylist = data
+    }, error: (err) => {
+      Swal.fire('Issue in GetCityType');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
   })
+  
 }
 
   
@@ -88,14 +103,29 @@ public GetCityType(){
   public save() {
     debugger
   
-      this.DigipayrollserviceService.ProjectAttachments(this.attachments21).subscribe(res => {
-        debugger
-        this.attachmentsurl.push(res);
-        this.attachments.length = 0;
-
-        this.InsertAnnouncement();
-        debugger
+      this.DigipayrollserviceService.ProjectAttachments(this.attachments21)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.attachmentsurl.push(res);
+          this.attachments.length = 0;
+  
+          this.InsertAnnouncement();
+        }, error: (err) => {
+          Swal.fire('Issue in ProjectAttachments');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
     
   }
 
@@ -143,14 +173,28 @@ public GetCityType(){
       'BuildingID': 56,
       'FloorID': 1071322,
     }
-    this.DigipayrollserviceService.UpdateAnnouncements(eb).subscribe(
-      data => {
+    this.DigipayrollserviceService.UpdateAnnouncements(eb)
+    
+    .subscribe({
+      next: data => {
         debugger
         Swal.fire('Updated successfully.');
         this.router.navigate(['/admin/AnnouncementDashboard']);
-
-      },
-    )
+      }, error: (err) => {
+        Swal.fire('Issue in UpdateAnnouncements');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+  
   }
 
   public Cancel() {
@@ -159,5 +203,9 @@ public GetCityType(){
   }
 
 
+}
+
+function res(res: any) {
+  throw new Error('Function not implemented.');
 }
 

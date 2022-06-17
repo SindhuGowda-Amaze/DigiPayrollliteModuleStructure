@@ -23,11 +23,29 @@ export class CountryMasterDashComponent implements OnInit {
 
   public GetCountryType() {
     debugger;
-    this.DigipayrollserviceService.GetCountryType().subscribe((data) => {
-      debugger;
-      this.leavelist = data;
-      this.jobListCopy = this.leavelist;
-    });
+    this.DigipayrollserviceService.GetCountryType()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data;
+        this.jobListCopy = this.leavelist;
+      }, error: (err) => {
+        Swal.fire('Issue in GetCountryType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+
   }
 
   // public DeleteCountryType(ID:any) {
@@ -61,13 +79,28 @@ export class CountryMasterDashComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         debugger;
-        this.DigipayrollserviceService.DeleteCountryType(ID).subscribe(
-          (data) => {
-            location.reload();
-          }
-        );
-        Swal.fire('Deleted Successfully...!');
+        this.DigipayrollserviceService.DeleteCountryType(ID)
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Deleted Successfully...!');
         location.reload();
+          }, error: (err) => {
+            Swal.fire('Issue in DeleteCountryType ');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+        
+
+       
       }
     });
   }

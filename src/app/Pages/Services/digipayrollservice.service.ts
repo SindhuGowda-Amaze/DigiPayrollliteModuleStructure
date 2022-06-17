@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 })
 export class DigipayrollserviceService {
  
-
   public support = "https://support.amazeone.co/SupportAPI/";
 
   //public baseURL = "https://digipayroll.amazeone.co/digipayroll/";

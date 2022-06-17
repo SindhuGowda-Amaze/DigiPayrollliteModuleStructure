@@ -218,7 +218,7 @@ export class LeavesComponent implements OnInit {
   }
   public newlevae() {
     debugger
-    this.router.navigate(['/employee/ApplyLeave']);
+    this.router.navigate(['/hr/LeaveForm']);
   }
   medicalurl: any;
   public getmedicalurl(id: any) {

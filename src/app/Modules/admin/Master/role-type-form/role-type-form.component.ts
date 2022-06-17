@@ -33,22 +33,54 @@ export class RoleTypeFormComponent implements OnInit {
       this.ID = params['id'];
       if (this.ID == undefined) {
       } else {
-        this.DigipayrollserviceService.GetRoleType().subscribe((data) => {
-          debugger;
-
-          this.roleList = data.filter((x) => x.id == this.ID);
-          this.Short = this.roleList[0].short;
-          this.Description = this.roleList[0].description;
-        });
+        this.DigipayrollserviceService.GetRoleType()
+        .subscribe({
+          next: data => {
+            debugger
+            this.roleList = data.filter((x) => x.id == this.ID);
+            this.Short = this.roleList[0].short;
+            this.Description = this.roleList[0].description;
+          }, error: (err) => {
+            Swal.fire('Issue in GetRoleType');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
+        })
+        
+  
       }
     });
   }
   public GetRoleType() {
-    this.DigipayrollserviceService.GetRoleType().subscribe((data) => {
-      debugger;
-      this.roleList = data;
-      this.loader = false;
-    });
+    this.DigipayrollserviceService.GetRoleType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.roleList = data;
+        this.loader = false;
+      }, error: (err) => {
+        Swal.fire('Issue in GetRoleType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+
   }
 
   public InsertRoleType() {
@@ -95,11 +127,30 @@ export class RoleTypeFormComponent implements OnInit {
       Short: this.Short,
       Description: this.Description,
     };
-    this.DigipayrollserviceService.UpdateRoleType(entity).subscribe((data) => {
-      Swal.fire('Updated Successfully');
-      location.href = '#/admin/PositionDash';
-
-      this.loader = false;
-    });
+    this.DigipayrollserviceService.UpdateRoleType(entity)
+    
+    
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire('Updated Successfully');
+        location.href = '#/admin/PositionDash';
+  
+      }, error: (err) => {
+        Swal.fire('Issue in UpdateRoleType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+  
   }
 }

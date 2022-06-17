@@ -53,16 +53,32 @@ export class DepartmentFormComponent implements OnInit {
   }
 
   GetDepartment() {
-    this.DigipayrollserviceService.GetDepartment().subscribe(
-    data => {
-    debugger
-    this.result = data;
+    this.DigipayrollserviceService.GetDepartment()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.result = data;
 		this.result=this.result.filter((x: { id: any; })=>x.id==Number(this.ID));
 		this.name=this.result[0].name;
 		this.code=this.result[0].code;
     this.remarks=this.result[0].remarks;
-      }
-    )
+      }, error: (err) => {
+        Swal.fire('Issue in GetDepartment');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+  
   }
 
   Update(){
@@ -74,12 +90,27 @@ export class DepartmentFormComponent implements OnInit {
       "remarks":this.remarks           
       };
     
-      this.DigipayrollserviceService.UpdateDepartment(json).subscribe(
-        data => {
-        debugger
-        let result = data;
-        Swal.fire("Update Sucessfully");
-      location.href="/admin/Department";
+      this.DigipayrollserviceService.UpdateDepartment(json)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          let result = data;
+          Swal.fire("Update Sucessfully");
+        location.href="/admin/Department";
+        }, error: (err) => {
+          Swal.fire('Issue in UpdateDepartment');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
+      
     }
 }
