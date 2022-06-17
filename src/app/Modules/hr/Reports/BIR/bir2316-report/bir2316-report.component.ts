@@ -3,6 +3,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import { DatePipe, formatDate } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bir2316-report',
@@ -10,8 +11,6 @@ import { DatePipe, formatDate } from '@angular/common';
   styleUrls: ['./bir2316-report.component.css']
 })
 export class BIR2316ReportComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService,private datePipe: DatePipe){}
   showleaseforprint:any;
   stafflist:any;
   uniquelist1:any;
@@ -28,36 +27,6 @@ export class BIR2316ReportComponent implements OnInit {
   search:any;
   p: any = 1;
   count1: any = 10;
-  ngOnInit(): void {
-    this.year="";
-    this.sign="";
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      debugger
-      this.currentDate = new Date();
-      this.myDate = formatDate(this.currentDate, 'yyyy-MM-dd', 'en-US');
-      this.mydate1=String(this.myDate).charAt(0)
-      this.mydate2=String(this.myDate).charAt(1)
-      this.mydate3=String(this.myDate).charAt(2)
-      this.mydate4=String(this.myDate).charAt(3)
-      this.mydate5=String(this.myDate).charAt(5)
-      this.mydate6=String(this.myDate).charAt(6)
-      this.mydate7=String(this.myDate).charAt(8)
-      this.mydate8=String(this.myDate).charAt(9)
-      this.stafflist = data.filter(x => x.deniminimis != null);
-
-      const key="id"
-
-      this.uniquelist1  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
-    });
-
-
-    this.showleaseforprint = 0;
-  }
-
-  public showpdf(){
-    this.showleaseforprint = 1;
-  }
   uniquelist:any;
   employeelist:any;
   year:any;
@@ -115,14 +84,68 @@ export class BIR2316ReportComponent implements OnInit {
   previoussalary:any;
   previoustax:any;
   totalnontax:any;
+  fullname:any;
+sign:any;
+department:any;
+signname:any;
+stafflist1:any;
+  currentUrl:any;
+  constructor(public DigipayrollserviceService: DigipayrollserviceService,private datePipe: DatePipe){}
+
+  ngOnInit(): void {
+    
+   this.currentUrl = window.location.href;
+    this.year="";
+    this.sign="";
+    this.GetMyDetails();
+    this.showleaseforprint = 0;
+  }
+
+  public GetMyDetails(){
+
+    this.DigipayrollserviceService.GetMyDetails().subscribe(data => {
+      debugger
+      this.currentDate = new Date();
+      this.myDate = formatDate(this.currentDate, 'yyyy-MM-dd', 'en-US');
+      this.mydate1=String(this.myDate).charAt(0)
+      this.mydate2=String(this.myDate).charAt(1)
+      this.mydate3=String(this.myDate).charAt(2)
+      this.mydate4=String(this.myDate).charAt(3)
+      this.mydate5=String(this.myDate).charAt(5)
+      this.mydate6=String(this.myDate).charAt(6)
+      this.mydate7=String(this.myDate).charAt(8)
+      this.mydate8=String(this.myDate).charAt(9)
+      this.stafflist = data.filter(x => x.deniminimis != null);
+
+      const key="id"
+
+      this.uniquelist1  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+      [(item[key]), item])).values()]
+    });
+
+
+
+  }
+
+
+
+
+
+  public showpdf(){
+    this.showleaseforprint = 1;
+  }
+  
  
   public getempdetails(id:any){
     this.totalnontax=0;
-  this.DigiofficeService.GetEmployeeSalaryMonthly().subscribe(data => {
-    debugger
+  this.DigipayrollserviceService.GetEmployeeSalaryMonthly() 
+  
+  .subscribe({
+    next: data => {
+      debugger
     this.employeelist = data.filter(x=>x.monthstaffid==id && String(x.emplyeeYear==this.year) );
     
-    this.DigiofficeService.GetCompanyProfile().subscribe(data => {
+    this.DigipayrollserviceService.GetCompanyProfile().subscribe(data => {
       debugger
       this.companylist = data
       this.companyid = this.companylist[0].id,
@@ -185,28 +208,49 @@ export class BIR2316ReportComponent implements OnInit {
     this.totalnontax =   this.uniquelist[0].yearotamount+this.yearlydeminims+this.totalsss
     this.yearotamount = this.uniquelist[0].yearotamount.toFixed(2)
   
-
-     
-     
-
-
-    })
+    }, error: (err) => {
+      Swal.fire('Issue in GetEmployeeSalaryMonthly');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
+  
 
 
 }
 
 
-fullname:any;
-sign:any;
-department:any;
-signname:any;
-stafflist1:any;
+
 public getsign(){
-  this.DigiofficeService.GetMyDetails().subscribe(data => {
-    debugger
-    this.stafflist1 = data.filter(x => x.department_name == this.sign);
-    this.signname = this.stafflist1[0].fullname
-  });
+  this.DigipayrollserviceService.GetMyDetails()
+  
+  .subscribe({
+    next: data => {
+      debugger
+      this.stafflist1 = data.filter(x => x.department_name == this.sign);
+      this.signname = this.stafflist1[0].fullname
+    }, error: (err) => {
+      Swal.fire('Issue in GetMyDetails');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
+
+
 }
 
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bir1601-creport',
@@ -9,8 +10,6 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
   styleUrls: ['./bir1601-creport.component.css']
 })
 export class BIR1601CReportComponent implements OnInit {
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
   showleaseforprint:any;
   month:any;
   companylist:any;
@@ -25,40 +24,19 @@ export class BIR1601CReportComponent implements OnInit {
   email:any;
   zipcode:any;
   tin:any;
-  ngOnInit(): void {
-    this.Year="";
-    this.sign="";
-    this.showleaseforprint = 0;
-    const d = new Date();
-  this.month = d.getMonth()+1;
-
-
-  
-  }
-
-
-  
   fullname:any;
   sign:any;
   department:any;
   signname:any;
   stafflist1:any;
   Signature:any;
-  public getsign(){
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      this.stafflist1 = data.filter(x => x.department_name == this.sign);
-      this.signname = this.stafflist1[0].fullname
-      this.Signature = this.stafflist1[0].signature
-    });
-  }
-
   employeelist:any;
   uniquelist:any;
   uniquelist1:any;
   ssstotal:any;
   sum:any;
-  sssec:any;;
+  sssec:any;
+  currentUrl: any;
   total:any;
   netMonthSalary:any;
   deductions:any;
@@ -70,9 +48,54 @@ export class BIR1601CReportComponent implements OnInit {
   nontaxableamount:any;
   semiotamount:any;
   benefits:any;
+  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
+
+  ngOnInit(): void {
+    this.Year="";
+    this.sign="";
+    this.showleaseforprint = 0;
+    const d = new Date();
+  this.month = d.getMonth()+1;
+  this.getsign();
+  this. showpdf();
+  this.currentUrl = window.location.href;
+  
+  }
+
+
+  
+
+  public getsign(){
+    this.DigipayrollServiceService.GetMyDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
+      this.stafflist1 = data.filter(x => x.department_name == this.sign);
+      this.signname = this.stafflist1[0].fullname
+      this.Signature = this.stafflist1[0].signature
+      }, error: (err) => {
+        Swal.fire('Issue in GetMyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
+  }
+
+
     public showpdf(){
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe({
+      next: data => {
+        debugger
       this.employeelist = data.filter(x=>x.month==this.month && String(x.endyear)==this.Year);
       
       this.sum = 0;
@@ -144,8 +167,20 @@ export class BIR1601CReportComponent implements OnInit {
     // this.uniquelist1 =  this.uniquelist.filter((x: { month: any; })=>x.month==this.Month)
       //  this.uniquelist = [...new Set(data.map(item => item))];
      
-  
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
     this.showleaseforprint = 1;
   }
   public convetToPDF1() {

@@ -3,6 +3,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-biralpha-list7',
@@ -10,63 +11,12 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./biralpha-list7.component.css']
 })
 export class BIRAlphaList7Component implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService) { }
   showleaseforprint: any;
   stafflist: any;
   count1: any;
   uniquelist1: any;
   p: any;
-  ngOnInit(): void {
-    this.showleaseforprint = 0;
-    this.showtable1 = 0;
-    this.showtable2 = 0;
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      debugger
-
-
-      this.stafflist = data.filter(x => x.deniminimis != null);
-
-      const key = "id"
-
-      this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-    });
-
-  }
   showallbtn: any;
-  selectALL(checked: boolean) { // pass true or false to check or uncheck all
-    this.showallbtn = true;
-    if (this.uniquelist1.every((val: { checked: boolean; }) => val.checked == true)) {
-      this.uniquelist1.forEach((val: { checked: boolean; }) => { val.checked = false });
-
-    }
-    else {
-      debugger
-      this.uniquelist1.forEach((val: { checked: boolean; }) => { val.checked = true });
-
-    }
-    this.getallempdetails();
-  }
-
-
-
-  fileName = 'Alphalist7.0.xlsx';
-  exportexcel(): void {
-    /* table id is passed over here */
-    let element = document.getElementById('download');
-    debugger
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-    debugger
-
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
-    XLSX.writeFile(wb, this.fileName);
-  }
-
   uniquelist: any;
   employeelist: any;
   year: any;
@@ -146,12 +96,109 @@ export class BIRAlphaList7Component implements OnInit {
   previousstartdate: any;
   previousenddate: any;
   showonebtn: any;
+  showtable1: any;
+  showtable2: any;
+  newarray: any = [];
+  currentUrl: any;
+
+
+  constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
+
+  ngOnInit(): void {
+    
+   this.currentUrl = window.location.href;
+    this.showleaseforprint = 0;
+    this.showtable1 = 0;
+    this.showtable2 = 0;
+
+
+  }
+
+public GetMyDetails(){
+
+this.DigipayrollserviceService.GetMyDetails()
+  
+.subscribe({
+  next: data => {
+    debugger
+
+
+    this.stafflist = data.filter(x => x.deniminimis != null);
+
+    const key = "id"
+
+    this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+      [(item[key]), item])).values()]
+  }, error: (err) => {
+    Swal.fire('Issue in Deleting Hoilday');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )}
+})
+  
+  
+  
+
+
+
+}
+
+
+
+
+
+
+  selectALL(checked: boolean) { // pass true or false to check or uncheck all
+    this.showallbtn = true;
+    if (this.uniquelist1.every((val: { checked: boolean; }) => val.checked == true)) {
+      this.uniquelist1.forEach((val: { checked: boolean; }) => { val.checked = false });
+
+    }
+    else {
+      debugger
+      this.uniquelist1.forEach((val: { checked: boolean; }) => { val.checked = true });
+
+    }
+    this.getallempdetails();
+  }
+
+
+
+  fileName = 'Alphalist7.0.xlsx';
+  exportexcel(): void {
+    /* table id is passed over here */
+    let element = document.getElementById('download');
+    debugger
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    debugger
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+  }
+
+  
+
+
   public getempdetails(id: any) {
     this.showonebtn = true
     this.totalnontax = 0;
     this.id = id
-    this.DigiofficeService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
+    this.DigipayrollserviceService.GetEmployeeSalaryMonthly()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.employeelist = data.filter(x => x.monthstaffid == id && String(x.emplyeeYear) == this.year);
 
 
@@ -223,11 +270,26 @@ export class BIRAlphaList7Component implements OnInit {
         this.totaltaxablesalary = this.previoussalary + this.yearsalary,
         this.previousstartdate = this.uniquelist[0].previousstartdate,
         this.previousenddate = this.uniquelist[0].previousenddate
-
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeSalaryMonthly');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
-
-    this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
+    
+    
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.companylist = data
       this.companyid = this.companylist[0].id,
         this.companyname = this.companylist[0].company_Name,
@@ -236,17 +298,24 @@ export class BIRAlphaList7Component implements OnInit {
       this.email = this.companylist[0].email
       this.zipcode = this.companylist[0].zipcode
       this.tin = this.companylist[0].tin
-
-
-
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
-
-
+    
 
 
   }
-  showtable1: any;
-  showtable2: any
+ 
   Showdata1() {
     debugger
     this.showtable1 = 1;
@@ -258,90 +327,117 @@ export class BIRAlphaList7Component implements OnInit {
     this.showtable1 = 0;
     this.showtable2 = 1;
   }
-  newarray: any = [];
+
 
   public getallempdetails() {
     this.totalnontax = 0;
 
-    this.DigiofficeService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
-      this.employeelist = data.filter(x => String(x.emplyeeYear) == this.year);
-
-
-
-      const key = 'monthstaffid'
-
-      this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-
-      for (let i = 0; i <= this.uniquelist.length; i++) {
-
-
-
-
-        var obj = {
-
-          'id': this.uniquelist[i].id,
-          'SubDistrictPostcode': this.uniquelist[i].subDistrictPostcode,
-          'empAddress': this.uniquelist[i].addressLine1,
-          'grosssalary': this.uniquelist[i].yearGrossSal,
-          'staffname': this.uniquelist[i].staffname,
-          'yearsalary': this.uniquelist[i].yearsalary,
-          'yearlybasesalary': this.uniquelist[i].yearlybasesalary,
-          'yeartax': this.uniquelist[i].yeartax,
-          'yearec': this.uniquelist[i].yearss_ec,
-          'totalsss': this.uniquelist[i].yearSSSRate + this.uniquelist[i].yearPagibigRate + this.uniquelist[i].yearPhilihealth,
-          'yearlydeminims': this.uniquelist[i].yearlydeminims,
-          'employeeaddress': this.uniquelist[i].address,
-          'employeetin': this.uniquelist[i].employeE_TIN,
-          'joiningdate': this.uniquelist[i].joiningDate,
-          'dob': this.uniquelist[i].birthday,
-          'year1': String(this.year),
-
-          'previoussalary': this.uniquelist[i].prevoussalary,
-          'previoustax': this.uniquelist[i].previoustax,
-          'previousphilhealth': this.uniquelist[i].previousphilhealth,
-          'previousthirteenth': this.uniquelist[i].previousthirteenth,
-          'previouscompensation': this.uniquelist[i].previouscompensation,
-          'previousemployertin': this.uniquelist[i].previousemployertin,
-          'previousaddress': this.uniquelist[i].previousaddress,
-          'previoussss': this.uniquelist[i].previoussss,
-          'previousdeminims': this.uniquelist[i].previousdeminims,
-          'previouspagibig': this.uniquelist[i].previouspagibig,
-
-          'previousemployeeshare': parseFloat(this.uniquelist[i].previoussss) + parseFloat(this.uniquelist[i].previousphilhealth) + parseFloat(this.uniquelist[i].previouspagibig),
-          'totalpreviousnontax': parseFloat(this.previousemployeeshare) + parseFloat(this.uniquelist[i].previousthirteenth) + parseFloat(this.uniquelist[i].previousdeminims) + parseFloat(this.uniquelist[i].previouscompensation),
-          'totalnontax': this.uniquelist[i].yearlydeminims + this.uniquelist[i].yearSSSRate + this.uniquelist[i].yearPagibigRate + this.uniquelist[i].yearPhilihealth,
-          'yearotamount': this.uniquelist[i].yearotamount.toFixed(2),
-          'yearlybenefits': this.uniquelist[i].yearbenefits.toFixed(2),
-          'otherbenefits': parseFloat(this.uniquelist[i].yearotamount) + parseFloat(this.uniquelist[i].yearbenefits),
-          'totalsalary': parseFloat(this.uniquelist[i].yearotamount) + parseFloat(this.uniquelist[i].yearbenefits),
-          'employeeshares': parseFloat(this.uniquelist[i].yearss_ec) + (parseFloat(this.uniquelist[i].yearPagibigRate) / 2) + (parseFloat(this.uniquelist[i].yearPhilihealth) / 2),
-          'totalnontaxable': parseFloat(this.uniquelist[i].yearotamount) + parseFloat(this.uniquelist[i].yearbenefits) + parseFloat(this.uniquelist[i].yearss_ec) + (parseFloat(this.uniquelist[i].yearPagibigRate) / 2) + (parseFloat(this.uniquelist[i].yearPhilihealth) / 2) + this.uniquelist[i].yearlydeminims ,
-          'totaltaxablesalary':  this.uniquelist[i].prevoussalary + this.uniquelist[i].yearsalary,
-          'previousstartdate': this.uniquelist[i].previousstartdate,
-          'previousenddate': this.uniquelist[i].previousenddate
+    this.DigipayrollserviceService.GetEmployeeSalaryMonthly()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist = data.filter(x => String(x.emplyeeYear) == this.year);
+  
+  
+  
+        const key = 'monthstaffid'
+  
+        this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+          [(item[key]), item])).values()]
+  
+        for (let i = 0; i <= this.uniquelist.length; i++) {
+  
+  
+  
+  
+          var obj = {
+  
+            'id': this.uniquelist[i].id,
+            'SubDistrictPostcode': this.uniquelist[i].subDistrictPostcode,
+            'empAddress': this.uniquelist[i].addressLine1,
+            'grosssalary': this.uniquelist[i].yearGrossSal,
+            'staffname': this.uniquelist[i].staffname,
+            'yearsalary': this.uniquelist[i].yearsalary,
+            'yearlybasesalary': this.uniquelist[i].yearlybasesalary,
+            'yeartax': this.uniquelist[i].yeartax,
+            'yearec': this.uniquelist[i].yearss_ec,
+            'totalsss': this.uniquelist[i].yearSSSRate + this.uniquelist[i].yearPagibigRate + this.uniquelist[i].yearPhilihealth,
+            'yearlydeminims': this.uniquelist[i].yearlydeminims,
+            'employeeaddress': this.uniquelist[i].address,
+            'employeetin': this.uniquelist[i].employeE_TIN,
+            'joiningdate': this.uniquelist[i].joiningDate,
+            'dob': this.uniquelist[i].birthday,
+            'year1': String(this.year),
+  
+            'previoussalary': this.uniquelist[i].prevoussalary,
+            'previoustax': this.uniquelist[i].previoustax,
+            'previousphilhealth': this.uniquelist[i].previousphilhealth,
+            'previousthirteenth': this.uniquelist[i].previousthirteenth,
+            'previouscompensation': this.uniquelist[i].previouscompensation,
+            'previousemployertin': this.uniquelist[i].previousemployertin,
+            'previousaddress': this.uniquelist[i].previousaddress,
+            'previoussss': this.uniquelist[i].previoussss,
+            'previousdeminims': this.uniquelist[i].previousdeminims,
+            'previouspagibig': this.uniquelist[i].previouspagibig,
+  
+            'previousemployeeshare': parseFloat(this.uniquelist[i].previoussss) + parseFloat(this.uniquelist[i].previousphilhealth) + parseFloat(this.uniquelist[i].previouspagibig),
+            'totalpreviousnontax': parseFloat(this.previousemployeeshare) + parseFloat(this.uniquelist[i].previousthirteenth) + parseFloat(this.uniquelist[i].previousdeminims) + parseFloat(this.uniquelist[i].previouscompensation),
+            'totalnontax': this.uniquelist[i].yearlydeminims + this.uniquelist[i].yearSSSRate + this.uniquelist[i].yearPagibigRate + this.uniquelist[i].yearPhilihealth,
+            'yearotamount': this.uniquelist[i].yearotamount.toFixed(2),
+            'yearlybenefits': this.uniquelist[i].yearbenefits.toFixed(2),
+            'otherbenefits': parseFloat(this.uniquelist[i].yearotamount) + parseFloat(this.uniquelist[i].yearbenefits),
+            'totalsalary': parseFloat(this.uniquelist[i].yearotamount) + parseFloat(this.uniquelist[i].yearbenefits),
+            'employeeshares': parseFloat(this.uniquelist[i].yearss_ec) + (parseFloat(this.uniquelist[i].yearPagibigRate) / 2) + (parseFloat(this.uniquelist[i].yearPhilihealth) / 2),
+            'totalnontaxable': parseFloat(this.uniquelist[i].yearotamount) + parseFloat(this.uniquelist[i].yearbenefits) + parseFloat(this.uniquelist[i].yearss_ec) + (parseFloat(this.uniquelist[i].yearPagibigRate) / 2) + (parseFloat(this.uniquelist[i].yearPhilihealth) / 2) + this.uniquelist[i].yearlydeminims ,
+            'totaltaxablesalary':  this.uniquelist[i].prevoussalary + this.uniquelist[i].yearsalary,
+            'previousstartdate': this.uniquelist[i].previousstartdate,
+            'previousenddate': this.uniquelist[i].previousenddate
+          }
+  
+          this.newarray.push(obj);
+  
         }
-
-        this.newarray.push(obj);
-
-      }
-
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeSalaryMonthly');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
 
-    this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
-      this.companylist = data
-      this.companyid = this.companylist[0].id,
-        this.companyname = this.companylist[0].company_Name,
-        this.Address = this.companylist[0].address1
-      this.Phone = this.companylist[0].phone
-      this.email = this.companylist[0].email
-      this.zipcode = this.companylist[0].zipcode
-      this.tin = this.companylist[0].tin
-
-
-
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.companylist = data
+        this.companyid = this.companylist[0].id,
+          this.companyname = this.companylist[0].company_Name,
+          this.Address = this.companylist[0].address1
+        this.Phone = this.companylist[0].phone
+        this.email = this.companylist[0].email
+        this.zipcode = this.companylist[0].zipcode
+        this.tin = this.companylist[0].tin
+  
+  
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
 
 

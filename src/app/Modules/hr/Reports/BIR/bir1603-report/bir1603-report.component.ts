@@ -3,6 +3,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { DatePipe, formatDate } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bir1603-report',
@@ -10,8 +11,6 @@ import { DatePipe, formatDate } from '@angular/common';
   styleUrls: ['./bir1603-report.component.css']
 })
 export class BIR1603ReportComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService,private datePipe: DatePipe){}
   showleaseforprint:any;
   quarter:any;
   sign:any;
@@ -30,36 +29,6 @@ export class BIR1603ReportComponent implements OnInit {
   search:any;
   p: any = 1;
   count1: any = 10;
-  ngOnInit(): void {
-    this.year="";
-  
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      debugger
-      this.currentDate = new Date();
-      this.myDate = formatDate(this.currentDate, 'yyyy-MM-dd', 'en-US');
-      this.mydate1=String(this.myDate).charAt(0)
-      this.mydate2=String(this.myDate).charAt(1)
-      this.mydate3=String(this.myDate).charAt(2)
-      this.mydate4=String(this.myDate).charAt(3)
-      this.mydate5=String(this.myDate).charAt(5)
-      this.mydate6=String(this.myDate).charAt(6)
-      this.mydate7=String(this.myDate).charAt(8)
-      this.mydate8=String(this.myDate).charAt(9)
-      this.stafflist = data.filter(x => x.deniminimis != null);
-
-      const key="id"
-
-      this.uniquelist1  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
-    });
-
-
-    this.showleaseforprint = 0;
-  }
-
-  public showpdf(){
-    this.showleaseforprint = 1;
-  }
   uniquelist:any;
   employeelist:any;
   year:any;
@@ -137,10 +106,79 @@ export class BIR1603ReportComponent implements OnInit {
   previoustin14:any;
   previoustin15:any;
   previoustin16:any;
+  
+signname:any;
+stafflist1:any;
+Signature:any;
+// sign:any;
+// department:any;
+// signname:any;
+// stafflist1:any;
+// Signature:any;
+title:any;
+title1:any;
+  currentUrl:any;
+
+
+  constructor(public DigipayrollserviceService: DigipayrollserviceService,private datePipe: DatePipe){}
+
+  ngOnInit(): void {
+    this.year="";
+    this.currentUrl = window.location.href;
+    this.GetMyDetails();
+
+    this.showleaseforprint = 0;
+  }
+
+
+  public GetMyDetails(){
+    
+    this.DigipayrollserviceService.GetMyDetails()
+    .subscribe({
+      next: data => {
+        debugger
+        this.currentDate = new Date();
+        this.myDate = formatDate(this.currentDate, 'yyyy-MM-dd', 'en-US');
+        this.mydate1=String(this.myDate).charAt(0)
+        this.mydate2=String(this.myDate).charAt(1)
+        this.mydate3=String(this.myDate).charAt(2)
+        this.mydate4=String(this.myDate).charAt(3)
+        this.mydate5=String(this.myDate).charAt(5)
+        this.mydate6=String(this.myDate).charAt(6)
+        this.mydate7=String(this.myDate).charAt(8)
+        this.mydate8=String(this.myDate).charAt(9)
+        this.stafflist = data.filter(x => x.deniminimis != null);
+    
+        const key="id"
+    
+        this.uniquelist1  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+        [(item[key]), item])).values()]
+      }, error: (err) => {
+        Swal.fire('Issue in GetMyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+
+    
+
+  }
+
+  public showpdf(){
+    this.showleaseforprint = 1;
+  }
 
   public getempdetails(id:any){
     this.totalnontax=0;
-  this.DigiofficeService.GetEmployeeSalaryMonthly().subscribe(data => {
+  this.DigipayrollserviceService.GetEmployeeSalaryMonthly().subscribe(data => {
     debugger
     if(this.quarter==1){
       this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==1  || x.month==2 || x.month==3) && String(x.emplyeeYear==this.year) );
@@ -157,8 +195,11 @@ export class BIR1603ReportComponent implements OnInit {
    
    
     
-    this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.companylist = data
       this.companyid = this.companylist[0].id,
       this.companyname = this.companylist[0].company_Name,
@@ -182,10 +223,20 @@ export class BIR1603ReportComponent implements OnInit {
     
 
 
-
+      }, error: (err) => {
+        Swal.fire('Issue in Deleting Hoilday');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
-
-
+    
     const key = 'monthstaffid'
 
     this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
@@ -239,37 +290,38 @@ export class BIR1603ReportComponent implements OnInit {
   this.previoustin12 = this.previoustin.charAt(11)
   this.previoustin13 = this.previoustin.charAt(12)
   this.previoustin14 = this.previoustin.charAt(13)
-
-
-
-     
-     
-
-
-    })
+ })
 
 
 }
 
 
-signname:any;
-stafflist1:any;
-Signature:any;
-// sign:any;
-// department:any;
-// signname:any;
-// stafflist1:any;
-// Signature:any;
-title:any;
-title1:any;
 public getsign(){
-  this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-    debugger
-    this.stafflist1 = data;
-    this.signname = this.stafflist1[0].hR_AuthorisedPerson;
-    this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature;
-    this.title1 = this.stafflist1[0].hR_PositionTitle;
-  });
+  this.DigipayrollserviceService.GetCompanyAddressDetails()
+  
+  .subscribe({
+    next: data => {
+      debugger
+      this.stafflist1 = data;
+      this.signname = this.stafflist1[0].hR_AuthorisedPerson;
+      this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature;
+      this.title1 = this.stafflist1[0].hR_PositionTitle;
+    }, error: (err) => {
+      Swal.fire('Issue in GetCompanyAddressDetails');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
+  
+ 
+
 }
 
 

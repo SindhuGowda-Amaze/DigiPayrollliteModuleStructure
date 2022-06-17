@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bir1604-cfreport',
@@ -9,8 +10,6 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./bir1604-cfreport.component.css']
 })
 export class BIR1604CFReportComponent implements OnInit {
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
   showleaseforprint:any;
   year:any;
   companylist:any;
@@ -25,35 +24,21 @@ export class BIR1604CFReportComponent implements OnInit {
   email:any;
   zipcode:any;
   tin:any;
-  ngOnInit(): void {
-    this.sign="";
-    this.showleaseforprint = 0;
-    const d = new Date();
-    this.year = d.getFullYear();
-  }
-
-
   fullname:any;
   sign:any;
   department:any;
   signname:any;
   stafflist1:any;
   Signature:any;
-  public getsign(){
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      this.stafflist1 = data.filter(x => x.department_name == this.sign);
-      this.signname = this.stafflist1[0].fullname
-      this.Signature = this.stafflist1[0].signature
-    });
-  }
-
+  
   employeelist:any;
   uniquelist:any;
   uniquelist1:any;
   ssstotal:any;
   sum:any;
-  sssec:any;;
+  sssec:any;
+  currentUrl:any;
+
   total:any;
   netMonthSalary:any;
   deductions:any;
@@ -83,26 +68,87 @@ export class BIR1604CFReportComponent implements OnInit {
     octtax:any;
     novtax:any;
     dectax:any;
+  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
+ 
+  ngOnInit(): void {
+    this.sign="";
+    
+   this.currentUrl = window.location.href;
+    this.getsign();
+    this.showpdf();
+    this.showleaseforprint = 0;
+    const d = new Date();
+    this.year = d.getFullYear();
+  }
+
+
+  
+  public getsign(){
+    this.DigipayrollServiceService.GetMyDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist1 = data.filter(x => x.department_name == this.sign);
+        this.signname = this.stafflist1[0].fullname
+        this.Signature = this.stafflist1[0].signature
+      }, error: (err) => {
+        Swal.fire('Issue in GetMyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
+    
+    
+    
+    
+  }
+
  
   public showpdf(){
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-
-      this.DigipayrollServiceService.GetCompanyProfile().subscribe(data => {
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    
+    .subscribe({
+      next: data => {
         debugger
-        this.companylist = data
-        this.companyid = this.companylist[0].id,
-        this.companyname = this.companylist[0].company_Name,
-        this.Address = this.companylist[0].address1 + this.companylist[0].address2
-        this.Phone = this.companylist[0].phone
-        this.email= this.companylist[0].email
-        this.zipcode = this.companylist[0].zipcode
-        this.tin = this.companylist[0].tin
-  
-  
-  
+
+      this.DigipayrollServiceService.GetCompanyProfile()
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.companylist = data
+          this.companyid = this.companylist[0].id,
+          this.companyname = this.companylist[0].company_Name,
+          this.Address = this.companylist[0].address1 + this.companylist[0].address2
+          this.Phone = this.companylist[0].phone
+          this.email= this.companylist[0].email
+          this.zipcode = this.companylist[0].zipcode
+          this.tin = this.companylist[0].tin
+    
+        }, error: (err) => {
+          Swal.fire('Issue in GetCompanyProfile');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       })
 
+     
 
       this.employeelist = data.filter(x=>x.endyear==this.year && x.month==1 );
       this.employeelist1 = data.filter(x=>x.endyear==this.year && x.month==2 );
@@ -191,7 +237,22 @@ export class BIR1604CFReportComponent implements OnInit {
       //  this.uniquelist = [...new Set(data.map(item => item))];
      
   
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+
+    
+  
     this.showleaseforprint = 1;
   }
   public convetToPDF1() {

@@ -14,13 +14,35 @@ export class M1MCRFReportComponent implements OnInit {
 
   showleaseforprint:any;
   loader:any;
-  constructor(public DigiofficeService: DigipayrollserviceService) { }
   employeelist:any
   month:any;
   year:any;
   department1:any;
   myDate:any;
+  sign:any;
+  department:any;
+  signname:any;
+  stafflist1:any;
+  Signature:any;
+  uniquelist:any;
+  pagibiger:any;
+  sum:any;
+  pagibig:any;
+  companylist:any;
+  companyid:any;
+  companyname:any;
+  Address:any;
+  Phone:any;
+  uniquelistchnuk:any;
+  email:any;
+  zipcode:any;
+  tin:any;
+  currentUrl: any;
+  constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
+  
   ngOnInit(): void {
+    
+   this.currentUrl = window.location.href;
     this.month="";
     this.year="";
     this.sign="";
@@ -32,35 +54,44 @@ export class M1MCRFReportComponent implements OnInit {
   }
 
 
-  sign:any;
-  department:any;
-  signname:any;
-  stafflist1:any;
-  Signature:any;
+ 
  public getsign(){
-    this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.stafflist1 = data;
       this.signname = this.stafflist1[0].hR_AuthorisedPerson
       this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+    
+
   }
 
-  uniquelist:any;
-  pagibiger:any;
-  sum:any;
-  pagibig:any;
-  companylist:any;
-  companyid:any;
-  companyname:any;
-  Address:any;
-  Phone:any;
-  uniquelistchnuk:any;
+
   public showpdf(){
       this.pagibiger=0
       this.pagibig=0
-    this.DigiofficeService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
+    this.DigipayrollserviceService.GetEmployeeSalaryMonthly()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.employeelist = data.filter(x=>x.employeeMonth==this.month && String(x.emplyeeYear==this.year));
       const key = 'monthstaffid'
 
@@ -93,28 +124,50 @@ export class M1MCRFReportComponent implements OnInit {
         }
 
 
-    this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-          debugger
-          this.companylist = data
-          this.companyid = this.companylist[0].id,
-          this.companyname = this.companylist[0].company_Name,
-          this.Address = this.companylist[0].address1 + this.companylist[0].address2
-          this.Phone = this.companylist[0].phone
-          this.email= this.companylist[0].email
-          this.zipcode = this.companylist[0].zipcode
-          this.tin = this.companylist[0].tin
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    .subscribe({
+      next: data => {
+        debugger
+        this.companylist = data
+        this.companyid = this.companylist[0].id,
+        this.companyname = this.companylist[0].company_Name,
+        this.Address = this.companylist[0].address1 + this.companylist[0].address2
+        this.Phone = this.companylist[0].phone
+        this.email= this.companylist[0].email
+        this.zipcode = this.companylist[0].zipcode
+        this.tin = this.companylist[0].tin
+      }, error: (err) => {
+        Swal.fire('Issue in GetCompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+  }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeSalaryMonthly');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
     
     
-    
-        })
-   
-    });
     this.showleaseforprint = 1;
   }
 
-  email:any;
-  zipcode:any;
-  tin:any;
   public convetToPDF1() {
     debugger
    this.loader=true

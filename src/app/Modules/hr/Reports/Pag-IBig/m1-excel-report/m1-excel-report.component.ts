@@ -9,17 +9,18 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./m1-excel-report.component.css']
 })
 export class M1ExcelReportComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService) {
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate() + 7);
-    this.bsRangeValue = [this.bsValue, this.maxDate];
-  }
   loader:any;
   stafflist: any;
   term: any;
   value: any;
-  
+  enddate: any;
+  uniquelist:any;
+  month:any;
+  year:any;
+  companylist:any;
+  companyname:any;
+  Address:any;
+  companyid:any;
   employeelist:any;
   bsValue = new Date();
   bsRangeValue: Date[];
@@ -31,19 +32,35 @@ export class M1ExcelReportComponent implements OnInit {
   tin:any;
   p: any = 1;
   count1: any = 10;
+  result:any;
+  selectone:any;
+  selecallbtn:any;
+  currentUrl:any;
+
+  constructor(public DigipayrollserviceService: DigipayrollserviceService) {
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate() + 7);
+    this.bsRangeValue = [this.bsValue, this.maxDate];
+  }
+  
   ngOnInit(): void {
     debugger
+    this.currentUrl = window.location.href;
     this.month="";
     this.year="";
+   this.GetCompanyAddressDetails();
+   this.GetEmployeeSalary();
+  }
 
-    this.DigiofficeService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist = data;
-    });
+  public GetCompanyAddressDetails(){
 
 
-    this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
+    
+    
+.subscribe({
+  next: data => {
+    debugger
       this.companylist = data
       this.companyid = this.companylist[0].id,
       this.companyname = this.companylist[0].company_Name,
@@ -52,44 +69,94 @@ export class M1ExcelReportComponent implements OnInit {
       this.email= this.companylist[0].email
       this.zipcode = this.companylist[0].zipcode
       this.tin = this.companylist[0].tin
-
-
-
-    })
-  
-
+  }, error: (err) => {
+    Swal.fire('Issue in GetCompanyAddressDetails');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )}
+})
+    
 
 
   }
-  enddate: any;
+
+  public GetEmployeeSalary(){
+
+    this.DigipayrollserviceService.GetEmployeeSalary()
+    
+    
+.subscribe({
+  next: data => {
+    debugger
+      this.employeelist = data;
+  }, error: (err) => {
+    Swal.fire('Issue in GetEmployeeSalary');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )}
+})
+    
+
+
+  }
+
+
+
+  
   public getdate(event: any) {
     debugger
     this.enddate = event.target.value;
 
   }
 
-  uniquelist:any;
-  month:any;
-  year:any;
-  companylist:any;
-  companyname:any;
-  Address:any;
-  companyid:any;
   public showpdf(){
     this.loader=true;
-    this.DigiofficeService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
-      this.employeelist = data.filter(x=>x.employeeMonth==this.month && String(x.emplyeeYear)==this.year);
-      const key = 'monthstaffid'
+    this.DigipayrollserviceService.GetEmployeeSalaryMonthly()
+    
+    
+    
+.subscribe({
+  next: data => {
+    debugger
+    this.employeelist = data.filter(x=>x.employeeMonth==this.month && String(x.emplyeeYear)==this.year);
+    const key = 'monthstaffid'
 
-      this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-   
+    this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+      [(item[key]), item])).values()]
+ 
 
-   
-        this.loader=false;
+ 
+      this.loader=false;
+  }, error: (err) => {
+    Swal.fire('Issue in GetEmployeeSalaryMonthly');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )}
+})
+    
+    
 
-    });
   
   }
 
@@ -97,14 +164,32 @@ export class M1ExcelReportComponent implements OnInit {
 
 
 
-  result:any;
+ 
   public GetPayGroup() {
     debugger
-    this.DigiofficeService.GetPayGroup().subscribe(
+    this.DigipayrollserviceService.GetPayGroup()
+    
+    
+.subscribe({
+  next: data => {
+    debugger
+    this.result = data;
+  }, error: (err) => {
+    Swal.fire('Issue in GetPayGroup');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
       data => {
         debugger
-        this.result = data;
-      })
+      },
+    )}
+})
+    
+
+
   }
 
   fileName = 'M1 Excel Reports.xlsx';
@@ -121,9 +206,7 @@ export class M1ExcelReportComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
 
   }
-
-  selectone:any;
-  selecallbtn:any;
+ 
   
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
     this.selecallbtn = true;
