@@ -11,13 +11,13 @@ import * as XLSX from 'xlsx';
 })
 export class ExpenseReportComponent implements OnInit {
 
-  loader:any;
+  loader: any;
   viewMode = 'tab1';
   staffID: any;
   roleid: any;
-  enddate:any;
+  enddate: any;
   term: any
-  startdate:any;
+  startdate: any;
   projectlist: any;
   projectlist1: any;
   date: any;
@@ -26,41 +26,90 @@ export class ExpenseReportComponent implements OnInit {
   Decription: any;
   Notes: any;
   id: any;
+  currentUrl: any;
   constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
   ngOnInit(): void {
+
+    this.currentUrl = window.location.href;
     this.GetExpensesListweb();
     this.GetExpensesListweb1();
     this.staffID = sessionStorage.getItem('staffid');
     this.roleid = sessionStorage.getItem('roledid');
   }
 
-  
+
 
   public GetExpensesListweb() {
     debugger
-    this.DigipayrollserviceService.GetExpensesListweb().subscribe(data => {
-      debugger
-      this.projectlist1 = data.filter(x => (x.status == 'Manager Pending'))
+    this.DigipayrollserviceService.GetExpensesListweb()
 
-    })
+      .subscribe({
+        next: data => {
+          debugger
+          this.projectlist1 = data.filter(x => (x.status == 'Manager Pending'))
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpensesListweb');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   public GetExpensesListweb1() {
     debugger
-    this.DigipayrollserviceService.GetExpensesListweb().subscribe(data => {
-      debugger
-      this.projectlist = data.filter(x =>  x.status == 'Manager Approved' && x.approvalStatus != null)
+    this.DigipayrollserviceService.GetExpensesListweb()
 
-    })
+      .subscribe({
+        next: data => {
+          debugger
+          this.projectlist = data.filter(x => x.status == 'Manager Approved' && x.approvalStatus != null)
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpensesListweb');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   public Getdate(event: any) {
     debugger
     this.date = event?.target.value
-    this.DigipayrollserviceService.GetExpensesListweb().subscribe(data => {
-      debugger
-      this.projectlist = data.filter(x => (x.filterdate >= this.startdate && x.filterdate <= this.enddate) &&  x.status == 'Manager Approved' )
-    })
+    this.DigipayrollserviceService.GetExpensesListweb()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.projectlist = data.filter(x => (x.filterdate >= this.startdate && x.filterdate <= this.enddate) && x.status == 'Manager Approved')
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpensesListweb');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
@@ -69,7 +118,7 @@ export class ExpenseReportComponent implements OnInit {
     for (var i = 0; i < inputs.length; i++) {
       if (inputs[i].type == "checkbox") {
         inputs[i].checked = checked;
-       
+
         // This way it won't flip flop them and will set them all to the same value which is passed into the function
       }
     }
@@ -86,18 +135,36 @@ export class ExpenseReportComponent implements OnInit {
         ApproveBit: 1
 
       }
-      this.DigipayrollserviceService.UpdateExpencesApproveBySupervisor(entity).subscribe(data => {
-        Swal.fire("Approved Successfully");
-        location.reload()
-        // location.href = "#/Companydashbaord";
-      })
+      this.DigipayrollserviceService.UpdateExpencesApproveBySupervisor(entity)
+
+
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire("Approved Successfully");
+            location.reload()
+            // location.href = "#/Companydashbaord";
+          }, error: (err) => {
+            Swal.fire('Issue in Getting ExpencesApproveBySupervisor');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
     }
     this.ngOnInit();
   }
 
 
 
-  
+
   public UpdateExpencesApproveBySupervisor(id: any) {
     debugger;
     var entity = {
@@ -106,11 +173,28 @@ export class ExpenseReportComponent implements OnInit {
       ApproveBit: 1
 
     }
-    this.DigipayrollserviceService.UpdateExpencesApproveBySupervisor(entity).subscribe(data => {
-      Swal.fire("Approved Successfully");
-      location.reload()
-      // location.href = "#/Companydashbaord";
-    })
+    this.DigipayrollserviceService.UpdateExpencesApproveBySupervisor(entity)
+
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Approved Successfully");
+          location.reload()
+          // location.href = "#/Companydashbaord";
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpencesApproveBySupervisor');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
   }
 
@@ -128,13 +212,28 @@ export class ExpenseReportComponent implements OnInit {
       Status: 'Manager Rejected',
 
     }
-    this.DigipayrollserviceService.UpdateExpencesReject(entity).subscribe(data => {
-      Swal.fire("Rejected Successfully");
-      location.reload()
-      // location.href = "#/Companydashbaord";
+    this.DigipayrollserviceService.UpdateExpencesReject(entity)
 
-
-    })
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Rejected Successfully");
+          location.reload()
+          // location.href = "#/Companydashbaord";
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ExpencesReject');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
   }
   temp: any;
@@ -165,7 +264,7 @@ export class ExpenseReportComponent implements OnInit {
 
   fileName = 'Expense Report.xlsx';
   exportexcel(): void {
-    this.loader=true;
+    this.loader = true;
     /* table id is passed over here */
     let element = document.getElementById('downloadaplication');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -176,7 +275,7 @@ export class ExpenseReportComponent implements OnInit {
 
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
-    this.loader=false;
+    this.loader = false;
 
   }
 
