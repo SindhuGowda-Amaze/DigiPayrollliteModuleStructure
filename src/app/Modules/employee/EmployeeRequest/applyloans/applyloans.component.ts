@@ -127,7 +127,7 @@ export class ApplyloansComponent implements OnInit {
           this.getpassword();
           this.router.navigate(['/employee/loans']);
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting EmployeeLoans');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -176,7 +176,7 @@ export class ApplyloansComponent implements OnInit {
           this.sendemail();
         }
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting MyDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -213,7 +213,7 @@ export class ApplyloansComponent implements OnInit {
         debugger
         this.Attactments = [];
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting sendemail1');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
