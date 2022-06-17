@@ -142,7 +142,7 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
           this.getpassword();
           this.router.navigate(['/employee/salaryadjustment']);
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting SalaryAdjustmentTypee');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -165,8 +165,12 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
 
 
   getpassword() {
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      let temp: any = data.filter(x => x.loginTypeID == 9);
+    this.DigiofficeService.GetMyDetails()
+
+    .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data.filter(x => x.loginTypeID == 9);
       let temp1: any = data.filter(x => x.id ==  sessionStorage.getItem('staffid'));
       if (temp.length != 0) {
         this.supervisoremail = temp[0].emailID;
@@ -174,8 +178,21 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
         
         this.sendemail();
       }
-
+      }, error: (err) => {
+        Swal.fire('Issue in Getting MyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
   }
   
   public Attactments = [];
@@ -196,7 +213,7 @@ export class SalaryAdjustmentRequestComponent implements OnInit {
         debugger
         this.Attactments = [];
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting sendemail1');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,

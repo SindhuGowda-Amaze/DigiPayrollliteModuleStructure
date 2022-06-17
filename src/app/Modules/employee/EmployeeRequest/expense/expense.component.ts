@@ -39,7 +39,7 @@ export class ExpenseComponent implements OnInit {
      
         this.projectlist1 = data.filter(x => x.userID ==this.staffID && x.approvalStatus=='Manager Pending' )
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting ExpensesListweb');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -69,7 +69,7 @@ export class ExpenseComponent implements OnInit {
         debugger
         this.projectlist1 = data.filter(x => x.userID == this.staffID && x.filterdate == this.date && x.approvalStatus=='Manager Pending')
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting ExpensesListwe');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -109,7 +109,7 @@ export class ExpenseComponent implements OnInit {
             Swal.fire('Cancelled Successfully')
             this.ngOnInit();
           }, error: (err) => {
-            Swal.fire('Issue in Getting City Type');
+            Swal.fire('Issue in Getting ExpenseRequest');
             // Insert error in Db Here//
             var obj = {
               'PageName': this.currentUrl,
@@ -145,7 +145,7 @@ export class ExpenseComponent implements OnInit {
         this.projectlist23 = data.filter(x => x.userID == this.staffID && x.approvalStatus!='Manager Pending' )
         this.count=this.projectlist23.length
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting ExpensesListweb');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -171,7 +171,7 @@ export class ExpenseComponent implements OnInit {
     this.projectlist14 = data.filter(x => x.userID == this.staffID && x.approvalStatus=='Manager Pending' )
       this.count=this.projectlist14.length
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting ExpensesListweb');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,

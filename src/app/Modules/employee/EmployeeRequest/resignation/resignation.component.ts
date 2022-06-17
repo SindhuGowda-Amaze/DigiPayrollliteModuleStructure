@@ -49,7 +49,7 @@ export class ResignationComponent implements OnInit {
           this.dummemplist = data;
           this.count = this.Employeelist.length;
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting StaffExitFormality');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -75,7 +75,7 @@ export class ResignationComponent implements OnInit {
         Swal.fire("Saved Successfully");
       this.GetEmployeeResignation()
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting EmployeeResignation');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -100,7 +100,7 @@ export class ResignationComponent implements OnInit {
         Swal.fire("Accepted Successfully");
         this.GetEmployeeResignation()
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting EmployeeResignation');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -124,7 +124,7 @@ export class ResignationComponent implements OnInit {
         Swal.fire("Reject Successfully");
         this.GetEmployeeResignation();
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting EmployeeResignation');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -149,7 +149,7 @@ export class ResignationComponent implements OnInit {
         Swal.fire("HR Accepted");
         this.GetEmployeeResignation();
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting EmployeeResignation');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -175,7 +175,7 @@ export class ResignationComponent implements OnInit {
         Swal.fire("HR Rejected");
         this.GetEmployeeResignation();
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting EmployeeResignatione');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -202,7 +202,7 @@ export class ResignationComponent implements OnInit {
             debugger
             this.Employeelist = data.filter((x: { lastdateWorkigDateMonth: any; }) => x.lastdateWorkigDateMonth == this.monthid)
           }, error: (err) => {
-            Swal.fire('Issue in Getting City Type');
+            Swal.fire('Issue in Getting StaffExitFormality');
             // Insert error in Db Here//
             var obj = {
               'PageName': this.currentUrl,

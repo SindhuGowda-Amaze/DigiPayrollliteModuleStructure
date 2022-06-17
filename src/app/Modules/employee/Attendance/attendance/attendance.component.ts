@@ -40,7 +40,7 @@ export class AttendanceComponent implements OnInit {
         this.attendancelist = data.filter(x => x.userID == this.staffID)
         this.loader=false;
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting Attendance');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -71,7 +71,7 @@ export class AttendanceComponent implements OnInit {
           this.endTime1 = '19:00';
         }
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting AttendanceConfiguration');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -100,7 +100,7 @@ export class AttendanceComponent implements OnInit {
           debugger
           this.attendancelist = data.filter(x => x.userID == this.staffID && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting Attendance');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -127,7 +127,7 @@ export class AttendanceComponent implements OnInit {
           debugger
           this.attendancelist = data.filter(x => x.userID == this.staffID && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting Attendance');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
