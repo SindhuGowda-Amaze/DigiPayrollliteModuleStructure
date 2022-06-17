@@ -5,9 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DigipayrollserviceService {
-  InsertExceptionLogs(obj: { PageName: any; ErrorMessage: any; }) {
-    throw new Error('Method not implemented.');
-  }
+ 
 
   public support = "https://support.amazeone.co/SupportAPI/";
 
