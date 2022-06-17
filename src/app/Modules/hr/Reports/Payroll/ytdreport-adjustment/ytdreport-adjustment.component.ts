@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -8,40 +9,13 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./ytdreport-adjustment.component.css']
 })
 export class YTDReportAdjustmentComponent implements OnInit {
-
-  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+  currentUrl: any;
   loader:any;
   result:any;
   Departmentlist:any;
   RoleTypeList:any;
   p: any = 1;
   count1: any = 10;
-  ngOnInit(): void {
-    this.year="";
-    this.DigipayrollServiceService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
-
-    this.DigipayrollServiceService.GetRoleType().subscribe(data => {
-      debugger
-      this.RoleTypeList = data;
-    });
-     
-
-    this.GetPayGroup();
-  }
-
-  public GetPayGroup() {
-    debugger
-    this.DigipayrollServiceService.GetPayGroup().subscribe(
-      data => {
-        debugger
-        this.result = data;
-      })
-  }
-
-
   stafflist:any;
   uniquelist1:any;
   stafflist1:any;
@@ -49,16 +23,128 @@ export class YTDReportAdjustmentComponent implements OnInit {
   stafflist2:any;
   uniquelist13:any;
   showtable:any;
+  RoleType:any;
+term:any;
+Department:any;
+year:any;
+
+  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+  
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+    this.year="";
+    this.DigipayrollServiceService.GetDepartment()
+    .subscribe({
+      next: data => {
+        debugger
+        this.Departmentlist = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Department');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
+    
+    this.DigipayrollServiceService.GetRoleType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.RoleTypeList = data;
+      }, error: (err) => {
+        Swal.fire('Issue in GettingRoleType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
+    
+   
+
+    this.GetPayGroup();
+  }
+
+  public GetPayGroup() {
+    debugger
+    this.DigipayrollServiceService.GetPayGroup()
+    .subscribe({
+      next: data => {
+        debugger
+        this.result = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting PayGroup');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
+    
+    
+   
+  }
+
+
+ 
 public getemployee(){
  
  
-  this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-    debugger
-    this.stafflist = data.filter(x => x.emplyeeYear==this.year && (x.loanpayout!=0 || x.loanpayout!=null) );
-  });
+  this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+  .subscribe({
+    next: data => {
+      debugger
+      this.stafflist = data.filter(x => x.emplyeeYear==this.year && (x.loanpayout!=0 || x.loanpayout!=null) );
+    }, error: (err) => {
+      Swal.fire('Issue in Getting EmployeeSalaryMonthly');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+  
+  
+  
 
     const key = 'id'
-    this.DigipayrollServiceService.GetEmployeeLoans().subscribe(data => {
+    this.DigipayrollServiceService.GetEmployeeLoans()
+    
+    
+    
+    
+    
+    
+    .subscribe(data => {
       debugger
       this.stafflist2 = data.filter(x => x.loanType!=null );
   
@@ -83,15 +169,30 @@ public getemployee(){
 }
 
 
-RoleType:any;
-term:any;
+
 public FilterRoleType() {
   debugger
   
-  this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-    debugger
-    this.stafflist = data.filter(x => x.emplyeeYear==this.year && (x.loanpayout!=0 || x.loanpayout!=null) && x.role == this.RoleType );
-  });
+  this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+  .subscribe({
+    next: data => {
+      debugger
+      this.stafflist = data.filter(x => x.emplyeeYear==this.year && (x.loanpayout!=0 || x.loanpayout!=null) && x.role == this.RoleType );
+    }, error: (err) => {
+      Swal.fire('Issue in Getting EmployeeSalaryMonthly');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+ 
 
     const key = 'id'
     this.DigipayrollServiceService.GetEmployeeLoans().subscribe(data => {
@@ -121,14 +222,34 @@ public FilterRoleType() {
   
 
 }
-Department:any;
+
 public filterByDepartment() {
   debugger
  
-  this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-    debugger
-    this.stafflist = data.filter(x => x.emplyeeYear==this.year && (x.loanpayout!=0 || x.loanpayout!=null)  );
-  });
+  this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+  .subscribe({
+    next: data => {
+      debugger
+      this.stafflist = data.filter(x => x.emplyeeYear==this.year && (x.loanpayout!=0 || x.loanpayout!=null)  );
+    }, error: (err) => {
+      Swal.fire('Issue in Getting City Type');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+  
+  
+  
+  
+ 
 
     const key = 'id'
     this.DigipayrollServiceService.GetEmployeeLoans().subscribe(data => {
@@ -161,7 +282,7 @@ public filterByDepartment() {
 
 
 
-  year:any;
+  
   fileName = 'YTD Adjustment Report.xlsx';
   exportexcel(): void {
     /* table id is passed over here */
