@@ -38,11 +38,7 @@ li a:hover {
 .leavelist{
   padding: 0px 20px;
 }
-.container-fluid{
-  font-family: 'DIN Bold';
-  padding: 0px;
-  margin: 0px;
-}
+
 
 .leavebalance{
   padding-top: 10px;
@@ -605,9 +601,9 @@ background-color: red
     margin-right: -108px;
 }
 }
+
 .inputclass{
 color: #3247D5;
-Font: 'Poppins';
 background-color: transparent;
 border: none;
 
