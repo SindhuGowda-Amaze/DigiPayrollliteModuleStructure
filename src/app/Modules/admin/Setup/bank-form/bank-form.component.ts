@@ -44,20 +44,43 @@ export class BankFormComponent implements OnInit {
         code: this.code,
         Remarks: this.remarks,
       };
-      this.DigipayrollserviceService.InsertBanks(json).subscribe((data) => {
-        debugger;
-        let id = data;
+      this.DigipayrollserviceService.InsertBanks(json)
+      
+      .subscribe({
+        next: data => {
+          debugger;
+          let id = data;
+  
+          Swal.fire('Successfully Saved!!');
+  
+          location.href = '#/admin/Bank';
+        }, error: (err) => {
+          Swal.fire('Issue in InsertBanks');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+      
+      
+      
+      
+      
 
-        Swal.fire('Successfully Saved!!');
-
-        location.href = '#/admin/Bank';
-      });
     }
   }
 
   GetBankDetails() {
-    this.DigipayrollserviceService.GetBanks().subscribe((data) => {
-      debugger;
+    this.DigipayrollserviceService.GetBanks()
+    .subscribe({
+      next: data => {
+        debugger;
       this.result = data;
       this.result = this.result.filter(
         (x: { id: any }) => x.id == Number(this.id)
@@ -65,7 +88,23 @@ export class BankFormComponent implements OnInit {
       this.name = this.result[0].name;
       this.code = this.result[0].code;
       this.remarks = this.result[0].remarks;
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in GetBanks');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+    
+    
+ 
   }
 
   Update() {
@@ -77,11 +116,29 @@ export class BankFormComponent implements OnInit {
       remarks: this.remarks,
     };
 
-    this.DigipayrollserviceService.UpdateBanks(json).subscribe((data) => {
-      debugger;
+    this.DigipayrollserviceService.UpdateBanks(json)
+    
+    .subscribe({
+      next: data => {
+        debugger
+        debugger;
       let result = data;
       Swal.fire('Update Sucessfully');
       location.href = '#/admin/Bank';
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in UpdateBanks');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
+    
+ 
   }
 }
