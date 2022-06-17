@@ -43,7 +43,7 @@ export class SalaryadjustmentComponent implements OnInit {
      
         this.projectlist1 = data.filter(x => x.staffID ==this.staffID && x.status=='Manager Pending Hr Pending' )
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting SalaryAdjustmentType');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -69,7 +69,7 @@ export class SalaryadjustmentComponent implements OnInit {
         debugger
         this.projectlist1 = data.filter(x => x.userID == this.staffID && x.filterdate == this.date && x.approvalStatus=='Manager Pending')
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting ExpensesListweb');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -122,7 +122,7 @@ export class SalaryadjustmentComponent implements OnInit {
         this.projectlist23 = data.filter(x => x.userID == this.staffID && x.approvalStatus!='Manager Pending' )
      this.count=this.projectlist23.length
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting SalaryAdjustmentType');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -147,7 +147,7 @@ export class SalaryadjustmentComponent implements OnInit {
         this.projectlist14 = data.filter(x => x.userID == this.staffID && x.approvalStatus=='Manager Pending' )
         this.count=this.projectlist14.length
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting SalaryAdjustmentType');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,

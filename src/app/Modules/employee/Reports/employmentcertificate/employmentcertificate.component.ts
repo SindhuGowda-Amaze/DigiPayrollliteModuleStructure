@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employmentcertificate',
@@ -96,6 +97,8 @@ export class EmploymentcertificateComponent implements OnInit {
   Signature:any;
   title:any;
   title1:any;
+  
+currentUrl: any;
 
   constructor(public DigiofficeService: DigipayrollserviceService, private datePipe: DatePipe) {
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -105,6 +108,7 @@ export class EmploymentcertificateComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.month="";
     this.year="";
 
@@ -185,15 +189,31 @@ export class EmploymentcertificateComponent implements OnInit {
  
   public getorrecords(){
 
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x => x.id == this.staffid);
+    this.DigiofficeService.GetMyDetails()
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist = data.filter(x => x.id == this.staffid);
 
-      const key="id"
+        const key="id"
+  
+        this.uniquelist  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+        [(item[key]), item])).values()]
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
 
-      this.uniquelist  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
-    });
      this.role = this.uniquelist[0].role
      this.fullname =  this.uniquelist[0].name
      this.joiningdate = this.uniquelist[0].filterdate
@@ -203,13 +223,29 @@ export class EmploymentcertificateComponent implements OnInit {
 
 
 public getsign(){
-  this.DigiofficeService.GetCompanyAddressDetails().subscribe(data => {
-    debugger
-    this.stafflist1 = data;
-    this.signname = this.stafflist1[0].hR_AuthorisedPerson;
-    this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature;
-    this.title1 = this.stafflist1[0].hR_PositionTitle;
-  });
+  this.DigiofficeService.GetCompanyAddressDetails()
+
+  .subscribe({
+    next: data => {
+      debugger
+      this.stafflist1 = data;
+      this.signname = this.stafflist1[0].hR_AuthorisedPerson;
+      this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature;
+      this.title1 = this.stafflist1[0].hR_PositionTitle;
+    }, error: (err) => {
+      Swal.fire('Issue in Getting City Type');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
 }
 
 

@@ -112,7 +112,7 @@ export class AddExpenseComponent implements OnInit {
         debugger
         this.expenselist = data
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting ExpensesMaster');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -147,7 +147,7 @@ export class AddExpenseComponent implements OnInit {
           debugger
           this.dropdownList1 = data;
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting EmployeeBenfits');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -177,7 +177,7 @@ export class AddExpenseComponent implements OnInit {
         debugger
         this.projectlist = data
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting ProjectMasterList');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -206,7 +206,7 @@ export class AddExpenseComponent implements OnInit {
         debugger
         this.currencylist = data
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting CurrencyMaste');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -236,7 +236,7 @@ export class AddExpenseComponent implements OnInit {
         debugger
         this.supervisorlist = data
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting Supervisor');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -285,14 +285,31 @@ export class AddExpenseComponent implements OnInit {
     }
     else{
       this.DigiofficeService.ProjectAttachments(this.attachments21)
-      .subscribe(res => {
-        debugger
-        this.attachmentsurl.push(res);
-        this.attachments.length = 0;
-  
-        this.InsertExpensesWEB();
-        debugger
+     .subscribe({
+        next: data => {
+          debugger
+          this.attachmentsurl.push(data);
+          this.attachments.length = 0;
+    
+          this.InsertExpensesWEB();
+        }, error: (err) => {
+          Swal.fire('Issue in Getting ProjectAttachments');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
+
+
+
     }
 
   }
@@ -327,7 +344,7 @@ export class AddExpenseComponent implements OnInit {
           this.InsertNotification();
         }
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting ExpensesWEB');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -372,7 +389,7 @@ export class AddExpenseComponent implements OnInit {
   
         }
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting Notification');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -399,17 +416,29 @@ export class AddExpenseComponent implements OnInit {
     debugger
 
     this.DigiofficeService.GetExpensesMaster()
-    .subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.id == this.ExpenceType);
-      let maxamount: any = temp[0].maxClaimable;
-      if (event > maxamount) {
-        Swal.fire('Amount is Greater than Claimable Amount');
-        this.ExpenceAmount = '';
+    .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data.filter(x => x.id == this.ExpenceType);
+        let maxamount: any = temp[0].maxClaimable;
+        if (event > maxamount) {
+          Swal.fire('Amount is Greater than Claimable Amount');
+          this.ExpenceAmount = '';
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting ExpensesMaster');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
     })
-
-
 
 
     

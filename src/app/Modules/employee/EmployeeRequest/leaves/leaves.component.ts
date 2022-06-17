@@ -137,7 +137,7 @@ export class LeavesComponent implements OnInit {
           debugger
           this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting StaffLeaves');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -162,7 +162,7 @@ export class LeavesComponent implements OnInit {
           debugger
           this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && (x.filterdate >= this.startdate && x.filterdate <= this.enddate))
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting StaffLeaves');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -201,7 +201,7 @@ export class LeavesComponent implements OnInit {
         this.staffleaves = data.filter(x => x.uuid == sessionStorage.getItem('staffid'));
         this.buildcallender(this.staffleaves);
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting StaffLeaves');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -230,7 +230,7 @@ export class LeavesComponent implements OnInit {
     let temp: any = data.filter(x => x.id == id.id);
     this.medicalurl = temp[0].medicalUrl;
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting StaffLeaves');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -268,7 +268,7 @@ export class LeavesComponent implements OnInit {
         Swal.fire('Cancelled Successfully');
         this.ngOnInit();
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting CancelLeave');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -306,7 +306,7 @@ export class LeavesComponent implements OnInit {
     this.getpassword();
     this.ngOnInit();
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting CancelApproved');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -336,7 +336,7 @@ export class LeavesComponent implements OnInit {
         this.marriageLeaveEntitlementlist=data.filter(x=>x.leavetype=='Marriage Leave')
         this.marriageLeaveEntitlement=this.medicalLeaveEntitlementlist[0].yearlyLimit
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting LeaveConfiguration');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -371,7 +371,7 @@ export class LeavesComponent implements OnInit {
          this.medicalLeaveEntitlementTaken += this.medicalLeaveEntitlementlistTakenlist[i].noOfDays;
         }
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting LeaveBalanceDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -397,7 +397,7 @@ export class LeavesComponent implements OnInit {
     this.marriageLeaveEntitlementTaken=this.marriageLeaveEntitlementlistTakenlist[0].balanceleave
     this.marriageLeaveEntitlementBalance=(this.marriageLeaveEntitlement-this.marriageLeaveEntitlementTaken)
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting LeaveBalanceDetails');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -532,15 +532,34 @@ export class LeavesComponent implements OnInit {
 
 
   getpassword() {
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-      if (temp.length != 0) {
-        this.supervisoremail = temp[0].supervisoremail;
-        this.employeename = temp[0].name;
-        this.sendemail();
-      }
+    this.DigiofficeService.GetMyDetails()
 
+    .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+        if (temp.length != 0) {
+          this.supervisoremail = temp[0].supervisoremail;
+          this.employeename = temp[0].name;
+          this.sendemail();
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting MyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
+
   }
 
   public Attactments = [];
@@ -561,7 +580,7 @@ export class LeavesComponent implements OnInit {
     debugger
     this.Attactments = [];
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting sendemail1');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,

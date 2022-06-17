@@ -156,12 +156,12 @@ export class ApplyOTComponent implements OnInit {
     .subscribe({
       next: data => {
         debugger
-        this.attachmentsurl.push(res);
+        this.attachmentsurl.push(data);
         this.attachments.length = 0;
   
         this.InsertStaffOverTimeDetails();
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting StaffOverTimeDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -350,7 +350,7 @@ export class ApplyOTComponent implements OnInit {
       })
 
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting Holidaybit');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -412,7 +412,7 @@ export class ApplyOTComponent implements OnInit {
           this.LegalExccessRestNormalOt = temp[0].legalExccessRestNormalOt == null ? 0 : temp[0].legalExccessRestNormalOt,
           this.LegalExccessRestNightOt = temp[0].legalExccessRestNightOt == null ? 0 : temp[0].legalExccessRestNightOt
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting OtNightOt');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -487,7 +487,7 @@ export class ApplyOTComponent implements OnInit {
           this.getpassword();
           this.router.navigate(['/employee/otrequest']);
         }, error: (err) => {
-          Swal.fire('Issue in Getting City Type');
+          Swal.fire('Issue in Getting StaffOverTimeDetails');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -516,15 +516,33 @@ export class ApplyOTComponent implements OnInit {
 
 
   getpassword() {
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+    this.DigiofficeService.GetMyDetails()
+
+    .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
       if (temp.length != 0) {
         this.supervisoremail = temp[0].supervisoremail;
         this.employeename = temp[0].name;
         this.sendemail();
       }
-
+      }, error: (err) => {
+        Swal.fire('Issue in Getting MyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
   }
 
   public Attactments = [];
@@ -545,7 +563,7 @@ export class ApplyOTComponent implements OnInit {
         debugger
         this.Attactments = [];
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting sendemail1');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -565,7 +583,4 @@ export class ApplyOTComponent implements OnInit {
 }
 
 
-function res(res: any) {
-  throw new Error('Function not implemented.');
-}
 

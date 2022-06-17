@@ -15,8 +15,6 @@ export class OtratesformComponent implements OnInit {
   oT:any;
   nD:any;
   nDOT:any;
-
-
   result: any;
   id: any;
   currentUrl: any;
@@ -49,17 +47,38 @@ export class OtratesformComponent implements OnInit {
       this.nD=this.result[0].nd;
       this.nDOT=this.result[0].ndot;
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in GetOTRates Type');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
           'ErrorMessage': err.error.message
         }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          () => {
+        this.DigiofficeService.InsertExceptionLogs(obj)
+        .subscribe({
+          next: (data: any) => {
             debugger
-          },
-        )
+            this.result = data;
+      this.result=this.result.filter((x: {id: any;})=>x.id==Number(this.id));
+      this.day=this.result[0].day;
+      this.normal=this.result[0].normal;
+      this.oT=this.result[0].ot;
+      this.nD=this.result[0].nd;
+      this.nDOT=this.result[0].ndot;
+          }, error: (err: { error: { message: any; }; }) => {
+            Swal.fire('Issue in InsertExceptionLogs Type');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              () => {
+                debugger
+              },
+            )
+          }
+        })
+        
       }
     })
 
@@ -77,7 +96,6 @@ export class OtratesformComponent implements OnInit {
   };
  
   this.DigipayrollServiceService.InsertOTRates(json)
-
   .subscribe({
     next: data => {
       debugger
@@ -86,24 +104,41 @@ export class OtratesformComponent implements OnInit {
       location.href="/admin/OtRates/";
       Swal.fire("Saved Sucessfully.....!");
     }, error: (err) => {
-      Swal.fire('Issue in Getting City Type');
+      Swal.fire('Issue in InsertOTRates Type');
       // Insert error in Db Here//
       var obj = {
         'PageName': this.currentUrl,
         'ErrorMessage': err.error.message
       }
-      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-        () => {
+      this.DigiofficeService.InsertExceptionLogs(obj)
+      .subscribe({
+        next: (data: any) => {
           debugger
-        },
-      )
+          this.result = data;
+      this.result=this.result.filter((x: {id: any;})=>x.id==Number(this.id));
+      this.day=this.result[0].day;
+      this.normal=this.result[0].normal;
+      this.oT=this.result[0].ot;
+      this.nD=this.result[0].nd;
+      this.nDOT=this.result[0].ndot;
+        }, error: (err: { error: { message: any; }; }) => {
+          Swal.fire('Issue in InsertExceptionLogs Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            () => {
+              debugger
+            },
+          )
+        }
+      })
+  
     }
-  })
-
- 
- 
-  }
- 
+  }) 
+ }
   Update(){
     debugger
     var json = {
@@ -116,15 +151,18 @@ export class OtratesformComponent implements OnInit {
     };
    
     this.DigipayrollServiceService.UpdateOTRates(json)
-
     .subscribe({
       next: data => {
         debugger
-        let result = data;
-        location.href="/admin/OtRates/";
-        Swal.fire("Updated Sucessfully.....!");
+        this.result = data;
+        this.result=this.result.filter((x: {id: any;})=>x.id==Number(this.id));
+        this.day=this.result[0].day;
+        this.normal=this.result[0].normal;
+        this.oT=this.result[0].ot;
+        this.nD=this.result[0].nd;
+        this.nDOT=this.result[0].ndot;
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in UpdateOTRates Type');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -137,7 +175,10 @@ export class OtratesformComponent implements OnInit {
         )
       }
     })
-
   }
-
 }
+
+
+
+
+

@@ -369,7 +369,7 @@ export class SidebarComponent implements OnInit {
     }
     else{
       localStorage.setItem('clickname', 'DASHBOARD')
-    this.router.navigate(['#/manager/ManagerDashboard']);
+    this.router.navigate(['/manager/ManagerDashboard']);
     }
   }
   public AttendenceDetails() {
@@ -823,7 +823,7 @@ export class SidebarComponent implements OnInit {
   }
   else{
     localStorage.setItem('clickname', 'UPLOAD ATTENDANCE')
-    this.router.navigate(['#/manager/UploadAttendence']);
+    this.router.navigate(['/manager/UploadAttendence']);
   }
   }
 

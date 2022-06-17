@@ -3,6 +3,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sssbreakdown',
@@ -10,20 +11,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./sssbreakdown.component.css']
 })
 export class SSSBreakdownComponent implements OnInit {
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
-  Month:any;
-  Year:any;
-  Person:any;
-  showleaseforprint:any;
-  ngOnInit(): void {
-  
-    this.Month="";
-    this.Year="Select";
-    this.sign="";
-    this.showleaseforprint = 0;
-  }
-
+  currentUrl: any;
   employeelist:any;
   uniquelist:any;
   uniquelist1:any;
@@ -46,18 +34,47 @@ export class SSSBreakdownComponent implements OnInit {
   loader:any;
   count1:any;
   p:any;
+
+  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
+  Month:any;
+  Year:any;
+  Person:any;
+  showleaseforprint:any;
+  ngOnInit(): void {
+  
+    this.Month="";
+    this.Year="Select";
+    this.sign="";
+    this.showleaseforprint = 0;
+  }
+
   public showpdf(){
     this.loader=true;
-    this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
-      this.employeelist = data.filter(x=>x.employeeMonth==this.Month && String(x.emplyeeYear)==this.Year);
-      const key = 'monthstaffid'
-
-      this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-        this.loader=false;
-        this.count1 = this.uniquelist.length
-    });
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist = data.filter(x=>x.employeeMonth==this.Month && String(x.emplyeeYear)==this.Year);
+        const key = 'monthstaffid'
+  
+        this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+          [(item[key]), item])).values()]
+          this.loader=false;
+          this.count1 = this.uniquelist.length
+      }, error: (err) => {
+        Swal.fire('Issue in Getting EmployeeSalaryMonthly Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    }) 
     // this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
     //   debugger
     //   this.employeelist = data.filter(x=>String(x.month)==this.Month && String(x.endyear)==this.Year);
@@ -122,12 +139,27 @@ export class SSSBreakdownComponent implements OnInit {
   stafflist1:any;
   Signature:any;
   public getsign(){
-    this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
-      this.stafflist1 = data;
+    this.DigipayrollServiceService.GetCompanyAddressDetails()
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist1 = data;
       this.signname = this.stafflist1[0].hR_AuthorisedPerson
       this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in Getting CompanyAddressDetails Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
   }
 
   fileName = 'SSS BREAKDOWN Report.xlsx';

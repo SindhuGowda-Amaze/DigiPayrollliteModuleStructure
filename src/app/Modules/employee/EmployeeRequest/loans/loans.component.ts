@@ -102,7 +102,7 @@ export class LoansComponent implements OnInit {
     this.stafflist = data.filter(x=>x.roleType==this.RoleType);
     this.count = this.stafflist.length;
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting MyDetails');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -135,7 +135,7 @@ export class LoansComponent implements OnInit {
     this.loader=false
 
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting EmployeeLoans');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -165,7 +165,7 @@ export class LoansComponent implements OnInit {
     this.count = this.stafflistnewrequest1.length;
        this.loader=false
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting EmployeeLoans');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -194,7 +194,7 @@ export class LoansComponent implements OnInit {
     this.stafflistapproved=this.stafflist.filter((x:{status: string,department:string})=>x.status=='HR Approved' && x.department==this.Department )
     this.count = this.stafflist.length;
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting EmployeeLoans');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -236,7 +236,7 @@ export class LoansComponent implements OnInit {
     debugger
     this.stafflist = data.filter(x => x.filterdate == this.date);
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting EmployeeLoans');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -270,7 +270,7 @@ export class LoansComponent implements OnInit {
     Swal.fire('Cancelled Successfully')
     this.ngOnInit();
   }, error: (err) => {
-    Swal.fire('Issue in Getting City Type');
+    Swal.fire('Issue in Getting EmployeeLoans');
     // Insert error in Db Here//
     var obj = {
       'PageName': this.currentUrl,
@@ -315,7 +315,7 @@ export class LoansComponent implements OnInit {
         Swal.fire("Updated Successfully");
         location.reload();
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting EmployeeLoansByHR');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,

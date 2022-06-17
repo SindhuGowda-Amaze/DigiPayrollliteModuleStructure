@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sssr5-report',
@@ -9,20 +10,13 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./sssr5-report.component.css']
 })
 export class SSSR5ReportComponent implements OnInit {
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
-  Month:any;
-  Year:any;
-  Person:any;
-  showleaseforprint:any;
-  ngOnInit(): void {
-  
-    this.Month="";
-    this.Year="Select";
-    this.sign="";
-    this.showleaseforprint = 0;
-  }
-
+  currentUrl: any;
+  fullname:any;
+  sign:any;
+  department:any;
+  signname:any;
+  stafflist1:any;
+  Signature:any;
   employeelist:any;
   uniquelist:any;
   uniquelist1:any;
@@ -42,8 +36,22 @@ export class SSSR5ReportComponent implements OnInit {
   email:any;
   zipcode:any;
   tin:any;
+
+  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
+  Month:any;
+  Year:any;
+  Person:any;
+  showleaseforprint:any;
+  ngOnInit(): void {
+  
+    this.Month="";
+    this.Year="Select";
+    this.sign="";
+    this.showleaseforprint = 0;
+  }
   public showpdf(){
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe(data => {
       debugger
       this.employeelist = data.filter(x=>String(x.month)==this.Month && String(x.endyear)==this.Year);
      
@@ -60,12 +68,6 @@ export class SSSR5ReportComponent implements OnInit {
       for (let i = 0; i < this.employeelist.length; i++) {
       this.ss_er += parseFloat(this.employeelist[i].ss_er);
       }
-
- 
-
-
-
-
       this.total = this.sum+this.sssec
       this.year = this.employeelist[0].year
 
@@ -80,9 +82,6 @@ export class SSSR5ReportComponent implements OnInit {
         this.email= this.companylist[0].email
         this.zipcode = this.companylist[0].zipcode
         this.tin = this.companylist[0].tin
-  
-  
-  
       })
 
    
@@ -98,25 +97,29 @@ export class SSSR5ReportComponent implements OnInit {
     });
     this.showleaseforprint = 1;
   }
-
-
-  fullname:any;
-  sign:any;
-  department:any;
-  signname:any;
-  stafflist1:any;
-  Signature:any;
   public getsign(){
-    this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
-      debugger
-      this.stafflist1 = data;
+    this.DigipayrollServiceService.GetCompanyAddressDetails()
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist1 = data;
       this.signname = this.stafflist1[0].hR_AuthorisedPerson
       this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in Getting CompanyAddressDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
   }
-
-
-
   public convetToPDF1() {
     debugger
    
