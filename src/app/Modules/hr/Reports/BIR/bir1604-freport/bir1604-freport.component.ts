@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bir1604-freport',
@@ -9,39 +10,18 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./bir1604-freport.component.css']
 })
 export class BIR1604FReportComponent implements OnInit {
-
-  year:any;
-  year1:any;
-  year2:any;
-  year3:any;
-  year4:any;
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
-  showleaseforprint:any;
-  ngOnInit(): void {
-    this.sign=""
-    this.showleaseforprint = 0;
-    const d = new Date();
-   
-   
-  }
-
-
   fullname:any;
   sign:any;
   department:any;
   signname:any;
   stafflist1:any;
   Signature:any;
-  public getsign(){
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      this.stafflist1 = data.filter(x => x.department_name == this.sign);
-      this.signname = this.stafflist1[0].fullname
-      this.Signature = this.stafflist1[0].signature
-    });
-  }
-
- employeelist:any;
+  year:any;
+  year1:any;
+  year2:any;
+  year3:any;
+  year4:any;
+  employeelist:any;
   uniquelist:any;
   uniquelist1:any;
   ssstotal:any;
@@ -93,8 +73,50 @@ export class BIR1604FReportComponent implements OnInit {
   tin2:any;
   tin3:any;
   tin4:any;
+  currentUrl: any;
+  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
+  showleaseforprint:any;
+  ngOnInit(): void {
+    
+   this.currentUrl = window.location.href;
+    this.sign=""
+    this.showleaseforprint = 0;
+    const d = new Date();
+   
+   
+  }
+
+
+  public getsign(){
+    this.DigipayrollServiceService.GetMyDetails()
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist1 = data.filter(x => x.department_name == this.sign);
+        this.signname = this.stafflist1[0].fullname
+        this.Signature = this.stafflist1[0].signature
+      }, error: (err) => {
+        Swal.fire('Issue in Getting MyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+  }
+
+
   public showpdf(){
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe({
+      next: data => {
       debugger
       this.year1 = String(this.year).charAt(0)
       this.year2 = String(this.year).charAt(1)
@@ -209,8 +231,29 @@ export class BIR1604FReportComponent implements OnInit {
       //  this.uniquelist = [...new Set(data.map(item => item))];
      
   
-    });
+  
+
+  
+      }, error: (err) => {
+        Swal.fire('Issue in Getting MyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+
     this.showleaseforprint = 1;
+
+
+
   }
 
   firstquartetax:any;
