@@ -39,6 +39,9 @@ export class TeamLoansComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
+
+    this.GetDepartment()
+    this.GetRoleType()
     this.loader = true;
     this.RoleType = "";
     this.approved = 0;
@@ -49,88 +52,219 @@ export class TeamLoansComponent implements OnInit {
     this.roledid = sessionStorage.getItem('roledid');
     if (this.roledid == 2) {
       debugger
-      this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
-        debugger
-        this.stafflist = data;
+      this.DigiofficeService.GetEmployeeLoans()
 
-        this.stafflistnewrequest = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status == 'Manager Pending,HR Pending,Payroll Pending,Finance Pending' && x.supervisor == sessionStorage.getItem('staffid'))
+        .subscribe({
+          next: data => {
+            debugger
+            this.stafflist = data;
 
-        this.stafflistapproved = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status != 'Manager Pending,HR Pending,Payroll Pending,Finance Pending' && x.supervisor == sessionStorage.getItem('staffid'))
-        this.count = this.stafflistapproved.length;
+            this.stafflistnewrequest = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status == 'Manager Pending,HR Pending,Payroll Pending,Finance Pending' && x.supervisor == sessionStorage.getItem('staffid'))
 
-        this.count = this.stafflistapproved.length;
-        this.stafflistCopy = this.stafflist
+            this.stafflistapproved = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status != 'Manager Pending,HR Pending,Payroll Pending,Finance Pending' && x.supervisor == sessionStorage.getItem('staffid'))
+            this.count = this.stafflistapproved.length;
+
+            this.count = this.stafflistapproved.length;
+            this.stafflistCopy = this.stafflist
 
 
-        this.loader = false
-      });
+            this.loader = false
+          }, error: (err) => {
+            Swal.fire('Issue in Getting EmployeeLoans');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+
+
+
+
+
     }
     else if (this.roledid == 9) {
       debugger
-      this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
-        debugger
-        this.stafflist = data;
+      this.DigiofficeService.GetEmployeeLoans()
 
-        this.stafflistnewrequest = this.stafflist.filter((x: { status: string }) => x.status == 'Manager Pending,HR Pending,Payroll Pending,Finance Pending')
-        this.count = this.stafflistnewrequest.length;
+        .subscribe({
+          next: data => {
+            debugger
+            this.stafflist = data;
 
-        this.stafflistapproved = this.stafflist.filter((x: { status: string }) => x.status != 'Manager Approved,HR Pending,Payroll Pending,Finance Pending')
-        this.count = this.stafflistapproved.length;
-        this.stafflistCopy = this.stafflist
-        this.loader = false
+            this.stafflistnewrequest = this.stafflist.filter((x: { status: string }) => x.status == 'Manager Pending,HR Pending,Payroll Pending,Finance Pending')
+            this.count = this.stafflistnewrequest.length;
+
+            this.stafflistapproved = this.stafflist.filter((x: { status: string }) => x.status != 'Manager Approved,HR Pending,Payroll Pending,Finance Pending')
+            this.count = this.stafflistapproved.length;
+            this.stafflistCopy = this.stafflist
+            this.loader = false
+
+          }, error: (err) => {
+            Swal.fire('Issue in Getting EmployeeLoans');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
 
 
-
-      });
     }
     else if (this.roledid == 8) {
       debugger
-      this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
-        debugger
-        this.stafflist = data;
+      this.DigiofficeService.GetEmployeeLoans()
 
-        this.stafflistnewrequest = this.stafflist.filter((x: { status: string }) => x.status == 'Manager Approved,HR Approved,Payroll Approved,Finance Pending')
-        this.count = this.stafflistnewrequest.length;
+        .subscribe({
+          next: data => {
+            debugger
+            this.stafflist = data;
 
-        this.stafflistapproved = this.stafflist.filter((x: { status: string }) => x.status != 'Manager Approved,HR Approved,Payroll Approved,Finance Pending')
-        this.count = this.stafflistapproved.length;
-        this.stafflistCopy = this.stafflist;
-        this.loader = false
+            this.stafflistnewrequest = this.stafflist.filter((x: { status: string }) => x.status == 'Manager Approved,HR Approved,Payroll Approved,Finance Pending')
+            this.count = this.stafflistnewrequest.length;
+
+            this.stafflistapproved = this.stafflist.filter((x: { status: string }) => x.status != 'Manager Approved,HR Approved,Payroll Approved,Finance Pending')
+            this.count = this.stafflistapproved.length;
+            this.stafflistCopy = this.stafflist;
+            this.loader = false
+
+          }, error: (err) => {
+            Swal.fire('Issue in Getting EmployeeLoans');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
 
 
 
-      });
+
+
+
     }
     else if (this.roledid == 17) {
       debugger
-      this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
-        debugger
-        this.stafflist = data;
-
-        this.stafflistnewrequest = this.stafflist.filter((x: { status: string }) => x.status == 'Manager Approved,HR Approved,Payroll Pending,Finance Pending' || x.status == null)
-        this.count = this.stafflistnewrequest.length;
-
-        this.stafflistapproved = this.stafflist.filter((x: { status: string }) => x.status != 'Manager Approved,HR Approved,Payroll Pending,Finance Pending' && x.status != null)
-        this.count = this.stafflistapproved.length;
-        this.stafflistCopy = this.stafflist;
-        this.loader = false
+      this.DigiofficeService.GetEmployeeLoans()
 
 
+        .subscribe({
+          next: data => {
+            debugger
+            this.stafflist = data;
 
-      });
+            this.stafflistnewrequest = this.stafflist.filter((x: { status: string }) => x.status == 'Manager Approved,HR Approved,Payroll Pending,Finance Pending' || x.status == null)
+            this.count = this.stafflistnewrequest.length;
+
+            this.stafflistapproved = this.stafflist.filter((x: { status: string }) => x.status != 'Manager Approved,HR Approved,Payroll Pending,Finance Pending' && x.status != null)
+            this.count = this.stafflistapproved.length;
+            this.stafflistCopy = this.stafflist;
+            this.loader = false
+
+          }, error: (err) => {
+            Swal.fire('Issue in Getting EmployeeLoans');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+
+
     }
 
 
-    this.DigiofficeService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
+    this.DigiofficeService.GetDepartment()
+      .subscribe(data => {
+        debugger
+        this.Departmentlist = data;
+      });
+
+
 
     this.DigiofficeService.GetRoleType().subscribe(data => {
       debugger
       this.RoleTypeList = data;
     });
   }
+
+
+  public GetDepartment() {
+
+    this.DigiofficeService.GetDepartment()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.Departmentlist = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+  }
+
+  public GetRoleType() {
+    this.DigiofficeService.GetRoleType()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.RoleTypeList = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
+
+
+
+
+
 
   public getRoleType(event: any) {
     debugger
@@ -946,11 +1080,11 @@ export class TeamLoansComponent implements OnInit {
       'attachmenturl': this.attachments2url
     }
     this.DigiofficeService.sendemail(this.tomail, this.subject, this.message)
-    .subscribe(res => {
-      debugger
+      .subscribe(res => {
+        debugger
 
-      Swal.fire('Mail Sent Successfully')
-    })
+        Swal.fire('Mail Sent Successfully')
+      })
 
 
   }
