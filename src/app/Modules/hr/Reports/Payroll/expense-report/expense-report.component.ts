@@ -27,6 +27,9 @@ export class ExpenseReportComponent implements OnInit {
   Notes: any;
   id: any;
   currentUrl: any;
+  temp: any;
+  public IntID: any = [];
+  public ID: any = [];
   constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
   ngOnInit(): void {
 
@@ -145,7 +148,7 @@ export class ExpenseReportComponent implements OnInit {
             location.reload()
             // location.href = "#/Companydashbaord";
           }, error: (err) => {
-            Swal.fire('Issue in Getting ExpencesApproveBySupervisor');
+            Swal.fire('Issue in Getting UpdateExpencesApproveBySupervisor');
             // Insert error in Db Here//
             var obj = {
               'PageName': this.currentUrl,
@@ -182,7 +185,7 @@ export class ExpenseReportComponent implements OnInit {
           location.reload()
           // location.href = "#/Companydashbaord";
         }, error: (err) => {
-          Swal.fire('Issue in Getting ExpencesApproveBySupervisor');
+          Swal.fire('Issue in Getting UpdateExpencesApproveBySupervisor');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -221,7 +224,7 @@ export class ExpenseReportComponent implements OnInit {
           location.reload()
           // location.href = "#/Companydashbaord";
         }, error: (err) => {
-          Swal.fire('Issue in Getting ExpencesReject');
+          Swal.fire('Issue in Getting UpdateExpencesReject');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -236,9 +239,7 @@ export class ExpenseReportComponent implements OnInit {
       })
 
   }
-  temp: any;
-  public IntID: any = [];
-  public ID: any = [];
+ 
 
   public getCheckbocdetails(evn: any) {
     let temp: any = evn;

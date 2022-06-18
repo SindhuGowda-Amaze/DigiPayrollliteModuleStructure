@@ -9,8 +9,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./vaccine-form.component.css']
 })
 export class VaccineFormComponent implements OnInit {
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService, public router: Router) { }
   EmployeeId: any;
   EmployeeName: any;
   FirstDoseDate: any;
@@ -21,14 +19,19 @@ export class VaccineFormComponent implements OnInit {
   dropdownSettings: any = {};
   roledid: any;
   showpdf:any;
+   attachments21: any = [];
+   BoosterName: any;
+   BoosterDoseDate: any;
+  attachments: any = [];
+  currentUrl: any;
+  constructor(public DigipayrollServiceService: DigipayrollserviceService, public router: Router) { }
+ 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     debugger
     this.roledid = localStorage.getItem('roledid');
-    
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      this.dropdownList = data;
-    })
+    this.GetMyDetails();
+
 
     this.dropdownSettings = {
       singleSelection: true,
@@ -42,19 +45,61 @@ export class VaccineFormComponent implements OnInit {
     };
   }
 
+public GetMyDetails(){
+
+  this.DigipayrollServiceService.GetMyDetails()
+  
+  .subscribe({
+    next: data => {
+      debugger
+      this.dropdownList = data;
+    }, error: (err) => {
+      Swal.fire('Issue in GetMyDetails');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
+
+  
+
+
+}
   onItemSelect(item: any) {
     debugger
     console.log(item);
     this.EmployeeId = item.id;
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.id == this.EmployeeId);
-      this.EmployeeName = temp[0].name;
+    this.DigipayrollServiceService.GetMyDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data.filter(x => x.id == this.EmployeeId);
+        this.EmployeeName = temp[0].name;
+      }, error: (err) => {
+        Swal.fire('Issue in GetMyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
-  }
-  public attachments21: any = [];
 
-  public attachments: any = [];
+
+   
+  }
+
   onRemove21(event: any) {
     debugger
     console.log(event);
@@ -72,17 +117,34 @@ export class VaccineFormComponent implements OnInit {
   public attachmentsurl: any = [];
   public Save() {
     debugger
-    this.DigipayrollServiceService.ProjectAttachments(this.attachments21).subscribe(res => {
-      debugger
-      this.attachmentsurl.push(res);
+    this.DigipayrollServiceService.ProjectAttachments(this.attachments21)
+    
+    .subscribe({
+      next: data => {
+        debugger
+      this.attachmentsurl.push(data);
       this.attachments.length = 0;
 
       this.InsertVaccineDetails();
       debugger
+      }, error: (err) => {
+        Swal.fire('Issue in ProjectAttachments');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+
+
+ 
   }
-  BoosterName: any;
-  BoosterDoseDate: any;
+
   public InsertVaccineDetails() {
     debugger
     if (this.FirstDoseDate == undefined || this.SecondDoseDate == undefined || this.EmployeeId == undefined) {
@@ -100,9 +162,10 @@ export class VaccineFormComponent implements OnInit {
 
 
       }
-      this.DigipayrollServiceService.InsertEmployeeVaccinationDetails(eb).subscribe(
-
-        data => {
+      this.DigipayrollServiceService.InsertEmployeeVaccinationDetails(eb)
+      
+      .subscribe({
+        next: data => {
           debugger
           Swal.fire('Saved Successfully.');
           if (this.roledid == 9) {
@@ -117,9 +180,22 @@ export class VaccineFormComponent implements OnInit {
             this.router.navigate(['/Employeedashboard']);
             
           }
+        }, error: (err) => {
+          Swal.fire('Issue in InsertEmployeeVaccinationDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
 
-        },
-      )
+  
+
     }
 
 
