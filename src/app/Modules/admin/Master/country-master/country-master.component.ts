@@ -109,7 +109,7 @@ export class CountryMasterComponent implements OnInit {
       next: data => {
         debugger
         Swal.fire('Updated Successfully');
-        location.href = '#/CountryMasterDash';
+        location.href = '#/admin/CountryMasterDash';
       }, error: (err) => {
         Swal.fire('Issue in UpdateCountryType');
         // Insert error in Db Here//
