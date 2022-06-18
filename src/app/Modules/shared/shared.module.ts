@@ -7,13 +7,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminHelpMenuComponent } from './admin-help-menu/admin-help-menu.component';
 import { SupportTicketDashboardComponent } from './support-ticket-dashboard/support-ticket-dashboard.component';
 import { GaugeModule } from 'angular-gauge';
-
 import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgWizardConfig, NgWizardModule, THEME } from 'ng-wizard';
 
-
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.circles
+};
 
 @NgModule({
   declarations: [
@@ -30,8 +32,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     GaugeModule.forRoot(),
     NgxDropzoneModule,
     NgxPaginationModule,
-   Ng2SearchPipeModule,
-      NgMultiSelectDropDownModule.forRoot()
+    Ng2SearchPipeModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    NgWizardModule.forRoot(ngWizardConfig),
 
   ],
   exports: [
@@ -41,7 +44,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     GaugeModule,
-    NgMultiSelectDropDownModule
+    NgMultiSelectDropDownModule,
+    NgWizardModule
 
 
   ],
@@ -61,3 +65,5 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
   ]
 })
 export class SharedModule { }
+
+
