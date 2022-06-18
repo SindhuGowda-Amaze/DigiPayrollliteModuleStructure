@@ -14,6 +14,10 @@ import { interval } from 'rxjs';
   styleUrls: ['./over-time-summary-per-employee.component.css']
 })
 export class OverTimeSummaryPerEmployeeComponent implements OnInit {
+  currentUrl: any;
+  RoleType: any;
+  Department: any;
+
   timedetails: any;
   Departmentlist: any;
   RoleTypeList: any;
@@ -29,7 +33,7 @@ export class OverTimeSummaryPerEmployeeComponent implements OnInit {
   showleaseforprint: any;
   timedetails1: any = [];
   id: any;
-  currentUrl: any;
+  
 
 
 
@@ -41,17 +45,49 @@ export class OverTimeSummaryPerEmployeeComponent implements OnInit {
     this.Department = "";
     this.GetMyOverTimeDetails();
 
-    this.DigiofficeService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
+    this.DigiofficeService.GetDepartment()
+    .subscribe({
+      next: data => {
+        debugger
+        this.Departmentlist = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Department');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
+    
 
-    this.DigiofficeService.GetRoleType().subscribe(data => {
-      debugger
-      this.RoleTypeList = data;
-    });
-
-
+    this.DigiofficeService.GetRoleType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.RoleTypeList = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting RoleType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
+   
   }
 
   public GetMyOverTimeDetails() {
@@ -202,7 +238,7 @@ export class OverTimeSummaryPerEmployeeComponent implements OnInit {
   }
 
 
-  RoleType: any;
+ 
 
   public FilterRoleType() {
     debugger
@@ -230,8 +266,7 @@ export class OverTimeSummaryPerEmployeeComponent implements OnInit {
 
 
   }
-  Department: any;
-
+  
   public filterByDepartment() {
     debugger
     this.DigiofficeService.GetEmployeeSalary()

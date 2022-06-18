@@ -227,29 +227,56 @@ export class PayslipReportComponent implements OnInit {
     else{
 
       
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist = data;
-      const key = 'startdate';
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist = data;
+        const key = 'startdate';
+  
+        this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+      }, error: (err) => {
+        Swal.fire('Issue in Getting EmployeeSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
+    
 
-      this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
-      //  this.uniquelist = [...new Set(data.map(item => item))];
-     
-    });
-
-    this.DigipayrollServiceService.GetThirteenthMonthSalary().subscribe(data => {
-      debugger
-      this.employeelist13 = data;
+    this.DigipayrollServiceService.GetThirteenthMonthSalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist13 = data;
       const key = 'year';
 
       this.uniquelist13  = [...new Map(this.employeelist13.map((item: { [x: string]: any; }) =>
         [item[key], item])).values()];
-      //  this.uniquelist = [...new Set(data.map(item => item))];
-     
-    });
-
-
+      }, error: (err) => {
+        Swal.fire('Issue in Getting EmployeeSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
 
   
     }
@@ -267,13 +294,27 @@ export class PayslipReportComponent implements OnInit {
  
 
   public get13themployeelist(Year:any){
-    this.DigipayrollServiceService.GetThirteenthMonthSalary().subscribe(data => {
-      debugger
-      this.employeelist213 = data.filter(x=>x.year==Year);
+    this.DigipayrollServiceService.GetThirteenthMonthSalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist213 = data.filter(x=>x.year==Year);
      
-    }
-   
-    )
+      }, error: (err) => {
+        Swal.fire('Issue in GettingThirteenthMonthSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
   }
 
  
@@ -281,13 +322,28 @@ export class PayslipReportComponent implements OnInit {
  
 public FilterRoleType() {
   debugger
-  this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-    debugger
-    this.employeelist2 = data.filter(x=>x.startdate==this.startdate && x.enddate==this.enddate && x.role==this.RoleType );
+  this.DigipayrollServiceService.GetEmployeeSalary()
+  .subscribe({
+    next: data => {
+      debugger
+      this.employeelist2 = data.filter(x=>x.startdate==this.startdate && x.enddate==this.enddate && x.role==this.RoleType );
     
-  }
- 
-  )
+    }, error: (err) => {
+      Swal.fire('Issue in GettingEmployeeSalary');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+
+  
  
    
   
@@ -297,13 +353,27 @@ public FilterRoleType() {
 
 public filterByDepartment() {
   debugger
-  this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-    debugger
-    this.employeelist2 = data.filter(x=>x.startdate==this.startdate && x.enddate==this.enddate && x.department_name==this.Department );
+  this.DigipayrollServiceService.GetEmployeeSalary()
+  .subscribe({
+    next: data => {
+      debugger
+      this.employeelist2 = data.filter(x=>x.startdate==this.startdate && x.enddate==this.enddate && x.department_name==this.Department );
     
-  }
- 
-  )
+    }, error: (err) => {
+      Swal.fire('Issue in GettingEmployeeSalary');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+  
   
 
   
@@ -315,13 +385,28 @@ public filterByDepartment() {
     this.payrolltype=payrolltype
     this.startdate = startdate 
     this.enddate = enddate
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist2 = data.filter(x=>x.startdate==startdate && x.enddate==enddate );
-      
-    }
-   
-    )
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist2 = data.filter(x=>x.startdate==startdate && x.enddate==enddate );
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+
+    
+    
   }
 
   // public show(){

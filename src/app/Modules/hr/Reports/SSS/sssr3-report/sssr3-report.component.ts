@@ -18,18 +18,18 @@ export class SSSR3ReportComponent implements OnInit {
   uniquelist: any;
   sssnumber: any;
   staffid: any;
-
   Month: any;
   Year: any;
   loader: any;
   p: any = 1;
   count1: any = 10;
   govtattachment: any;
-  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
   govtlist: any;
+  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+ 
   ngOnInit(): void {
 
-    
+    this.currentUrl = window.location.href;
     this.Month = "";
     this.Year = "";
   }
@@ -44,27 +44,41 @@ export class SSSR3ReportComponent implements OnInit {
 
 
       this.staffid = this.govtlist[0].staffID
-      this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-        debugger
-        this.employeelist = data.filter(x => x.monthstaffid == this.staffid && x.month == this.Month);
-
-        this.results = this.govtlist.map((val: { staffID: any; }) => {
-          return Object.assign({}, val, this.employeelist.filter((v: { monthstaffid: any; }) => v.monthstaffid === val.staffID)[0]);
-        });
-
-        const key = 'id';
-
-
-        this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-          [(item[key]), item])).values()]
-
-
-          this.loader = false;
-
-        console.log('data', this.results)
-
-      });
-
+      this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+      
+      .subscribe({
+        next: data => {
+          debugger
+          this.employeelist = data.filter(x => x.monthstaffid == this.staffid && x.month == this.Month);
+  
+          this.results = this.govtlist.map((val: { staffID: any; }) => {
+            return Object.assign({}, val, this.employeelist.filter((v: { monthstaffid: any; }) => v.monthstaffid === val.staffID)[0]);
+          });
+  
+          const key = 'id';
+  
+  
+          this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+            [(item[key]), item])).values()]
+  
+  
+            this.loader = false;
+  
+          console.log('data', this.results)
+        }, error: (err) => {
+          Swal.fire('Issue in GetEmployeeSalaryMonthly');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+    
       }, error: (err) => {
         Swal.fire('Issue in Getting NewGovernmentRecords');
         // Insert error in Db Here//

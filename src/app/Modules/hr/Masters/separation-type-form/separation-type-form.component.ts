@@ -9,8 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./separation-type-form.component.css']
 })
 export class SeparationTypeFormComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+  currentUrl: any;
   ID: any;
   shiftmasterlist: any;
   Short: any;
@@ -20,7 +19,11 @@ export class SeparationTypeFormComponent implements OnInit {
   separationTypelist:any;
 
 
+  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+  
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     // this.Grace="";
      this.Short="";
     this.GetSeparationType();
@@ -32,29 +35,62 @@ export class SeparationTypeFormComponent implements OnInit {
       }
       else {
 
-        this.DigiofficeService.GetSeparationType().subscribe(
-          data => {
+        this.DigiofficeService.GetSeparationType()
+        .subscribe({
+          next: data => {
             debugger
-
             this.separationTypelist = data.filter(x=>x.id==this.ID);
             this.Short = this.separationTypelist[0].short;
             this.Description = this.separationTypelist[0].description;
        
-          },
-        );
+          }, error: (err) => {
+            Swal.fire('Issue in Getting SeparationType');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+  
+        
+        
+        
       }
     }
     )
   }
 public GetSeparationType(){
-  this.DigiofficeService.GetSeparationType().subscribe(
-    data => {
+  this.DigiofficeService.GetSeparationType()
+  .subscribe({
+    next: data => {
       debugger
-     
       this.separationTypelist = data;
     
-    },
-  );
+    }, error: (err) => {
+      Swal.fire('Issue in Getting SeparationType');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+
+  
+  
+  
+
 }
 
   

@@ -70,10 +70,23 @@ export class BIR1601CReportComponent implements OnInit {
     
     .subscribe({
       next: data => {
-        debugger
-      this.stafflist1 = data.filter(x => x.department_name == this.sign);
-      this.signname = this.stafflist1[0].fullname
-      this.Signature = this.stafflist1[0].signature
+        {
+          debugger
+        this.stafflist1 = data.filter(x => x.department_name == this.sign);
+        this.signname = this.stafflist1[0].fullname
+        this.Signature = this.stafflist1[0].signature
+        } error: (err: { error: { message: any; }; }) => {
+          Swal.fire('Issue in GetMyDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       }, error: (err) => {
         Swal.fire('Issue in GetMyDetails');
         // Insert error in Db Here//
@@ -88,85 +101,101 @@ export class BIR1601CReportComponent implements OnInit {
         )}
     })
 
+
+
   }
 
 
     public showpdf(){
     this.DigipayrollServiceService.GetEmployeeSalary()
+    
     .subscribe({
       next: data => {
-        debugger
-      this.employeelist = data.filter(x=>x.month==this.month && String(x.endyear)==this.Year);
-      
-      this.sum = 0;
-      this.netMonthSalary = 0;
-      this.tax = 0;
-      this.nontax=0;
-      this.semiotamount=0;
-      this.benefits=0;
-
-      const key = 'staffname';
-      const key1 = 'id'
-
-      this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
- 
-
-      for (let i = 0; i < this.uniquelist.length; i++) {
-        this.sum += parseFloat(this.uniquelist[i].grossSalary);
-      }
-
-
-      for (let i = 0; i < this.uniquelist.length; i++) {
-        this.nontax += parseFloat(this.uniquelist[i].nontax);
-      }
-
-      for (let i = 0; i < this.uniquelist.length; i++) {
-        this.semiotamount += parseFloat(this.uniquelist[i].semiotamount);
-      }
-     
-      for (let i = 0; i < this.uniquelist.length; i++) {
-        this.benefits += parseFloat(this.uniquelist[i].benefits);
-      }
-
-      this.nontaxableamount = this.nontax + this.semiotamount +  this.benefits 
-     
-      
-      this.income=parseFloat(this.sum)-parseFloat(this.nontax)
-
-
-      for (let i = 0; i < this.employeelist.length; i++) {
-        this.netMonthSalary += parseFloat(this.employeelist[i].netMonthSalary);
-      }
-      for (let i = 0; i < this.employeelist.length; i++) {
-        this.tax += parseFloat(this.employeelist[i].tax);
-      }
-
-     
-      this.DigipayrollServiceService.GetCompanyProfile().subscribe(data => {
-        debugger
-        this.companylist = data
-        this.companyid = this.companylist[0].id,
-        this.companyname = this.companylist[0].company_Name,
-        this.Address = this.companylist[0].address1 + this.companylist[0].address2
-        this.Phone = this.companylist[0].phone
-        this.email= this.companylist[0].email
-        this.zipcode = this.companylist[0].zipcode
-        this.tin = this.companylist[0].tin
+        {
+          debugger
+        this.employeelist = data.filter(x=>x.month==this.month && String(x.endyear)==this.Year);
+        
+        this.sum = 0;
+        this.netMonthSalary = 0;
+        this.tax = 0;
+        this.nontax=0;
+        this.semiotamount=0;
+        this.benefits=0;
   
+        const key = 'staffname';
+        const key1 = 'id'
   
-  
-      })
-      
+        this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+          [(item[key]), item])).values()]
    
+  
+        for (let i = 0; i < this.uniquelist.length; i++) {
+          this.sum += parseFloat(this.uniquelist[i].grossSalary);
+        }
+  
+  
+        for (let i = 0; i < this.uniquelist.length; i++) {
+          this.nontax += parseFloat(this.uniquelist[i].nontax);
+        }
+  
+        for (let i = 0; i < this.uniquelist.length; i++) {
+          this.semiotamount += parseFloat(this.uniquelist[i].semiotamount);
+        }
+       
+        for (let i = 0; i < this.uniquelist.length; i++) {
+          this.benefits += parseFloat(this.uniquelist[i].benefits);
+        }
+  
+        this.nontaxableamount = this.nontax + this.semiotamount +  this.benefits 
+       
+        
+        this.income=parseFloat(this.sum)-parseFloat(this.nontax)
+  
+  
+        for (let i = 0; i < this.employeelist.length; i++) {
+          this.netMonthSalary += parseFloat(this.employeelist[i].netMonthSalary);
+        }
+        for (let i = 0; i < this.employeelist.length; i++) {
+          this.tax += parseFloat(this.employeelist[i].tax);
+        }
+  
+       
+        this.DigipayrollServiceService.GetCompanyProfile().subscribe(data => {
+          debugger
+          this.companylist = data
+          this.companyid = this.companylist[0].id,
+          this.companyname = this.companylist[0].company_Name,
+          this.Address = this.companylist[0].address1 + this.companylist[0].address2
+          this.Phone = this.companylist[0].phone
+          this.email= this.companylist[0].email
+          this.zipcode = this.companylist[0].zipcode
+          this.tin = this.companylist[0].tin
+    
+    
+    
+        })
+        
      
-      // this.ssstotal = SUM(this.employeelist.contribution)
-
-    //   this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-    //     [(item[key]), item])).values()]
-    // this.uniquelist1 =  this.uniquelist.filter((x: { month: any; })=>x.month==this.Month)
-      //  this.uniquelist = [...new Set(data.map(item => item))];
-     
+       
+        // this.ssstotal = SUM(this.employeelist.contribution)
+  
+      //   this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+      //     [(item[key]), item])).values()]
+      // this.uniquelist1 =  this.uniquelist.filter((x: { month: any; })=>x.month==this.Month)
+        //  this.uniquelist = [...new Set(data.map(item => item))];
+       
+        } error: (err: { error: { message: any; }; }) => {
+          Swal.fire('Issue in GetEmployeeSalary');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
       }, error: (err) => {
         Swal.fire('Issue in GetEmployeeSalary');
         // Insert error in Db Here//

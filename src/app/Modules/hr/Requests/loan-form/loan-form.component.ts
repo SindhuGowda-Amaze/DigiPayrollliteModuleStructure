@@ -9,9 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./loan-form.component.css']
 })
 export class LoanFormComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
-
+  currentUrl: any;
   EmployeeId: any;
   EmployeeName: any;
   FirstDoseDate: any;
@@ -27,27 +25,6 @@ export class LoanFormComponent implements OnInit {
   LoanAmount: any;
   loanslist:any;
   roledid:any;
-  ngOnInit(): void {
-    this.LoanType="";
-    this.roledid = sessionStorage.getItem('roledid');
-
-    if(this.roledid==6){
-      this.DigiofficeService.GetLoanConfiguration().subscribe((data: any) => {
-        debugger
-        this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable:boolean })=>x.employeeApply==true && x.enable_Disable==false)
-      })
-    }
-  else{
-    this.DigiofficeService.GetLoanConfiguration().subscribe((data: any) => {
-      debugger
-      this.loanslist = data.filter((x: { managerApply: boolean; enable_Disable:boolean})=>x.managerApply==true && x.enable_Disable==false)
-  
-    })
-  }
-
-
-  }
-
   Notes: any;
   Trasnferdate: any;
   newsupervisor: any;
@@ -55,6 +32,67 @@ export class LoanFormComponent implements OnInit {
   oldsupervisor: any;
   FromDepartment: any;
   Tenure:any;
+
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+
+ 
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+    this.LoanType="";
+    this.roledid = sessionStorage.getItem('roledid');
+
+    if(this.roledid==6){
+      this.DigiofficeService.GetLoanConfiguration()
+      .subscribe({
+        next: data => {
+          debugger
+          this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable:boolean })=>x.employeeApply==true && x.enable_Disable==false)
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+      
+      
+     
+    }
+  else{
+    this.DigiofficeService.GetLoanConfiguration()
+    .subscribe({
+      next: data => {
+        debugger
+        this.loanslist = data.filter((x: { managerApply: boolean; enable_Disable:boolean})=>x.managerApply==true && x.enable_Disable==false)
+  
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
+  }
+
+
+  }
+
+ 
   public attachmentsurl: any = [];
 
   holidaylist:any;
@@ -85,16 +123,27 @@ if(this.LoanType==" "||this.LoanAmount==" "||this.Comments==" "||this.LoanType==
       }
 
   
-      this.DigiofficeService.InsertEmployeeLoans(eb).subscribe(
-    
-        data => {
+      this.DigiofficeService.InsertEmployeeLoans(eb)
+      .subscribe({
+        next: data => {
           debugger
-          Swal.fire('Saved Successfully.');
           this.router.navigate(['/Appliedloans']);
     
-        },
-      )
-    
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+      
    
   }  
 //   else if(this.approval=='Manager Approval'){
@@ -195,16 +244,29 @@ else if(this.approval=='4 Level Approval'){
     'period' : this.Tenure,
   }
   
-  this.DigiofficeService.InsertEmployeeLoans(eb).subscribe(
-
-    data => {
+  this.DigiofficeService.InsertEmployeeLoans(eb)
+  .subscribe({
+    next: data => {
       debugger
-      Swal.fire('Saved Successfully.');
       this.router.navigate(['/Appliedloans']);
 
-    },
-  )
-
+    }, error: (err) => {
+      Swal.fire('Issue in GettingEmployeeLoans');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+  
+  
+  
 
 } 
      

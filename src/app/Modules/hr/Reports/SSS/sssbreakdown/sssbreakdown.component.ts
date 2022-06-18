@@ -34,12 +34,18 @@ export class SSSBreakdownComponent implements OnInit {
   loader:any;
   count1:any;
   p:any;
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
   Month:any;
   Year:any;
   Person:any;
   showleaseforprint:any;
+  fullname:any;
+  sign:any;
+  department:any;
+  signname:any;
+  stafflist1:any;
+  Signature:any;
+  constructor(public DigipayrollserviceService: DigipayrollserviceService) { }
+  ;
   ngOnInit(): void {
   
     this.Month="";
@@ -50,7 +56,7 @@ export class SSSBreakdownComponent implements OnInit {
 
   public showpdf(){
     this.loader=true;
-    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+    this.DigipayrollserviceService.GetEmployeeSalaryMonthly()
     .subscribe({
       next: data => {
         debugger
@@ -62,20 +68,20 @@ export class SSSBreakdownComponent implements OnInit {
           this.loader=false;
           this.count1 = this.uniquelist.length
       }, error: (err) => {
-        Swal.fire('Issue in Getting EmployeeSalaryMonthly Type');
+        Swal.fire('Issue in GetEmployeeSalaryMonthly Type');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
           'ErrorMessage': err.error.message
         }
-        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
           data => {
             debugger
           },
         )
       }
     }) 
-    // this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
+    // this.DigipayrollserviceService.GetEmployeeSalary().subscribe(data => {
     //   debugger
     //   this.employeelist = data.filter(x=>String(x.month)==this.Month && String(x.endyear)==this.Year);
      
@@ -102,7 +108,7 @@ export class SSSBreakdownComponent implements OnInit {
     //   this.year = this.employeelist[0].year
 
     
-    //   this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
+    //   this.DigipayrollserviceService.GetCompanyAddressDetails().subscribe(data => {
     //     debugger
     //     this.companylist = data
     //     this.companyid = this.companylist[0].id,
@@ -132,14 +138,9 @@ export class SSSBreakdownComponent implements OnInit {
   }
 
 
-  fullname:any;
-  sign:any;
-  department:any;
-  signname:any;
-  stafflist1:any;
-  Signature:any;
+
   public getsign(){
-    this.DigipayrollServiceService.GetCompanyAddressDetails()
+    this.DigipayrollserviceService.GetCompanyAddressDetails()
     .subscribe({
       next: data => {
         debugger
@@ -147,13 +148,13 @@ export class SSSBreakdownComponent implements OnInit {
       this.signname = this.stafflist1[0].hR_AuthorisedPerson
       this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature
       }, error: (err) => {
-        Swal.fire('Issue in Getting CompanyAddressDetails Type');
+        Swal.fire('Issue in GetCompanyAddressDetails Type');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
           'ErrorMessage': err.error.message
         }
-        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
           data => {
             debugger
           },

@@ -78,6 +78,7 @@ import { ShiftMasterDashComponent } from './Masters/shift-master-dash/shift-mast
 import { ShiftMasterFormComponent } from './Masters/shift-master-form/shift-master-form.component';
 import { SeparationTypeDashComponent } from './Masters/separation-type-dash/separation-type-dash.component';
 import { SeparationTypeFormComponent } from './Masters/separation-type-form/separation-type-form.component';
+import { ExitFormalityFormComponent } from './employees/exit-formality-form/exit-formality-form.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.circles
@@ -152,7 +153,8 @@ const ngWizardConfig: NgWizardConfig = {
     ShiftMasterDashComponent,
     ShiftMasterFormComponent,
     SeparationTypeDashComponent,
-    SeparationTypeFormComponent
+    SeparationTypeFormComponent,
+    ExitFormalityFormComponent
   ],
   imports: [
     CommonModule,

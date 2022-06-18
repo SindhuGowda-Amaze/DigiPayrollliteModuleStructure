@@ -201,7 +201,7 @@ public GetCompanyAddressDetails(){
       this.signname = this.stafflist1[0].hR_AuthorisedPerson
       this.Signature = this.stafflist1[0].hR_AuthorisedPerson_Signature
       }, error: (err) => {
-        Swal.fire('Issue in Deleting Hoilday');
+        Swal.fire('Issue in GetCompanyAddressDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
