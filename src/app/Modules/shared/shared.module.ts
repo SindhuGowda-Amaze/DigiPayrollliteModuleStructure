@@ -11,7 +11,7 @@ import { GaugeModule } from 'angular-gauge';
 import { LoaderComponent } from 'src/app/Pages/CommonPages/loader/loader.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-//import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
@@ -27,11 +27,11 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     CommonModule,
     FormsModule,
     SharedRoutingModule,
-   GaugeModule.forRoot(),
-   NgxDropzoneModule,
-   NgxPaginationModule,
+    GaugeModule.forRoot(),
+    NgxDropzoneModule,
+    NgxPaginationModule,
    Ng2SearchPipeModule,
-   //NgMultiSelectDropDownModule.forRoot()
+      NgMultiSelectDropDownModule.forRoot()
 
   ],
   exports: [
@@ -39,13 +39,13 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     LoaderComponent,
     NgxDropzoneModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule,
+       Ng2SearchPipeModule,
     GaugeModule,
-    //NgMultiSelectDropDownModule
- 
- 
+    NgMultiSelectDropDownModule
+
+
   ],
-  
+
   providers: [
     // {
     //   provide: ConnectionServiceOptionsToken,
@@ -57,7 +57,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     //   }
     // },
     DatePipe,
-    
+
   ]
 })
 export class SharedModule { }
