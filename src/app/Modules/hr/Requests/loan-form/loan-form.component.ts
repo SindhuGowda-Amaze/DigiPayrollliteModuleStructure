@@ -43,19 +43,50 @@ export class LoanFormComponent implements OnInit {
 
     if(this.roledid==6){
       this.DigiofficeService.GetLoanConfiguration()
-      
-      
-      .subscribe((data: any) => {
-        debugger
-        this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable:boolean })=>x.employeeApply==true && x.enable_Disable==false)
+      .subscribe({
+        next: data => {
+          debugger
+          this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable:boolean })=>x.employeeApply==true && x.enable_Disable==false)
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+      
+      
+     
     }
   else{
-    this.DigiofficeService.GetLoanConfiguration().subscribe((data: any) => {
-      debugger
-      this.loanslist = data.filter((x: { managerApply: boolean; enable_Disable:boolean})=>x.managerApply==true && x.enable_Disable==false)
+    this.DigiofficeService.GetLoanConfiguration()
+    .subscribe({
+      next: data => {
+        debugger
+        this.loanslist = data.filter((x: { managerApply: boolean; enable_Disable:boolean})=>x.managerApply==true && x.enable_Disable==false)
   
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+    
   }
 
 
