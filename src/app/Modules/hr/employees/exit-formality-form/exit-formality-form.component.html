@@ -1,0 +1,95 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3 class="Heading"> Exit Formality / Separation </h3>
+                </div>
+                <div class="col-lg-4"></div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10"></div>
+            </div>
+            <br>
+
+            <div class="card">
+                <div class="row leavereq">
+                    <div class="col-md-2">
+                        <label>Type<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Staff<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Last Working Date<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-5">
+                        <p>Comments<span style="color: red;"></span></p>
+                    </div>
+                </div>
+                <div class="row leavereq">
+
+                    <div class="col-md-2">
+                        <!-- <select class="form-control inputfield" id="Type" name="Type" [(ngModel)]="Type">
+                            <option value="Select Type">Select Type</option>
+                            <option value="1">Retirement</option>
+                            <option value="2">Resignation </option>
+                        </select> -->
+
+                        <select class="form-control inputfield" id="Type" name="Type" [(ngModel)]="Type">
+                            <option value="0">Select Separation Type</option>
+                            <option *ngFor="let name of separationTypelist" value="{{name.id}}">{{name.short}}</option>
+    
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="dropdown">
+                            <ng-multiselect-dropdown [placeholder]="'Select Staff'" [settings]="dropdownSettings"
+                                [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)">
+                            </ng-multiselect-dropdown>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" id="lastworkingdate" name="lastworkingdate" [(ngModel)]="lastworkingdate"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-5">
+                        <textarea rows="3" id="Notes" name="Notes" [(ngModel)]="Notes" type="text" class="form-control"
+                            placeholder="Comments"></textarea>
+
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-10"></div>
+                    <div class="col-lg-1">
+                        <button class="form-control button" style="width: 100%;" (click)="Cancel()">Cancel</button>
+                    </div>
+                    <div class="col-lg-1">
+                        <button class="form-control button" style="width: 100%;" (click)="save()">Save</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
