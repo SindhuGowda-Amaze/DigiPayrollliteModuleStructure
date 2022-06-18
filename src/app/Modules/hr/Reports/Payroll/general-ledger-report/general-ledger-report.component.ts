@@ -18,7 +18,8 @@ export class GeneralLedgerReportComponent implements OnInit {
   p: any = 1;
   showleaseforprint:any;
   timedetails1:any;
-  
+  uniquelist:any;
+  count1:any;
   currentUrl: any;
 
 
@@ -29,9 +30,7 @@ export class GeneralLedgerReportComponent implements OnInit {
     this.GetMyOverTimeDetails();
  
   }
-  uniquelist:any;
-  count1:any;
-
+  
   public GetMyOverTimeDetails() {
     debugger
     this.DigiofficeService.GetEmployeeSalary()
