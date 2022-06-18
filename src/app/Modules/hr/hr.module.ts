@@ -162,6 +162,7 @@ const ngWizardConfig: NgWizardConfig = {
     SharedModule,
     FormsModule,
     NgxPaginationModule,
+    NgWizardModule.forRoot(ngWizardConfig),
    // NgMultiSelectDropDownModule.forRoot(),
   //  Ng2SearchPipeModule,
 
