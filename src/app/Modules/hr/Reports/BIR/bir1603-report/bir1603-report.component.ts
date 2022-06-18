@@ -178,119 +178,136 @@ title1:any;
 
   public getempdetails(id:any){
     this.totalnontax=0;
-  this.DigipayrollserviceService.GetEmployeeSalaryMonthly().subscribe(data => {
-    debugger
-    if(this.quarter==1){
-      this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==1  || x.month==2 || x.month==3) && String(x.emplyeeYear==this.year) );
-    }
-    else if (this.quarter==2){
-      this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==4  || x.month==5 || x.month==6) && String(x.emplyeeYear==this.year) );
-    }
-    else if (this.quarter==3){
-      this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==7  || x.month==8 || x.month==9) && String(x.emplyeeYear==this.year) );
-    }
-    else {
-      this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==10  || x.month==11 || x.month==12) && String(x.emplyeeYear==this.year) );
-    }
-   
-   
-    
-    this.DigipayrollserviceService.GetCompanyAddressDetails()
-    
-    .subscribe({
-      next: data => {
-        debugger
-      this.companylist = data
-      this.companyid = this.companylist[0].id,
-      this.companyname = this.companylist[0].company_Name,
-      this.Address = this.companylist[0].address1 
-      this.Phone = this.companylist[0].phone
-      this.email= this.companylist[0].email
-      this.zipcode = this.companylist[0].zipcode
-      this.tin = String(this.companylist[0].tin)
-      this.tin1 = this.tin.charAt(0)
-      this.tin2 = this.tin.charAt(1)
-      this.tin3 = this.tin.charAt(2)
-      this.tin4 = this.tin.charAt(3)
-      this.tin5 = this.tin.charAt(4)
-      this.tin6 = this.tin.charAt(5)
-      this.tin7 = this.tin.charAt(6)
-      this.tin8 = this.tin.charAt(7)
-      this.tin9 = this.tin.charAt(8)
-      this.tin10 = this.tin.charAt(9)
-      this.tin11 = this.tin.charAt(10)
-      this.tin12 = this.tin.charAt(11)
-    
+  this.DigipayrollserviceService.GetEmployeeSalaryMonthly()
+  
+  .subscribe({
+    next: data => {
+      debugger
+      if(this.quarter==1){
+        this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==1  || x.month==2 || x.month==3) && String(x.emplyeeYear==this.year) );
+      }
+      else if (this.quarter==2){
+        this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==4  || x.month==5 || x.month==6) && String(x.emplyeeYear==this.year) );
+      }
+      else if (this.quarter==3){
+        this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==7  || x.month==8 || x.month==9) && String(x.emplyeeYear==this.year) );
+      }
+      else {
+        this.employeelist = data.filter(x=>x.monthstaffid==id  && (x.month==10  || x.month==11 || x.month==12) && String(x.emplyeeYear==this.year) );
+      }
+     
+     
+      
+      this.DigipayrollserviceService.GetCompanyAddressDetails()
+      
+      .subscribe({
+        next: data => {
+          debugger
+        this.companylist = data
+        this.companyid = this.companylist[0].id,
+        this.companyname = this.companylist[0].company_Name,
+        this.Address = this.companylist[0].address1 
+        this.Phone = this.companylist[0].phone
+        this.email= this.companylist[0].email
+        this.zipcode = this.companylist[0].zipcode
+        this.tin = String(this.companylist[0].tin)
+        this.tin1 = this.tin.charAt(0)
+        this.tin2 = this.tin.charAt(1)
+        this.tin3 = this.tin.charAt(2)
+        this.tin4 = this.tin.charAt(3)
+        this.tin5 = this.tin.charAt(4)
+        this.tin6 = this.tin.charAt(5)
+        this.tin7 = this.tin.charAt(6)
+        this.tin8 = this.tin.charAt(7)
+        this.tin9 = this.tin.charAt(8)
+        this.tin10 = this.tin.charAt(9)
+        this.tin11 = this.tin.charAt(10)
+        this.tin12 = this.tin.charAt(11)
+      
+  
+  
+        }, error: (err) => {
+          Swal.fire('Issue in GetCompanyAddressDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )}
+      })
+      
+      const key = 'monthstaffid'
+  
+      this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+        [(item[key]), item])).values()]
+        this.SubDistrictPostcode = this.uniquelist[0].subDistrictPostcode,
+       this.empAddress=this.uniquelist[0].addressLine1,
+      this.grosssalary = this.uniquelist[0].yearGrossSal
+      this.staffname = this.uniquelist[0].staffname
+      this.yearsalary = this.uniquelist[0].yearsalary
+      this.yearlybasesalary = this.uniquelist[0].yearlybasesalary
+      this.yeartax = this.uniquelist[0].yeartax
+      this.totalsss = this.uniquelist[0].yearSSSRate+this.uniquelist[0].yearPagibigRate+this.uniquelist[0].yearPhilihealth
+      this.yearlydeminims = this.uniquelist[0].yearlydeminims 
+      this.employeeaddress = this.uniquelist[0].address 
+      this.employeetin = this.uniquelist[0].employeE_TIN ,
+      this.previousaddress = this.uniquelist[0].previousaddress,
+      this.previouscompany = this.uniquelist[0].previouscompany,
+     
+      this.dob = this.uniquelist[0].birthday
+      this.dob1 = this.dob.charAt(0)
+      this.dob2 = this.dob.charAt(1)
+      this.dob3 = this.dob.charAt(2)
+      this.dob4 = this.dob.charAt(3)
+      this.dob5 = this.dob.charAt(5)
+      this.dob6 = this.dob.charAt(6)
+      this.dob7 = this.dob.charAt(8)
+      this.dob8 = this.dob.charAt(9)
+      this.year1= String(this.year)
+      this.year01 =  this.year1.charAt(0)
+      this.year02 =  this.year1.charAt(1)
+      this.year03 =  this.year1.charAt(2)
+      this.year04 =  this.year1.charAt(3)
+      this.previoussalary = this.uniquelist[0].prevoussalary
+      this.previoustax = this.uniquelist[0].previoustax
+      this.totalnontax = this.yearlydeminims+this.totalsss
+      this.yearotamount = this.uniquelist[0].yearotamount.toFixed(2)
+     this.totalsalary = parseFloat(this.yearotamount)+parseFloat(this.yearlybasesalary)
+     this.previoustin = String(this.uniquelist[0].previousemployertin),
+  
+     this.previoustin1 = this.previoustin.charAt(0)
+    this.previoustin2 = this.previoustin.charAt(1)
+    this.previoustin3 = this.previoustin.charAt(2)
+    this.previoustin4 = this.previoustin.charAt(3)
+    this.previoustin5 = this.previoustin.charAt(4)
+    this.previoustin6 = this.previoustin.charAt(5)
+    this.previoustin7 = this.previoustin.charAt(6)
+    this.previoustin8 = this.previoustin.charAt(7)
+    this.previoustin9 = this.previoustin.charAt(8)
+    this.previoustin10 = this.previoustin.charAt(9)
+    this.previoustin11= this.previoustin.charAt(10)
+    this.previoustin12 = this.previoustin.charAt(11)
+    this.previoustin13 = this.previoustin.charAt(12)
+    this.previoustin14 = this.previoustin.charAt(13)
+    }, error: (err) => {
+      Swal.fire('Issue in GetEmployeeSalaryMonthly');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
+  })
 
 
-      }, error: (err) => {
-        Swal.fire('Issue in Deleting Hoilday');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )}
-    })
-    
-    const key = 'monthstaffid'
-
-    this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
-      this.SubDistrictPostcode = this.uniquelist[0].subDistrictPostcode,
-     this.empAddress=this.uniquelist[0].addressLine1,
-    this.grosssalary = this.uniquelist[0].yearGrossSal
-    this.staffname = this.uniquelist[0].staffname
-    this.yearsalary = this.uniquelist[0].yearsalary
-    this.yearlybasesalary = this.uniquelist[0].yearlybasesalary
-    this.yeartax = this.uniquelist[0].yeartax
-    this.totalsss = this.uniquelist[0].yearSSSRate+this.uniquelist[0].yearPagibigRate+this.uniquelist[0].yearPhilihealth
-    this.yearlydeminims = this.uniquelist[0].yearlydeminims 
-    this.employeeaddress = this.uniquelist[0].address 
-    this.employeetin = this.uniquelist[0].employeE_TIN ,
-    this.previousaddress = this.uniquelist[0].previousaddress,
-    this.previouscompany = this.uniquelist[0].previouscompany,
-   
-    this.dob = this.uniquelist[0].birthday
-    this.dob1 = this.dob.charAt(0)
-    this.dob2 = this.dob.charAt(1)
-    this.dob3 = this.dob.charAt(2)
-    this.dob4 = this.dob.charAt(3)
-    this.dob5 = this.dob.charAt(5)
-    this.dob6 = this.dob.charAt(6)
-    this.dob7 = this.dob.charAt(8)
-    this.dob8 = this.dob.charAt(9)
-    this.year1= String(this.year)
-    this.year01 =  this.year1.charAt(0)
-    this.year02 =  this.year1.charAt(1)
-    this.year03 =  this.year1.charAt(2)
-    this.year04 =  this.year1.charAt(3)
-    this.previoussalary = this.uniquelist[0].prevoussalary
-    this.previoustax = this.uniquelist[0].previoustax
-    this.totalnontax = this.yearlydeminims+this.totalsss
-    this.yearotamount = this.uniquelist[0].yearotamount.toFixed(2)
-   this.totalsalary = parseFloat(this.yearotamount)+parseFloat(this.yearlybasesalary)
-   this.previoustin = String(this.uniquelist[0].previousemployertin),
-
-   this.previoustin1 = this.previoustin.charAt(0)
-  this.previoustin2 = this.previoustin.charAt(1)
-  this.previoustin3 = this.previoustin.charAt(2)
-  this.previoustin4 = this.previoustin.charAt(3)
-  this.previoustin5 = this.previoustin.charAt(4)
-  this.previoustin6 = this.previoustin.charAt(5)
-  this.previoustin7 = this.previoustin.charAt(6)
-  this.previoustin8 = this.previoustin.charAt(7)
-  this.previoustin9 = this.previoustin.charAt(8)
-  this.previoustin10 = this.previoustin.charAt(9)
-  this.previoustin11= this.previoustin.charAt(10)
-  this.previoustin12 = this.previoustin.charAt(11)
-  this.previoustin13 = this.previoustin.charAt(12)
-  this.previoustin14 = this.previoustin.charAt(13)
- })
 
 
 }

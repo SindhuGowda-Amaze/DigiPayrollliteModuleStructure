@@ -9,49 +9,107 @@ import Swal from 'sweetalert2';
   styleUrls: ['./vaccine-dashboard.component.css']
 })
 export class VaccineDashboardComponent implements OnInit {
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService, public router: Router) { }
+  currentUrl: any;
   staffID:any;
   roleID:any;
   loader:any;
+  search: any;
+  date: any;
+  EmployeeVaccinationDetail: any;
+  
+  constructor(public DigipayrollServiceService: DigipayrollserviceService, public router: Router) { }
+
   ngOnInit(): void {
-this.loader=true;
+    this.currentUrl = window.location.href;
+    this.loader=true;
     this.getDetails();
     this.staffID = sessionStorage.getItem('staffid')
     this.roleID = sessionStorage.getItem('roledid')
   }
 
-  search: any;
-  EmployeeVaccinationDetail: any;
+  
 
   public getDetails() {
     debugger
   if(this.roleID!=1){
-    this.DigipayrollServiceService.GetEmployeeVaccinationDetails().subscribe(data => {
-      debugger
+    this.DigipayrollServiceService.GetEmployeeVaccinationDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.EmployeeVaccinationDetail = data.filter(x=>x.employeeId==this.staffID);
       this.loader=false;
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeVaccinationDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+
+  
   }
   else{
-    this.DigipayrollServiceService.GetEmployeeVaccinationDetails().subscribe(data => {
-      debugger
+    this.DigipayrollServiceService.GetEmployeeVaccinationDetails()
+    
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.EmployeeVaccinationDetail = data;
       this.loader=false;
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeVaccinationDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+
+
   }
     
 
   }
-  date: any;
+ 
   public getdate(event: any) {
     debugger
     this.date = event.target.value;
 
-    this.DigipayrollServiceService.GetEmployeeVaccinationDetails().subscribe(data => {
-      debugger
-      this.EmployeeVaccinationDetail = data.filter(x => x.filterdate == this.date);
+    this.DigipayrollServiceService.GetEmployeeVaccinationDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
+        this.EmployeeVaccinationDetail = data.filter(x => x.filterdate == this.date);
+      }, error: (err) => {
+        Swal.fire('Issue in GetEmployeeVaccinationDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     })
+
+    
+
 
   }
 
