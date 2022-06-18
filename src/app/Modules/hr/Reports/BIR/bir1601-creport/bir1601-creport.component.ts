@@ -63,31 +63,69 @@ export class BIR1601CReportComponent implements OnInit {
 
   public getsign() {
     this.DigipayrollServiceService.GetMyDetails()
+    
     .subscribe({
-      next: (data) => {
-        debugger;
-        this.stafflist1 = data.filter((x) => x.department_name == this.sign);
-        this.signname = this.stafflist1[0].fullname;
-        this.Signature = this.stafflist1[0].signature;
-      },
-      error: (err) => {
+      next: data => {
+        {
+          debugger;
+          this.stafflist1 = data.filter((x) => x.department_name == this.sign);
+          this.signname = this.stafflist1[0].fullname;
+          this.Signature = this.stafflist1[0].signature;
+        }error: (err:any) => {
+          Swal.fire('Issue in GetMyDetails');
+          // Insert error in Db Here//
+          var obj = {
+            PageName: this.currentUrl,
+            ErrorMessage: err.error.message,
+          };
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            (data) => {
+              debugger;
+            }
+          );
+        }
+      
+      }, error: (err) => {
         Swal.fire('Issue in GetMyDetails');
         // Insert error in Db Here//
         var obj = {
-          PageName: this.currentUrl,
-          ErrorMessage: err.error.message,
-        };
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
         this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
-          (data) => {
-            debugger;
-          }
-        );
-      },
-    });
+          data => {
+            debugger
+          },
+        )}
+    })
+  
+ ;
   }
 
   public showpdf() {
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe({
+    this.DigipayrollServiceService.GetEmployeeSalary()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    .subscribe({
       next: (data) => {
         debugger;
         this.employeelist = data.filter(
@@ -142,7 +180,31 @@ export class BIR1601CReportComponent implements OnInit {
           this.tax += parseFloat(this.employeelist[i].tax);
         }
 
-        this.DigipayrollServiceService.GetCompanyProfile().subscribe((data) => {
+        this.DigipayrollServiceService.GetCompanyProfile()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        .subscribe((data) => {
           debugger;
           this.companylist = data;
           (this.companyid = this.companylist[0].id),
