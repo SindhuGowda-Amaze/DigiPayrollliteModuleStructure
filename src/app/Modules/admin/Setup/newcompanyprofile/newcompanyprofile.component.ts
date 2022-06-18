@@ -1179,7 +1179,7 @@ AdminSignature:any;
           Swal.fire("Updated Sucessfully");
         location.href="#/admin/CompanyDashboard";
         }, error: (err) => {
-          Swal.fire('Issue in Deleting Hoilday');
+          Swal.fire('Issue in Updating Company Tax Computation');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -1191,10 +1191,6 @@ AdminSignature:any;
             },
           )}
       })
-       
- 
-       
-
      }
 
 

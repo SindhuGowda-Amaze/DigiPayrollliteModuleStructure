@@ -15,14 +15,8 @@
                 <input type="date" class="form-control">
             </div> -->
       <div class="col-lg-5">
-        <input
-          type="text"
-          placeholder="Search by barangay.."
-          id="term"
-          [(ngModel)]="term"
-          class="form-control"
-          (ngModelChange)="FilterBarabgay()"
-        />
+        <input type="text" placeholder="Search by barangay.." id="term" [(ngModel)]="term" class="form-control"
+        (ngModelChange)="FilterBarabgay()"/>
       </div>
       <!-- <div class="col-lg-3">
                 <div class="dropdown">
@@ -56,12 +50,7 @@
       <div class="container-fluid">
         <table
           class="table"
-          *ngIf="
-            (leavelist | paginate: { itemsPerPage: count1, currentPage: p })
-              .length > 0;
-            else noResults
-          "
-        >
+          *ngIf="(leavelist | paginate: { itemsPerPage: count1, currentPage: p }).length > 0;else noResults">
           <thead>
             <tr>
               <th>Country Name</th>
@@ -73,32 +62,17 @@
           </thead>
 
           <tr
-            *ngFor="
-              let holiday of leavelist
-                | paginate: { itemsPerPage: count1, currentPage: p }
-            "
-          >
+            *ngFor="let holiday of leavelist| paginate: { itemsPerPage: count1, currentPage: p }">
             <td>{{ holiday.countryname }}</td>
             <td>{{ holiday.statename }}</td>
             <td>{{ holiday.cityname }}</td>
             <td>{{ holiday.name }}</td>
             <td>
+              <button class="button"[routerLink]="['/admin/BarangayMaster', holiday.id]">Edit</button>
+              <br/><br>
               <button
                 class="button"
-                [routerLink]="['/admin/BarangayMaster', holiday.id]"
-              >
-                Edit
-                
-              </button>
-              <br />
-              <button
-                class="button"
-                style="margin-top: -17px"
-                (click)="DeleteCityType(holiday.id)"
-              >
-                Delete
-
-              </button>
+                (click)="DeleteCityType(holiday.id)">Delete</button>
             </td>
           </tr>
         </table>
