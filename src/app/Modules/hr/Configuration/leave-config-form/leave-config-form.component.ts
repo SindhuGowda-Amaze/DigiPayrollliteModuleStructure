@@ -63,7 +63,7 @@ export class LeaveConfigFormComponent implements OnInit {
       }
       else {
         this.DigipayrollServiceService.GetLeaveConfiguration()
-      .subscribe({
+          .subscribe({
             next: data => {
               debugger
               this.result = data.filter(x => x.id == this.ID);
@@ -101,7 +101,7 @@ export class LeaveConfigFormComponent implements OnInit {
       }
     })
   }
- 
+
   onRemove21(event: any) {
     debugger
     console.log(event);
@@ -114,7 +114,7 @@ export class LeaveConfigFormComponent implements OnInit {
     this.attachments21.push(...event.addedFiles);
     Swal.fire('Attachment Added Successfully');
   }
-  
+
   public Save() {
     debugger
     Swal.fire('Please fill All data')
@@ -139,7 +139,7 @@ export class LeaveConfigFormComponent implements OnInit {
         }
       })
   }
-  
+
   public InsertHolidays() {
     debugger;
     if (this.LeaveCategory == undefined || this.MonthlyLimit == undefined || this.YearlyLimit == undefined) {
@@ -164,10 +164,26 @@ export class LeaveConfigFormComponent implements OnInit {
         IsAnnualLeaveEligible: this.IsAnnualLeaveEligible,
         LeaveCategoryName: this.LeaveCategoryname
       }
-      this.DigipayrollServiceService.InsertLeaveConfiguration(entity).subscribe(data => {
-        Swal.fire("Saved Successfully");
-        location.href = "#/Leaveconfigurationdash"
-      })
+      this.DigipayrollServiceService.InsertLeaveConfiguration(entity)
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire("Saved Successfully");
+            location.href = "#/Leaveconfigurationdash"
+          }, error: (err) => {
+            Swal.fire('Issue in Inserting Leave Configuration');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
     }
   }
 
@@ -197,7 +213,7 @@ export class LeaveConfigFormComponent implements OnInit {
         next: data => {
           debugger
           Swal.fire("Updated Successfully");
-        location.href = "#/Leaveconfigurationdash"
+          location.href = "#/Leaveconfigurationdash"
         }, error: (err) => {
           Swal.fire('Issue in Updating Leave Configuration');
           // Insert error in Db Here//

@@ -24,6 +24,7 @@ export class BarangayMasterComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
+    this.GetBarangayMaster();
       // this.StateID = "";
       // this.CountryID="";
       // this.CityID="";
@@ -54,7 +55,37 @@ export class BarangayMasterComponent implements OnInit {
     }
     )
   }
+ public GetBarangayMaster()
+ {
+  this.DigipayrollserviceService.GetBarangayMaster()
 
+  .subscribe({
+    next: data => {
+      debugger
+      this.leavelist = data.filter(x => x.id == this.ID);
+      this.CountryID = this.leavelist[0].countryID
+      this.StateID = this.leavelist[0].provinceID
+      this.GetStateID1( this.StateID)
+      this.CityID = this.leavelist[0].cityID
+      this.Name = this.leavelist[0].name
+    }, error: (err) => {
+      Swal.fire('Issue in Getting City Type');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+
+
+
+ }
 
   public GetCountryType()
   {
@@ -183,18 +214,6 @@ export class BarangayMasterComponent implements OnInit {
 
       }
       this.DigipayrollserviceService.InsertBarangayMaster(entity)
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       .subscribe(data => {
         if (data != 0) {
           Swal.fire("Saved Successfully");

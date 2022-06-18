@@ -1,4 +1,3 @@
-
 <app-loader *ngIf="loader"></app-loader>
 <div class="container-fluid">
     <div class="row">
@@ -86,7 +85,40 @@
                 </div>
             </div>
         </div>
-        
+
+        <!-- <div class="col-lg-3">
+            <div class="dashcard">
+                <div class="innercard3">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/atreport.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Attendance Report</label>
+                    </div>
+
+                    <label class="mainlabel1">Always Register Your Attendance</label>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn2">
+                        <p class="numbercount">0 </p>
+                        <span class="countext1">Pending</span>
+                    </button>
+
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">0 </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">0 </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div> -->
+
         <div class="col-lg-3">
             <div class="dashcard11">
                 <div class="row">
@@ -128,7 +160,7 @@
                         align-items: center;
                         /* align-content: center; */
                         position: relative;
-                        "  *ngIf="Anniverserylist.length==0 && Anniverserylist2.length==0"><br>
+                        " *ngIf="Anniverserylist.length==0 && Anniverserylist2.length==0"><br>
                             <img src="assets/images/norecord.png">
                             <label class="norecord">
                                 No
@@ -139,7 +171,7 @@
                             <div class="col-lg-2">
 
                             </div>
-                            <div class="col-lg-10" >
+                            <div class="col-lg-10">
                                 <table class="wishtbl" *ngIf="Anniverserylist2.length!=0">
                                     <thead class="thead">
                                         <tr style="height: 30px;">
@@ -175,7 +207,7 @@
                         position: relative;
                         " *ngIf="Anniverserylist.length==0 && Anniverserylist1.length==0">
                             <img src="assets/images/norecord.png">
-                            <label class="norecord" >
+                            <label class="norecord">
                                 No
                                 Records Found </label>
                         </div>
@@ -217,7 +249,7 @@
                         align-items: center;
                         /* align-content: center; */
                         position: relative;
-                       "  *ngIf="Anniverserylist.length==0">
+                       " *ngIf="Anniverserylist.length==0">
                             <img src="assets/images/norecord.png">
                             <label class="norecord">
                                 No
@@ -312,7 +344,8 @@
 
                     </div>
                     <div class="col-lg-9">
-                        <button type="button" class="whitebtn6" (click)="Profilecompletion()">Profile Completion</button>
+                        <button type="button" class="whitebtn6" (click)="Profilecompletion()">Profile
+                            Completion</button>
 
                     </div>
 
@@ -352,8 +385,8 @@
         </div>
         <div class="col-lg-3"></div>
     </div>
-    <br/>
-    <br/>
+    <br />
+    <br />
     <div class="row" *ngIf="roleid==2 || roleid==9">
         <div class="col-lg-3">
             <div class="dashcard">
@@ -504,6 +537,41 @@
             </div>
         </div>
 
+        <!-- <div class="col-lg-3">
+            <div class="dashcard">
+                <div class="innercard3">
+                    <div style="display: flex;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: flex-end;;">
+                        <img src="assets/images/atreport.png" style="width: 8%;" />
+                        <label class="mainlabel" style="margin-left: 16px;">Attendance Report</label>
+                    </div>
+
+                    <label class="mainlabel1">Always Register Your Attendance</label>
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn2">
+                        <p class="numbercount">0 </p>
+                        <span class="countext1">Pending</span>
+                    </button>
+
+                </div>
+                <div style="display: flex;">
+                    <button class="whitebtn1">
+                        <p class="numbercount">0 </p> <span class="countext">Cancelled</span>
+                    </button>
+                    <button class="whitebtn1">
+                        <p class="numbercount">0 </p> <span class="countext">Approved</span>
+                    </button>
+
+                </div>
+            </div>
+        </div> -->
+
+
+
     </div>
     <br>
     <div class="row">
@@ -526,7 +594,7 @@
                             <div class="col-lg-9">
 
                             </div>
-                            <div  class="col-lg-3">
+                            <div class="col-lg-3">
                                 <button class="form-control fullbtn" routerLink="/hr/HolidayDashboard">View More</button>
                             </div>
                         </div>
@@ -553,16 +621,16 @@
                             </div>
 
                         </div>
-                    
+
                     </div>
                 </div>
             </div>
-           
+
         </div>
         <div class="col-lg-1">
             <p>
         </div>
-       
+
         <div class="col-lg-3">
             <div class="dashcard11">
                 <div class="row">
@@ -651,6 +719,86 @@
                 </div>
 
 
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card1 card2">
+                <div class="front">
+
+                    <div class="row" style="background-color: #FBB584;">
+                        <div class="col-lg-2">
+                            <br />
+                            <img src="assets/images/announcement.png" style="width:265%;margin-top:-10px">
+                        </div>
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-8">
+                            <br />
+                            <h1 class="cardlabel">Announcements</h1>
+                        </div>
+                        <br /> <br />
+                    </div>
+                    <br>
+                    <div class="row" style="height: 210px;overflow-y: auto;background-color: white;"
+                        *ngIf="annnounecemnetlist.length==0">
+                        <h4 style="margin-left: 15px;">No Announcements Today !</h4>
+                    </div>
+                    <div style="height: 210px;overflow-y: auto;background-color: white;"
+                        *ngIf="annnounecemnetlist.length!=0">
+                        <div class="row" *ngFor="let holiday of annnounecemnetlist">
+                            <div class="col-lg-4">
+                                <a href="{{holiday.attachment}}" *ngIf="holiday.filetype!='pdf'" target="_blank"> <img src="{{holiday.attachment}}"
+                                        style="width:50px;"></a>
+
+                                <a *ngIf="holiday.filetype=='pdf'" href="{{holiday.attachment}}" target="blank"> <img *ngIf="holiday.attachment!=null"
+                                        src="assets/images/pdf.png"
+                                        style="width:40px;height: 44px;margin-left:20px;color: blue;"></a>
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <h5> {{holiday.filterdate}} &nbsp; &nbsp; &nbsp; &nbsp;{{holiday.name}}</h5>
+
+                            </div>
+                            <div class="col-lg-2">
+                                <p data-toggle="collapse" data-target="#demo" (click)="changeannoun(holiday.id)">View
+                                </p>
+                            </div>
+                            <hr class="new4">
+                        </div>
+                        <div class="row" id="demo" class="collapse">
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-11">
+                                <p>{{announcmentdescription}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- <ngb-carousel *ngIf="annnounecemnetlist">
+                        <ng-template ngbSlide *ngFor="let event of annnounecemnetlist">
+                            <img [src]="event.image" alt="Random slide">
+                            <div class="carousel-caption">
+                                <h3>{{event.name}}</h3>
+                                <p [innerText]="event.description"></p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-8">
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <label style="float:left" data-toggle="modal" data-target="#Allocate">See
+                                        More</label>
+                                </div>
+                            </div>
+
+                        </ng-template>
+                    </ngb-carousel> -->
+                </div>
             </div>
         </div>
 
