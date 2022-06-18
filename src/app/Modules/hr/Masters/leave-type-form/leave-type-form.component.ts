@@ -9,13 +9,19 @@ import Swal from 'sweetalert2';
   styleUrls: ['./leave-type-form.component.css']
 })
 export class LeaveTypeFormComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
   ID: any;
   leavelist: any;
   Short: any;
   Description: any;
+  currentUrl: any;
+  
+  Entitlement_Per_Year: any;
+  carry_forward: any;
+  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+
   ngOnInit(): void {
+    
+ this.currentUrl = window.location.href
     this.activatedroute.params.subscribe(params => {
       debugger;
       this.ID = params['id'];
@@ -26,10 +32,11 @@ export class LeaveTypeFormComponent implements OnInit {
       }
       else {
 
-        this.DigiofficeService.GetLeaveType().subscribe(
-          data => {
+        this.DigiofficeService.GetLeaveType()
+    
+        .subscribe({
+          next: data => {
             debugger
-
             this.leavelist = data.filter(x => x.id == this.ID);
 
             this.Short = this.leavelist[0].short
@@ -37,22 +44,30 @@ export class LeaveTypeFormComponent implements OnInit {
             this.Entitlement_Per_Year = this.leavelist[0].entitlement_Per_Year
             this.carry_forward = this.leavelist[0].carry_forward
 
-          },
-        );
+          }, error: (err) => {
+            Swal.fire('Issue in Getting LeaveType');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+
+
+
+
       }
     }
     )
   }
 
 
-
-
-
-
-
-
-  Entitlement_Per_Year: any;
-  carry_forward: any;
   public InsertLeaveTypeMaster() {
     debugger;
     var entity = {
@@ -62,14 +77,30 @@ export class LeaveTypeFormComponent implements OnInit {
       carry_forward: this.carry_forward
 
     }
-    this.DigiofficeService.InsertLeaveTypeMaster(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Saved Successfully");
-        location.href = "#/LeaveTypeDashboard";
+    this.DigiofficeService.InsertLeaveTypeMaster(entity)
 
-
+    .subscribe({
+      next: data => {
+        debugger
+        if (data != 0) {
+          Swal.fire("Saved Successfully");
+          location.href = "#/LeaveTypeDashboard";
+  
+  
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting LeaveTypeMaster');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
     })
 
   }
@@ -88,14 +119,27 @@ export class LeaveTypeFormComponent implements OnInit {
       carry_forward: this.carry_forward
 
     }
-    this.DigiofficeService.UpdateLeaveType(entity).subscribe(data => {
-
-      Swal.fire("Updated Successfully");
-      location.href = "#/LeaveTypeDashboard";
+    this.DigiofficeService.UpdateLeaveType(entity)
 
 
-
-
+    .subscribe({
+      next: data => {
+        debugger
+        Swal.fire("Updated Successfully");
+        location.href = "#/LeaveTypeDashboard";
+      }, error: (err) => {
+        Swal.fire('Issue in Getting LeaveType');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
 
   }

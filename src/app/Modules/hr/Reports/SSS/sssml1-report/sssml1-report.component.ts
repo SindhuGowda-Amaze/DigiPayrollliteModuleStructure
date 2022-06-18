@@ -28,13 +28,20 @@ export class SSSML1ReportComponent implements OnInit {
   year:any;
   results:any;
   sssNumber:any;
-
-  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
   Month:any;
   Year:any;
   Person:any;
   showleaseforprint:any;
+  fullname:any;
+  sign:any;
+  department:any;
+  signname:any;
+  stafflist1:any;
+  Signature:any;
+  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+ 
   ngOnInit(): void {
+   this.currentUrl = window.location.href;
   this.Month="";
   this.Year="";
   this.sign="";
@@ -77,7 +84,7 @@ export class SSSML1ReportComponent implements OnInit {
         this.Address = this.companylist[0].address1,
         this.sssNumber = this.companylist[0].ssN_No     
       }, error: (err) => {
-        Swal.fire('Issue in Gettiing EmployeeSalaryMonthly Type');
+        Swal.fire('Issue in GetEmployeeSalaryMonthly Type');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -91,12 +98,7 @@ export class SSSML1ReportComponent implements OnInit {
       }
     })
   }  
-  fullname:any;
-  sign:any;
-  department:any;
-  signname:any;
-  stafflist1:any;
-  Signature:any;
+
   public getsign(){
     this.DigipayrollServiceService.GetMyDetails()
     .subscribe({

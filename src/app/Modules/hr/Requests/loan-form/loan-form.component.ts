@@ -9,9 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./loan-form.component.css']
 })
 export class LoanFormComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
-
+  currentUrl: any;
   EmployeeId: any;
   EmployeeName: any;
   FirstDoseDate: any;
@@ -27,12 +25,27 @@ export class LoanFormComponent implements OnInit {
   LoanAmount: any;
   loanslist:any;
   roledid:any;
+  Notes: any;
+  Trasnferdate: any;
+  newsupervisor: any;
+  ToDepartment: any;
+  oldsupervisor: any;
+  FromDepartment: any;
+  Tenure:any;
+
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+
+ 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.LoanType="";
     this.roledid = sessionStorage.getItem('roledid');
 
     if(this.roledid==6){
-      this.DigiofficeService.GetLoanConfiguration().subscribe((data: any) => {
+      this.DigiofficeService.GetLoanConfiguration()
+      
+      
+      .subscribe((data: any) => {
         debugger
         this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable:boolean })=>x.employeeApply==true && x.enable_Disable==false)
       })
@@ -48,13 +61,7 @@ export class LoanFormComponent implements OnInit {
 
   }
 
-  Notes: any;
-  Trasnferdate: any;
-  newsupervisor: any;
-  ToDepartment: any;
-  oldsupervisor: any;
-  FromDepartment: any;
-  Tenure:any;
+ 
   public attachmentsurl: any = [];
 
   holidaylist:any;
@@ -85,16 +92,27 @@ if(this.LoanType==" "||this.LoanAmount==" "||this.Comments==" "||this.LoanType==
       }
 
   
-      this.DigiofficeService.InsertEmployeeLoans(eb).subscribe(
-    
-        data => {
+      this.DigiofficeService.InsertEmployeeLoans(eb)
+      .subscribe({
+        next: data => {
           debugger
-          Swal.fire('Saved Successfully.');
           this.router.navigate(['/Appliedloans']);
     
-        },
-      )
-    
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+      
    
   }  
 //   else if(this.approval=='Manager Approval'){
@@ -195,16 +213,29 @@ else if(this.approval=='4 Level Approval'){
     'period' : this.Tenure,
   }
   
-  this.DigiofficeService.InsertEmployeeLoans(eb).subscribe(
-
-    data => {
+  this.DigiofficeService.InsertEmployeeLoans(eb)
+  .subscribe({
+    next: data => {
       debugger
-      Swal.fire('Saved Successfully.');
       this.router.navigate(['/Appliedloans']);
 
-    },
-  )
-
+    }, error: (err) => {
+      Swal.fire('Issue in GettingEmployeeLoans');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
+  
+  
+  
 
 } 
      

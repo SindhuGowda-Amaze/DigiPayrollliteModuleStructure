@@ -9,22 +9,43 @@ import Swal from 'sweetalert2';
   styleUrls: ['./leave-type-dashboard.component.css']
 })
 export class LeaveTypeDashboardComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService) { }
-  ngOnInit(): void {
-    this.loader=true;
-    this.GetLeaveType();
-  }
-  loader:any;
+  loader: any;
   term: any;
   leavelist: any
+  currentUrl: any
+
+  constructor(public DigiofficeService: DigipayrollserviceService) { }
+
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
+    this.loader = true;
+    this.GetLeaveType();
+  }
+
   public GetLeaveType() {
     debugger
-    this.DigiofficeService.GetLeaveType().subscribe(data => {
-      debugger
-      this.leavelist = data
-      this.loader=false;
-    })
+    this.DigiofficeService.GetLeaveType()
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.leavelist = data
+          this.loader = false;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting LeaveType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   ID: any;
@@ -51,11 +72,27 @@ export class LeaveTypeDashboardComponent implements OnInit {
       ID: entity.id,
       Status1: entity.active,
     }
-    this.DigiofficeService.EnableDisableLeaveType(entity1).subscribe(data => {
-      Swal.fire("Updated Successfully ");
-      this.ngOnInit();
+    this.DigiofficeService.EnableDisableLeaveType(entity1)
 
-    })
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Updated Successfully ");
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Getting DisableLeaveType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   // public delete(id: any) {
@@ -85,11 +122,12 @@ export class LeaveTypeDashboardComponent implements OnInit {
 
       if (result.isConfirmed) {
         debugger
-        this.DigiofficeService.DeleteLeaveTypeMaster(id).subscribe(
-          data => {
+        this.DigiofficeService.DeleteLeaveTypeMaster(id)
+          .subscribe(
+            data => {
 
-            location.reload()
-          })
+              location.reload()
+            })
         Swal.fire('Deleted Successfully...!')
         this.ngOnInit();
       }

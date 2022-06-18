@@ -3,6 +3,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-monthly-report',
@@ -11,11 +12,10 @@ import * as XLSX from 'xlsx';
 })
 export class MonthlyReportComponent implements OnInit {
 
-  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
   result: any;
   showtable: any;
   Checked: any;
-  loader:any;
+  loader: any;
   stafflist: any;
   paygroup: any;
   Tax_Table_Starts_on: any;
@@ -23,12 +23,40 @@ export class MonthlyReportComponent implements OnInit {
   stafflist1: any;
   daysInMonth: any;
   uniquelist1: any;
-  Departmentlist:any;
-  RoleTypeList:any;
+  Departmentlist: any;
+  RoleTypeList: any;
   p: any = 1;
   count1: any = 10;
+
+  currentUrl: any;
+  uniquelis: any;
+  employeelist13: any = [];
+  employeelist: any;
+  leavelist: any;
+  BankAccountNumber: any;
+
+  days: any;
+  getDaysInMonth: any;
+
+
+  month: any;
+  year: any;
+  basicday: any;
+  basichour: any;
+  monthname: any;
+  playslipid: any
+  selecallbtn: any;
+  employeelist1: any;
+  uniquelist13: any;
+  showleaseforprint: any;
+
+
+  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+
   ngOnInit(): void {
-    this.loader=true;
+
+    this.currentUrl = window.location.href;
+    this.loader = true;
     var dt = new Date();
 
 
@@ -42,7 +70,7 @@ export class MonthlyReportComponent implements OnInit {
       debugger
       this.RoleTypeList = data;
     });
-     
+
 
     this.GetPayGroup();
     this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
@@ -55,7 +83,7 @@ export class MonthlyReportComponent implements OnInit {
         [item[key], item])).values()];
       //  this.uniquelist = [...new Set(data.map(item => item))];
       this.stafflist1 = this.uniquelist.filter((x: { endyear: number; }) => x.endyear == 2022)
-      this.loader=false;
+      this.loader = false;
     });
 
 
@@ -65,84 +93,122 @@ export class MonthlyReportComponent implements OnInit {
   id: any
   public getCheckbocdetails(evn: any) {
     this.id = evn.id
-   
+
 
   }
-  uniquelis:any;
-  employeelist13:any= [];
-  employeelist: any;
-  public getempdetails(id: any,event:any,item:any) {
 
-    
-    this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
+  public getempdetails(id: any, event: any, item: any) {
 
-      if (event.target.checked == true) {
 
-        this.id = id;
-   
-      let temp: any = data.filter(x => x.id == this.id && x.monthstaffid == id);
-      Array.prototype.push.apply(this.employeelist13, temp);
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
 
-      const key = 'monthstaffid'
 
-      this.uniquelis = [...new Map(this.employeelist13.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
 
-      }
-  
-      else if (event.target.checked == false) {
-        this.uniquelis.splice(this.uniquelis.indexOf(item), 1);
-      }
-        this.showleaseforprint = 1
 
-    })
- 
+      .subscribe({
+        next: data => {
+          debugger
+          if (event.target.checked == true) {
+
+            this.id = id;
+
+            let temp: any = data.filter(x => x.id == this.id && x.monthstaffid == id);
+            Array.prototype.push.apply(this.employeelist13, temp);
+
+            const key = 'monthstaffid'
+
+            this.uniquelis = [...new Map(this.employeelist13.map((item: { [x: string]: any; }) =>
+              [(item[key]), item])).values()]
+
+          }
+
+          else if (event.target.checked == false) {
+            this.uniquelis.splice(this.uniquelis.indexOf(item), 1);
+          }
+          this.showleaseforprint = 1
+        }, error: (err) => {
+          Swal.fire('Issue in Getting EmployeeSalaryMonthly');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
   }
 
   public GetPayGroup() {
     debugger
-    this.DigipayrollServiceService.GetPayGroup().subscribe(
-      data => {
-        debugger
-        this.result = data;
+    this.DigipayrollServiceService.GetPayGroup()
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.result = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting PayGroup');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
   }
 
-  leavelist: any;
-  BankAccountNumber: any;
 
-  days: any;
-  getDaysInMonth: any;
-
-
-  month: any;
-  year: any;
-  basicday: any;
-  basichour: any;
-  monthname:any;
 
   public getMonthandyear(year: string, month: string,) {
     this.month = String(month),
       this.year = String(year)
-    this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x=> x.month==month && x.endyear==year);
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
 
-      const key="monthstaffid"
 
-      this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
+      .subscribe({
+        next: data => {
+          debugger
+          this.stafflist = data.filter(x => x.month == month && x.endyear == year);
 
-        this.monthname = this.uniquelist1[0].monthname
-    });
+          const key = "monthstaffid"
+
+          this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+            [(item[key]), item])).values()]
+
+          this.monthname = this.uniquelist1[0].monthname
+        }, error: (err) => {
+          Swal.fire('Issue in Getting EmployeeSalaryMonthl');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
 
   }
   show2div: any;
   public Getrankandfile(eve: any, year: any, month: any) {
     debugger
-    
+
     this.paygroup = eve.currentTarget.checked;
     if (this.paygroup == true) {
       this.show2div = true;
@@ -178,26 +244,41 @@ export class MonthlyReportComponent implements OnInit {
   //   );
   // }
 
-  uniquelist213:any;
+  uniquelist213: any;
 
 
   public getpaygrouplist() {
-    this.DigipayrollServiceService.GetMyDetails().subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x => x.paygroup == this.paygroup && x.deniminimis != null);
-
-      
-   
-
-    
-
-    const key = 'id'
-
-    this.uniquelist213 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
+    this.DigipayrollServiceService.GetMyDetails()
 
 
-    });
+      .subscribe({
+        next: data => {
+          debugger
+          this.stafflist = data.filter(x => x.paygroup == this.paygroup && x.deniminimis != null);
+
+
+
+
+
+
+          const key = 'id'
+
+          this.uniquelist213 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+            [(item[key]), item])).values()]
+        }, error: (err) => {
+          Swal.fire('Issue in Getting MyDetails');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
 
   }
@@ -230,11 +311,7 @@ export class MonthlyReportComponent implements OnInit {
   }
 
 
-  playslipid: any
-  selecallbtn: any;
-  employeelist1:any;
-  uniquelist13:any;
-  showleaseforprint:any;
+
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
     this.selecallbtn = true;
     this.playslipid = true;
@@ -250,67 +327,109 @@ export class MonthlyReportComponent implements OnInit {
 
 
 
-    this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
-      this.employeelist = data.filter(x=>x.month==this.month);
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.employeelist = data.filter(x => x.month == this.month);
 
 
 
-      const key = 'monthstaffid'
+          const key = 'monthstaffid'
 
-      this.uniquelist13 = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-
-
-
-    })
+          this.uniquelist13 = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+            [(item[key]), item])).values()]
+        }, error: (err) => {
+          Swal.fire('Issue in Getting EmployeeSalaryMonthly');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
     this.showtable = 1
     this.showleaseforprint = 1
 
   }
 
 
-  RoleType:any;
-  term:any;
-public FilterRoleType() {
-  debugger
-  this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
+  RoleType: any;
+  term: any;
+  public FilterRoleType() {
     debugger
-    this.stafflist = data.filter(x=> x.month==this.month && x.endyear==this.year && x.role == this.RoleType);
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
 
-    const key="monthstaffid"
 
-    this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
+      .subscribe({
+        next: data => {
+          debugger
+          this.stafflist = data.filter(x => x.month == this.month && x.endyear == this.year && x.role == this.RoleType);
 
-      this.monthname = this.uniquelist1[0].monthname
-  });
- 
-   
-  
+          const key = "monthstaffid"
 
-}
-Department:any;
+          this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+            [(item[key]), item])).values()]
 
-public filterByDepartment() {
-  debugger
-  this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
+          this.monthname = this.uniquelist1[0].monthname
+        }, error: (err) => {
+          Swal.fire('Issue in Getting EmployeeSalaryMonthly');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
+  }
+  Department: any;
+
+  public filterByDepartment() {
     debugger
-    this.stafflist = data.filter(x=> x.month==this.month && x.endyear==this.year && x.department_name==this.Department);
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
 
-    const key="monthstaffid"
+      .subscribe({
+        next: data => {
+          debugger
+          this.stafflist = data.filter(x => x.month == this.month && x.endyear == this.year && x.department_name == this.Department);
 
-    this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
+          const key = "monthstaffid"
 
-      this.monthname = this.uniquelist1[0].monthname
-  });
-  
-  
+          this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+            [(item[key]), item])).values()]
 
-  
+          this.monthname = this.uniquelist1[0].monthname
+        }, error: (err) => {
+          Swal.fire('Issue in Getting EmployeeSalaryMonthly');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
-}
+
+  }
 
 
 

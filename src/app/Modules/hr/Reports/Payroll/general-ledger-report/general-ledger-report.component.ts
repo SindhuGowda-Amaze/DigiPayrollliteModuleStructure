@@ -14,46 +14,100 @@ import { interval } from 'rxjs';
   styleUrls: ['./general-ledger-report.component.css']
 })
 export class GeneralLedgerReportComponent implements OnInit {
+  timedetails:any;
+  p: any = 1;
+  showleaseforprint:any;
+  timedetails1:any;
+  uniquelist:any;
+  count1:any;
+  currentUrl: any;
+
 
   constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
-timedetails:any;
-p: any = 1;
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.GetMyOverTimeDetails();
  
   }
-  uniquelist:any;
-  count1:any;
-
+  
   public GetMyOverTimeDetails() {
     debugger
-    this.DigiofficeService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.timedetails = data;
-      const key = 'startdate';
+    this.DigiofficeService.GetEmployeeSalary()
 
-      this.uniquelist = [...new Map(this.timedetails.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
-      //  this.uniquelist = [...new Set(data.map(item => item))];
 
-    });
+    .subscribe({
+      next: data => {
+        debugger
+        this.timedetails = data;
+        const key = 'startdate';
+  
+        this.uniquelist = [...new Map(this.timedetails.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+        //  this.uniquelist = [...new Set(data.map(item => item))];
+      }, error: (err) => {
+        Swal.fire('Issue in Getting EmployeeSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
    
   }
 
+
   public getemployeelist(month:any,year:any,payrolltype:any){
-    this.DigiofficeService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.timedetails = data.filter(x=>x.month==month && x.year==year && x.payrolltype==payrolltype);
+    this.DigiofficeService.GetEmployeeSalary()
+ 
+    .subscribe({
+      next: data => {
+        debugger
+        this.timedetails = data.filter(x=>x.month==month && x.year==year && x.payrolltype==payrolltype);
+      }, error: (err) => {
+        Swal.fire('Issue in Getting EmployeeSalary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
   }
 
-  showleaseforprint:any;
-  timedetails1:any;
+
   public getpayslip(month:any,startdate:any,enddate:any){
     this.showleaseforprint=1;
-    this.DigiofficeService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.timedetails1 = data.filter(x=>x.id==month && x.startdate==startdate && x.enddate==enddate);
+    this.DigiofficeService.GetEmployeeSalary()
+
+    .subscribe({
+      next: data => {
+        debugger
+        this.timedetails1 = data.filter(x=>x.id==month && x.startdate==startdate && x.enddate==enddate);
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
   }
 

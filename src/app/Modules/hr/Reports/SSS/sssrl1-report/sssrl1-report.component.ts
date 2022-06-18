@@ -48,13 +48,12 @@ export class SSSRL1ReportComponent implements OnInit {
   signname: any;
   stafflist1: any;
   signature1: any;
-
+  uniquelistchnuk: any;
   constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
 
  
   ngOnInit(): void {
     this.currentUrl = window.location.href;
-
     this.showleaseforprint = 0;
     this.month = "";
     this.year = "";
@@ -62,7 +61,7 @@ export class SSSRL1ReportComponent implements OnInit {
   }
 
 
-  uniquelistchnuk: any;
+ 
   public showpdf() {
 
     this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
