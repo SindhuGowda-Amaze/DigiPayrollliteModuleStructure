@@ -61,19 +61,55 @@ export class MonthlyReportComponent implements OnInit {
 
 
 
-    this.DigipayrollServiceService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
+    this.DigipayrollServiceService.GetDepartment()
+    .subscribe({
+      next: data => {
+        debugger
+        this.Departmentlist = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Department');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
+   
 
-    this.DigipayrollServiceService.GetRoleType().subscribe(data => {
-      debugger
-      this.RoleTypeList = data;
-    });
+    this.DigipayrollServiceService.GetRoleType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.RoleTypeList = data;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+    
+   
 
 
     this.GetPayGroup();
-    this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+    
+    .subscribe(data => {
       debugger
       this.employeelist = data;
       const key = 'month';
