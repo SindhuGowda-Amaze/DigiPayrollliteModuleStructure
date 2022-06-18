@@ -39,7 +39,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     LoaderComponent,
     NgxDropzoneModule,
     NgxPaginationModule,
-       Ng2SearchPipeModule,
+    Ng2SearchPipeModule,
     GaugeModule,
     NgMultiSelectDropDownModule
 

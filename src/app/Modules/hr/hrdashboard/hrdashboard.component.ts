@@ -14,39 +14,39 @@ export class HRDashboardComponent implements OnInit {
   showback: any;
   showfront: any;
   myDate: any;
-  CancelledCount:any;
+  CancelledCount: any;
   staffID: any;
-  Rejectedotcount:any;
+  Rejectedotcount: any;
   profilepercentage: any
   myleaves: any;
   public number: number = 1000;
   constructor(public router: Router, private datePipe: DatePipe, public DigiofficeService: DigipayrollserviceService, private http: HttpClient) { }
-  username:any;
-  email:any;
-  month:any;
-  day:any;
-  stafflistapproved:any;
-  stafflist:any;
-  stafflistnewrequest:any;
-  approvedloancount:any;
-  newrquestloancount:any;
-  stafflistrejected:any;
-  rejectedloancount:any;
-  newexpensecount:any;
-  approvedexpensecount:any;
-  timedetails:any;
-  cancelledexpensecount:any;
-  pendingotcount:any;
-  approvedotcount:any;
-  roleid:any;
-  loader:any;
+  username: any;
+  email: any;
+  month: any;
+  day: any;
+  stafflistapproved: any;
+  stafflist: any;
+  stafflistnewrequest: any;
+  approvedloancount: any;
+  newrquestloancount: any;
+  stafflistrejected: any;
+  rejectedloancount: any;
+  newexpensecount: any;
+  approvedexpensecount: any;
+  timedetails: any;
+  cancelledexpensecount: any;
+  pendingotcount: any;
+  approvedotcount: any;
+  roleid: any;
+  loader: any;
   ngOnInit(): void {
-    this.loader=true
+    this.loader = true
     this.getDetails();
     this.GetHolidays();
     var dateObj = new Date();
-     this.month = dateObj.getUTCMonth() + 1; //months from 1-12
-     this.day = dateObj.getUTCDate();
+    this.month = dateObj.getUTCMonth() + 1; //months from 1-12
+    this.day = dateObj.getUTCDate();
     this.myDate = new Date();
     this.showfront = true;
     this.Anniversery = true;
@@ -54,52 +54,48 @@ export class HRDashboardComponent implements OnInit {
     this.NewJoinee = false;
     this.roleid = sessionStorage.getItem('roledid');
     var date = new Date();
-    
+
     this.DigiofficeService.GetEmployeeLoans().subscribe(data => {
       debugger
       this.stafflist = data;
-      if(this.roleid==2){
-        this.stafflistnewrequest=this.stafflist.filter((x:{status: string,supervisor: string})=>x.status=='Manager Pending,HR Pending,Payroll Pending,Finance Pending' && x.supervisor==sessionStorage.getItem('staffid')  )
+      if (this.roleid == 2) {
+        this.stafflistnewrequest = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status == 'Manager Pending,HR Pending,Payroll Pending,Finance Pending' && x.supervisor == sessionStorage.getItem('staffid'))
         this.newrquestloancount = this.stafflistnewrequest.length;
-        this.stafflistapproved=this.stafflist.filter((x:{status: string,supervisor: string})=>x.status!='Manager Pending,HR Pending,Payroll Pending,Finance Pending' && x.status!='Manager Rejected,HR Pending,Payroll Pending,Finance Pending' && x.supervisor==sessionStorage.getItem('staffid')  )
+        this.stafflistapproved = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status != 'Manager Pending,HR Pending,Payroll Pending,Finance Pending' && x.status != 'Manager Rejected,HR Pending,Payroll Pending,Finance Pending' && x.supervisor == sessionStorage.getItem('staffid'))
         // this.stafflistapproved=this.stafflist.filter((x:{supervisor: string,status: string})=> x.supervisor==sessionStorage.getItem('staffid') || x.status!='Manager Pending,HR Pending,Payroll Pending,Finance Pending'  )
         this.approvedloancount = this.stafflistapproved.length;
-        this.stafflistrejected = this.stafflist.filter((x:{status: string,supervisor: string})=>x.status=='Manager Rejected,HR Pending,Payroll Pending,Finance Pending' && x.supervisor==sessionStorage.getItem('staffid')  )
+        this.stafflistrejected = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status == 'Manager Rejected,HR Pending,Payroll Pending,Finance Pending' && x.supervisor == sessionStorage.getItem('staffid'))
         this.rejectedloancount = this.stafflistrejected.length
       }
-      else{
-        this.stafflistnewrequest=this.stafflist.filter((x:{status: string})=>x.status=='Manager Approved,HR Pending,Payroll Pending,Finance Pending'  )
+      else {
+        this.stafflistnewrequest = this.stafflist.filter((x: { status: string }) => x.status == 'Manager Approved,HR Pending,Payroll Pending,Finance Pending')
         this.newrquestloancount = this.stafflistnewrequest.length;
-        this.stafflistapproved=this.stafflist.filter((x:{status: string})=>x.status!='Manager Approved,HR Pending,Payroll Pending,Finance Pending' && x.status!='Manager Approved,HR Rejected,Payroll Pending,Finance Pending'  )
+        this.stafflistapproved = this.stafflist.filter((x: { status: string }) => x.status != 'Manager Approved,HR Pending,Payroll Pending,Finance Pending' && x.status != 'Manager Approved,HR Rejected,Payroll Pending,Finance Pending')
         // this.stafflistapproved=this.stafflist.filter((x:{supervisor: string,status: string})=> x.supervisor==sessionStorage.getItem('staffid') || x.status!='Manager Pending,HR Pending,Payroll Pending,Finance Pending'  )
         this.approvedloancount = this.stafflistapproved.length;
-        this.stafflistrejected = this.stafflist.filter((x:{status: string})=>x.status=='Manager Approved,HR Rejected,Payroll Pending,Finance Pending'  )
+        this.stafflistrejected = this.stafflist.filter((x: { status: string }) => x.status == 'Manager Approved,HR Rejected,Payroll Pending,Finance Pending')
         this.rejectedloancount = this.stafflistrejected.length
       }
-     
-    
-     
-    
+
     });
 
     this.DigiofficeService.GetExpensesListweb().subscribe(data => {
       debugger
       this.projectlist = data.filter(x => x.supervisor == this.staffID)
-      this.newexpensecount = this.projectlist.filter((x: { approvalStatus: string; })=>x.approvalStatus='Manager Pending Finance Pending').length
-      this.approvedexpensecount = this.projectlist.filter((x: { approvalStatus: string; })=>x.approvalStatus=='Manager Approved Finance Approved' || x.approvalStatus=='Manager Approved Finance Pending').length
-      this.cancelledexpensecount = this.projectlist.filter((x: { approvalStatus: string; })=>x.approvalStatus=='Manager Rejected Finance Pending' || x.approvalStatus=='Manager Approved Finance Rejected').length
+      this.newexpensecount = this.projectlist.filter((x: { approvalStatus: string; }) => x.approvalStatus = 'Manager Pending Finance Pending').length
+      this.approvedexpensecount = this.projectlist.filter((x: { approvalStatus: string; }) => x.approvalStatus == 'Manager Approved Finance Approved' || x.approvalStatus == 'Manager Approved Finance Pending').length
+      this.cancelledexpensecount = this.projectlist.filter((x: { approvalStatus: string; }) => x.approvalStatus == 'Manager Rejected Finance Pending' || x.approvalStatus == 'Manager Approved Finance Rejected').length
     })
 
     this.DigiofficeService.GetStaffOverTimeDetails().subscribe(data => {
       debugger
-      this.timedetails = data.filter(x=>x.supervisor == this.staffID);
-      this.pendingotcount = this.timedetails.filter((x: { status: string; })=>x.status=='Manager Pending').length
-      this.approvedotcount = this.timedetails.filter((x: { status: string; })=>x.status=='Manager Approved').length
-      this.Rejectedotcount = this.timedetails.filter((x: { status: string; })=>x.status=='Manager Rejected').length
+      this.timedetails = data.filter(x => x.supervisor == this.staffID);
+      this.pendingotcount = this.timedetails.filter((x: { status: string; }) => x.status == 'Manager Pending').length
+      this.approvedotcount = this.timedetails.filter((x: { status: string; }) => x.status == 'Manager Approved').length
+      this.Rejectedotcount = this.timedetails.filter((x: { status: string; }) => x.status == 'Manager Rejected').length
     },
     )
 
-   
     this.staffID = sessionStorage.getItem('staffid');
     this.username = sessionStorage.getItem('UserName');
     this.email = sessionStorage.getItem('email');
@@ -107,22 +103,19 @@ export class HRDashboardComponent implements OnInit {
     this.DigiofficeService.GetMyDetails().subscribe(data => {
       debugger
       let temp: any = data.filter(x => x.id == this.staffID);
-      this.profilepercentage = temp[0].profilepercentage*9
-
+      this.profilepercentage = temp[0].profilepercentage * 9
     })
     this.getipaddress();
     this.DigiofficeService.GetAttendance().subscribe(data => {
       debugger
       let temp: any = data.filter(x => x.userID == sessionStorage.getItem('staffid') && x.filterdate == this.formatDate(date));
       this.punchintime = temp[0].signinDate;
-
     })
 
     this.DigiofficeService.GetAttendance().subscribe(data => {
       debugger
       let temp: any = data.filter(x => x.userID == sessionStorage.getItem('staffid') && x.filterdate == this.formatDate(date));
       this.punchouttime = temp[0].signoutDate;
-
     })
     //this.GetHolidays();
     this.GetAnnouncements();
@@ -144,7 +137,7 @@ export class HRDashboardComponent implements OnInit {
       let teamexpnes: any = data.filter(x => x.supervisor == sessionStorage.getItem('staffid'));
       this.pendingteamexpensecount = teamexpnes.filter((x: { status: string; }) => x.status == 'Manager Pending Finance Pending' || x.status == null).length;
       this.Rejectedteamexpnesecount = teamexpnes.filter((x: { status: string; }) => x.status == 'Rejected' || x.status == 'Manager Rejected' || x.status == 'Manager Approved Finance Rejected').length;
-      this.approvedteamexpnescount = teamexpnes.filter((x: { status: string; }) => x.status == 'Manager Approved Finance Approved' || x.status == 'Manager Approved Finance Pending' ).length;
+      this.approvedteamexpnescount = teamexpnes.filter((x: { status: string; }) => x.status == 'Manager Approved Finance Approved' || x.status == 'Manager Approved Finance Pending').length;
 
     })
 
@@ -154,7 +147,7 @@ export class HRDashboardComponent implements OnInit {
       this.pendingreg = teamregularization.filter((x: { approve: number; }) => x.approve != 1).length;
       this.approevedreg = teamregularization.filter((x: { approve: number; }) => x.approve == 1).length;
     })
-     this.loader=false
+    this.loader = false
   }
   ipAddress: any;
   pendingteamexpensecount: any;
@@ -181,30 +174,30 @@ export class HRDashboardComponent implements OnInit {
   approvedcount1: any;
   public getstaffleaves1() {
     debugger
-    if(this.roleid==2){
-    this.DigiofficeService.GetCancelledStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
-      debugger
-      this.staffleaves1 = data.filter((x: { supervisor: string | null; status: string | null; }) => x.supervisor == sessionStorage.getItem('staffid') && x.status == 'Manager Pending HR Pending');
-      let temp: any = data.filter((x: { supervisor: string  }) => x.supervisor == sessionStorage.getItem('staffid'));
-      this.pendingcount = temp.filter((x: { status: string; }) =>x.status == 'Manager Pending HR Pending' || x.status == 'Manager Pending').length;
-      this.Rejectedcount = temp.filter((x: { status: string; }) => x.status == 'Rejected' || x.status == 'Manager Rejected HR Pending').length;
-      this.approvedcount = (data.filter((x: { supervisor: string ,status: string; }) =>  x.supervisor == sessionStorage.getItem('staffid') && x.status == 'Manager Approved HR Approved' ||  x.status == 'Manager Approved' || x.status == 'Manager Approved HR Pending'  ).length)-2;;
-      this.CancelledCount = temp.filter((x: { status: string; }) => x.status == 'Cancelled').length;
+    if (this.roleid == 2) {
+      this.DigiofficeService.GetCancelledStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
+        debugger
+        this.staffleaves1 = data.filter((x: { supervisor: string | null; status: string | null; }) => x.supervisor == sessionStorage.getItem('staffid') && x.status == 'Manager Pending HR Pending');
+        let temp: any = data.filter((x: { supervisor: string }) => x.supervisor == sessionStorage.getItem('staffid'));
+        this.pendingcount = temp.filter((x: { status: string; }) => x.status == 'Manager Pending HR Pending' || x.status == 'Manager Pending').length;
+        this.Rejectedcount = temp.filter((x: { status: string; }) => x.status == 'Rejected' || x.status == 'Manager Rejected HR Pending').length;
+        this.approvedcount = (data.filter((x: { supervisor: string, status: string; }) => x.supervisor == sessionStorage.getItem('staffid') && x.status == 'Manager Approved HR Approved' || x.status == 'Manager Approved' || x.status == 'Manager Approved HR Pending').length) - 2;;
+        this.CancelledCount = temp.filter((x: { status: string; }) => x.status == 'Cancelled').length;
 
-    })
-  }
-  else{
-    this.DigiofficeService.GetCancelledStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
-      debugger
-      this.staffleaves1 = data.filter((x: { supervisor: string | null; status: string | null; }) =>x.status == 'Manager Approved HR Pending');
-      let temp: any = data;
-      this.pendingcount = temp.filter((x: { status: string; }) =>x.status == 'Manager Approved HR Pending' || x.status == 'HR Pending').length;
-      this.Rejectedcount = temp.filter((x: { status: string; }) => x.status == 'Rejected' || x.status == 'Manager Approved HR Rejected').length;
-      this.approvedcount = temp.filter((x: { status: string; }) =>  x.status == 'Manager Approved HR Approved' || x.status == 'Manager Approved HR Rejected').length;
-      this.CancelledCount = temp.filter((x: { status: string; }) => x.status == 'Cancelled').length;
+      })
+    }
+    else {
+      this.DigiofficeService.GetCancelledStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
+        debugger
+        this.staffleaves1 = data.filter((x: { supervisor: string | null; status: string | null; }) => x.status == 'Manager Approved HR Pending');
+        let temp: any = data;
+        this.pendingcount = temp.filter((x: { status: string; }) => x.status == 'Manager Approved HR Pending' || x.status == 'HR Pending').length;
+        this.Rejectedcount = temp.filter((x: { status: string; }) => x.status == 'Rejected' || x.status == 'Manager Approved HR Rejected').length;
+        this.approvedcount = temp.filter((x: { status: string; }) => x.status == 'Manager Approved HR Approved' || x.status == 'Manager Approved HR Rejected').length;
+        this.CancelledCount = temp.filter((x: { status: string; }) => x.status == 'Cancelled').length;
 
-    })
-  }
+      })
+    }
   }
 
   projectlist: any
@@ -216,9 +209,9 @@ export class HRDashboardComponent implements OnInit {
     })
   }
 
-  public holidays(){
+  public holidays() {
     this.router.navigate(['/HolidayDashboard'])
-   
+
   }
 
   Anniversery: any
@@ -229,13 +222,13 @@ export class HRDashboardComponent implements OnInit {
   Anniverserylist2: any;
   public changebirthday() {
     debugger;
-    localStorage.setItem('birthday', String(this.day).concat('-' ,String(this.month)))
+    localStorage.setItem('birthday', String(this.day).concat('-', String(this.month)))
     this.Anniversery = false;
     this.Birthday = true;
     this.NewJoinee = false;
     this.DigiofficeService.GetMyDetails().subscribe(data => {
 
-      this.Anniverserylist1 = data.filter(x => x.dobdate ==  String(this.day).concat('-' ,String(this.month))  );
+      this.Anniverserylist1 = data.filter(x => x.dobdate == String(this.day).concat('-', String(this.month)));
     });
 
 
@@ -250,17 +243,17 @@ export class HRDashboardComponent implements OnInit {
     this.NewJoinee = true;
     this.DigiofficeService.GetMyDetails().subscribe(data => {
 
-      this.Anniverserylist2 = data.filter(x => x.joiningDate  == this.myDate + "T00:00:00");
+      this.Anniverserylist2 = data.filter(x => x.joiningDate == this.myDate + "T00:00:00");
     });
 
 
   }
 
-  public Profilecompletion(){
-    this.router.navigate(['/hr/ProfileCompletionForm' ,this.staffID ])
-  
-   }
- 
+  public Profilecompletion() {
+    this.router.navigate(['/hr/ProfileCompletionForm', this.staffID])
+
+  }
+
 
 
 
@@ -353,8 +346,8 @@ export class HRDashboardComponent implements OnInit {
   EmployeeVaccinationDetail: any;
   certificate_url: any;
   SecondDoseDate: any;
-  BoosterName:any;
-  BoosterDoseDate:any;
+  BoosterName: any;
+  BoosterDoseDate: any;
 
   public getDetails() {
     debugger
@@ -409,7 +402,7 @@ export class HRDashboardComponent implements OnInit {
         SigninLocation: 'Office',
         StatusID: 1,
         punchinip: this.ipaddress,
-        ApprovalStatus : 'Manager Pending HR Pending'
+        ApprovalStatus: 'Manager Pending HR Pending'
 
       }
       this.DigiofficeService.InsertAttendanceWeb(entity).subscribe(data => {
@@ -495,7 +488,7 @@ export class HRDashboardComponent implements OnInit {
     this.NewJoinee = false;
     this.DigiofficeService.GetMyDetails().subscribe(data => {
 
-      this.Anniverserylist = data.filter(x => x.anniversarydate ==   String(this.day).concat('-' ,String(this.month)));
+      this.Anniverserylist = data.filter(x => x.anniversarydate == String(this.day).concat('-', String(this.month)));
     });
 
 
