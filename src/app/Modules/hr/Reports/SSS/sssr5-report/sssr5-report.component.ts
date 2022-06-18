@@ -36,14 +36,14 @@ export class SSSR5ReportComponent implements OnInit {
   email:any;
   zipcode:any;
   tin:any;
-
-  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
   Month:any;
   Year:any;
   Person:any;
   showleaseforprint:any;
-  ngOnInit(): void {
+  constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
   
+  ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.Month="";
     this.Year="Select";
     this.sign="";
@@ -72,8 +72,12 @@ export class SSSR5ReportComponent implements OnInit {
       this.year = this.employeelist[0].year
 
     
-      this.DigipayrollServiceService.GetCompanyAddressDetails().subscribe(data => {
-        debugger
+      this.DigipayrollServiceService.GetCompanyAddressDetails()
+      
+      
+.subscribe({
+  next: data => {
+    debugger
         this.companylist = data
         this.companyid = this.companylist[0].id,
         this.companyname = this.companylist[0].company_Name,
@@ -82,9 +86,22 @@ export class SSSR5ReportComponent implements OnInit {
         this.email= this.companylist[0].email
         this.zipcode = this.companylist[0].zipcode
         this.tin = this.companylist[0].tin
-      })
+  }, error: (err) => {
+    Swal.fire('Issue in GetCompanyAddressDetails');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )}
+})
+      
+      
 
-   
      
       // this.ssstotal = SUM(this.employeelist.contribution)
 
