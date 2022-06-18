@@ -26,7 +26,7 @@ export class TaxTableComponent implements OnInit {
         this.taxdetails = data;
         this.loader=false;
       }, error: (err) => {
-        Swal.fire('Issue in Tax Table Type');
+        Swal.fire('Issue in GetTaxtableAnnual');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
