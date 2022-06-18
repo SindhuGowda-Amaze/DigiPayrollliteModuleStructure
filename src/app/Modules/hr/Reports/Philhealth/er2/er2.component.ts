@@ -145,7 +145,7 @@ export class ER2Component implements OnInit {
         this.department = this.stafflist[0].role
         this.showleaseforprint = 1;
       }, error: (err) => {
-        Swal.fire('Issue in Deleting Hoilday');
+        Swal.fire('Issue in GetMyDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
