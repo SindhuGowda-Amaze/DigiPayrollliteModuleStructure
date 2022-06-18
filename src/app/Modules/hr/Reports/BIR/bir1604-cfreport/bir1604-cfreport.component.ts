@@ -120,9 +120,7 @@ export class BIR1604CFReportComponent implements OnInit {
       next: data => {
         debugger
 
-      this.DigipayrollServiceService.GetCompanyProfile()
-      
-      .subscribe({
+      this.DigipayrollServiceService.GetCompanyProfile().subscribe({
         next: data => {
           debugger
           this.companylist = data
