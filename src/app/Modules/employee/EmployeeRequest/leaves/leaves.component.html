@@ -255,10 +255,10 @@
                             <td>
                                 <p *ngIf="list.medicalUrl==null">No Attachment</p>
                                 <a *ngIf="list.filetype=='pdf' && list.medicalUrl!=null" href="{{list.medicalUrl}}"
-                                    target="_blank"> <img src="assets/images/pdf.png" alt="pdf.img"
+                                    target="_blank"> <img src="assets/images/pdf.png"
                                         style=" width: 50px; height: 50px;"></a>
                                 <img *ngIf="list.medicalUrl!=null && list.filetype!='pdf'" src="{{list.medicalUrl}}"
-                                    (click)="getmedicalurl(list)" alt="medical.img" data-toggle="modal"
+                                    (click)="getmedicalurl(list)"  data-toggle="modal"
                                     data-target="#Allocate" style=" width: 50px;">
                             </td>
                             <td>{{list.status}}</td>
