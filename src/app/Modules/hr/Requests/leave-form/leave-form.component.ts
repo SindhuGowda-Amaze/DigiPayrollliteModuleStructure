@@ -16,10 +16,21 @@ export class LeaveFormComponent implements OnInit {
   staffid: any;
   Touser: any;
   roleid: any;
+
+  SDateOfLeave: any;
+  EDateOfLeave: any;
+  LeaveReason: any;
+  currentUrl: any;
+  leaveconfig: any;
+  lopdays: any;
+  halfday: any;
+  autoApproval: any;
+
   constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
 
   ngOnInit(): void {
-    this.LeaveType="";
+    this.currentUrl = window.location.href;
+    this.LeaveType = "";
     this.roleid = sessionStorage.getItem('roledid')
     this.staffid = sessionStorage.getItem('staffid');
     this.GetLeaveType();
@@ -34,15 +45,29 @@ export class LeaveFormComponent implements OnInit {
   LeaveTypeList: any;
   public GetLeaveType() {
     debugger
-    this.DigiofficeService.GetLeaveType().subscribe(data => {
-      debugger
-      this.LeaveTypeList = data;
-    })
+    this.DigiofficeService.GetLeaveType()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.LeaveTypeList = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting LeaveType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
   }
 
-  SDateOfLeave: any;
-  EDateOfLeave: any;
-  LeaveReason: any;
 
   public Save() {
     debugger
@@ -53,15 +78,30 @@ export class LeaveFormComponent implements OnInit {
       Swal.fire('Please Fill All The Mandatory Fields');
     }
     else {
-      this.DigiofficeService.ProjectAttachments(this.attachments21).subscribe(res => {
-        debugger
-        if (res != undefined) {
-          this.attachmentsurl.push(res);
-          this.attachments.length = 0;
-          this.InserStaffLeave()
-        }
-        debugger
-      })
+      this.DigiofficeService.ProjectAttachments(this.attachments21)
+
+        .subscribe({
+          next: data => {
+            debugger
+            if (data != undefined) {
+              this.attachmentsurl.push(data);
+              this.attachments.length = 0;
+              this.InserStaffLeave()
+            }
+          }, error: (err) => {
+            Swal.fire('Issue in Getting ProjectAttachments');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
     }
 
 
@@ -71,39 +111,87 @@ export class LeaveFormComponent implements OnInit {
     debugger
 
     if (this.LeaveType == 5) {
-      this.DigiofficeService.GetMyDetails().subscribe(data => {
-        debugger
-        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-        if (temp[0].medicalLeaveEntitlement - temp[0].medicalLeaveTaken <= 0) {
-          Swal.fire('You Dont have Medical Leave')
-        }
+      this.DigiofficeService.GetMyDetails()
 
-
-      });
+        .subscribe({
+          next: data => {
+            debugger
+            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+            if (temp[0].medicalLeaveEntitlement - temp[0].medicalLeaveTaken <= 0) {
+              Swal.fire('You Dont have Medical Leave')
+            }
+          }, error: (err) => {
+            Swal.fire('Issue in Getting MyDetails');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
     }
     else if (this.LeaveType == 6) {
-      this.DigiofficeService.GetMyDetails().subscribe(data => {
-        debugger
-        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-        if (temp[0].marriageLeaveEntitlement - temp[0].marriageLeaveTaken <= 0) {
-          Swal.fire('You Dont have Marriage Leave')
-        }
+      this.DigiofficeService.GetMyDetails()
 
-      });
+        .subscribe({
+          next: data => {
+            debugger
+            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+            if (temp[0].marriageLeaveEntitlement - temp[0].marriageLeaveTaken <= 0) {
+              Swal.fire('You Dont have Marriage Leave')
+            }
+          }, error: (err) => {
+            Swal.fire('Issue in Getting MyDetails');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+
     }
     else if (this.LeaveType == 7) {
       debugger
-      this.DigiofficeService.GetMyDetails().subscribe(data => {
-        debugger
-        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-        if (temp[0].maternitityLeaveEntitlement - temp[0].maternitityLeaveTaken <= 0) {
-          Swal.fire('You Dont have Maternity  Leave')
-        }
-        if (temp[0].gender == 'Male') {
-          Swal.fire('You Can not Apply Maternity  Leave');
-        }
+      this.DigiofficeService.GetMyDetails()
 
-      });
+
+        .subscribe({
+          next: data => {
+            debugger
+            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+            if (temp[0].maternitityLeaveEntitlement - temp[0].maternitityLeaveTaken <= 0) {
+              Swal.fire('You Dont have Maternity  Leave')
+            }
+            if (temp[0].gender == 'Male') {
+              Swal.fire('You Can not Apply Maternity  Leave');
+            }
+
+          }, error: (err) => {
+            Swal.fire('Issue in Getting MyDetails');
+            // Insert error in Maternity  Leave//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+
     }
   }
   public formatDate(date: any) {
@@ -120,10 +208,7 @@ export class LeaveFormComponent implements OnInit {
     return [year, month, day].join('-');
   }
 
-  leaveconfig: any;
-  lopdays: any;
-  halfday:any;
-  autoApproval: any;
+
   public InserStaffLeave() {
     debugger
     const date1: any = new Date(this.SDateOfLeave);
@@ -146,230 +231,311 @@ export class LeaveFormComponent implements OnInit {
           var currentmonthno = date.getMonth() + 1;
           let yearlyLimit = this.leaveconfig[0].yearlyLimit;
           var totaleaveentiletment = currentmonthno * monthlyLimit;
-          this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", this.formatDate(new Date())).subscribe(data => {
-            debugger
-            let levavedata: any = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && x.leaveTypeID == this.LeaveType);
+          this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", this.formatDate(new Date()))
+            .subscribe({
+              next: data => {
+                debugger
+                let levavedata: any = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && x.leaveTypeID == this.LeaveType);
 
-            let noOfDays: any = 0;
-            let lopdays: any = 0;
-            levavedata.forEach((element: { noOfDays: any; lopdays: any; }) => {
-              noOfDays += Number(element.noOfDays);
-              lopdays += Number(element.lopdays);
-            });
+                let noOfDays: any = 0;
+                let lopdays: any = 0;
+                levavedata.forEach((element: { noOfDays: any; lopdays: any; }) => {
+                  noOfDays += Number(element.noOfDays);
+                  lopdays += Number(element.lopdays);
+                });
 
-            let totalleavesilldate: any = noOfDays - lopdays;
-            if (totalleavesilldate >= yearlyLimit) {
-              Swal.fire('Yearly Quota Completd for this Leave Type');
-            }
-            var totalvailbeltilltoday = totaleaveentiletment - totalleavesilldate;
-            var totalvailbeltilltoday = totalvailbeltilltoday < 0 ? 0 : totalvailbeltilltoday
-            //   var lopdays = diffDays - totalvailbeltilltoday;
-            if (diffDays > totalvailbeltilltoday) {
-              this.lopdays = diffDays - totalvailbeltilltoday
-            }
-            else {
-              this.lopdays = 0;
-            }
-            Swal.fire(({
-              title: '<strong><u>Details</u></strong>',
-              icon: 'info',
-              html:
-                '<p style="font-size: 24px;text-align: start;margin-left: 135px;"> Monthly Limit   : ' + monthlyLimit +
-                '       <br>' +
-                'Used Till Date: ' + totalleavesilldate +
-                '       <br>' +
-                'Available Till Date: ' + totalvailbeltilltoday +
-                '       <br>' +
-                'Applied Days: ' + diffDays +
-                '       <br>' +
-                'LWOP: ' + this.lopdays +
-                '       <br>' +
-                '</p>'
-              ,
-              showCloseButton: true,
-              showCancelButton: true,
-              focusConfirm: true,
+                let totalleavesilldate: any = noOfDays - lopdays;
+                if (totalleavesilldate >= yearlyLimit) {
+                  Swal.fire('Yearly Quota Completd for this Leave Type');
+                }
+                var totalvailbeltilltoday = totaleaveentiletment - totalleavesilldate;
+                var totalvailbeltilltoday = totalvailbeltilltoday < 0 ? 0 : totalvailbeltilltoday
+                //   var lopdays = diffDays - totalvailbeltilltoday;
+                if (diffDays > totalvailbeltilltoday) {
+                  this.lopdays = diffDays - totalvailbeltilltoday
+                }
+                else {
+                  this.lopdays = 0;
+                }
+                Swal.fire(({
+                  title: '<strong><u>Details</u></strong>',
+                  icon: 'info',
+                  html:
+                    '<p style="font-size: 24px;text-align: start;margin-left: 135px;"> Monthly Limit   : ' + monthlyLimit +
+                    '       <br>' +
+                    'Used Till Date: ' + totalleavesilldate +
+                    '       <br>' +
+                    'Available Till Date: ' + totalvailbeltilltoday +
+                    '       <br>' +
+                    'Applied Days: ' + diffDays +
+                    '       <br>' +
+                    'LWOP: ' + this.lopdays +
+                    '       <br>' +
+                    '</p>'
+                  ,
+                  showCloseButton: true,
+                  showCancelButton: true,
+                  focusConfirm: true,
 
-            })).then((result) => {
-              debugger
-              if (result.value == true) {
-                if (this.autoApproval == 'Auto Approval') {
-                  if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
-                    Swal.fire('Please Fill All The Mandatory Fields')
-                  }
-                  else {
-                    var eb = {
-                      'Building': 56,
-                      'StaffName': sessionStorage.getItem('staffid'),
-                      'SDateOfLeave': this.SDateOfLeave,
-                      'EDateOfLeave': this.EDateOfLeave,
-                      'NoOfDays': this.lopdays,
-                      'LeaveReason': this.LeaveReason,
-                      'LeaveType': this.LeaveType,
-                      'HalfDayBit': this.halfday == true ? 1 : 0,
-                      'PaidBit': 1,
-                      'Supervisor': 10331,
-                     
-                      'CoveringStaff': this.CoveringStaff,
-                      'AMPMText': 'AMPMText',
-                      'MedicalUrl1': this.attachmentsurl[0],
-                      'Status': this.autoApproval == 'Auto Approval' ? 'Manager Approved HR Approved' : 'Manager Pending HR Pending'
-                    }
-                    this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
+                })).then((result) => {
+                  debugger
+                  if (result.value == true) {
+                    if (this.autoApproval == 'Auto Approval') {
+                      if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
+                        Swal.fire('Please Fill All The Mandatory Fields')
+                      }
+                      else {
+                        var eb = {
+                          'Building': 56,
+                          'StaffName': sessionStorage.getItem('staffid'),
+                          'SDateOfLeave': this.SDateOfLeave,
+                          'EDateOfLeave': this.EDateOfLeave,
+                          'NoOfDays': this.lopdays,
+                          'LeaveReason': this.LeaveReason,
+                          'LeaveType': this.LeaveType,
+                          'HalfDayBit': this.halfday == true ? 1 : 0,
+                          'PaidBit': 1,
+                          'Supervisor': 10331,
 
-                      data => {
-                        debugger
-                        if (data == 0) {
-                          Swal.fire('Already Leave Applied for this Date');
+                          'CoveringStaff': this.CoveringStaff,
+                          'AMPMText': 'AMPMText',
+                          'MedicalUrl1': this.attachmentsurl[0],
+                          'Status': this.autoApproval == 'Auto Approval' ? 'Manager Approved HR Approved' : 'Manager Pending HR Pending'
                         }
-                        else {
-                          var entity = {
-                            'ID': 1,
-                            'Status1': 'Manager Approved HR Approved',
-                            'StaffName': sessionStorage.getItem('staffid'),
-                            'LeaveTypeID': this.LeaveType,
-                            'NoOfDays': this.lopdays,
+                        this.DigiofficeService.InsertStaffLeaves(eb)
+                          .subscribe({
+                            next: data => {
+                              debugger
+                              if (data == 0) {
+                                Swal.fire('Already Leave Applied for this Date');
+                              }
+                              else {
+                                var entity = {
+                                  'ID': 1,
+                                  'Status1': 'Manager Approved HR Approved',
+                                  'StaffName': sessionStorage.getItem('staffid'),
+                                  'LeaveTypeID': this.LeaveType,
+                                  'NoOfDays': this.lopdays,
 
-                          }
-                          this.DigiofficeService.ApproveStaffLeavesNewForHR(entity).subscribe(data => {
-                            if (data != 0) {
-                              Swal.fire('Saved successfully.');
-                              this.InsertNotification();
+                                }
+                                this.DigiofficeService.ApproveStaffLeavesNewForHR(entity).subscribe(data => {
+                                  if (data != 0) {
+                                    Swal.fire('Saved successfully.');
+                                    this.InsertNotification();
 
+                                  }
+
+                                })
+
+                              }
+
+
+                            }, error: (err) => {
+                              Swal.fire('Issue in Getting StaffLeaves');
+                              // Insert error in Db Here//
+                              var obj = {
+                                'PageName': this.currentUrl,
+                                'ErrorMessage': err.error.message
+                              }
+                              this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                                data => {
+                                  debugger
+                                },
+                              )
                             }
-
                           })
 
+
+
+                      }
+
+
+                    } else if (this.autoApproval == 'Manager Approval') {
+                      if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
+                        Swal.fire('Please Fill All The Mandatory Fields')
+                      }
+                      else {
+                        var eb = {
+                          'Building': 56,
+                          'StaffName': sessionStorage.getItem('staffid'),
+                          'SDateOfLeave': this.SDateOfLeave,
+                          'EDateOfLeave': this.EDateOfLeave,
+                          'NoOfDays': this.lopdays,
+                          'LeaveReason': this.LeaveReason,
+                          'LeaveType': this.LeaveType,
+                          'HalfDayBit': this.halfday == true ? 1 : 0,
+                          'PaidBit': 1,
+                          'Supervisor': 10331,
+                          'CoveringStaff': this.CoveringStaff,
+                          'AMPMText': 'AMPMText',
+                          'MedicalUrl1': this.attachmentsurl[0],
+                          'Status': 'Manager Pending'
                         }
+                        this.DigiofficeService.InsertStaffLeaves(eb)
+                          .subscribe({
+                            next: data => {
+                              debugger
+                              if (data == 0) {
+                                Swal.fire('Already Leave Applied for this Date');
+                              }
+                              else {
+                                Swal.fire('Saved successfully.');
+                                this.InsertNotification();
+                              }
 
 
-                      },
-                    )
-                  }
+                            }, error: (err) => {
+                              Swal.fire('Issue in Getting StaffLeaves');
+                              // Insert error in Db Here//
+                              var obj = {
+                                'PageName': this.currentUrl,
+                                'ErrorMessage': err.error.message
+                              }
+                              this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                                data => {
+                                  debugger
+                                },
+                              )
+                            }
+                          })
 
 
-                } else if (this.autoApproval == 'Manager Approval') {
-                  if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
-                    Swal.fire('Please Fill All The Mandatory Fields')
-                  }
-                  else {
-                    var eb = {
-                      'Building': 56,
-                      'StaffName': sessionStorage.getItem('staffid'),
-                      'SDateOfLeave': this.SDateOfLeave,
-                      'EDateOfLeave': this.EDateOfLeave,
-                      'NoOfDays': this.lopdays,
-                      'LeaveReason': this.LeaveReason,
-                      'LeaveType': this.LeaveType,
-                      'HalfDayBit': this.halfday == true ? 1 : 0,
-                      'PaidBit': 1,
-                      'Supervisor': 10331,
-                      'CoveringStaff': this.CoveringStaff,
-                      'AMPMText': 'AMPMText',
-                      'MedicalUrl1': this.attachmentsurl[0],
-                      'Status': 'Manager Pending'
+                      }
+
                     }
-                    this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
-
-                      data => {
-                        debugger
-                        if (data == 0) {
-                          Swal.fire('Already Leave Applied for this Date');
+                    else if (this.autoApproval == 'HR Approval') {
+                      if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
+                        Swal.fire('Please Fill All The Mandatory Fields')
+                      }
+                      else {
+                        var eb = {
+                          'Building': 56,
+                          'StaffName': sessionStorage.getItem('staffid'),
+                          'SDateOfLeave': this.SDateOfLeave,
+                          'EDateOfLeave': this.EDateOfLeave,
+                          'NoOfDays': this.lopdays,
+                          'LeaveReason': this.LeaveReason,
+                          'LeaveType': this.LeaveType,
+                          'HalfDayBit': this.halfday == true ? 1 : 0,
+                          'PaidBit': 1,
+                          'Supervisor': 10331,
+                          'CoveringStaff': this.CoveringStaff,
+                          'AMPMText': 'AMPMText',
+                          'MedicalUrl1': this.attachmentsurl[0],
+                          'Status': this.autoApproval == 'HR Approval' ? 'HR Pending' : 'Manager Pending HR Pending'
                         }
-                        else {
-                          Swal.fire('Saved successfully.');
-                          this.InsertNotification();
-                        }
+                        this.DigiofficeService.InsertStaffLeaves(eb)
+                          .subscribe({
+                            next: data => {
+                              debugger
+                              if (data == 0) {
+                                Swal.fire('Already Leave Applied for this Date');
+                              }
+                              else {
+                                Swal.fire('Saved successfully.');
+                                this.InsertNotification();
+                              }
 
 
-                      },
-                    )
-                  }
 
-                }
-                else if (this.autoApproval == 'HR Approval') {
-                  if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
-                    Swal.fire('Please Fill All The Mandatory Fields')
-                  }
-                  else {
-                    var eb = {
-                      'Building': 56,
-                      'StaffName': sessionStorage.getItem('staffid'),
-                      'SDateOfLeave': this.SDateOfLeave,
-                      'EDateOfLeave': this.EDateOfLeave,
-                      'NoOfDays': this.lopdays,
-                      'LeaveReason': this.LeaveReason,
-                      'LeaveType': this.LeaveType,
-                    'HalfDayBit': this.halfday == true ? 1 : 0,
-                      'PaidBit': 1,
-                      'Supervisor': 10331,
-                      'CoveringStaff': this.CoveringStaff,
-                      'AMPMText': 'AMPMText',
-                      'MedicalUrl1': this.attachmentsurl[0],
-                      'Status': this.autoApproval == 'HR Approval' ? 'HR Pending' : 'Manager Pending HR Pending'
+
+                            }, error: (err) => {
+                              Swal.fire('Issue in Getting StaffLeaves');
+                              // Insert error in Db Here//
+                              var obj = {
+                                'PageName': this.currentUrl,
+                                'ErrorMessage': err.error.message
+                              }
+                              this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                                data => {
+                                  debugger
+                                },
+                              )
+                            }
+                          })
+
+
+
+
+                      }
+
                     }
-                    this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
-
-                      data => {
-                        debugger
-                        if (data == 0) {
-                          Swal.fire('Already Leave Applied for this Date');
+                    else if (this.autoApproval == 'Level Approval') {
+                      if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
+                        Swal.fire('Please Fill All The Mandatory Fields')
+                      }
+                      else {
+                        var eb = {
+                          'Building': 56,
+                          'StaffName': sessionStorage.getItem('staffid'),
+                          'SDateOfLeave': this.SDateOfLeave,
+                          'EDateOfLeave': this.EDateOfLeave,
+                          'NoOfDays': this.lopdays,
+                          'LeaveReason': this.LeaveReason,
+                          'LeaveType': this.LeaveType,
+                          'HalfDayBit': this.halfday == true ? 1 : 0,
+                          'PaidBit': 1,
+                          'Supervisor': 10331,
+                          'CoveringStaff': this.CoveringStaff,
+                          'AMPMText': 'AMPMText',
+                          'MedicalUrl1': this.attachmentsurl[0],
+                          'Status': 'Manager Pending HR Pending'
                         }
-                        else {
-                          Swal.fire('Saved successfully.');
-                          this.InsertNotification();
-                        }
+                        this.DigiofficeService.InsertStaffLeaves(eb)
+                          .subscribe({
+                            next: data => {
+                              if (data == 0) {
+                                Swal.fire('Already Leave Applied for this Date');
+                              }
+                              else {
+                                Swal.fire('Saved successfully.');
+                                this.InsertNotification();
+                              }
 
 
-                      },
-                    )
-                  }
 
-                }
-                else if (this.autoApproval == 'Level Approval') {
-                  if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
-                    Swal.fire('Please Fill All The Mandatory Fields')
-                  }
-                  else {
-                    var eb = {
-                      'Building': 56,
-                      'StaffName': sessionStorage.getItem('staffid'),
-                      'SDateOfLeave': this.SDateOfLeave,
-                      'EDateOfLeave': this.EDateOfLeave,
-                      'NoOfDays': this.lopdays,
-                      'LeaveReason': this.LeaveReason,
-                      'LeaveType': this.LeaveType,
-                    'HalfDayBit': this.halfday == true ? 1 : 0,
-                      'PaidBit': 1,
-                      'Supervisor': 10331,
-                      'CoveringStaff': this.CoveringStaff,
-                      'AMPMText': 'AMPMText',
-                      'MedicalUrl1': this.attachmentsurl[0],
-                      'Status': 'Manager Pending HR Pending'
+
+                            }, error: (err) => {
+                              Swal.fire('Issue in Getting StaffLeaves');
+                              // Insert error in Db Here//
+                              var obj = {
+                                'PageName': this.currentUrl,
+                                'ErrorMessage': err.error.message
+                              }
+                              this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                                data => {
+                                  debugger
+                                },
+                              )
+                            }
+                          })
+
+
+
+                      }
+
                     }
-                    this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
-
-                      data => {
-                        debugger
-                        if (data == 0) {
-                          Swal.fire('Already Leave Applied for this Date');
-                        }
-                        else {
-                          Swal.fire('Saved successfully.');
-                          this.InsertNotification();
-                        }
-
-
-                      },
-                    )
                   }
 
+                })
+
+
+
+              }, error: (err) => {
+                Swal.fire('Issue in Getting City Type');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
                 }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
               }
-
             })
 
-          })
         }
         else {
           let monthlyLimit = this.leaveconfig[0].monthlyLimit;
@@ -424,7 +590,7 @@ export class LeaveFormComponent implements OnInit {
                     'NoOfDays': this.lopdays,
                     'LeaveReason': this.LeaveReason,
                     'LeaveType': this.LeaveType,
-                  'HalfDayBit': this.halfday == true ? 1 : 0,
+                    'HalfDayBit': this.halfday == true ? 1 : 0,
                     'PaidBit': 1,
                     'Supervisor': 10331,
                     'CoveringStaff': this.CoveringStaff,
@@ -432,36 +598,50 @@ export class LeaveFormComponent implements OnInit {
                     'MedicalUrl1': this.attachmentsurl[0],
                     'Status': this.autoApproval == 'Auto Approval' ? 'Manager Approved HR Approved' : 'Manager Pending HR Pending'
                   }
-                  this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
-
-                    data => {
-                      debugger
-                      if (data == 0) {
-                        Swal.fire('Already Leave Applied for this Date');
-                      }
-                      else {
-                        var entity = {
-                          'ID': 1,
-                          'Status1': 'Manager Approved HR Approved',
-                          'StaffName': sessionStorage.getItem('staffid'),
-                          'LeaveTypeID': this.LeaveType,
-                          'NoOfDays': this.lopdays,
-
+                  this.DigiofficeService.InsertStaffLeaves(eb)
+                    .subscribe({
+                      next: data => {
+                        debugger
+                        if (data == 0) {
+                          Swal.fire('Already Leave Applied for this Date');
                         }
-                        this.DigiofficeService.ApproveStaffLeavesNewForHR(entity).subscribe(data => {
-                          if (data != 0) {
-                            Swal.fire('Saved successfully.');
-                            this.InsertNotification();
+                        else {
+                          var entity = {
+                            'ID': 1,
+                            'Status1': 'Manager Approved HR Approved',
+                            'StaffName': sessionStorage.getItem('staffid'),
+                            'LeaveTypeID': this.LeaveType,
+                            'NoOfDays': this.lopdays,
 
                           }
+                          this.DigiofficeService.ApproveStaffLeavesNewForHR(entity).subscribe(data => {
+                            if (data != 0) {
+                              Swal.fire('Saved successfully.');
+                              this.InsertNotification();
 
-                        })
+                            }
 
+                          })
+
+                        }
+
+
+                      }, error: (err) => {
+                        Swal.fire('Issue in Getting City Type');
+                        // Insert error in Db Here//
+                        var obj = {
+                          'PageName': this.currentUrl,
+                          'ErrorMessage': err.error.message
+                        }
+                        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                          data => {
+                            debugger
+                          },
+                        )
                       }
+                    })
 
 
-                    },
-                  )
 
                 } else if (this.autoApproval == 'Manager Approval') {
                   var eb = {
@@ -472,7 +652,7 @@ export class LeaveFormComponent implements OnInit {
                     'NoOfDays': this.lopdays,
                     'LeaveReason': this.LeaveReason,
                     'LeaveType': this.LeaveType,
-                  'HalfDayBit': this.halfday == true ? 1 : 0,
+                    'HalfDayBit': this.halfday == true ? 1 : 0,
                     'PaidBit': 1,
                     'Supervisor': 10331,
                     'CoveringStaff': this.CoveringStaff,
@@ -480,21 +660,36 @@ export class LeaveFormComponent implements OnInit {
                     'MedicalUrl1': this.attachmentsurl[0],
                     'Status': 'Manager Pending'
                   }
-                  this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
+                  this.DigiofficeService.InsertStaffLeaves(eb)
+                    .subscribe({
+                      next: data => {
+                        debugger
+                        if (data == 0) {
+                          Swal.fire('Already Leave Applied for this Date');
+                        }
+                        else {
+                          Swal.fire('Saved successfully.');
+                          this.InsertNotification();
+                        }
 
-                    data => {
-                      debugger
-                      if (data == 0) {
-                        Swal.fire('Already Leave Applied for this Date');
+
+                      }, error: (err) => {
+                        Swal.fire('Issue in Getting StaffLeaves');
+                        // Insert error in Db Here//
+                        var obj = {
+                          'PageName': this.currentUrl,
+                          'ErrorMessage': err.error.message
+                        }
+                        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                          data => {
+                            debugger
+                          },
+                        )
                       }
-                      else {
-                        Swal.fire('Saved successfully.');
-                        this.InsertNotification();
-                      }
+                    })
 
 
-                    },
-                  )
+
                 }
                 else if (this.autoApproval == 'HR Approval') {
                   var eb = {
@@ -505,7 +700,7 @@ export class LeaveFormComponent implements OnInit {
                     'NoOfDays': this.lopdays,
                     'LeaveReason': this.LeaveReason,
                     'LeaveType': this.LeaveType,
-                  'HalfDayBit': this.halfday == true ? 1 : 0,
+                    'HalfDayBit': this.halfday == true ? 1 : 0,
                     'PaidBit': 1,
                     'Supervisor': 10331,
                     'CoveringStaff': this.CoveringStaff,
@@ -513,21 +708,38 @@ export class LeaveFormComponent implements OnInit {
                     'MedicalUrl1': this.attachmentsurl[0],
                     'Status': this.autoApproval == 'HR Approval' ? 'HR Pending' : 'Manager Pending HR Pending'
                   }
-                  this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
+                  this.DigiofficeService.InsertStaffLeaves(eb)
+                    .subscribe({
+                      next: data => {
+                        debugger
+                        if (data == 0) {
+                          Swal.fire('Already Leave Applied for this Date');
+                        }
+                        else {
+                          Swal.fire('Saved successfully.');
+                          this.InsertNotification();
+                        }
 
-                    data => {
-                      debugger
-                      if (data == 0) {
-                        Swal.fire('Already Leave Applied for this Date');
+
+
+                      }, error: (err) => {
+                        Swal.fire('Issue in Getting StaffLeaves');
+                        // Insert error in Db Here//
+                        var obj = {
+                          'PageName': this.currentUrl,
+                          'ErrorMessage': err.error.message
+                        }
+                        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                          data => {
+                            debugger
+                          },
+                        )
                       }
-                      else {
-                        Swal.fire('Saved successfully.');
-                        this.InsertNotification();
-                      }
+                    })
 
 
-                    },
-                  )
+
+
                 }
                 else if (this.autoApproval == 'Level Approval') {
                   var eb = {
@@ -538,7 +750,7 @@ export class LeaveFormComponent implements OnInit {
                     'NoOfDays': this.lopdays,
                     'LeaveReason': this.LeaveReason,
                     'LeaveType': this.LeaveType,
-                  'HalfDayBit': this.halfday == true ? 1 : 0,
+                    'HalfDayBit': this.halfday == true ? 1 : 0,
                     'PaidBit': 1,
                     'Supervisor': 10331,
                     'CoveringStaff': this.CoveringStaff,
@@ -546,21 +758,34 @@ export class LeaveFormComponent implements OnInit {
                     'MedicalUrl1': this.attachmentsurl[0],
                     'Status': 'Manager Pending HR Pending'
                   }
-                  this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
+                  this.DigiofficeService.InsertStaffLeaves(eb)
+                    .subscribe({
+                      next: data => {
+                        debugger
+                        if (data == 0) {
+                          Swal.fire('Already Leave Applied for this Date');
+                        }
+                        else {
+                          Swal.fire('Saved successfully.');
+                          this.InsertNotification();
+                        }
 
-                    data => {
-                      debugger
-                      if (data == 0) {
-                        Swal.fire('Already Leave Applied for this Date');
+
+                      }, error: (err) => {
+                        Swal.fire('Issue in Getting StaffLeaves');
+                        // Insert error in Db Here//
+                        var obj = {
+                          'PageName': this.currentUrl,
+                          'ErrorMessage': err.error.message
+                        }
+                        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                          data => {
+                            debugger
+                          },
+                        )
                       }
-                      else {
-                        Swal.fire('Saved successfully.');
-                        this.InsertNotification();
-                      }
+                    })
 
-
-                    },
-                  )
                 }
               }
 
@@ -598,14 +823,34 @@ export class LeaveFormComponent implements OnInit {
 
 
     }
-    this.DigiofficeService.InsertNotification(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Saved Successfully");
-        location.href = "#/LeaveListDashboard";
+    this.DigiofficeService.InsertNotification(entity)
 
-      }
+      .subscribe({
+        next: data => {
+          debugger
+          if (data != 0) {
+            Swal.fire("Saved Successfully");
+            location.href = "#/LeaveListDashboard";
 
-    })
+          }
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Notification');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
+
+
   }
   public Cancel() {
     debugger
