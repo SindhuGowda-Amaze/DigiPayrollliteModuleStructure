@@ -26,6 +26,10 @@ export class EmploymentJobHistoryComponent implements OnInit {
     this.loader = true
     debugger
     this.roledid = sessionStorage.getItem('roledid');
+    this.GetMyDetails();
+  }
+
+  public GetMyDetails() {
     this.DigiofficeService.GetMyDetails()
       .subscribe({
         next: data => {
@@ -65,7 +69,7 @@ export class EmploymentJobHistoryComponent implements OnInit {
           this.stafflist1 = data.filter(x => x.staffId == list.id);
           this.loader = false;
         }, error: (err) => {
-          Swal.fire('Issue in Getting Staff Details');
+          Swal.fire('Issue in Getting Employment Details');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,

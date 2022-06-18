@@ -37,8 +37,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     GaugeModule.forRoot(),
     NgxDropzoneModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule,
-    NgMultiSelectDropDownModule.forRoot(),
+    //Ng2SearchPipeModule,
+  //  NgMultiSelectDropDownModule.forRoot(),
   ]
 })
 export class ManagerModule { }

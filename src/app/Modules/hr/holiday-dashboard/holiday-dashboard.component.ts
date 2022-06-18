@@ -7,6 +7,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
   templateUrl: './holiday-dashboard.component.html',
   styleUrls: ['./holiday-dashboard.component.css']
 })
+
 export class HolidayDashboardComponent implements OnInit {
 
   constructor(public DigipayrollServiceService: DigipayrollserviceService) { }
@@ -15,20 +16,40 @@ export class HolidayDashboardComponent implements OnInit {
   roleid:any;
   holidaylistCopy:any;
   loader:any;
+  currentUrl:any;
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.loader=true;
     this.roleid = sessionStorage.getItem('roledid');
     this.GetHolidays();
   }
+
   term:any;
   holidaylist: any
+
   public GetHolidays() {
     debugger
-    this.DigipayrollServiceService.GetHolidays().subscribe(data => {
-      debugger
-      this.holidaylist = data
-      this.holidaylistCopy= this.holidaylist
-      this.loader=false;
+    this.DigipayrollServiceService.GetHolidays()
+    .subscribe({
+      next: data => {
+        debugger
+        this.holidaylist = data
+        this.holidaylistCopy= this.holidaylist
+        this.loader=false;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Holidays');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
   }
 
@@ -43,16 +64,32 @@ export class HolidayDashboardComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.DigipayrollServiceService.DeleteHolidays(ID).subscribe(data => {
-          debugger
-          Swal.fire('Deleted Successfully')
+        this.DigipayrollServiceService.DeleteHolidays(ID)
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Deleted Successfully')
           this.ngOnInit();
+          }, error: (err) => {
+            Swal.fire('Issue in Deleting Holidays');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
         })
       }
     })
-
   }
+
   file: any;
+  
   public getmedicalUrl(file: any) {
     debugger
     this.file = file;
