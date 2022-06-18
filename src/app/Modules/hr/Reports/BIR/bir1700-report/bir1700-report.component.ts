@@ -179,6 +179,7 @@ public GetMyDetails(){
   
   .subscribe({
     next: data => {
+      {
       debugger
       this.employeelist = data.filter(x=>x.monthstaffid==id && String(x.emplyeeYear==this.year) );
       
@@ -267,7 +268,7 @@ public GetMyDetails(){
     this.tin10 = this.employeetin.charAt(9)
     this.tin11 = this.employeetin.charAt(10)
     this.tin12 = this.employeetin.charAt(11)
-    }, error: (err) => {
+    } error: (err: { error: { message: any; }; }) => {
       Swal.fire('Issue in Deleting Hoilday');
       // Insert error in Db Here//
       var obj = {
@@ -279,9 +280,20 @@ public GetMyDetails(){
           debugger
         },
       )}
+    }, error: (err) => {
+      Swal.fire('Issue in GetEmployeeSalaryMonthly');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )}
   })
-  
-  
+
 
 
 }
