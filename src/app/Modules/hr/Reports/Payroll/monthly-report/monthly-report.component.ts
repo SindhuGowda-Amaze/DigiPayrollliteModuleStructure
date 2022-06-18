@@ -49,6 +49,7 @@ export class MonthlyReportComponent implements OnInit {
   employeelist1: any;
   uniquelist13: any;
   showleaseforprint: any;
+  id: any
 
 
   constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
@@ -56,11 +57,11 @@ export class MonthlyReportComponent implements OnInit {
   ngOnInit(): void {
 
     this.currentUrl = window.location.href;
+    this.GetDepartment();
+    this.GetRoleType();
+    this.GetEmployeeSalaryMonthly();
     this.loader = true;
     var dt = new Date();
-
-
-
     this.DigipayrollServiceService.GetDepartment().subscribe(data => {
       debugger
       this.Departmentlist = data;
@@ -89,8 +90,95 @@ export class MonthlyReportComponent implements OnInit {
 
 
   }
+  public GetDepartment() {
 
-  id: any
+    this.DigipayrollServiceService.GetDepartment()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.Departmentlist = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
+  }
+
+  public GetRoleType() {
+
+    this.DigipayrollServiceService.GetRoleType()
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.RoleTypeList = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
+
+  }
+
+  public GetEmployeeSalaryMonthly() {
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.employeelist = data;
+          const key = 'month';
+          const key1 = 'endyear';
+
+          this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+            [item[key], item])).values()];
+          //  this.uniquelist = [...new Set(data.map(item => item))];
+          this.stafflist1 = this.uniquelist.filter((x: { endyear: number; }) => x.endyear == 2022)
+          this.loader = false;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
+
+
+
+
   public getCheckbocdetails(evn: any) {
     this.id = evn.id
 
