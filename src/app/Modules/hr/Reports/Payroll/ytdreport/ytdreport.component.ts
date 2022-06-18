@@ -313,16 +313,31 @@ export class YTDReportComponent implements OnInit {
 
   public filterByDepartment() {
     debugger
-    this.DigipayrollServiceService.GetEmployeeSalaryMonthly().subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x => x.emplyeeYear == this.Year && x.department_name == this.Department);
+    this.DigipayrollServiceService.GetEmployeeSalaryMonthly()
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist = data.filter(x => x.emplyeeYear == this.Year && x.department_name == this.Department);
 
-      const key = 'id'
-
-      this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-    });
-
+        const key = 'id'
+  
+        this.uniquelist1 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+          [(item[key]), item])).values()]
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+   
 
 
 
