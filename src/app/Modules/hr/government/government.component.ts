@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import Swal from 'sweetalert2';
-
+import { DatePipe, formatDate } from '@angular/common';
 @Component({
   selector: 'app-government',
   templateUrl: './government.component.html',
   styleUrls: ['./government.component.css']
 })
+
 export class GovernmentComponent implements OnInit {
 
-  govtattachment: any;
-  Search:any;
-  constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
+  constructor(private DigipayrollServiceService: DigipayrollserviceService,private datePipe: DatePipe) { }
   govtlist: any;
   dropdownSettings: any = {};
   month: any
@@ -24,7 +23,15 @@ export class GovernmentComponent implements OnInit {
   Departmentlist:any;
   RoleTypeList:any;
   loader:any;
+  myDate:any;
+  cutofflist:any;
+  latestdate:any;
+  govtattachment: any;
+  Search:any;
+  currentUrl:any;
+
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.loader=true
     this.Type = "";
     this.RoleType = "";
@@ -39,6 +46,12 @@ export class GovernmentComponent implements OnInit {
     this.Month="";
     this.Year="";
     this.staffId = sessionStorage.getItem('staffid')
+    this.myDate = new Date();
+    this.latestdate= this.datePipe.transform( this.myDate , 'yyyy-MM-dd');
+    debugger
+   
+
+
     this.GetNewGovernmentRecords();
    
 
@@ -58,9 +71,16 @@ export class GovernmentComponent implements OnInit {
       this.Departmentlist = data;
     });
 
-    this.DigipayrollServiceService.GetRoleType().subscribe(data => {
+    this.DigipayrollServiceService.GetPosition().subscribe(data => {
       debugger
       this.RoleTypeList = data;
+    });
+  }
+
+  public GetRemittanceCutOffDate(){
+    this.DigipayrollServiceService.GetRemittanceCutOffDate().subscribe(data => {
+      debugger
+      this.cutofflist = data.filter(x=>x.filterdate==this.latestdate);
     });
   }
 
@@ -112,7 +132,7 @@ export class GovernmentComponent implements OnInit {
       this.employeelist34 = data.filter(x=>x.department==this.Department1)
     });
   }
-
+  
   public getRoleType(event: any) {
     debugger
     this.RoleType = event.target.value;
@@ -213,47 +233,59 @@ export class GovernmentComponent implements OnInit {
   staffName: any;
   staffId1: any;
   save() {
-    var json = {
+    // if(this.cutofflist.length!=0){
+      var json = {
 
-      "type": this.Type,
-      "sbrorNumber": this.SBRORNumber,
-      "amount": this.Amount,
-      "datePaid": this.DatePaid,
-      "attachment": this.govtattachment,
-      "staffId": this.staffID1,
-      "month": this.month,
-      "payrolltype": this.payrolltype
+        "type": this.Type,
+        "sbrorNumber": this.SBRORNumber,
+        "amount": this.Amount,
+        "datePaid": this.DatePaid,
+        "attachment": this.govtattachment,
+        "staffId": this.staffID1,
+        "month": this.month,
+        "payrolltype": this.payrolltype
+  
+        // "ssS_Number": this.ssS_Number,
+        // "ssS_DatePaid": this.ssS_DatePaid,
+        // "sssLoan_Number": this.sssLoan_Number,
+        // "sssLoan_DatePaid": this.sssLoan_DatePaid,
+        // "sssCalamityLoan_Number": this.sssCalamityLoan_Number,
+        // "sssCalamityLoan_DatePaid": this.sssCalamityLoan_DatePaid,
+        // "philHealth_Number": this.philHealth_Number,
+        // "philHealth_DatePaid": this.philHealth_DatePaid,
+        // "hdmF_Number": this.hdmF_Number,
+        // "hdmF_DatePaid": this.hdmF_DatePaid,
+        // "hdmfLoan_Number": this.hdmfLoan_Number,
+        // "hdmfLoan_DatePaid": this.hdmfLoan_DatePaid,
+        // "hdmpCalamityLoan_Number": this.hdmpCalamityLoan_Number,
+        // "hdmpCalamityLoan_DatePaid": this.hdmpCalamityLoan_DatePaid,
+  
+      };
+  
+      this.DigipayrollServiceService.InsertNewGovernmentRecords(json).subscribe(
+        data => {
+          debugger
+          let result = data;
+          Swal.fire("Saved Sucessfully....!");
+          this.Type = "";
+          this.SBRORNumber = "";
+          this.Amount = "";
+          this.DatePaid = "";
+          this.month = "";
+          this.onRemove(this.files)
+          this.GetNewGovernmentRecords();
+        })
+    // }
+   
 
-      // "ssS_Number": this.ssS_Number,
-      // "ssS_DatePaid": this.ssS_DatePaid,
-      // "sssLoan_Number": this.sssLoan_Number,
-      // "sssLoan_DatePaid": this.sssLoan_DatePaid,
-      // "sssCalamityLoan_Number": this.sssCalamityLoan_Number,
-      // "sssCalamityLoan_DatePaid": this.sssCalamityLoan_DatePaid,
-      // "philHealth_Number": this.philHealth_Number,
-      // "philHealth_DatePaid": this.philHealth_DatePaid,
-      // "hdmF_Number": this.hdmF_Number,
-      // "hdmF_DatePaid": this.hdmF_DatePaid,
-      // "hdmfLoan_Number": this.hdmfLoan_Number,
-      // "hdmfLoan_DatePaid": this.hdmfLoan_DatePaid,
-      // "hdmpCalamityLoan_Number": this.hdmpCalamityLoan_Number,
-      // "hdmpCalamityLoan_DatePaid": this.hdmpCalamityLoan_DatePaid,
-
-    };
-
-    this.DigipayrollServiceService.InsertNewGovernmentRecords(json).subscribe(
-      data => {
-        debugger
-        let result = data;
-        Swal.fire("Saved Sucessfully....!");
-        this.Type = "";
-        this.SBRORNumber = "";
-        this.Amount = "";
-        this.DatePaid = "";
-        this.month = "";
-        this.onRemove(this.files)
-        this.GetNewGovernmentRecords();
-      })
+      // else{
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Oops...',
+      //     text: 'You Have Missed The Remittance CutOff Date!',
+      //     footer: 'Please Changed The Configuration To Save Remittance'
+      //   })
+      // }
   }
 
   delete(id: any) {
@@ -295,7 +327,7 @@ export class GovernmentComponent implements OnInit {
     debugger
     this.DigipayrollServiceService.GetNewGovernmentRecords().subscribe(data => {
       debugger
-      this.govtlist = data;
+      this.govtlist = data.filter((x: { year: any;})=>x.year==this.Year )
       this.count = this.govtlist.length;
 
 
@@ -308,12 +340,12 @@ export class GovernmentComponent implements OnInit {
           return Object.assign({}, val, this.employeelist.filter((v: { id: any; }) => v.id === val.staffID)[0]);
         });
 
-        if(this.Year==""){
-          this.results=this.results1.filter((x: { year: any;})=>x.year==this.Year )
-        }
-        else{
-          this.results=this.results1.filter((x: { month: any; year:any; })=>x.month==this.Month && x.year==this.Year )
-        }
+        // if(this.Year==""){
+        //   this.results=this.results1.filter((x: { year: any;})=>x.year==this.Year )
+        // }
+        // else{
+        //   this.results=this.results1.filter((x: { month: any; year:any; })=>x.month==this.Month && x.year==this.Year )
+        // }
       })
       
     });
@@ -349,5 +381,16 @@ export class GovernmentComponent implements OnInit {
       })
       
     });
+
+
+    //  this.merged = [];
+
+    // for(let i=0; i<this.govtlist.length; i++) {
+    //   this.merged.push({
+    //    ...this.govtlist[i], 
+    //    ...(this.employeelist.find((itmInner:any) => itmInner.id === this.govtlist[i].staffID))}
+    //   );
+    // }
+    // console.log('data', this.merged)
   }
 }
