@@ -189,7 +189,7 @@ export class PayRollRunsComponent implements OnInit {
         const login: any = document.getElementById('login') as HTMLElement
 
         if (login.value == 1111) {
-          location.href = '#/RunPayroll';
+          location.href = '#/hr/PayRollRunsForm';
 
 
         }
@@ -471,7 +471,7 @@ export class PayRollRunsComponent implements OnInit {
 
 
   showleaseforprint: any;
-  
+
   public showpdf() {
     this.showleaseforprint = 1;
   }

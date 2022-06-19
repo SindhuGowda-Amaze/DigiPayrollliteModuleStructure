@@ -52,12 +52,12 @@
             </div> -->
         </div>
 
-        <div class="row" >
+        <div class="row">
             <div class="col-lg-2">
-                <p>Role
+                <p>Position
                     <br> <select class="form-control" id="RoleType" name="RoleType" (change)='getRoleType($event)'
                         [(ngModel)]="RoleType" (change)="FilterRoleType()">
-                        <option value="">Select Role</option>
+                        <option value="">Select Position</option>
                         <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
                         </option>
                     </select>
@@ -97,15 +97,15 @@
     <br />
     <div class="row rowwidth collapse" id="employee" style="height:500px;">
         <div class="col-lg-12">
-            <table class="table table-bordered fonttxt" id="downloadaplication" style="height:300px;"
+            <table class="table table-bordered fonttxt"  style="height:300px;"
                 *ngIf="(uniquelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
                 <thead>
                     <tr>
-                        <th><input type="checkbox"  data-toggle="collapse"
-                            data-target="#demo2" (click)="selectALL(true)"  ></th>
+                        <th><input type="checkbox" data-toggle="collapse" data-target="#demo2"
+                                (click)="selectALL(true)"></th>
                         <th>Employee Id</th>
                         <th>Employee Name</th>
-                        <th>Role</th>
+                        <th>Position</th>
                         <th>Department</th>
                         <th>Phone Number</th>
                         <th>Email</th>
@@ -123,20 +123,20 @@
                 <tbody>
                     <tr *ngFor="let item of uniquelist|paginate: { itemsPerPage: count1, currentPage: p }">
                         <td>
-                            <input type="checkbox" data-toggle="collapse"
-                            data-target="#demo1"  [(ngModel)]="item.checked" [value]="item.value"
-                                (click)="getCheckbocdetails(item)" (click)="SinglePreliminary(item.name,item.id)">&nbsp;
+                            <input type="checkbox" 
+                                [(ngModel)]="item.checked" [value]="item.value" (click)="getCheckbocdetails(item)"
+                                (click)="SinglePreliminary(item.name,item.id)">&nbsp;
                         </td>
 
-                        <td>{{item.id}}</td>
+                        <td>{{item.employeeid1}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.role}}</td>
                         <td>{{item.department_name}}</td>
                         <td>{{item.mobile}}</td>
                         <td>{{item.emailID}}</td>
                         <td>{{item.weekenddays}}</td>
-                        <td>{{item.daysworked}}</td>
-                        <td>{{item.workingdays}}</td>
+                        <td>{{item.daysworked-item.weekenddaysworked}}</td>
+                        <td>{{(item.daysworked-item.weekenddaysworked)+item.weekenddays}}</td>
                         <td>{{item.leavedays}}</td>
                         <td>{{item.lopdays}}</td>
                         <td>{{item.joiningDate|date}}</td>
@@ -175,42 +175,139 @@
 
 </div>
 <!-- id="paygroup123" class="modal fade" -->
-<div   id="demo1" class="collapse">
-<h4 class="modal-title">Preliminary Report</h4>
-               <div class="row">
-                   <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-12" style="overflow:auto;">
-                                <table class="table table-bordered" id="downloadaplication">
-                                    <thead>
-                                        <tr class="newFont">
-                                            <th>Employee Id</th>
-                                            <th>Employee Name</th>
-                                            <th>Tax Status</th>
-                                            <th>Basic Salary</th>
-                                            <th>Deminimis Benifits </th>
-                                            <th>Total Monthly Salary</th>
-                                            <th>Semi Monthly Basic Salary </th>
-                                            <th>Basic/Day</th>
-                                            <th>Basic/Hr</th>
+<div *ngIf="seleconebtn==true">
+
+   
+
+    <div class="row">
+        <div class="col-lg-3">
+          
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+      
+        <div class="col-lg-4">
+            <button class="AddButton"  (click)="exportexcel()">Export to Excel</button>
+        </div>
+       
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-lg-5">
+            <h4 class="modal-title">Preliminary Report</h4>
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-3">
+            Total Amount : {{totalamount|number:'1.2-2'}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12" style="overflow:auto;">
+                    <table class="table table-bordered" id="downloadaplication">
+                        <thead>
+                            <tr class="newFont">
+                                <th>Employee Id</th>
+                                <th>Employee Name</th>
+
+                               
+                                <th>Gross Salary</th>
+                                <!-- <th>Deminimis</th> -->
+                                <th>Gross Salary For Period</th>
+                                <th>SSS Rate</th>
+                                <th>Pag-IBIG Rate</th>
+                                <th>PhilHealth Contribution</th>
+                                <th>Tax</th>
+                                <th>Lop Days</th>
+                                <th>Lop Amount</th>
+                                <th>SSS Salary Loan</th>
+                                <th>Pagibig Multipurpose Loan</th>
+                                <th>Pagibig Housing Loan</th>
+                                <th>Pagibig Calamity Loan</th>
+                                <th>SSS Salary Loan Adjustment</th>
+                                <th>Pagibig Multipurpose Loan Adjutment</th>
+                                <th>Pagibig Housing Loan Adjustment</th>
+                                <th>Pagibig Calamity Loan Adjustment</th>
+                                <th>OT Amount</th>
+                                <th>REIMBURSEMENT</th>
+                                <th>Undertime</th>
+                                <th>Salary Dispute</th>
+                                <th>Net Pay</th>
+                            </tr>
+                            <tr *ngFor="let item of uniquelist234">
+                                <td>{{item.employeeid1}}</td>
+                                <td>{{item.empname}}</td>
+                               
+                                <td style="color:#0C275A">{{item.grossSalary}}</td>
+                                <!-- <td style="color:#0C275A"> {{item.deniminimis_amount}}</td> -->
+                                <td style="color:#0C275A"> {{item.monthlysalary}}</td>
+                                <td style="color:#0C275A">{{item.contribution}}</td>
+                                <td style="color:#0C275A">{{item.pagBig}}</td>
+                                <td style="color:#0C275A">{{item.philHealthContribution}}</td>
+                                <td style="color:#0C275A">{{item.tax}}</td>
+                                <td style="color:#0C275A">{{item.lopDays}}</td>
+                                <td style="color:#0C275A">{{item.lopAmount}}</td>
+                                
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.ssssalaryLoan!=null">{{item.ssssalaryLoan}}</p>
+                                    <p *ngIf="item.ssssalaryLoan==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagibigmultipurposeloan!=null">{{item.pagibigmultipurposeloan}}</p>
+                                    <p *ngIf="item.pagibigmultipurposeloan==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagibigcalamityloan!=null">{{item.pagibigcalamityloan}}</p>
+                                    <p *ngIf="item.pagibigcalamityloan==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagibighousingloan!=null">{{item.pagibighousingloan}}</p>
+                                    <p *ngIf="item.pagibighousingloan==null">0</p>
+                                </td>
+                                
+
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.ssssalaryloanadjustment!=null">{{item.ssssalaryloanadjustment|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.ssssalaryloanadjustment==null">0</p>
+                                </td>
+                                 <td style="color:#0C275A">
+                                    <p *ngIf="item.pagibigmultipurposeloanadjustment!=null">{{item.pagibigmultipurposeloanadjustment|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.pagibigmultipurposeloanadjustment==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagibigcalamityloanadjustment!=null">{{item.pagibigcalamityloanadjustment|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.pagibigcalamityloanadjustment==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagibighousingloanadjustment!=null">{{item.pagibighousingloanadjustment|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.pagibighousingloanadjustment==null">0</p>
+                                </td>
+                                
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.otamount!=null">{{item.otamount}}</p>
+                                    <p *ngIf="item.otamount==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.benefits!=null">{{item.benefits}}</p>
+                                    <p *ngIf="item.benefits==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.undertimeamount!=null">{{item.undertimeamount|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.undertimeamount==null">0</p>
+                                </td>
+                                <td>{{item.salarydisputeamount}}</td>
+                                <td style="color:#0C275A">{{item.netMonthSalary}}</td>
 
 
 
-                                            <th>Tax</th>
-                                            <th>SSS</th>
-                                            <th>PHIL</th>
-                                            <th>Pag-IBIG</th>
-                                            <th>LOP Amount</th>
 
-                                            <!-- <th>Total Deduction</th> 
-                                            <th>Benefits</th>                               -->
-                                            <th>Net Pay</th>
-                                        </tr>
-                                        <tr *ngFor="let item of StaffSalaryReports">
-                                            <td>{{empid}}</td>
-                                            <td>{{name}}</td>
-                                            <td>ME 2</td>
-                                            <td>{{item.taxableIncome}}</td>
+
+
+                                <!-- <td>{{item.taxableIncome}}</td>
                                             <td>{{item.deniminimis_amount}}</td>
                                             <td>{{item.taxableIncome+item.deniminimis_amount}}</td>
                                             <td>{{item.monthlysalary}}</td>
@@ -223,9 +320,9 @@
                                             <td>{{item.philHealthContribution|number:'1.2-2'}}</td>
                                             <td>{{item.pagBig/2}}</td>
                                             <td>{{item.lopAmount}}</td>
-                                            <td>{{item.netMonthSalary}}</td>
-                                        </tr>
-                                        <!-- <tr>
+                                            <td>{{item.netMonthSalary}}</td> -->
+                            </tr>
+                            <!-- <tr>
                                          <td>{{id}}</td>
                                          <td>{{fullname}}</td>
                                          <td>ME 1</td>
@@ -256,84 +353,176 @@
                                         
                                         </tr> -->
 
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
+                        </thead>
+                    </table>
                 </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <!-- 
 id="paygroupall" class="modal fade"  -->
-<div  id="demo2" class="collapse">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h4 class="modal-title">Preliminary Report</h4>          
-                    </div>
-                    <div class="col-lg-6">
+<div id="demo2" class="collapse">
+    <div class="row">
+        <div class="col-lg-3">
+          
+        </div>
+        <div class="col-lg-4">
 
-                    </div>
-                    <div class="col-lg-2">
-                        Total Amount : {{totalamount}}
-                    </div>
+        </div>
+      
+        <div class="col-lg-4">
+            <button class="AddButton"  (click)="exportexcel()">Export to Excel</button>
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            <h4 class="modal-title">Preliminary Report</h4>
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-3">
+            Total Amount : {{totalamount|number:'1.2-2'}}
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12" style="overflow:auto;">
+                    <table class="table table-bordered" id="downloadaplication">
+                        <thead>
+                            <tr class="newFont">
+                                
+                                <th>Employee Name</th>
+                                <th>Gross Salary</th>
+                                <!-- <th>Deminimis</th> -->
+                                <th>Gross Salary For Period</th>
+                                <th>SSS Rate</th>
+                                <th>Pag-IBIG Rate</th>
+                                <th>PhilHealth Contribution</th>
+                                <th>Tax</th>
+                                <th>Lop Days</th>
+                                <th>Lop Amount</th>
+                                <th>SSS Salary Loan</th>
+                                <th>Pagibig Multipurpose Loan</th>
+                                <th>Pagibig Housing Loan</th>
+                                <th>Pagibig Calamity Loan</th>
+                                <th>SSS Salary Loan Adjustment</th>
+                                <th>Pagibig Multipurpose Loan Adjutment</th>
+                                <th>Pagibig Housing Loan Adjustment</th>
+                                <th>Pagibig Calamity Loan Adjustment</th>
+                                <th>OT Amount</th>
+                                <th>Undertime</th>
+                                <th>REIMBURSEMENT</th>
+                                <th>Salary Dispute</th>
+                                <th>Net Pay</th>
+                            </tr>
+                            <tr *ngFor="let item of alluniquelist">
+                               
+                               
+                                <td style="color:#0C275A">{{item.staffname}}</td>
+                                <td style="color:#0C275A">{{item.grossSalary}}</td>
+                                <!-- <td style="color:#0C275A"> {{item.deniminimis_amount}}</td> -->
+                                <td style="color:#0C275A"> {{item.monthlySalaryPerPeriod}}</td>
+                                <td style="color:#0C275A">{{item.contribution}}</td>
+                                <td style="color:#0C275A">{{item.pagBig}}</td>
+                                <td style="color:#0C275A">{{item.philHealthContribution}}</td>
+                                <td style="color:#0C275A">{{item.tax}}</td>
+                                <td style="color:#0C275A">{{item.lopdays}}</td>
+                                <td style="color:#0C275A">{{item.lopamount}}</td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.sssSalaryLoan!=null">{{item.sssSalaryLoan}}</p>
+                                    <p *ngIf="item.sssSalaryLoan==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagiBigMultiPurposeLoanPayout!=null">{{item.pagiBigMultiPurposeLoanPayout}}</p>
+                                    <p *ngIf="item.pagiBigMultiPurposeLoanPayout==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagiBigCalamityLoanPayout!=null">{{item.pagiBigCalamityLoanPayout}}</p>
+                                    <p *ngIf="item.pagiBigCalamityLoanPayout==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagiBigHouseLoanPayout!=null">{{item.pagiBigHouseLoanPayout}}</p>
+                                    <p *ngIf="item.pagiBigHouseLoanPayout==null">0</p>
+                                </td>
+                                
+
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.sssSalaryLoanAdjustment!=null">{{item.sssSalaryLoanAdjustment|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.sssSalaryLoanAdjustment==null">0</p>
+                                </td>
+                                 <td style="color:#0C275A">
+                                    
+                                    <p *ngIf="item.pagiBigMultiPurposeLoanAdjustment!=null">{{item.pagiBigMultiPurposeLoanAdjustment|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.pagiBigMultiPurposeLoanAdjustment==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagiBigCalamityLoanAdjustment!=null">{{item.pagiBigCalamityLoanAdjustment|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.pagiBigCalamityLoanAdjustment==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.pagiBigHouseLoanAdjustment!=null">{{item.pagiBigHouseLoanAdjustment|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.pagiBigHouseLoanAdjustment==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.otamount!=null">{{item.otamount}}</p>
+                                    <p *ngIf="item.otamount==null">0</p>
+                                </td>
+                                 <td style="color:#0C275A">
+                                    <p *ngIf="item.undertimeamount!=null">{{item.undertimeamount|number:'1.2-2'}}</p>
+                                    <p *ngIf="item.undertimeamount==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.benefits!=null">{{item.benefits}}</p>
+                                    <p *ngIf="item.benefits==null">0</p>
+                                </td>
+                                <td>{{item.salarydisputeamount}}</td>
+                                <td style="color:#0C275A">{{item.netMonthSalary}}</td>
+
+                            </tr>
+                            <!-- <tr>
+                                         <td>{{id}}</td>
+                                         <td>{{fullname}}</td>
+                                         <td>ME 1</td>
+                                         <td>{{BaseSalary}}</td>
+                                         <td>{{deniminimis_amount}}</td>
+                                         <td>{{GrossSalary}}</td>
+                                         <td>{{semimonthly}}</td>
+                                         <td>{{basicday}}</td>
+                                         <td>{{basichour}}</td>
+                                         <td>0.00</td>
+                                        
+                                         <td>{{semimonthly}}</td>
+                                         <td>{{tax}}</td>
+                                         <td>{{SSS}}</td>
+                                         <td>{{philHealthContribution}}</td>
+                                         <td>{{pagBig}}</td>
+                                         <td>{{lopamount}}</td>
+                                         <td>{{ssssalaryloan}}</td>
+                                         <td>{{ssscalamity}}</td>
+                                      
+                                         <td>{{hdmfcalamityloan}}</td>
+                                         <td>{{hdmfsalaryloan}}</td>
+                                         <td>{{companyloan}}</td>
+                                         
+                                         <td>{{deductions}}</td>
+                                         <td>{{benefits}}</td>
+                                         <td>{{netMonthSalary}}</td>
+                                        
+                                        </tr> -->
+
+                        </thead>
+                    </table>
                 </div>
-               
-                <div class="row">
+            </div>
 
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-12" style="overflow:auto;">
-                                <table class="table table-bordered" id="downloadaplication">
-                                    <thead>
-                                        <tr class="newFont">
-                                            <th>Employee Id</th>
-                                            <th>Employee Name</th>
-                                            <th>Tax Status</th>
-                                            <th>Basic Salary</th>
-                                            <th>Monthly Deminimis Benifits </th>
-                                            <!-- <th>Total Monthly Salary</th> -->
-                                            <th>Semi Monthly Basic Salary </th>
-                                            <th>Basic/Day</th>
-                                            <th>Basic/Hr</th>
-
-
-
-                                            <th>Tax</th>
-                                            <th>SSS</th>
-                                            <th>PHIL</th>
-                                            <th>Pag-IBIG</th>
-                                            <th>LOP Amount</th>
-
-                                            <!-- <th>Total Deduction</th> 
-                                            <th>Benefits</th>                               -->
-                                            <th>Net Pay</th>
-                                        </tr>
-                                        <tr *ngFor="let item of alluniquelist">
-                                            <td>{{item.staffID}}</td>
-                                            <td>{{item.staffname}}</td>
-                                            <td>ME 1</td>
-                                            <td>{{item.grossSalary}}</td>
-                                            <td>{{item.deniminimis_amount}}</td>
-                                            <!-- <td>{{item.monthlysalary}}</td> -->
-                                            <td>{{item.monthlySalaryPerPeriod}}</td>
-                                            <td>{{item.basicperday|number:'1.2-2'}}</td>
-                                            <td>{{item.basichour|number:'1.2-2'}}</td>
-
-
-                                            <td>{{item.tax/2}}</td>
-                                            <td>{{item.contribution}}</td>
-                                            <td>{{item.philHealthContribution|number:'1.2-2'}}</td>
-                                            <td>{{item.pagBig}}</td>
-                                            <td>{{item.lopamount}}</td>
-                                            <td>{{item.netMonthSalary}}</td>
-                                        </tr>
-                                   </thead>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+        </div>
+    </div>
 </div>

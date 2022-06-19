@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { interval } from 'rxjs';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-preliminary-report',
   templateUrl: './preliminary-report.component.html',
@@ -57,7 +57,7 @@ export class PreliminaryReportComponent implements OnInit {
       this.Departmentlist = data;
     });
 
-    this.DigiofficeService.GetRoleType().subscribe(data => {
+    this.DigiofficeService.GetPosition().subscribe(data => {
       debugger
       this.RoleTypeList = data;
     });
@@ -128,7 +128,7 @@ export class PreliminaryReportComponent implements OnInit {
 
       this.totalamount = 0;
       for (let i = 0; i < this.alluniquelist.length; i++) {
-        this.totalamount += this.alluniquelist[i].netMonthSalary;
+        this.totalamount += parseFloat(this.alluniquelist[i].netMonthSalary);
       }
 
 
@@ -214,6 +214,7 @@ export class PreliminaryReportComponent implements OnInit {
 
                       debugger;
                       this.StaffSalaryReports = res;
+                     
                       this.ID1 = [];
 
 
@@ -234,6 +235,7 @@ export class PreliminaryReportComponent implements OnInit {
                       debugger;
                       this.loader = true
                       this.StaffSalaryReports = res;
+                      
                       this.ID1 = [];
                       this.loader = false
 
@@ -299,6 +301,7 @@ export class PreliminaryReportComponent implements OnInit {
                     res => {
                       debugger;
                       this.StaffSalaryReports = res;
+                     
                       this.ID1 = [];
 
 
@@ -319,6 +322,7 @@ export class PreliminaryReportComponent implements OnInit {
 
                       debugger;
                       this.StaffSalaryReports = res;
+                      
                       this.ID1 = [];
 
 
@@ -531,6 +535,8 @@ this.viewpreliminary();
 
 
   empid: any;
+  StaffSalaryReports1:any= [];
+  uniquelist234:any;
   name: any;
   public SinglePreliminary(name: any, id: any) {
     this.seleconebtn = true;
@@ -552,6 +558,20 @@ this.viewpreliminary();
                 res => {
                   debugger;
                   this.StaffSalaryReports = res;
+                  Array.prototype.push.apply( this.StaffSalaryReports1,   this.StaffSalaryReports);
+                 
+                  const key = 'empid';
+
+                   this.uniquelist234 = [...new Map(this.StaffSalaryReports1.map((item: { [x: string]: any; }) =>
+                  [item[key], item])).values()];
+
+                      this.totalamount = 0;
+                      for (let i = 0; i < this.uniquelist234.length; i++) {
+                        this.totalamount += parseFloat(this.uniquelist234[i].netMonthSalary);
+                      }
+     
+
+   
                   this.loader = false;
 
                   this.Showpayroll = 1
@@ -928,6 +948,25 @@ this.viewpreliminary();
 
 
 
+
+  fileName = 'Preliminary Summary Report.xlsx';
+  exportexcel(): void {
+    /* table id is passed over here */
+    let element = document.getElementById('downloadaplication');
+    debugger
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    debugger
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+
+  }
+
+
   selecallbtn: any;
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
     this.selecallbtn = true;
@@ -1095,5 +1134,7 @@ this.viewpreliminary();
     // });
 
   }
+
+
 
 }
