@@ -12,6 +12,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgWizardConfig, NgWizardModule, THEME } from 'ng-wizard';
+import { MyAccountSettingComponent } from './my-account-setting/my-account-setting.component';
+import { MyAccountSettingModifyComponent } from './my-account-setting-modify/my-account-setting-modify.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.circles
@@ -22,7 +24,9 @@ const ngWizardConfig: NgWizardConfig = {
     SharedComponent,
     AdminHelpMenuComponent,
     SupportTicketDashboardComponent,
-    LoaderComponent
+    LoaderComponent,
+    MyAccountSettingComponent,
+    MyAccountSettingModifyComponent
 
   ],
   imports: [

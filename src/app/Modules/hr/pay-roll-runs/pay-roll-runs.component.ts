@@ -3,7 +3,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-pay-roll-runs',
   templateUrl: './pay-roll-runs.component.html',
@@ -12,58 +12,198 @@ import * as XLSX from 'xlsx';
 export class PayRollRunsComponent implements OnInit {
 
   constructor(private DigipayrollServiceService: DigipayrollserviceService) { }
-  loader:any;
+  loader: any;
   result: any;
+  viewMode = 'tab1';
   Company_logo: any;
   employeelist: any;
   uniquelist: any;
   p: any = 1;
   count1: any = 10;
-  netMonthSalary:any;
+  netMonthSalary: any;
+  thirteenthlist: any;
+  uniquelist3: any;
+  finalist: any;
+  uniquelistfinal: any;
+  currentUrl: any;
+
   ngOnInit(): void {
-    this.loader=true
+    this.currentUrl = window.location.href;
+    this.loader = true
+    this.selectrun = 1
     this.GetPayGroup();
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist = data;
-      const key = 'startdate';
+    this.GetEmployeeSalary();
+    this.GetThirteenthMonthSalary();
+    this.GetEmployeeFinalSalary();
+  }
 
-      this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
-      //  this.uniquelist = [...new Set(data.map(item => item))];
-      this.loader=false
-    });
+  public GetEmployeeFinalSalary() {
+    this.DigipayrollServiceService.GetEmployeeFinalSalary()
+      .subscribe({
+        next: data => {
+          debugger
+          this.finalist = data;
+          const key = 'modifiedDate';
+          this.uniquelistfinal = [...new Map(this.finalist.map((item: { [x: string]: any; }) =>
+            [item[key], item])).values()];
+          //  this.uniquelist = [...new Set(data.map(item => item))];
+          this.loader = false
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Employee Final Salary');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
 
-    
-  
+  public GetThirteenthMonthSalary() {
+    this.DigipayrollServiceService.GetThirteenthMonthSalary()
+      .subscribe({
+        next: data => {
+          debugger
+          this.thirteenthlist = data;
+          const key = 'year';
 
+          this.uniquelist3 = [...new Map(this.thirteenthlist.map((item: { [x: string]: any; }) =>
+            [item[key], item])).values()];
+          //  this.uniquelist = [...new Set(data.map(item => item))];
+          this.loader = false
+          this.loader = false;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Thirteenth Month Salary');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
 
+  public GetEmployeeSalary() {
+    this.DigipayrollServiceService.GetEmployeeSalary()
+      .subscribe({
+        next: data => {
+          debugger
+          this.employeelist = data;
+          const key = 'startdate';
+
+          this.uniquelist = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+            [item[key], item])).values()];
+          //  this.uniquelist = [...new Set(data.map(item => item))];
+          this.loader = false
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Employee Salary');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   employeelist1: any;
   uniquelist1: any;
+
   public getemployeelist(startdate: any, enddate: any, payrolltype: any) {
     this.payslipid = false
     this.startdate = startdate
     this.enddate = enddate
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.employeelist1 = data.filter(x => x.startdate == startdate && x.enddate == enddate && x.payrolltype == payrolltype);
+    this.DigipayrollServiceService.GetEmployeeSalary()
+      .subscribe({
+        next: data => {
+          debugger
+          this.employeelist1 = data.filter(x => x.startdate == startdate && x.enddate == enddate && x.payrolltype == payrolltype);
 
-      const key = 'id';
-      this.uniquelist1 = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
+          const key = 'id';
+          this.uniquelist1 = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+            [item[key], item])).values()];
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Employee Salary');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
 
+  selectrun: any;
+  finalpayroll: any;
+  thirteenthrunpayroll2: any;
 
-    }
+  public runpayroll() {
+    this.selectrun = 1
+    this.thirteenthrunpayroll2 = 0
+    this.finalpayroll = 0
+  }
 
+  public thirteenthrunpayroll() {
+    this.thirteenthrunpayroll2 = 1
+    this.selectrun = 0
+    this.finalpayroll = 0
+  }
 
-    )
+  public FinalPayroll() {
+    this.thirteenthrunpayroll2 = 0
+    this.selectrun = 0
+    this.finalpayroll = 1
   }
 
 
+  public swal() {
+
+    Swal.fire({
+      title: 'Access Payroll',
+      html: `<input type="text" id="login" class="swal2-input"  placeholder="Enter 4 Digit Pin">
+    `,
+      confirmButtonText: 'Submit',
+      focusConfirm: false,
+      preConfirm: () => {
+        debugger
+        const login: any = document.getElementById('login') as HTMLElement
+
+        if (login.value == 1111) {
+          location.href = '#/RunPayroll';
+
+
+        }
+        else {
+          Swal.showValidationMessage(`Please enter correct pin`)
+
+        }
+      }
+    })
+  }
+
   playslipid: any
   selecallbtn: any;
+
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
     this.selecallbtn = true;
     this.playslipid = true;
@@ -79,16 +219,29 @@ export class PayRollRunsComponent implements OnInit {
 
 
 
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.showleaseforprint = 2
+    this.DigipayrollServiceService.GetEmployeeSalary()
+      .subscribe({
+        next: data => {
+          debugger
+          this.showleaseforprint = 2
 
-      this.employeelist2 = data.filter(x => x.startdate == this.startdate && x.enddate == this.enddate);
-    }
-    )
-
+          this.employeelist2 = data.filter(x => x.startdate == this.startdate && x.enddate == this.enddate);
+          this.loader = false;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Employee Salary');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
-
 
   fullname: any;
   payrolldate: any;
@@ -106,7 +259,6 @@ export class PayRollRunsComponent implements OnInit {
   philHealthContribution: any;
   pagBig: any;
   tax: any;
-
   deductions: any;
   startdate: any;
   enddate: any;
@@ -128,51 +280,63 @@ export class PayRollRunsComponent implements OnInit {
   adjustment: any;
   loanpayout: any;
   public getpayslip(id: any, startdate: any, enddate: any) {
-    this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-      debugger
-      this.id = id;
-      this.employeelist2 = data.filter(x => x.id == id && x.startdate == startdate && x.enddate == enddate);
-      this.showleaseforprint == 1
-      this.fullname = this.employeelist2[0].staffname + this.employeelist2[0].lastName,
-        this.payrolldate = this.employeelist2[0].enddate,
-        this.startdate = this.employeelist2[0].startdate;
-      this.enddate = this.employeelist2[0].enddate,
-        this.department = this.employeelist2[0].department_name,
-        this.role = this.employeelist2[0].role,
-        this.tin = this.employeelist2[0].tiNNo,
-        this.SSS = this.employeelist2[0].ssSRate,
-        this.PhilHealth = this.employeelist2[0].philiHealth,
-        this.hdmf = this.employeelist2[0].pagiBigAccountNo,
-        this.BaseSalary = this.employeelist2[0].baseSalary,
-        this.deniminimis_amount = this.employeelist2[0].deniminimis_amount
-      this.deminimisamount = this.employeelist2[0].deMINIMIS,
+    this.DigipayrollServiceService.GetEmployeeSalary()
+      .subscribe({
+        next: data => {
+          debugger
+          this.id = id;
+        this.employeelist2 = data.filter(x => x.id == id && x.startdate == startdate && x.enddate == enddate);
+        this.showleaseforprint == 1
+        this.fullname = this.employeelist2[0].staffname + this.employeelist2[0].lastName,
+          this.payrolldate = this.employeelist2[0].enddate,
+          this.startdate = this.employeelist2[0].startdate;
+        this.enddate = this.employeelist2[0].enddate,
+          this.department = this.employeelist2[0].department_name,
+          this.role = this.employeelist2[0].role,
+          this.tin = this.employeelist2[0].tiNNo,
+          this.SSS = this.employeelist2[0].ssSRate,
+          this.PhilHealth = this.employeelist2[0].philiHealth,
+          this.hdmf = this.employeelist2[0].pagiBigAccountNo,
+          this.BaseSalary = this.employeelist2[0].baseSalary,
+          this.deniminimis_amount = this.employeelist2[0].deniminimis_amount
+        this.deminimisamount = this.employeelist2[0].deMINIMIS,
+          this.lopamount = this.employeelist2[0].lopamount,
+          this.sssamount = this.employeelist2[0].contribution,
+          this.philHealthContribution = this.employeelist2[0].philHealthContribution,
+          this.pagBig = this.employeelist2[0].pagBig,
+          this.tax = this.employeelist2[0].tax,
+          this.netMonthSalary = this.employeelist2[0].netMonthSalary,
+
+          this.GrossSalary = this.employeelist2[0].grossSalary,
+          this.semimonthly = this.employeelist2[0].monthlysalaryperperiod
+        this.deductions = (this.employeelist2[0].pagBig + this.employeelist2[0].philiHealth + this.employeelist2[0].contribution + this.employeelist2[0].tax),
+          this.basicday = (this.GrossSalary / 31).toFixed(2);
+        this.basichour = (this.basicday / 8).toFixed(2);
+        this.ssssalaryloan = this.employeelist2[0].ssssalaryloan,
+          this.ssscalamity = this.employeelist2[0].ssscalamity,
+          this.hdmfcalamityloan = this.employeelist2[0].hdmfcalamityloan,
+          this.hdmfsalaryloan = this.employeelist2[0].hdmfsalaryloan,
+          this.companyloan = this.employeelist2[0].companyloan
         this.lopamount = this.employeelist2[0].lopamount,
-        this.sssamount = this.employeelist2[0].contribution,
-        this.philHealthContribution = this.employeelist2[0].philHealthContribution,
-        this.pagBig = this.employeelist2[0].pagBig,
-        this.tax = this.employeelist2[0].tax,
-        this.netMonthSalary = this.employeelist2[0].netMonthSalary,
-
-        this.GrossSalary = this.employeelist2[0].grossSalary,
-        this.semimonthly = this.employeelist2[0].monthlysalaryperperiod
-      this.deductions = (this.employeelist2[0].pagBig + this.employeelist2[0].philiHealth + this.employeelist2[0].contribution + this.employeelist2[0].tax),
-        this.basicday = (this.GrossSalary / 31).toFixed(2);
-      this.basichour = (this.basicday / 8).toFixed(2);
-      this.ssssalaryloan = this.employeelist2[0].ssssalaryloan,
-        this.ssscalamity = this.employeelist2[0].ssscalamity,
-        this.hdmfcalamityloan = this.employeelist2[0].hdmfcalamityloan,
-        this.hdmfsalaryloan = this.employeelist2[0].hdmfsalaryloan,
-        this.companyloan = this.employeelist2[0].companyloan
-      this.lopamount = this.employeelist2[0].lopamount,
-        this.benefits = this.employeelist2[0].benefits,
-        this.otamount = (this.employeelist2[0].otamount).toFixed(2)
-      this.adjustment = this.employeelist2[0].semiadjustment
-      this.loanpayout = this.employeelist2[0].loanpayout
-
-
-
-    }
-    )
+          this.benefits = this.employeelist2[0].benefits,
+          this.otamount = (this.employeelist2[0].otamount).toFixed(2)
+        this.adjustment = this.employeelist2[0].semiadjustment
+        this.loanpayout = this.employeelist2[0].loanpayout
+          this.loader = false;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Employee Salary');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
     this.showleaseforprint = 1
   }
 
@@ -181,14 +345,30 @@ export class PayRollRunsComponent implements OnInit {
 
   public GetPayGroup() {
     debugger
-    this.DigipayrollServiceService.GetPayGroup().subscribe(
-      data => {
-        debugger
-        this.result = data;
+    this.DigipayrollServiceService.GetPayGroup()
+      .subscribe({
+        next: data => {
+          debugger
+          this.result = data;
+          this.loader = false;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Pay Group');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
   }
 
   fileName = 'Payroll Summery Reports.xlsx';
+
   exportexcel(): void {
     /* table id is passed over here */
     let element = document.getElementById('downloadaplication');
@@ -266,16 +446,32 @@ export class PayRollRunsComponent implements OnInit {
 
   public uploadattachments() {
     debugger
-    this.DigipayrollServiceService.AttachmentsUpload(this.files).subscribe(res => {
-      debugger
-      this.Company_logo = res;
-      alert("ATTACHMENT UPLOADED");
-    })
+    this.DigipayrollServiceService.AttachmentsUpload(this.files)
+      .subscribe({
+        next: data => {
+          debugger
+          this.Company_logo = data;
+        alert("ATTACHMENT UPLOADED");
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
 
 
   showleaseforprint: any;
+  
   public showpdf() {
     this.showleaseforprint = 1;
   }
