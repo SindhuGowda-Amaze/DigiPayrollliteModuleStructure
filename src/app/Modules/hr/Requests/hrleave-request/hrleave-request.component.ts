@@ -11,9 +11,7 @@ import { FullCalendarOptions, EventObject } from 'ngx-fullcalendar';
   styleUrls: ['./hrleave-request.component.css']
 })
 export class HRLeaveRequestComponent implements OnInit {
-
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router,public datePipe: DatePipe) { }
-  public selecallbtn: any;
+  currentUrl: any;
   loader:any;
   roledid: any;
   p: any = 1;
@@ -21,6 +19,25 @@ export class HRLeaveRequestComponent implements OnInit {
   count1: any = 10;
   Departmentlist: any;
   RoleTypeList: any;
+  term: any;
+  staffleaves: any;
+  staffListCopy: any;
+  stafflist: any;
+  count: any;
+  Department: any;
+  sdate: any;
+  edate: any;
+  id: any;
+
+  sdte: any;
+  temp: any
+  Notes: any;
+  medicalUrl: any
+
+
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router,public datePipe: DatePipe) { }
+  public selecallbtn: any;
+  
 
   public filtereddate: any;
 
@@ -51,7 +68,7 @@ export class HRLeaveRequestComponent implements OnInit {
   public callenderMonth: any;
   public callenderstartday: any;
   public callenderendday: any;
-  currentUrl:any
+ 
   public callenderdaysdount: any = [];
   public callenderBindData = new Date();
 
@@ -143,14 +160,7 @@ export class HRLeaveRequestComponent implements OnInit {
     this.getstaffleaves();
   }
 
-  term: any;
-  staffleaves: any;
-  staffListCopy: any;
-  stafflist: any;
-  count: any;
-  Department: any;
-  sdate: any;
-  edate: any;
+  
   public Getendate() {
     debugger
     if(this.sdate>this.edate){
@@ -451,9 +461,7 @@ export class HRLeaveRequestComponent implements OnInit {
 
 
   }
-  id: any;
-
-  sdte: any;
+ 
   public GetRejectID(list: any) {
     this.id = list.id;
     this.sdte = list.sdte;
@@ -461,9 +469,7 @@ export class HRLeaveRequestComponent implements OnInit {
   }
   IntID: boolean = false;
   public ID: any = [];
-  temp: any
-  Notes: any;
-  medicalUrl: any
+  
   public getmedicalUrl(medicalUrl: any) {
     debugger
     this.medicalUrl = medicalUrl

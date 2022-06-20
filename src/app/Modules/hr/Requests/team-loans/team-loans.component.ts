@@ -11,11 +11,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./team-loans.component.css']
 })
 export class TeamLoansComponent implements OnInit {
-  viewMode = 'tab1';
-
-
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
-
+  password1: any;
+  supervisoremail:any;
+  employeename:any;
+  employeeemail:any;
+  LoanType: any;
+  date: any;
+  Comments: any;
   stafflist: any;
   roledid: any;
   term: any;
@@ -35,6 +37,17 @@ export class TeamLoansComponent implements OnInit {
   loader: any;
   approved: any;
   currentUrl:any
+  id: any;
+  SanctionAmount: any;
+  period: any;
+  staffid:any;
+  ApprovedDate: any;
+  viewMode = 'tab1';
+
+
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+
+  
   ngOnInit(): void {
     this.currentUrl = window.location.href;
     this.loader = true;
@@ -538,8 +551,7 @@ export class TeamLoansComponent implements OnInit {
   }
 
 
-  date: any;
-  Comments: any;
+  
   public getdate(event: any) {
     debugger
     this.date = event.target.value;
@@ -580,11 +592,7 @@ export class TeamLoansComponent implements OnInit {
 
 
   }
-  id: any;
-  SanctionAmount: any;
-  period: any;
-  staffid:any;
-  ApprovedDate: any;
+ 
   public Approve(item: any) {
     debugger
     this.id = item.id;
@@ -592,7 +600,7 @@ export class TeamLoansComponent implements OnInit {
     this.staffid = item.staffID
   }
 
-  LoanType: any;
+ 
   public Reject(item: any) {
     debugger
     this.id = item.id;
@@ -843,10 +851,7 @@ export class TeamLoansComponent implements OnInit {
   // }
 
 
-  password1: any;
-  supervisoremail:any;
-  employeename:any;
-  employeeemail:any;
+  
   getpassword(status:any,staffid:any) {
     debugger;
     this.DigiofficeService.GetMyDetails()
