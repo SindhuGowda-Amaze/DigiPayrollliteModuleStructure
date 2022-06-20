@@ -1179,11 +1179,7 @@ AdminSignature:any;
           Swal.fire("Updated Sucessfully");
         location.href="#/admin/CompanyDashboard";
         }, error: (err) => {
-<<<<<<< HEAD
-          Swal.fire('Issue in UpdateCompany_TaxComputation');
-=======
           Swal.fire('Issue in Updating Company Tax Computation');
->>>>>>> b385a8accc73c653fd81860702490a1d90b0e9dc
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
