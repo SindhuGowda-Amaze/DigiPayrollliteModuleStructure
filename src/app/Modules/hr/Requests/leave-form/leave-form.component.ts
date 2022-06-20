@@ -19,8 +19,10 @@ export class LeaveFormComponent implements OnInit {
   joinbit: any;
   public newLeaveTypeList: any = [];
   constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
+  currentUrl:any
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.LeaveType = "";
     this.roleid = sessionStorage.getItem('roledid')
     this.staffid = sessionStorage.getItem('staffid');
@@ -39,183 +41,305 @@ export class LeaveFormComponent implements OnInit {
 
   public GetLeaveType() {
     debugger
-    this.DigiofficeService.GetLeaveType().subscribe(data => {
-      debugger
-      this.LeaveTypeList = data;
-
-      for (let i = 0; i < this.LeaveTypeList.length; i++) {
+    this.DigiofficeService.GetLeaveType() .subscribe({
+      next: data => {
         debugger
-        if (this.LeaveTypeList[i].id == 59) {
-          this.DigiofficeService.GetMyDetails().subscribe(data => {
-            debugger
-            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-            if ((temp[0].vacationLeaveEntitlement - temp[0].vacationLeaveTaken) <= 0) {
+        this.LeaveTypeList = data;
 
-            }
-            else if (this.joinbit == 1) {
-
-            }
-            else {
-              var obj: any = {};
-              obj["id"] = this.LeaveTypeList[i].id;
-              obj["short"] = this.LeaveTypeList[i].short;
-              this.newLeaveTypeList.push(obj);
-            }
-
-
-          });
-        }
-        else if (this.LeaveTypeList[i].id == 60) {
-          this.DigiofficeService.GetMyDetails().subscribe(data => {
-            debugger
-            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-            if (temp[0].sickLeaveEntitlement - temp[0].sickLeaveTaken <= 0) {
-
-            }
-            else if (this.joinbit == 1) {
-
-            }
-            else {
-              var obj: any = {};
-              obj["id"] = this.LeaveTypeList[i].id;
-              obj["short"] = this.LeaveTypeList[i].short;
-              this.newLeaveTypeList.push(obj);
-            }
-
-          });
-        }
-        else if (this.LeaveTypeList[i].id == 61) {
+        for (let i = 0; i < this.LeaveTypeList.length; i++) {
           debugger
-          this.DigiofficeService.GetMyDetails().subscribe(data => {
+          if (this.LeaveTypeList[i].id == 59) {
+            this.DigiofficeService.GetMyDetails().subscribe({
+              next: data => {
+                debugger
+                let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+                if ((temp[0].vacationLeaveEntitlement - temp[0].vacationLeaveTaken) <= 0) {
+    
+                }
+                else if (this.joinbit == 1) {
+    
+                }
+              }, error: (err) => {
+                Swal.fire('Issue in Getting Expenses List Web');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
+
+
+          }
+          else if (this.LeaveTypeList[i].id == 60) {
+            this.DigiofficeService.GetMyDetails()
+            .subscribe({
+              next: data => {
+                debugger
+                let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+                if (temp[0].sickLeaveEntitlement - temp[0].sickLeaveTaken <= 0) {
+    
+                }
+                else if (this.joinbit == 1) {
+    
+                }
+                else {
+                  var obj: any = {};
+                  obj["id"] = this.LeaveTypeList[i].id;
+                  obj["short"] = this.LeaveTypeList[i].short;
+                  this.newLeaveTypeList.push(obj);
+                }
+    
+              }, error: (err) => {
+                Swal.fire('Issue in Getting My Details ');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
+          }
+
+          else if (this.LeaveTypeList[i].id == 61) {
             debugger
-            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-            if (temp[0].serviceIncentiveLeaveEntitlement - temp[0].serviceIncentiveLeaveTaken <= 0) {
-
-            }
-            else if (temp[0].awardname == 'No Award') {
-
-            }
-            else {
-              var obj: any = {};
-              obj["id"] = this.LeaveTypeList[i].id;
-              obj["short"] = this.LeaveTypeList[i].short;
-              this.newLeaveTypeList.push(obj);
-            }
-
-          });
-        }
-        else if (this.LeaveTypeList[i].id == 66) {
-          debugger
-          this.DigiofficeService.GetMyDetails().subscribe(data => {
+            this.DigiofficeService.GetMyDetails().subscribe({
+              next: data => {
+                debugger
+                let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+                if (temp[0].serviceIncentiveLeaveEntitlement - temp[0].serviceIncentiveLeaveTaken <= 0) {
+    
+                }
+                else if (temp[0].awardname == 'No Award') {
+    
+                }
+                else {
+                  var obj: any = {};
+                  obj["id"] = this.LeaveTypeList[i].id;
+                  obj["short"] = this.LeaveTypeList[i].short;
+                  this.newLeaveTypeList.push(obj);
+                }
+              }, error: (err) => {
+                Swal.fire('Issue in Getting My Details');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
+            
+          }
+          else if (this.LeaveTypeList[i].id == 66) {
             debugger
-            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-            if (temp[0].gynecologicalLeaveEntitlement - temp[0].gynecologicalLeaveTaken <= 0) {
+            this.DigiofficeService.GetMyDetails().subscribe({
+              next: data => {
+                debugger
+                let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+              if (temp[0].gynecologicalLeaveEntitlement - temp[0].gynecologicalLeaveTaken <= 0) {
+  
+              }
+              else if (temp[0].gender == 'Male' || temp[0].status == 'Single') {
+  
+              }
+              else if (temp[0].gender == 'Female') {
+                var obj: any = {};
+                obj["id"] = this.LeaveTypeList[i].id;
+                obj["short"] = this.LeaveTypeList[i].short;
+                this.newLeaveTypeList.push(obj);
+              }
+              }, error: (err) => {
+                Swal.fire('Issue in Getting My Details');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
 
-            }
-            else if (temp[0].gender == 'Male' || temp[0].status == 'Single') {
-
-            }
-            else if (temp[0].gender == 'Female') {
-              var obj: any = {};
-              obj["id"] = this.LeaveTypeList[i].id;
-              obj["short"] = this.LeaveTypeList[i].short;
-              this.newLeaveTypeList.push(obj);
-            }
-          });
-        }
-        else if (this.LeaveTypeList[i].id == 65) {
-          debugger
-          this.DigiofficeService.GetMyDetails().subscribe(data => {
+          }
+          else if (this.LeaveTypeList[i].id == 65) {
             debugger
-            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-            if (temp[0].violenceLeaveEntitlement - temp[0].violenceLeaveTaken <= 0) {
+            this.DigiofficeService.GetMyDetails().subscribe({
+              next: data => {
+                debugger
+                let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+                if (temp[0].violenceLeaveEntitlement - temp[0].violenceLeaveTaken <= 0) {
+    
+                }
+                else if (temp[0].gender == 'Male' || temp[0].status == 'Single') {
+    
+                }
+                else if (temp[0].gender == 'Female') {
+                  var obj: any = {};
+                  obj["id"] = this.LeaveTypeList[i].id;
+                  obj["short"] = this.LeaveTypeList[i].short;
+                  this.newLeaveTypeList.push(obj);
+                }
+              }, error: (err) => {
+                Swal.fire('Issue in Getting My Details');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
 
-            }
-            else if (temp[0].gender == 'Male' || temp[0].status == 'Single') {
 
-            }
-            else if (temp[0].gender == 'Female') {
-              var obj: any = {};
-              obj["id"] = this.LeaveTypeList[i].id;
-              obj["short"] = this.LeaveTypeList[i].short;
-              this.newLeaveTypeList.push(obj);
-            }
-          });
-        }
-        else if (this.LeaveTypeList[i].id == 63) {
-          debugger
 
-          this.DigiofficeService.GetMyDetails().subscribe(data => {
+
+
+          }
+          else if (this.LeaveTypeList[i].id == 63) {
             debugger
-            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-            if (temp[0].gender == 'Male' && temp[0].status == 'Single') {
+  
+            this.DigiofficeService.GetMyDetails().subscribe({
+              next: data => {
+                debugger
+                let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+              if (temp[0].gender == 'Male' && temp[0].status == 'Single') {
+  
+              }
+              else if (temp[0].maternitityLeaveEntitlement - temp[0].maternitityLeaveTaken <= 0) {
+  
+              }
+              else if (temp[0].gender == 'Female' && temp[0].status == 'Married') {
+                var obj: any = {};
+                obj["id"] = this.LeaveTypeList[i].id;
+                obj["short"] = this.LeaveTypeList[i].short;
+                this.newLeaveTypeList.push(obj);
+              }
+              }, error: (err) => {
+                Swal.fire('Issue in Getting My Details');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
 
-            }
-            else if (temp[0].maternitityLeaveEntitlement - temp[0].maternitityLeaveTaken <= 0) {
 
-            }
-            else if (temp[0].gender == 'Female' && temp[0].status == 'Married') {
-              var obj: any = {};
-              obj["id"] = this.LeaveTypeList[i].id;
-              obj["short"] = this.LeaveTypeList[i].short;
-              this.newLeaveTypeList.push(obj);
-            }
-          });
-        }
-        else if (this.LeaveTypeList[i].id == 62) {
-          debugger
-          this.DigiofficeService.GetMyDetails().subscribe(data => {
+          }
+          else if (this.LeaveTypeList[i].id == 62) {
             debugger
-            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-            if (temp[0].gender == 'Female' || temp[0].status == 'Single') {
-
-            }
-            else if (temp[0].paternitityLeaveEntitlement - temp[0].paternitityLeaveTaken <= 0) {
-
-            }
-            else if (temp[0].gender == 'Male' && temp[0].status == 'Married') {
-              var obj: any = {};
-              obj["id"] = this.LeaveTypeList[i].id;
-              obj["short"] = this.LeaveTypeList[i].short;
-              this.newLeaveTypeList.push(obj);
-            }
-          });
-        }
-        else if (this.LeaveTypeList[i].id == 64) {
-          debugger
-          this.DigiofficeService.GetMyDetails().subscribe(data => {
+            this.DigiofficeService.GetMyDetails().subscribe(data => {
+              debugger
+              let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+              if (temp[0].gender == 'Female' || temp[0].status == 'Single') {
+  
+              }
+              else if (temp[0].paternitityLeaveEntitlement - temp[0].paternitityLeaveTaken <= 0) {
+  
+              }
+              else if (temp[0].gender == 'Male' && temp[0].status == 'Married') {
+                var obj: any = {};
+                obj["id"] = this.LeaveTypeList[i].id;
+                obj["short"] = this.LeaveTypeList[i].short;
+                this.newLeaveTypeList.push(obj);
+              }
+            });
+          }
+          else if (this.LeaveTypeList[i].id == 64) {
             debugger
-            let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-            if (temp[0].soloParentLeaveEntitlement - temp[0].soloParentLeaveTaken <= 0) {
+            this.DigiofficeService.GetMyDetails()
+           .subscribe({
+              next: data => {
+                debugger
+                let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+                if (temp[0].soloParentLeaveEntitlement - temp[0].soloParentLeaveTaken <= 0) {
+    
+                }
+                else if (temp[0].is_Solo_Parent == 1) {
+                  var obj: any = {};
+                  obj["id"] = this.LeaveTypeList[i].id;
+                  obj["short"] = this.LeaveTypeList[i].short;
+                  this.newLeaveTypeList.push(obj);
+                }
+              }, error: (err) => {
+                Swal.fire('Issue in Getting Expenses List Web');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
 
-            }
-            else if (temp[0].is_Solo_Parent == 1) {
-              var obj: any = {};
-              obj["id"] = this.LeaveTypeList[i].id;
-              obj["short"] = this.LeaveTypeList[i].short;
-              this.newLeaveTypeList.push(obj);
-            }
 
-          });
+
+
+          }
+  
+          else {
+            var obj: any = {};
+            obj["id"] = this.LeaveTypeList[i].id;
+            obj["short"] = this.LeaveTypeList[i].short;
+            this.newLeaveTypeList.push(obj);
+          }
+  
+  
+  
+  
         }
-
-        else {
-          var obj: any = {};
-          obj["id"] = this.LeaveTypeList[i].id;
-          obj["short"] = this.LeaveTypeList[i].short;
-          this.newLeaveTypeList.push(obj);
+      }, error: (err) => {
+        Swal.fire('Issue in Getting My Details');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
         }
-
-
-
-
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
     })
+
   }
 
   SDateOfLeave: any;
   EDateOfLeave: any;
   LeaveReason: any;
+  res:any
 
   public Save() {
     debugger
@@ -226,15 +350,32 @@ export class LeaveFormComponent implements OnInit {
       Swal.fire('Please Fill All The Mandatory Fields');
     }
     else {
-      this.DigiofficeService.ProjectAttachments(this.attachments21).subscribe(res => {
-        debugger
-        if (res != undefined) {
-          this.attachmentsurl.push(res);
-          this.attachments.length = 0;
-          this.InserStaffLeave()
+      this.DigiofficeService.ProjectAttachments(this.attachments21)
+     
+      .subscribe({
+        next: data => {
+          debugger
+          if (data != undefined) {
+            this.attachmentsurl.push(data);
+            this.attachments.length = 0;
+            this.InserStaffLeave()
+          }
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Project Attachments');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        debugger
       })
+
+
     }
   }
 
@@ -242,39 +383,86 @@ export class LeaveFormComponent implements OnInit {
     debugger
 
     if (this.LeaveType == 5) {
-      this.DigiofficeService.GetMyDetails().subscribe(data => {
-        debugger
-        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
-        if (temp[0].medicalLeaveEntitlement - temp[0].medicalLeaveTaken <= 0) {
-          Swal.fire('You Dont have Medical Leave')
+      this.DigiofficeService.GetMyDetails()
+    .subscribe({
+        next: data => {
+          debugger
+          let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+          if (temp[0].medicalLeaveEntitlement - temp[0].medicalLeaveTaken <= 0) {
+            Swal.fire('You Dont have Medical Leave')
+          }
+        }, error: (err) => {
+          Swal.fire('Issue in Getting My Details');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
+      })
 
 
-      });
+
     }
     else if (this.LeaveType == 6) {
-      this.DigiofficeService.GetMyDetails().subscribe(data => {
-        debugger
-        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+      this.DigiofficeService.GetMyDetails()
+      .subscribe({
+        next: data => {
+          debugger
+          let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
         if (temp[0].marriageLeaveEntitlement - temp[0].marriageLeaveTaken <= 0) {
           Swal.fire('You Dont have Marriage Leave')
         }
+        }, error: (err) => {
+          Swal.fire('Issue in Getting My Details');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
-      });
     }
     else if (this.LeaveType == 7) {
       debugger
-      this.DigiofficeService.GetMyDetails().subscribe(data => {
-        debugger
-        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+      this.DigiofficeService.GetMyDetails()
+      .subscribe({
+        next: data => {
+          debugger
+          let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
         if (temp[0].maternitityLeaveEntitlement - temp[0].maternitityLeaveTaken <= 0) {
           Swal.fire('You Dont have Maternity  Leave')
         }
         if (temp[0].gender == 'Male') {
           Swal.fire('You Can not Apply Maternity  Leave');
         }
+        }, error: (err) => {
+          Swal.fire('Issue in Getting My Details');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
-      });
+
     }
   }
   public formatDate(date: any) {
@@ -350,9 +538,10 @@ export class LeaveFormComponent implements OnInit {
         'MedicalUrl1': this.attachmentsurl[0],
         'Status': 'Manager Pending'
       }
-      this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
-
-        data => {
+      this.DigiofficeService.InsertStaffLeaves(eb)
+      
+      .subscribe({
+        next: data => {
           debugger
           if (data == 0) {
             Swal.fire('Already Leave Applied for this Date');
@@ -362,10 +551,25 @@ export class LeaveFormComponent implements OnInit {
             this.getpassword();
             this.InsertNotification();
           }
+        }, error: (err) => {
+          Swal.fire('Issue in Inserting Staff Leaves');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
 
 
-        },
-      )
+
+
+
     }
     else{
       const date1: any = new Date(this.SDateOfLeave);
@@ -379,9 +583,14 @@ export class LeaveFormComponent implements OnInit {
         var diffDays = this.calcBusinessDays(date1, date2)
       }
   
-      this.DigiofficeService.GetLeaveConfiguration().subscribe((data: any) => {
-        debugger
-        this.leaveconfig = data.filter((x: { leaveCategory: any; }) => x.leaveCategory == this.LeaveType);
+      this.DigiofficeService.GetLeaveConfiguration()
+     
+
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.leaveconfig = data.filter((x: { leaveCategory: any; }) => x.leaveCategory == this.LeaveType);
   
         if (this.leaveconfig.length == 0) {
           Swal.fire('Please Set Configuration for this Leave Type');
@@ -393,10 +602,9 @@ export class LeaveFormComponent implements OnInit {
           var currentmonthno = date.getMonth() + 1;
           // let yearlyLimit = this.leaveconfig[0].yearlyLimit;
           var totaleaveentiletment: number = currentmonthno * monthlyLimit;
-          this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2050").subscribe(data => {
+          this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2050")
+          .subscribe(data => {
             debugger
-  
-  
             let temp: any = data.filter(x => x.uuid == sessionStorage.getItem('staffid') && x.leaveTypeID == this.LeaveType && x.status == 'Manager Approved');
             let total: any = 0;
             temp.forEach((element: { noOfDays: any; }) => {
@@ -460,7 +668,8 @@ export class LeaveFormComponent implements OnInit {
                   'MedicalUrl1': this.attachmentsurl[0],
                   'Status': 'Manager Pending'
                 }
-                this.DigiofficeService.InsertStaffLeaves(eb).subscribe(
+                this.DigiofficeService.InsertStaffLeaves(eb)
+                .subscribe(
   
                   data => {
                     debugger
@@ -482,8 +691,21 @@ export class LeaveFormComponent implements OnInit {
   
           })
         }
-  
+        }, error: (err) => {
+          Swal.fire('Issue in Inserting Staff Leaves');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
   
   
   
@@ -510,14 +732,31 @@ export class LeaveFormComponent implements OnInit {
 
 
     }
-    this.DigiofficeService.InsertNotification(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Saved Successfully");
-        location.href = "#/LeaveListDashboard";
-
+    this.DigiofficeService.InsertNotification(entity)
+    .subscribe({
+      next: data => {
+        debugger
+        if (data != 0) {
+          Swal.fire("Saved Successfully");
+          location.href = "#/LeaveListDashboard";
+  
+        }
+  
+      }, error: (err) => {
+        Swal.fire('Issue in Inserting Notification');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
     })
+
   }
   public Cancel() {
     debugger
@@ -549,15 +788,33 @@ export class LeaveFormComponent implements OnInit {
   supervisoremail:any;
   employeename:any;
   getpassword() {
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
+    this.DigiofficeService.GetMyDetails()
+      .subscribe({
+      next: data => {
+        debugger
+        let temp: any = data.filter(x => x.id == sessionStorage.getItem('staffid'));
       if (temp.length != 0) {
         this.supervisoremail = temp[0].supervisoremail;
         this.employeename = temp[0].name;
         this.sendemail();
       }
-
+      }, error: (err) => {
+        Swal.fire('Issue in Getting My Details');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
+
+
   }
   
   public Attactments = [];
@@ -570,11 +827,24 @@ export class LeaveFormComponent implements OnInit {
       'cclist': this.supervisoremail,
       'bcclist': this.supervisoremail,
     }
-    this.DigiofficeService.sendemail1(entity1).subscribe(res => {
-      debugger;
-      this.Attactments = [];
-
-     
+    this.DigiofficeService.sendemail1(entity1)
+    .subscribe({
+      next: data => {
+        debugger
+        this.Attactments = [];
+      }, error: (err) => {
+        Swal.fire('Issue in sending email');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
 
   }

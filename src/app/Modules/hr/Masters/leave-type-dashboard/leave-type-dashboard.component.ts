@@ -10,7 +10,9 @@ import Swal from 'sweetalert2';
 })
 export class LeaveTypeDashboardComponent implements OnInit {
   constructor(public DigiofficeService: DigipayrollserviceService) { }
+  currentUrl:any;
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.loader=true;
     this.GetLeaveType();
   }
@@ -19,10 +21,25 @@ export class LeaveTypeDashboardComponent implements OnInit {
   leavelist: any
   public GetLeaveType() {
     debugger
-    this.DigiofficeService.GetLeaveType().subscribe(data => {
-      debugger
-      this.leavelist = data
-      this.loader=false;
+    this.DigiofficeService.GetLeaveType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.leavelist = data
+        this.loader=false;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Leave Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
   }
 
