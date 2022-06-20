@@ -15,7 +15,7 @@
             <div class="col-md-2">
                 <p>Tenure<span style="color: red;">*</span></p>
             </div>
-            
+
             <div class="col-md-2">
                 <p>Comments<span style="color: red;">*</span></p>
             </div>
@@ -25,20 +25,19 @@
             <div class="col-md-2">
                 <select class="form-control inputfield" id="LoanType" name="LoanType" [(ngModel)]="LoanType">
                     <option value="">Select Loan Type </option>
-                    <option value="SSS Calamity">SSS Calamity </option>
-                    <option value="SSS Salary">SSS Salary </option>
-                    <option value="HDMF Calamity">HDMF Calamity </option>
-                    <option value="HDMF Salary">HDMF Salary </option>
-                    <option value="Company Loan">Company Loan </option>
+                    <option value="SSS Salary Loan">SSS Salary Loan</option>
+                    <option value="PAG-IBIG Multi-Purpose Loan">PAG-IBIG Multi-Purpose Loan </option>
+                    <option value="PAG-IBIG Calamity Loan">PAG-IBIG Calamity Loan </option>
+                    <option value="PAG-IBIG Housing Loan">PAG-IBIG Housing Loan </option>
                 </select>
             </div>
             <div class="col-md-2">
-                <input type="number" id="LoanAmount" name="LoanAmount" [(ngModel)]="LoanAmount"
-                    class="form-control" placeholder="Loan Amount">
+                <input type="number" id="LoanAmount" name="LoanAmount" [(ngModel)]="LoanAmount" class="form-control"
+                   (change)="TenureCalculate()" placeholder="Loan Amount">
             </div>
             <div class="col-md-2">
-                <input type="number" id="Tenure" name="Tenure" [(ngModel)]="Tenure"
-                    class="form-control" placeholder="Tenure">
+                <input type="number" id="Tenure" name="Tenure" [(ngModel)]="Tenure" class="form-control"
+                    placeholder="Tenure"  (change)="TenureCalculate()">
             </div>
             <div class="col-md-4">
                 <textarea class="form-control" rows="4" id="Comments" name="Comments" [(ngModel)]="Comments"

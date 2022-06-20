@@ -1,142 +1,142 @@
 .Heading {
-    padding-left: 30px;
-    font-size: 20px;
-    color: #3247d5;
-  }
-  
-  /* tbody tr td {
-    font-family: Poppins;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 17px;
-    letter-spacing: 0px;
-    text-align: left;
-    color: #0c275a;
-  } */
-  
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-  
-  li {
-    float: left;
-  }
-  
-  li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  li a:hover {
-    text-decoration: 3px solid rgb(72, 83, 238) underline;
-    color: rgb(72, 83, 238);
-  }
-  
-  .table {
-    border-radius: 5px;
-  }
-  
-  .Heading {
-    padding-left: 15px;
-    font-size: 14px;
-    color: black;
-    text-decoration-line: underline;
-    font-weight: bold;
-  }
-  
-  .button {
-    text-transform: uppercase;
-    font-weight: initial;
-    text-shadow: initial;
-    letter-spacing: 0.5px;
-    background-color: #3247d5;
-  
-    color: white;
-    border-radius: 5px;
-    border: none;
-    padding: 5px;
-    width: 25%;
-    float: right;
-    margin-right: 15px;
-  
-    font-family: Poppins;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 13px;
-    letter-spacing: 0.5px;
-    margin-top: 10px;
-  }
-  
-  .edit {
-    width: 85%;
-    border: none;
-    background-color: #2f87cc;
-    text-align: center;
-    border-radius: 16px;
-    color: white;
-    margin-top: 6px;
-  }
-  
-  .FilterClass {
-    padding-left: 15px;
-    color: black;
-    font-size: 15px;
-    font-weight: bold;
-  }
-  
-  .View {
-    color: black;
-    font-size: 15px;
-    font-weight: bold;
-  }
-  
-  /* .table td {
-   
-    font-size: 12px;
-    vertical-align: middle;
-    background-color: white;
-  } */
-  
-  /* .HrLine {
-    margin-left: 15px;
-    margin-right: 15px;
-  } */
-  
-  .img {
-    width: 25px;
-    height: 10%;
-  }
-  .img:hover {
-    background-color: chartreuse;
-    color: white;
-  }
-  .imgcancel {
-    width: 25px;
-    height: 10%;
-  }
-  .imgcancel:hover {
-    background-color: red;
-    color: white;
-  }
-  
-  .form-control {
-    font-size: 15px;
-    font-weight: bold;
-  }
-  
-  .newFont {
-    font-size: 15px;
-    font-weight: bold;
-  }
-  
-  .SelectData {
-    text-align: center;
-  }  
+  padding-left: 30px;
+  font-size: 20px;
+  color: #3247d5;
+}
+
+/* tbody tr td {
+  font-family: Poppins;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #0c275a;
+} */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  text-decoration: 3px solid rgb(72, 83, 238) underline;
+  color: rgb(72, 83, 238);
+}
+
+.table {
+  border-radius: 5px;
+}
+
+.Heading {
+  padding-left: 15px;
+  font-size: 14px;
+  color: black;
+  text-decoration-line: underline;
+  font-weight: bold;
+}
+
+.button {
+  text-transform: uppercase;
+  font-weight: initial;
+  text-shadow: initial;
+  letter-spacing: 0.5px;
+  background-color: #3247d5;
+
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  width: 25%;
+  float: right;
+  margin-right: 15px;
+
+  font-family: Poppins;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 13px;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+
+.edit {
+  width: 85%;
+  border: none;
+  background-color: #2f87cc;
+  text-align: center;
+  border-radius: 16px;
+  color: white;
+  margin-top: 6px;
+}
+
+.FilterClass {
+  padding-left: 15px;
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.View {
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* .table td {
+ 
+  font-size: 12px;
+  vertical-align: middle;
+  background-color: white;
+} */
+
+/* .HrLine {
+  margin-left: 15px;
+  margin-right: 15px;
+} */
+
+.img {
+  width: 25px;
+  height: 10%;
+}
+.img:hover {
+  background-color: chartreuse;
+  color: white;
+}
+.imgcancel {
+  width: 25px;
+  height: 10%;
+}
+.imgcancel:hover {
+  background-color: red;
+  color: white;
+}
+
+.form-control {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.newFont {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.SelectData {
+  text-align: center;
+}
