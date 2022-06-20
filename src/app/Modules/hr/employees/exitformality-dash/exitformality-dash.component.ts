@@ -14,19 +14,20 @@ export class ExitformalityDashComponent implements OnInit {
   constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
   annnounecemnetlist: any;
   roledid: any;
-  currentUrl:any;
+  currentUrl: any;
   Notes: any;
-  enddate:any;
-  startdate:any;
+  enddate: any;
+  startdate: any;
   employeeemail: any;
   employeename: any;
   id: any;
   hrupdateid: any;
-  seprationtype:any;
+  seprationtype: any;
   files: File[] = [];
   attachmentsurl: any;
   attachmentsurl1: any;
   files1: File[] = [];
+  public Attactments = [];
   fileName = 'Exit Formality Report.xlsx';
 
   ngOnInit(): void {
@@ -36,35 +37,35 @@ export class ExitformalityDashComponent implements OnInit {
     this.GetStaffExitFormality();
   }
 
-  public GetStaffExitFormality(){
+  public GetStaffExitFormality() {
     this.DigiofficeService.GetStaffExitFormality()
-    .subscribe({
-      next: data => {
-        debugger
-        if (this.roledid == 6) {
-          this.annnounecemnetlist = data.filter(x => x.staffID == sessionStorage.getItem('staffid'))
-        } else if (this.roledid == 2) {
-          this.annnounecemnetlist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid'));
+      .subscribe({
+        next: data => {
+          debugger
+          if (this.roledid == 6) {
+            this.annnounecemnetlist = data.filter(x => x.staffID == sessionStorage.getItem('staffid'))
+          } else if (this.roledid == 2) {
+            this.annnounecemnetlist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid'));
+          }
+          else {
+            this.annnounecemnetlist = data;
+          }
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Staff Exit Formality');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        else {
-          this.annnounecemnetlist = data;
-        }
-      }, error: (err) => {
-        Swal.fire('Issue in Getting Staff Exit Formality');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
- 
+
   public delete(ID: any) {
     debugger
     Swal.fire({
@@ -76,13 +77,235 @@ export class ExitformalityDashComponent implements OnInit {
     }).then((result) => {
       if (result.value == true) {
         this.DigiofficeService.DeleteStaffExitFormality(ID.id)
+          .subscribe({
+            next: data => {
+              debugger
+              Swal.fire('Deleted Successfully')
+              this.ngOnInit();
+            }, error: (err) => {
+              Swal.fire('Issue in Deleting Staff Exit Formality');
+              // Insert error in Db Here//
+              var obj = {
+                'PageName': this.currentUrl,
+                'ErrorMessage': err.error.message
+              }
+              this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                data => {
+                  debugger
+                },
+              )
+            }
+          })
+      }
+    })
+  }
+
+  public HRClear(list: any) {
+    debugger
+    var entity = {
+      'ID': list.id,
+      'type': 'HRclearance'
+    }
+    this.DigiofficeService.ClearStaffExitFormality(entity)
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Updated Successfully');
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Clearing Staff Exit Formality');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
+
+  public OwnClear(list: any) {
+    this.employeeemail = list.official_Email;
+    this.employeename = list.name;
+    debugger
+    var entity = {
+      'ID': list.id,
+      'type': 'ownclearance'
+    }
+    this.DigiofficeService.ClearStaffExitFormality(entity)
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Updated Successfully');
+          if (this.seprationtype == 'Resignation') {
+            this.sendemail();
+          }
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Clearing Staff Exit Formality');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
+
+  public sendemail() {
+    if (this.roledid == 2) {
+      var entity1 = {
+        'emailto': this.employeeemail,
+        'emailsubject': 'Exit Formality | Purego | Digioffice',
+        'emailbody': 'Hi , <br> ' + this.employeename + ' your request of Resignation is Approved' + ' by your Manager , Please Login to Digioffice To View It.<br> Thanks <br> Team Digi-Office',
+        'attachmenturl': this.Attactments,
+        'cclist': this.employeeemail,
+        'bcclist': this.employeeemail,
+      }
+    }
+    else {
+      var entity1 = {
+        'emailto': this.employeeemail,
+        'emailsubject': 'Exit Formality | Purego | Digioffice',
+        'emailbody': 'Hi , <br> ' + this.employeename + ' your request of Resignation is Approved' + ' by your Hr , Please Login to Digioffice To View It.<br> Thanks <br> Team Digi-Office',
+        'attachmenturl': this.Attactments,
+        'cclist': this.employeeemail,
+        'bcclist': this.employeeemail,
+      }
+    }
+    this.DigiofficeService.sendemail1(entity1)
+      .subscribe({
+        next: data => {
+          debugger
+          this.Attactments = [];
+        }, error: (err) => {
+          Swal.fire('Issue in Sending Email');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
+
+  public AdminClear(list: any) {
+    debugger
+    var entity = {
+      'ID': list.id,
+      'type': 'Adminclearance'
+    }
+    this.DigiofficeService.ClearStaffExitFormality(entity)
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Updated Successfully');
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Clearing Staff Exit Formality');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
+
+  public RetainEmployeee1(list: any) {
+    this.id = list.id;
+  }
+
+  public FinanceClear(list: any) {
+    debugger
+    var entity = {
+      'ID': list.id,
+      'type': 'Financeclearance'
+    }
+    this.DigiofficeService.ClearStaffExitFormality(entity)
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Updated Successfully');
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Clearing Staff Exit Formality');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
+
+  hrupdate(list: any) {
+    this.hrupdateid = list.id;
+    this.seprationtype = list.seprationtype;
+    this.employeeemail = list.official_Email;
+    this.employeename = list.name;
+  }
+
+  onSelect(event: any) {
+    console.log(event);
+    debugger
+    this.files.push(...event.addedFiles);
+    debugger
+    this.DigiofficeService.ProjectAttachments(this.files)
+      .subscribe({
+        next: data => {
+          debugger
+          this.attachmentsurl = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Inserting Project Attachments');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+  }
+
+  public getenddate(event: any) {
+    debugger
+    if (this.roledid == 2) {
+      this.DigiofficeService.GetStaffExitFormality()
         .subscribe({
           next: data => {
             debugger
-            Swal.fire('Deleted Successfully')
-            this.ngOnInit();
+            this.annnounecemnetlist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid') && (x.filterdate >= this.startdate && x.filterdate <= this.enddate));
           }, error: (err) => {
-            Swal.fire('Issue in Deleting Staff Exit Formality');
+            Swal.fire('Issue in Getting Staff Exit Formality');
             // Insert error in Db Here//
             var obj = {
               'PageName': this.currentUrl,
@@ -95,262 +318,54 @@ export class ExitformalityDashComponent implements OnInit {
             )
           }
         })
-      }
-    })
-  }
-
-  public HRClear(list: any) {
-    debugger
-    var entity = {
-      'ID': list.id,
-      'type': 'HRclearance'
-    }
-    this.DigiofficeService.ClearStaffExitFormality(entity)
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire('Updated Successfully');
-      this.ngOnInit();
-      }, error: (err) => {
-        Swal.fire('Issue in Clearing Staff Exit Formality');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
-  }
-  
-  public OwnClear(list: any) {
-    this.employeeemail = list.official_Email;
-    this.employeename = list.name;
-    debugger
-    var entity = {
-      'ID': list.id,
-      'type': 'ownclearance'
-    }
-    this.DigiofficeService.ClearStaffExitFormality(entity).subscribe(data => {
-      debugger
-      Swal.fire('Updated Successfully');
-      if(this.seprationtype=='Resignation' ){
-      this.sendemail();
-      }
-      this.ngOnInit();
-    })
-  }
-
-  public Attactments = [];
-  public sendemail() {
-    if (this.roledid==2)  {
-      var entity1 = {
-        'emailto': this.employeeemail,
-        'emailsubject': 'Exit Formality | Purego | Digioffice',
-        'emailbody': 'Hi , <br> ' + this.employeename + ' your request of Resignation is Approved' + ' by your Manager , Please Login to Digioffice To View It.<br> Thanks <br> Team Digi-Office',
-        'attachmenturl': this.Attactments,
-        'cclist': this.employeeemail,
-        'bcclist': this.employeeemail,
-      }
-    }
-    else{
-      var entity1 = {
-        'emailto': this.employeeemail,
-        'emailsubject': 'Exit Formality | Purego | Digioffice',
-        'emailbody': 'Hi , <br> ' + this.employeename + ' your request of Resignation is Approved' + ' by your Hr , Please Login to Digioffice To View It.<br> Thanks <br> Team Digi-Office',
-        'attachmenturl': this.Attactments,
-        'cclist': this.employeeemail,
-        'bcclist': this.employeeemail,
-      }
-    }
-    this.DigiofficeService.sendemail1(entity1)
-    .subscribe({
-      next: data => {
-        debugger
-        this.Attactments = [];
-      }, error: (err) => {
-        Swal.fire('Issue in Sending Email');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
-  }
-
-  public AdminClear(list: any) {
-    debugger
-    var entity = {
-      'ID': list.id,
-      'type': 'Adminclearance'
-    }
-    this.DigiofficeService.ClearStaffExitFormality(entity)
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire('Updated Successfully');
-        this.ngOnInit();
-      }, error: (err) => {
-        Swal.fire('Issue in Clearing Staff Exit Formality');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
-  }
-  
-  public RetainEmployeee1(list: any) {
-    this.id = list.id;
-  }
-
-  public FinanceClear(list: any) {
-    debugger
-    var entity = {
-      'ID': list.id,
-      'type': 'Financeclearance'
-    }
-    this.DigiofficeService.ClearStaffExitFormality(entity)
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire('Updated Successfully');
-        this.ngOnInit();
-      }, error: (err) => {
-        Swal.fire('Issue in Clearing Staff Exit Formality');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
-  }
-  
-  hrupdate(list: any) {
-    this.hrupdateid = list.id;
-    this.seprationtype = list.seprationtype;
-    this.employeeemail = list.official_Email;
-    this.employeename = list.name;
-  }
-  
-  onSelect(event: any) {
-    console.log(event);
-    debugger
-    this.files.push(...event.addedFiles);
-    debugger
-    this.DigiofficeService.ProjectAttachments(this.files)
-    .subscribe({
-      next: data => {
-        debugger
-        this.attachmentsurl = data;
-      }, error: (err) => {
-        Swal.fire('Issue in Inserting Project Attachments');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
-  }
-
-  public getenddate(event: any) {
-    debugger
-    if (this.roledid == 2) {
-      this.DigiofficeService.GetStaffExitFormality()
-      .subscribe({
-        next: data => {
-          debugger
-          this.annnounecemnetlist = data.filter(x => x.supervisor == sessionStorage.getItem('staffid') && (x.filterdate >= this.startdate && x.filterdate <= this.enddate) );
-        }, error: (err) => {
-          Swal.fire('Issue in Getting Staff Exit Formality');
-          // Insert error in Db Here//
-          var obj = {
-            'PageName': this.currentUrl,
-            'ErrorMessage': err.error.message
-          }
-          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-            data => {
-              debugger
-            },
-          )
-        }
-      })
     }
     else {
       this.DigiofficeService.GetStaffExitFormality()
-      .subscribe({
-        next: data => {
-          debugger
-          this.annnounecemnetlist = data.filter(x=> (x.filterdate >= this.startdate && x.filterdate <= this.enddate));
-        }, error: (err) => {
-          Swal.fire('Issue in Getting Staff Exit Formality');
-          // Insert error in Db Here//
-          var obj = {
-            'PageName': this.currentUrl,
-            'ErrorMessage': err.error.message
+        .subscribe({
+          next: data => {
+            debugger
+            this.annnounecemnetlist = data.filter(x => (x.filterdate >= this.startdate && x.filterdate <= this.enddate));
+          }, error: (err) => {
+            Swal.fire('Issue in Getting Staff Exit Formality');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
           }
-          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-            data => {
-              debugger
-            },
-          )
-        }
-      })
+        })
     }
   }
- 
+
   onSelect2(event: any) {
     console.log(event);
     debugger
     this.files1.push(...event.addedFiles);
     debugger
     this.DigiofficeService.ProjectAttachments(this.files1)
-    .subscribe({
-      next: data => {
-        debugger
-        this.attachmentsurl1 = data
-      }, error: (err) => {
-        Swal.fire('Issue in Inserting Project Attachments');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          this.attachmentsurl1 = data
+        }, error: (err) => {
+          Swal.fire('Issue in Inserting Project Attachments');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
 
   onRemove(event: any) {
@@ -377,35 +392,50 @@ export class ExitformalityDashComponent implements OnInit {
       "ReleavingLetter": this.attachmentsurl1
     }
     this.DigiofficeService.UploadAttachment(entity)
-    .subscribe({
-      next: data => {
-        debugger
-        var entity = {
-          'ID': this.hrupdateid,
-          'type': 'HRclearance'
-        }
-        this.DigiofficeService.ClearStaffExitFormality(entity).subscribe(data => {
+      .subscribe({
+        next: data => {
           debugger
-          Swal.fire('Updated Successfully');
-          if(this.seprationtype=='Resignation' ){
-            this.sendemail();
-            }
-          this.ngOnInit();
-        })
-      }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+          var entity = {
+            'ID': this.hrupdateid,
+            'type': 'HRclearance'
+          }
+          this.DigiofficeService.ClearStaffExitFormality(entity)
+            .subscribe({
+              next: data => {
+                debugger
+                Swal.fire('Updated Successfully');
+                if (this.seprationtype == 'Resignation') {
+                  this.sendemail();
+                }
+                this.ngOnInit();
+              }, error: (err) => {
+                Swal.fire('Issue in Clearing Staff Exit Formality');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
+        }, error: (err) => {
+          Swal.fire('Issue in Uploading Attachment');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
 
   public RetainEmployeee() {
@@ -415,25 +445,25 @@ export class ExitformalityDashComponent implements OnInit {
       'type': 'Retain'
     }
     this.DigiofficeService.RetainEmployeee(entity)
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire('Updated Successfully');
-        this.ngOnInit();
-      }, error: (err) => {
-        Swal.fire('Issue in Retaining Employee');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire('Updated Successfully');
+          this.ngOnInit();
+        }, error: (err) => {
+          Swal.fire('Issue in Retaining Employee');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
 
   experience(experienceletter: any) {

@@ -29,11 +29,9 @@
             <div class="col-md-2">
                 <div class="dropdown">
                     <select class="form-control inputfield" id="CountryID" name="CountryID" [(ngModel)]="CountryID">
-                        <option class="textcolor" value="Select">Select Country </option>
+                        <option class="textcolor" value="0">Select Country </option>
                         <option class="textcolor" *ngFor="let role of Countrylist" value="{{role.id}}">{{role.short}}
                         </option>
-
-
                     </select>
                 </div>
             </div>
@@ -41,7 +39,7 @@
                 <div class="dropdown">
                     <select class="form-control inputfield" id="StateID" name="StateID" [(ngModel)]="StateID"
                         (click)="GetStateID($event)">
-                        <option class="textcolor" value="Select">Select State </option>
+                        <option class="textcolor" value="0">Select State </option>
                         <option class="textcolor" *ngFor="let role of leavelist" value="{{role.id}}">{{role.short}}
                         </option>
 
@@ -51,7 +49,7 @@
             <div class="col-md-2">
                 <div class="dropdown">
                     <select class="form-control inputfield" id="CityID" name="CityID" [(ngModel)]="CityID">
-                        <option class="textcolor" value="Select">Select City </option>
+                        <option class="textcolor" value="0">Select City </option>
                         <option class="textcolor" *ngFor="let role of Citylist" value="{{role.id}}">{{role.short}}
                         </option>
 
@@ -71,8 +69,8 @@
             </div>
             <div class="col-lg-2">
                 <button type="button" class="form-control newrequest" *ngIf="ID!=undefined"
-                    (click)="UpdateCityType()">Update</button>
-                <button class="form-control newrequest" *ngIf="ID==undefined" (click)="InsertCityType()">Submit</button>
+                    (click)="UpdateBarangayMaster()">Update</button>
+                <button class="form-control newrequest" *ngIf="ID==undefined" (click)="InsertBarangayMaster()">Submit</button>
             </div>
         </div>
     </div>

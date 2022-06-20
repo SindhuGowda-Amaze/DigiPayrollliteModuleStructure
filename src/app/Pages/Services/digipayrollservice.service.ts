@@ -47,6 +47,13 @@ export class DigipayrollserviceService {
     return this.http.post(this.url, data);
   }
 
+  public GetMyDetailsByStaffID(StaffID: any) {
+    debugger
+    return this.http.get<any[]>(
+      this.host + "/Master/GetMyDetailsByStaffID?ID=" + StaffID
+    );
+  }
+
   public GetSupportTickets() {
     debugger
     let APIURL = this.support + "/Master/GetSupportTickets";

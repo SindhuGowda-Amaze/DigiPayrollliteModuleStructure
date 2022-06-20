@@ -61,17 +61,13 @@ ul {
   } */
 .applyleavetxt{
   
-    font-family: 'DIN Bold';
+
     font-size: 20px;
     font-weight: bold;
     text-decoration: none;
 }
 
-  .container-fluid{
-    font-family: 'DIN Bold';
-    padding: 0px;
-    margin: 0px;
-  }
+
   th{
       background-color: #e4e5e6;
   }

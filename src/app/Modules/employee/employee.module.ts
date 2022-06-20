@@ -54,10 +54,7 @@ import { EmployeeResignformComponent } from './EmployeeRequest/employee-resignfo
     EmployeeRoutingModule,
     SharedModule,
     FormsModule ,
-    NgxDropzoneModule,
-    NgxPaginationModule,
-    Ng2SearchPipeModule,
-    NgMultiSelectDropDownModule.forRoot(),
+
   ]
 })
 export class EmployeeModule { }

@@ -27,8 +27,6 @@ export class BarangayDashComponent implements OnInit {
   public GetBarangayMaster() {
     debugger
     this.DigipayrollserviceService.GetBarangayMaster()
-    
-    
     .subscribe({
       next: data => {
         debugger
@@ -86,9 +84,7 @@ export class BarangayDashComponent implements OnInit {
   public DeleteCityType(ID: any) {
     debugger
     this.DigipayrollserviceService.DeleteBarangayMaster(ID)
-    
-    
-    .subscribe({
+     .subscribe({
       next: data => {
         debugger
         Swal.fire('Deleted SuccessFully');

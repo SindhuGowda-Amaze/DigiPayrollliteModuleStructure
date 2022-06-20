@@ -70,7 +70,7 @@ import { HolidayFormComponent } from './holiday-form/holiday-form.component';
     CommonModule,
     AdminRoutingModule,
     SharedModule,
-    Ng2SearchPipeModule,
+  //  Ng2SearchPipeModule,
   ],
 })
 export class AdminModule {}

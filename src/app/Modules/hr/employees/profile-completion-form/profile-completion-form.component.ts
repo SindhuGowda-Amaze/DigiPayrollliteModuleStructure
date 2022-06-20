@@ -780,7 +780,7 @@ export class ProfileCompletionFormComponent implements OnInit {
             }
           })
         this.DigiofficeService.GetDependentDetails()
-        .subscribe({
+          .subscribe({
             next: data => {
               debugger
               this.leavelist = data.filter(x => x.staffId == this.ID);
@@ -815,7 +815,7 @@ export class ProfileCompletionFormComponent implements OnInit {
             }
           })
         this.DigiofficeService.GetNomination()
-        .subscribe({
+          .subscribe({
             next: data => {
               debugger
               this.leavelist = data.filter(x => x.staffId == this.ID);
@@ -840,7 +840,7 @@ export class ProfileCompletionFormComponent implements OnInit {
             }
           })
         this.DigiofficeService.GetEducationDetails()
-        .subscribe({
+          .subscribe({
             next: data => {
               debugger
               this.leavelist = data.filter(x => String(x.staffId) == this.ID);
@@ -872,7 +872,7 @@ export class ProfileCompletionFormComponent implements OnInit {
             }
           })
         this.DigiofficeService.GetBankDetails()
-        .subscribe({
+          .subscribe({
             next: data => {
               debugger
               this.leavelist = data.filter(x => x.staffId == this.ID);
@@ -895,7 +895,7 @@ export class ProfileCompletionFormComponent implements OnInit {
             }
           })
         this.DigiofficeService.GetID_Details()
-        .subscribe({
+          .subscribe({
             next: data => {
               debugger
               let temp: any = data.filter(x => x.staffId == this.ID);
@@ -922,7 +922,7 @@ export class ProfileCompletionFormComponent implements OnInit {
             }
           })
         this.DigiofficeService.GetVisaDetails()
-        .subscribe({
+          .subscribe({
             next: data => {
               debugger
               this.leavelist = data.filter(x => x.staffId == this.ID);
@@ -946,7 +946,7 @@ export class ProfileCompletionFormComponent implements OnInit {
             }
           })
         this.DigiofficeService.GetSalaryDetails()
-        .subscribe({
+          .subscribe({
             next: data => {
               debugger
               this.leavelist = data.filter(x => x.staffId == this.ID);
@@ -1021,7 +1021,7 @@ export class ProfileCompletionFormComponent implements OnInit {
         }
       })
   }
- 
+
   public getbarangay() {
     debugger
     this.DigiofficeService.GetBarangayMaster()
@@ -1086,10 +1086,10 @@ export class ProfileCompletionFormComponent implements OnInit {
     console.log(event);
     this.attachments2.splice(this.attachments2.indexOf(event), 1);
   }
-  
+
   public getemploymentdetails() {
     this.DigiofficeService.GetEmploymentDetails()
-    .subscribe({
+      .subscribe({
         next: data => {
           debugger
           this.leavelist = data.filter(x => x.staffID == this.ID);
@@ -1215,7 +1215,7 @@ export class ProfileCompletionFormComponent implements OnInit {
         })
     }
   }
- 
+
   public Update() {
     debugger
     this.Restdays = '';
@@ -1839,7 +1839,7 @@ export class ProfileCompletionFormComponent implements OnInit {
         }
       })
   }
-  
+
   onItemSelect2(item: any) {
     debugger
     console.log(item);
@@ -2078,7 +2078,7 @@ export class ProfileCompletionFormComponent implements OnInit {
         })
     }
   }
- 
+
   public insertdetails() {
     this.showtable = 1;
     debugger
@@ -2097,7 +2097,7 @@ export class ProfileCompletionFormComponent implements OnInit {
     debugger
     location.reload();
   }
- 
+
   public GetCountryID(event: any) {
     this.CountryID = event.target.value;
     this.DigiofficeService.GetStateType()
@@ -2121,7 +2121,7 @@ export class ProfileCompletionFormComponent implements OnInit {
         }
       })
   }
-  
+
   public GetProvinceID(event: any) {
     this.StateID = event.target.value;
     this.DigiofficeService.GetCityType()
@@ -2162,7 +2162,7 @@ export class ProfileCompletionFormComponent implements OnInit {
     this.Supervisor = item.id
     this.Supervisor1 = item.id
     this.DigiofficeService.GetMyDetails()
-    .subscribe({
+      .subscribe({
         next: data => {
           debugger
           this.supervisorlist12 = data.filter(x => x.id == this.Supervisor);
@@ -2187,11 +2187,11 @@ export class ProfileCompletionFormComponent implements OnInit {
   public getAssignedCompany() {
     debugger
     this.DigiofficeService.GetMyDetails()
-    .subscribe({
+      .subscribe({
         next: data => {
           debugger
           this.supervisorlist = data.filter(x => x.type == 2 && x.assignedCompany == this.AssignedCompany);
-        this.loader = false;
+          this.loader = false;
         }, error: (err) => {
           Swal.fire('Issue in Getting My Details');
           // Insert error in Db Here//

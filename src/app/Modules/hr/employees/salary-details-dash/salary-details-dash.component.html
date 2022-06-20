@@ -17,10 +17,10 @@
                         <p style="color:#0C275A">Filter By</p>
                     </div>
                     <div class="col-lg-2">
-                        <p>Role
+                        <p>Position
                             <br> <select class="form-control" id="RoleType" name="RoleType"
                                 (change)='getRoleType($event)' [(ngModel)]="RoleType" (change)="FilterRoleType()">
-                                <option value="">Select Role</option>
+                                <option value="">Select Position</option>
                                 <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
                                 </option>
                             </select>
@@ -73,12 +73,12 @@
                         <thead>
                             <tr>
                                 <th>Staff Name</th>
-                                <th>Role</th>
+                                <th>Position</th>
                                 <th>Department</th>
-                                <th>De-Minimis</th>
+                                <!-- <th>De-Minimis</th> -->
                                 <th>Basic Salary</th>
-                                <th>De-Minimis Allowance</th>
-                                <th>Net Salary</th>
+                                <th>Christmas Bonus</th>
+                                <!-- <th>Net Salary</th>  -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -87,10 +87,10 @@
                                 <td>{{holiday.name}}</td>
                                 <td>{{holiday.role}}</td>
                                 <td>{{holiday.department_name}}</td>
-                                <td>{{holiday.deniminimis}}</td>
+                                <!-- <td>{{holiday.deniminimis}}</td> -->
                                 <td>{{holiday.baseSal}}</td>
-                                <td>{{holiday.deniminimis_amount}}</td>
-                                <td>{{holiday.totalnet}}</td>
+                                <td>{{holiday.christmasBonus}}</td>
+                                <!-- <td>{{holiday.totalnet}}</td>  -->
                                 <td> <button class="upload"
                                         [routerLink]="['/hr/StaffSalaryForm',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <!-- <button class="upload" (click)="DeleteCountryType(holiday.id)">Delete</button> -->
