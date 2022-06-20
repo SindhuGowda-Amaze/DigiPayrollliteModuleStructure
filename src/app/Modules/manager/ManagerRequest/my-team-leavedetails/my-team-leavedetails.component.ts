@@ -70,9 +70,9 @@ export class MyTeamLeavedetailsComponent implements OnInit {
       .subscribe({
         next: data => {
           debugger
-          this.staffleaves = data.filter((x: { supervisor: string | null; status: string }) => x.supervisor == sessionStorage.getItem('staffid') && x.status != 'Manager Pending HR Pending' && x.status != 'Manager Pending');
+          this.staffleaves = data.filter((x: { supervisor: string | null; status: string }) => x.supervisor == sessionStorage.getItem('staffid') && x.status != 'Manager Pending HR Pending' && x.status != 'Manager Pending'|| x.status == 'Manager Approved' );
           this.staffleaves1 = data.filter((x: { supervisor: string | null; status: any }) => x.supervisor == sessionStorage.getItem('staffid') && (x.status == 'Manager Pending HR Pending' || x.status == 'Manager Pending' || x.status == 'Cancellation Pending'));
-          this.staffleaves3 = data.filter((x: { supervisor: string | null; status: string }) =>  x.supervisor ==sessionStorage.getItem('staffid') && x.status == 'Manager Rejected');
+          this.staffleaves3 = data.filter(x =>  x.supervisor ==sessionStorage.getItem('staffid') && x.status == 'Manager Rejected');
           this.buildcallender(this.staffleaves);
         }, error: (err) => {
           Swal.fire('Issue in Getting StaffLeaves');

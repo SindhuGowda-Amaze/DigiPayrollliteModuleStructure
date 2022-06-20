@@ -246,14 +246,14 @@
                                             data-target="#Allocate" style=" width: 50px;">
                                     </td>
                                     <td>
-                                        <p *ngIf="list.status==null">Manager Pending HR Pending</p>
+                                        <p *ngIf="list.status==null">Manager Approved</p>
                                         <p *ngIf="list.status!=null">{{list.status}}</p>
                                     </td>
                                     <td>
-                                        <img *ngIf="list.status=='Manager Pending HR Pending'|| list.status==null || list.status=='Manager Pending'"
+                                        <img *ngIf="list.status=='Manager Approved'|| list.status==null || list.status!='Manager Approved HR Pending' "
                                             class="img" (click)="ManagerLeaveApprove(list)"
                                             src="assets/images/check-mark.png">
-                                        <img *ngIf="list.status=='Manager Pending HR Pending'|| list.status==null || list.status=='Manager Pending'"
+                                        <img *ngIf="list.status=='Manager Approved'|| list.status==null"
                                             class="imgcancel" (click)="GetRejectID(list)" data-toggle="modal"
                                             data-target="#Reject" src="assets/images/cancel (1).png">
                                     </td>
