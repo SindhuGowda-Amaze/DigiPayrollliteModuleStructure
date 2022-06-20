@@ -9,7 +9,7 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
   styleUrls: ['./leave-form.component.css']
 })
 export class LeaveFormComponent implements OnInit {
-
+  currentUrl:any
   LeaveType: any;
   CoveringStaff: any;
   Staffleaveenitilment: any;
@@ -17,10 +17,21 @@ export class LeaveFormComponent implements OnInit {
   Touser: any;
   roleid: any;
   joinbit: any;
+  SDateOfLeave: any;
+  EDateOfLeave: any;
+  LeaveReason: any;
+  res:any
+  leaveconfig: any;
+  lopdays: any;
+  halfday: any;
+  autoApproval: any;
+  HalfDayBit: any;
+  password1: any;
+  supervisoremail:any;
+  employeename:any;
   public newLeaveTypeList: any = [];
   constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
-  currentUrl:any
-
+ 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
     this.LeaveType = "";
@@ -336,10 +347,7 @@ export class LeaveFormComponent implements OnInit {
 
   }
 
-  SDateOfLeave: any;
-  EDateOfLeave: any;
-  LeaveReason: any;
-  res:any
+  
 
   public Save() {
     debugger
@@ -479,10 +487,7 @@ export class LeaveFormComponent implements OnInit {
     return [year, month, day].join('-');
   }
 
-  leaveconfig: any;
-  lopdays: any;
-  halfday: any;
-  autoApproval: any;
+ 
 
   public calcBusinessDays(dDate1: any, dDate2: any) { // input given as Date objects
     var iWeeks, iDateDiff, iAdjust = 0;
@@ -509,7 +514,7 @@ export class LeaveFormComponent implements OnInit {
     return (iDateDiff + 1); // add 1 because dates are inclusive
   }
 
-  HalfDayBit: any;
+ 
   public InserStaffLeave() {
     debugger
 
@@ -784,9 +789,7 @@ export class LeaveFormComponent implements OnInit {
 
 
   
-  password1: any;
-  supervisoremail:any;
-  employeename:any;
+ 
   getpassword() {
     this.DigiofficeService.GetMyDetails()
       .subscribe({
