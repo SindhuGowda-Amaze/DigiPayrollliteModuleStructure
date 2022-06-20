@@ -16,7 +16,7 @@ export class LeaveFormComponent implements OnInit {
   staffid: any;
   Touser: any;
   roleid: any;
-
+  LeaveTypeList: any;
   SDateOfLeave: any;
   EDateOfLeave: any;
   LeaveReason: any;
@@ -42,11 +42,10 @@ export class LeaveFormComponent implements OnInit {
     });
 
   }
-  LeaveTypeList: any;
+
   public GetLeaveType() {
     debugger
     this.DigiofficeService.GetLeaveType()
-
       .subscribe({
         next: data => {
           debugger
@@ -62,8 +61,7 @@ export class LeaveFormComponent implements OnInit {
             data => {
               debugger
             },
-          )
-        }
+          )}
       })
 
   }
@@ -103,8 +101,6 @@ export class LeaveFormComponent implements OnInit {
           }
         })
     }
-
-
   }
 
   public CheckLeave() {
@@ -322,13 +318,9 @@ export class LeaveFormComponent implements OnInit {
                                   if (data != 0) {
                                     Swal.fire('Saved successfully.');
                                     this.InsertNotification();
-
                                   }
-
                                 })
-
                               }
-
 
                             }, error: (err) => {
                               Swal.fire('Issue in Getting StaffLeaves');
@@ -344,9 +336,6 @@ export class LeaveFormComponent implements OnInit {
                               )
                             }
                           })
-
-
-
                       }
 
 
@@ -398,8 +387,6 @@ export class LeaveFormComponent implements OnInit {
                               )
                             }
                           })
-
-
                       }
 
                     }
@@ -436,9 +423,6 @@ export class LeaveFormComponent implements OnInit {
                                 this.InsertNotification();
                               }
 
-
-
-
                             }, error: (err) => {
                               Swal.fire('Issue in Getting StaffLeaves');
                               // Insert error in Db Here//
@@ -453,12 +437,7 @@ export class LeaveFormComponent implements OnInit {
                               )
                             }
                           })
-
-
-
-
                       }
-
                     }
                     else if (this.autoApproval == 'Level Approval') {
                       if (this.SDateOfLeave == " " || this.EDateOfLeave == " " || this.LeaveReason == " " || this.LeaveType == " " || this.SDateOfLeave == undefined || this.EDateOfLeave == undefined || this.LeaveReason == undefined || this.LeaveType == undefined) {
@@ -491,10 +470,6 @@ export class LeaveFormComponent implements OnInit {
                                 Swal.fire('Saved successfully.');
                                 this.InsertNotification();
                               }
-
-
-
-
                             }, error: (err) => {
                               Swal.fire('Issue in Getting StaffLeaves');
                               // Insert error in Db Here//
@@ -509,18 +484,10 @@ export class LeaveFormComponent implements OnInit {
                               )
                             }
                           })
-
-
-
                       }
-
                     }
                   }
-
                 })
-
-
-
               }, error: (err) => {
                 Swal.fire('Issue in Getting City Type');
                 // Insert error in Db Here//

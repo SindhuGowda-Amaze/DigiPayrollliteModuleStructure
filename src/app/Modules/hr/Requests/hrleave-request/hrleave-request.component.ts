@@ -122,7 +122,7 @@ export class HRLeaveRequestComponent implements OnInit {
     } else {
       this.DigiofficeService.GetStaffLeaves(10331, 1, this.sdate, this.edate).subscribe((data: any) => {
         debugger
-        this.staffleaves = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved HR Pending' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved')
+        this.staffleaves = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved')
         this.buildcallender(this.staffleaves);
       })
     }
