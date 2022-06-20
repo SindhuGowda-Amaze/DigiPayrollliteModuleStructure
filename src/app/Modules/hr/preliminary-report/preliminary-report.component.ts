@@ -47,37 +47,74 @@ export class PreliminaryReportComponent implements OnInit {
   hh: any;
   mm: any;
   ampm: any;
+  currentUrl: any;
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.Department = "";
     this.RoleType = "";
+    this.GetDepartment();
     debugger
-    this.DigiofficeService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
-
-    this.DigiofficeService.GetPosition().subscribe(data => {
-      debugger
-      this.RoleTypeList = data;
-    });
-
-
-
-
-
+    this.GetPosition();
   }
+
+  public GetPosition() {
+    this.DigiofficeService.GetPosition()
+    .subscribe({
+      next: data => {
+        debugger
+        this.RoleTypeList = data;
+        this.loader=false;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Position');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+  }
+
   enddate: any;
+
   public getdate(event: any) {
     debugger
     this.enddate = event.target.value;
 
   }
 
-
+  public GetDepartment() {
+    this.DigiofficeService.GetDepartment()
+    .subscribe({
+      next: data => {
+        debugger
+        this.Departmentlist = data;
+        this.loader=false;
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Department');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
+  }
 
   uniquelist: any;
   Search: any;
+
   public getemployeedetails() {
 
     if (this.startdate == undefined || this.enddate == undefined) {
@@ -85,9 +122,11 @@ export class PreliminaryReportComponent implements OnInit {
     }
     else {
       this.loader = true
-      this.DigiofficeService.Get_Employees_For_Payroll(this.startdate, this.enddate).subscribe(data => {
-        debugger
-        this.stafflist = data.filter(x => x.daysworked > 0);
+      this.DigiofficeService.Get_Employees_For_Payroll(this.startdate, this.enddate)
+      .subscribe({
+        next: data => {
+          debugger
+          this.stafflist = data.filter(x => x.daysworked > 0);
 
         const key = 'id';
         const key1 = 'month'
@@ -97,11 +136,20 @@ export class PreliminaryReportComponent implements OnInit {
         this.count = this.uniquelist.length;
         this.uniquelistcopy = this.uniquelist;
         this.loader = false
-        //  this.uniquelist = [...new Set(data.map(item => item))];
-
-
-
-      });
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Employees For Payroll');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
     }
 
   }
@@ -113,26 +161,40 @@ export class PreliminaryReportComponent implements OnInit {
     this.count = this.uniquelist.length;
   }
 
-  totalamount:any;
+  totalamount: any;
+  
   public viewpreliminary() {
     this.loader = true;
-    this.DigiofficeService.GetPreliminarySalary().subscribe(data => {
-      debugger
-      this.payrollList = data.filter(x => x.startdate1 == this.startdate && x.enddate1 == this.enddate);
-      const key = "staffID"
-      this.getnewlist(key);
-
-
-      this.alluniquelist = [...new Map(this.payrollList.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
-
-      this.totalamount = 0;
-      for (let i = 0; i < this.alluniquelist.length; i++) {
-        this.totalamount += parseFloat(this.alluniquelist[i].netMonthSalary);
+    this.DigiofficeService.GetPreliminarySalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.payrollList = data.filter(x => x.startdate1 == this.startdate && x.enddate1 == this.enddate);
+        const key = "staffID"
+        this.getnewlist(key);
+  
+  
+        this.alluniquelist = [...new Map(this.payrollList.map((item: { [x: string]: any; }) =>
+          [(item[key]), item])).values()]
+  
+        this.totalamount = 0;
+        for (let i = 0; i < this.alluniquelist.length; i++) {
+          this.totalamount += parseFloat(this.alluniquelist[i].netMonthSalary);
+        }
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Preliminary Salary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
-
-    });
+    })
 
 
 
@@ -214,7 +276,7 @@ export class PreliminaryReportComponent implements OnInit {
 
                       debugger;
                       this.StaffSalaryReports = res;
-                     
+
                       this.ID1 = [];
 
 
@@ -235,7 +297,7 @@ export class PreliminaryReportComponent implements OnInit {
                       debugger;
                       this.loader = true
                       this.StaffSalaryReports = res;
-                      
+
                       this.ID1 = [];
                       this.loader = false
 
@@ -301,7 +363,7 @@ export class PreliminaryReportComponent implements OnInit {
                     res => {
                       debugger;
                       this.StaffSalaryReports = res;
-                     
+
                       this.ID1 = [];
 
 
@@ -322,7 +384,7 @@ export class PreliminaryReportComponent implements OnInit {
 
                       debugger;
                       this.StaffSalaryReports = res;
-                      
+
                       this.ID1 = [];
 
 
@@ -354,7 +416,7 @@ export class PreliminaryReportComponent implements OnInit {
 
 
 
-this.viewpreliminary();
+    this.viewpreliminary();
 
 
 
@@ -535,8 +597,8 @@ this.viewpreliminary();
 
 
   empid: any;
-  StaffSalaryReports1:any= [];
-  uniquelist234:any;
+  StaffSalaryReports1: any = [];
+  uniquelist234: any;
   name: any;
   public SinglePreliminary(name: any, id: any) {
     this.seleconebtn = true;
@@ -558,20 +620,20 @@ this.viewpreliminary();
                 res => {
                   debugger;
                   this.StaffSalaryReports = res;
-                  Array.prototype.push.apply( this.StaffSalaryReports1,   this.StaffSalaryReports);
-                 
+                  Array.prototype.push.apply(this.StaffSalaryReports1, this.StaffSalaryReports);
+
                   const key = 'empid';
 
-                   this.uniquelist234 = [...new Map(this.StaffSalaryReports1.map((item: { [x: string]: any; }) =>
-                  [item[key], item])).values()];
+                  this.uniquelist234 = [...new Map(this.StaffSalaryReports1.map((item: { [x: string]: any; }) =>
+                    [item[key], item])).values()];
 
-                      this.totalamount = 0;
-                      for (let i = 0; i < this.uniquelist234.length; i++) {
-                        this.totalamount += parseFloat(this.uniquelist234[i].netMonthSalary);
-                      }
-     
+                  this.totalamount = 0;
+                  for (let i = 0; i < this.uniquelist234.length; i++) {
+                    this.totalamount += parseFloat(this.uniquelist234[i].netMonthSalary);
+                  }
 
-   
+
+
                   this.loader = false;
 
                   this.Showpayroll = 1
@@ -1083,7 +1145,7 @@ this.viewpreliminary();
       this.uniquelist2 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
         [(item[key]), item])).values()]
 
-        this.uniquelist = this.uniquelist2.filter((x: { role: any; }) => x.role == this.RoleType);
+      this.uniquelist = this.uniquelist2.filter((x: { role: any; }) => x.role == this.RoleType);
 
 
       this.count = this.uniquelist.length;
@@ -1102,7 +1164,7 @@ this.viewpreliminary();
     // });
 
   }
-  uniquelist2:any;
+  uniquelist2: any;
   public filterByDepartment() {
     debugger
     this.DigiofficeService.Get_Employees_For_Payroll(this.startdate, this.enddate).subscribe(data => {
@@ -1115,7 +1177,7 @@ this.viewpreliminary();
       this.uniquelist2 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
         [(item[key]), item])).values()]
 
-        this.uniquelist = this.uniquelist2.filter((x: { department_name: any; }) => x.department_name == this.Department);
+      this.uniquelist = this.uniquelist2.filter((x: { department_name: any; }) => x.department_name == this.Department);
 
 
       this.count = this.uniquelist.length;
