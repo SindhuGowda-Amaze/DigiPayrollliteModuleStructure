@@ -501,9 +501,10 @@
             <div class="modal-body ">
                 <div class="container-fluid">
                     <div class="row" style="text-align: center;">
-                        <div class="col-lg-3">
+                        <div class="col-lg-3" *ngFor="let list of staffleaves|filter: term">
 
                         </div>
+                       
                         <img src="{{medicalurl}}" alt="medical.img" style="height: 410px">
                     </div>
 

@@ -385,7 +385,7 @@ export class AddExpenseComponent implements OnInit {
       next: data => {
         if (data != 0) {
           Swal.fire("Saved Successfully");
-          location.href = "/employee/expense";
+          location.href = "/#/employee/expense";
   
         }
       }, error: (err) => {

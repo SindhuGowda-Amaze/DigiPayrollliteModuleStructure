@@ -34,7 +34,10 @@ export class BIR1604CReportComponent implements OnInit {
   employeelist1:any;
    employeelist2:any;
     employeelist3:any;
-
+    tin1:any;
+    tin2:any;
+    tin3:any;
+    tin4:any;
     employeelist4:any;
     employeelist5:any;
     employeelist6:any;
@@ -120,19 +123,21 @@ export class BIR1604CReportComponent implements OnInit {
         debugger
         debugger
 
-        this.DigipayrollServiceService.GetCompanyProfile() .subscribe(data => {
+        this.DigipayrollServiceService.GetCompanyAddressDetails() .subscribe(data => {
           debugger
           this.companylist = data
-          this.companyid = this.companylist[0].id,
-          this.companyname = this.companylist[0].company_Name,
-          this.Address = this.companylist[0].address1 + this.companylist[0].address2
-          this.Phone = this.companylist[0].phone
-          this.email= this.companylist[0].email
-          this.zipcode = this.companylist[0].zipcode
-          this.tin = this.companylist[0].tin
-          this.rdo = this.companylist[0].rdo
-    
-    
+        this.companyid = this.companylist[0].id,
+        this.companyname = this.companylist[0].company_Name,
+        this.Address = this.companylist[0].address1 + this.companylist[0].address2
+        this.Phone = this.companylist[0].phone
+        this.email= this.companylist[0].email
+        this.zipcode = this.companylist[0].zipcode
+        this.tin = this.companylist[0].tin
+        this.rdo = this.companylist[0].rdo
+        this.tin1 = this.tin.charAt(0) + this.tin.charAt(1) + this.tin.charAt(3) ;
+        this.tin2 = this.tin.charAt(4) + this.tin.charAt(5) + this.tin.charAt(6) ;
+        this.tin3 = this.tin.charAt(7) + this.tin.charAt(8) + this.tin.charAt(9) ;
+        this.tin4 = this.tin.charAt(10) + this.tin.charAt(11) + this.tin.charAt(12) + this.tin.charAt(13);
     
         })
   
