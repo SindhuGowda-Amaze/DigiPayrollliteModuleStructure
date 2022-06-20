@@ -109,7 +109,7 @@ export class LoanFormComponent implements OnInit {
           debugger
           Swal.fire('Saved Successfully.');
           this.getpassword();
-          this.router.navigate(['/Appliedloans']);
+          this.router.navigate(['/employee/loans']);
 
         },
       )

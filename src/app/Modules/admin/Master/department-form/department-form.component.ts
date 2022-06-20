@@ -29,7 +29,7 @@ export class DepartmentFormComponent implements OnInit {
   }
   OnSubmit(){
     debugger 
-    if(this.name==undefined ||this.remarks==undefined )
+    if(this.name==undefined ||this.remarks==undefined || this.name=="" || this.remarks=="")
     {
       Swal.fire('Please Fill All The Mandatory Fields')
     }
