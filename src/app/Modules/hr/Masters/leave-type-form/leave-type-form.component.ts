@@ -9,14 +9,23 @@ import Swal from 'sweetalert2';
   styleUrls: ['./leave-type-form.component.css']
 })
 export class LeaveTypeFormComponent implements OnInit {
-  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+  currentUrl: any;
   ID: any;
   leavelist: any;
   Short: any;
   Description: any;
-  currentUrl:any
+ 
+  Entitlement_Per_Year: any;
+  carry_forward: any;
+
+
+
+
+  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+  
   ngOnInit(): void {
     this.currentUrl = window.location.href;
+   
 
     this.activatedroute.params.subscribe(params => {
       debugger;
@@ -64,8 +73,7 @@ export class LeaveTypeFormComponent implements OnInit {
 
 
 
-  Entitlement_Per_Year: any;
-  carry_forward: any;
+ 
   public InsertLeaveTypeMaster() {
     debugger;
     var entity = {

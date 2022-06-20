@@ -9,14 +9,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./separation-type-dash.component.css']
 })
 export class SeparationTypeDashComponent implements OnInit {
-  constructor(public DigiofficeService: DigipayrollserviceService) { }
   currentUrl:any
+  sepateTypelist: any
+
+  constructor(public DigiofficeService: DigipayrollserviceService) { }
+ 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
     this.GetSeparationType();
   }
  
-  sepateTypelist: any
+  
   public GetSeparationType() {
     debugger
     this.DigiofficeService.GetSeparationType()

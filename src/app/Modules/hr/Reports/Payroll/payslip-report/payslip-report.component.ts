@@ -191,7 +191,7 @@ export class PayslipReportComponent implements OnInit {
         this.Company_Name=this.result[0].company_Name
         this.company_logo = this.result[0].company_logo
       }, error: (err) => {
-        Swal.fire('Issue in Getting City Type');
+        Swal.fire('Issue in Getting CompanyAddressDetails');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -212,16 +212,31 @@ export class PayslipReportComponent implements OnInit {
     if(this.roleid=='6')
     {
 
-      this.DigipayrollServiceService.GetEmployeeSalary().subscribe(data => {
-        debugger
-        this.employeelist = data.filter(x=>x.id == this.staffid);
+      this.DigipayrollServiceService.GetEmployeeSalary()
+      .subscribe({
+        next: data => {
+          debugger
+          this.employeelist = data.filter(x=>x.id == this.staffid);
         const key = 'startdate';
   
         this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
           [item[key], item])).values()];
-        //  this.uniquelist = [...new Set(data.map(item => item))];
-       
-      });
+        }, error: (err) => {
+          Swal.fire('Issue in Getting EmployeeSalary');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+      
    
     }
     else{
@@ -506,9 +521,11 @@ public filterByDepartment() {
 
   public getpayslip13(id:any){
     this.sumsalry=0;
-    this.DigipayrollServiceService.GetThirteenthMonthSalary().subscribe(data => {
-      debugger
-      this.employeelist1 = data.filter(x=>x.staffID==id );
+    this.DigipayrollServiceService.GetThirteenthMonthSalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.employeelist1 = data.filter(x=>x.staffID==id );
      
       this.fullname =  this.employeelist1[0].firstName + this.employeelist1[0].lastName ,
      
@@ -524,12 +541,24 @@ public filterByDepartment() {
       this.netMonthSalary =  this.employeelist1[0].monthlysalary 
      
    
-      
-     
+      }, error: (err) => {
+        Swal.fire('Issue in Getting City Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
 
-
-    }
-    )
+    
+    
+    
   }
   public GetPayGroup() {
     debugger
