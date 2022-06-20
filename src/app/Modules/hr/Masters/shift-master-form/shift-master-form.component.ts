@@ -16,10 +16,12 @@ export class ShiftMasterFormComponent implements OnInit {
   Description: any;
   ShiftTimeings: any
   Grace: any
+  currentUrl:any
 
 
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     // this.Grace="";
     // this.Short="";
     this.GetShiftMaster();
@@ -47,12 +49,24 @@ export class ShiftMasterFormComponent implements OnInit {
     )
   }
 public GetShiftMaster(){
-  this.DigiofficeService.GetShiftMaster().subscribe(
-    data => {
+  this.DigiofficeService.GetShiftMaster() .subscribe({
+    next: data => {
       debugger
       this.shiftmasterlist = data;
-    },
-  );
+    }, error: (err) => {
+      Swal.fire('Issue in Getting Expenses List Web');
+      // Insert error in Db Here//
+      var obj = {
+        'PageName': this.currentUrl,
+        'ErrorMessage': err.error.message
+      }
+      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+        data => {
+          debugger
+        },
+      )
+    }
+  })
 }
 
   
@@ -71,14 +85,30 @@ public GetShiftMaster(){
       Grace : this.Grace
 
     }
-    this.DigiofficeService.InsertShiftMaster(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Saved Successfully");
-        location.href = "#/Shiftmasterdash";
-
-
+    this.DigiofficeService.InsertShiftMaster(entity).subscribe({
+      next: data => {
+        debugger
+        if (data != 0) {
+          Swal.fire("Saved Successfully");
+          location.href = "#/Shiftmasterdash";
+  
+  
+        }
+  
+       
+      }, error: (err) => {
+        Swal.fire('Issue in Inserting ShiftMaster  ');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
     })
 
   }

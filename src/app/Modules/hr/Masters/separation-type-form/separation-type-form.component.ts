@@ -17,9 +17,11 @@ export class SeparationTypeFormComponent implements OnInit {
   ShiftTimeings: any
   Grace: any
   separationTypelist:any;
+  currentUrl:any
 
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     // this.Grace="";
      this.Short="";
     this.GetSeparationType();
@@ -31,16 +33,26 @@ export class SeparationTypeFormComponent implements OnInit {
       }
       else {
 
-        this.DigiofficeService.GetSeparationType().subscribe(
-          data => {
+        this.DigiofficeService.GetSeparationType().subscribe({
+          next: data => {
             debugger
-
             this.separationTypelist = data.filter(x=>x.id==this.ID);
             this.Short = this.separationTypelist[0].short;
             this.Description = this.separationTypelist[0].description;
-       
-          },
-        );
+          }, error: (err) => {
+            Swal.fire('Issue in Getting Separation Type');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
       }
     }
     )
@@ -70,14 +82,29 @@ public GetSeparationType(){
     
 
     }
-    this.DigiofficeService.InsertSeparationType(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Saved Successfully");
-        location.href = "#/SeparationTypeDash";
-
-
+    this.DigiofficeService.InsertSeparationType(entity).subscribe({
+      next: data => {
+        debugger
+        if (data != 0) {
+          Swal.fire("Saved Successfully");
+          location.href = "#/SeparationTypeDash";
+  
+  
+        }
+  
+      }, error: (err) => {
+        Swal.fire('Issue in inserting Separation Type ');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
       }
-
     })
 
   }

@@ -10,16 +10,33 @@ import Swal from 'sweetalert2';
 })
 export class SeparationTypeDashComponent implements OnInit {
   constructor(public DigiofficeService: DigipayrollserviceService) { }
+  currentUrl:any
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.GetSeparationType();
   }
  
   sepateTypelist: any
   public GetSeparationType() {
     debugger
-    this.DigiofficeService.GetSeparationType().subscribe(data => {
-      debugger
-      this.sepateTypelist = data
+    this.DigiofficeService.GetSeparationType()
+    .subscribe({
+      next: data => {
+        debugger
+        this.sepateTypelist = data
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Separation Type');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
   }
 

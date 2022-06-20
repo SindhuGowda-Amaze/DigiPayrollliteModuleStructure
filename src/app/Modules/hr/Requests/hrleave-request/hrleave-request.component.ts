@@ -51,6 +51,7 @@ export class HRLeaveRequestComponent implements OnInit {
   public callenderMonth: any;
   public callenderstartday: any;
   public callenderendday: any;
+  currentUrl:any
   public callenderdaysdount: any = [];
   public callenderBindData = new Date();
 
@@ -58,6 +59,7 @@ export class HRLeaveRequestComponent implements OnInit {
   public todayDay = this.datePipe.transform(new Date().getDay(), 'EEEE');
 
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
    
     this.loader=true
     this.RoleType = "";
@@ -89,15 +91,54 @@ export class HRLeaveRequestComponent implements OnInit {
     this.loader=false
     this.roledid = sessionStorage.getItem('roledid');
 
-    this.DigiofficeService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
+    this.DigiofficeService.GetDepartment()
+.subscribe({
+  next: data => {
+    debugger
+    this.Departmentlist = data;
+  }, error: (err) => {
+    Swal.fire('Issue in Getting Department');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
 
-    this.DigiofficeService.GetRoleType().subscribe(data => {
-      debugger
-      this.RoleTypeList = data;
-    });
+
+
+    this.DigiofficeService.GetRoleType()
+    
+    
+    
+
+.subscribe({
+  next: data => {
+    debugger
+    this.RoleTypeList = data;
+  }, error: (err) => {
+    Swal.fire('Issue in Getting Role Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
+
+
+
 
     this.getstaffleaves();
   }
@@ -115,10 +156,27 @@ export class HRLeaveRequestComponent implements OnInit {
     if(this.sdate>this.edate){
       Swal.fire('Start date must be less than End Date')
     }else{
-      this.DigiofficeService.GetStaffLeaves(10331, 1, this.sdate, this.edate).subscribe((data: any) => {
-        debugger
-        this.staffleaves = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved')
-        this.buildcallender(this.staffleaves);
+      this.DigiofficeService.GetStaffLeaves(10331, 1, this.sdate, this.edate)
+      
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.staffleaves = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved')
+          this.buildcallender(this.staffleaves);
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Staff Leaves');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
     }
  
@@ -364,14 +422,33 @@ export class HRLeaveRequestComponent implements OnInit {
       'EndDate': this.edate,
 
     }
-    this.DigiofficeService.UpdateStaffLeaves(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire("Rejected Successfully");
-        location.reload();
+    this.DigiofficeService.UpdateStaffLeaves(entity)
+.subscribe({
+  next: data => {
+    debugger
+    if (data != 0) {
+      Swal.fire("Rejected Successfully");
+      location.reload();
 
-      }
+    }
 
-    })
+  }, error: (err) => {
+    Swal.fire('Issue in Updateing Staff Leaves');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
+
+
+
 
   }
   id: any;
@@ -459,12 +536,32 @@ export class HRLeaveRequestComponent implements OnInit {
         'NoOfDays': this.ID[i].noOfDays
 
       }
-      this.DigiofficeService.ApproveStaffLeavesNewForHR(entity).subscribe(data => {
-        if (data != 0) {
-          Swal.fire("Approved Successfully");
+      this.DigiofficeService.ApproveStaffLeavesNewForHR(entity)
+      
+      .subscribe({
+        next: data => {
+          debugger
+          if (data != 0) {
+            Swal.fire("Approved Successfully");
+          }
+        }, error: (err) => {
+          Swal.fire('Issue in Approve Staff Leaves New For HR ');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-
       })
+
+
+
+
     }
     location.reload();
 

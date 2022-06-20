@@ -28,35 +28,85 @@ export class LoanFormComponent implements OnInit {
   roledid: any;
   Netsalary:any;
   staffID:any;
+  currentUrl:any
+  res:any
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.LoanType = "";
     this.roledid = sessionStorage.getItem('roledid');
     this.staffID = sessionStorage.getItem('staffid')
 
     
     if (this.roledid == 6) {
-      this.DigiofficeService.GetLoanConfiguration().subscribe((data: any) => {
-        debugger
-        this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable: boolean }) => x.employeeApply == true && x.enable_Disable == false)
+      this.DigiofficeService.GetLoanConfiguration()
+      .subscribe({
+        next: data => {
+          debugger
+          this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable: boolean }) => x.employeeApply == true && x.enable_Disable == false)
+
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Loan Configuration');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
+
+
+
     }
     else {
-      this.DigiofficeService.GetLoanConfiguration().subscribe((data: any) => {
-        debugger
-        this.loanslist = data.filter((x: { managerApply: boolean; enable_Disable: boolean }) => x.managerApply == true && x.enable_Disable == false)
+      this.DigiofficeService.GetLoanConfiguration()
+  .subscribe({
+  next: data => {
+    debugger
+    this.loanslist = data.filter((x: { managerApply: boolean; enable_Disable: boolean }) => x.managerApply == true && x.enable_Disable == false)
 
-      })
+  }, error: (err) => {
+    Swal.fire('Issue in Getting Loan Configuration');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
+
     }
 
 
     
-    this.DigiofficeService.Get_Salary_For_Loans(this.staffID).subscribe(
-      res => {
-        debugger;
-        this.Netsalary = res[0].grossSalary;
-       
-      }
+    this.DigiofficeService.Get_Salary_For_Loans(this.staffID).subscribe({
+  next: data => {
+    debugger
+    this.Netsalary = data[0].grossSalary;
+  }, error: (err) => {
+    Swal.fire('Issue in Getting Salary For Loans');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
     )
+  }
+})
+
 
 
 
@@ -103,18 +153,21 @@ export class LoanFormComponent implements OnInit {
       }
 
 
-      this.DigiofficeService.InsertEmployeeLoans(eb).subscribe(
-
-        data => {
+      this.DigiofficeService.InsertEmployeeLoans(eb)
+      .subscribe({
+        next: data => {
           debugger
           Swal.fire('Saved Successfully.');
           this.getpassword();
           this.router.navigate(['/employee/loans']);
 
-        },
-      )
+        }
+
+      })
+    
       
     }
+  
    
 
 
@@ -176,12 +229,26 @@ export class LoanFormComponent implements OnInit {
       'cclist': this.supervisoremail,
       'bcclist': this.supervisoremail,
     }
-    this.DigiofficeService.sendemail1(entity1).subscribe(res => {
-      debugger;
-      this.Attactments = [];
-
-     
+    this.DigiofficeService.sendemail1(entity1)
+   .subscribe({
+      next: data => {
+        debugger
+        this.Attactments = [];
+      }, error: (err) => {
+        Swal.fire('Issue in send email1');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
     })
+
 
   }
  
