@@ -90,7 +90,6 @@ export class BankAdviceListComponent implements OnInit {
     this.selectrun = 0
   }
 
-
   public getbankadvicelist() {
     debugger;
     if (this.year == " " || this.Month == " " || this.PayrollType == " " || this.year == undefined || this.Month == undefined || this.PayrollType == undefined) {

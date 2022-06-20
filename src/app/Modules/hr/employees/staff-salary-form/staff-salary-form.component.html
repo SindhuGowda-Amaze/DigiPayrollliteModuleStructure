@@ -1,7 +1,21 @@
 <div class="container-fluid">
     <div class="row">
+
         <div class="col-md-12">
-            <P class="Heading1">Salary Details</P>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3 class="Heading">Salary Details</h3>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-lg-10"></div>
+            </div> -->
             <br>
             <!-- <div class="row LocDashboard">
                 <div class="col-lg-12">
@@ -11,55 +25,103 @@
             <div class="card">
                 <div class="row leavereq">
                     <div class="col-md-3">
+                        <label>Role<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
                         <label>Staff<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-md-3">
-                        <p>Basic Salary Per Month<span style="color: red;">*</span></p>
+                        <p>Basic Salary.<span style="color: red;">*</span></p>
                     </div>
-                    <div class="col-md-3">
-                        <p>De-minimis<span style="color: red;">*</span></p>
+                     <div class="col-md-3">
+                        <p>Christmas Bonus<span style="color: red;">*</span></p>
                     </div>
+
                 </div>
                 <div class="row leavereq">
+                    <div class="col-md-3">
+                        <select class="form-control" id="RoleID" name="RoleID" [(ngModel)]="RoleID"
+                            (change)="GetRoleID($event)">
+                            <option value="0">Select Role</option>
+                            <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
+                            </option>
+                        </select>
+                    </div>
                     <div class="col-md-3">
                         <ng-multiselect-dropdown [placeholder]="'Select Staff'" [settings]="dropdownSettings"
                             [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)">
                         </ng-multiselect-dropdown>
-                        <!-- <input type="text" class="form-control" id="EmployeeId" name="EmployeeId"
-                                [(ngModel)]="EmployeeId" placeholder="Employee Id"> -->
                     </div>
                     <div class="col-md-3">
                         <input type="number" id="BaseSal" name="BaseSal" [(ngModel)]="BaseSal" class="form-control"
                             placeholder="Basic Salary">
                     </div>
                     <div class="col-md-3">
+                        <input type="number" id="deniminimis_amount" name="deniminimis_amount" [(ngModel)]="deniminimis_amount" class="form-control"
+                            placeholder="Christmas Bonus">
+                    </div>
+                    <!-- <div class="col-md-3">
+                        
                         <ng-multiselect-dropdown [placeholder]="'Select De-minimis'" [settings]="dropdownSettings1"
                             [data]="dropdownList1" [(ngModel)]="selectedItems1" (onSelect)="onItemSelect1($event)">
                         </ng-multiselect-dropdown>
+                    </div> -->
+                </div>
+                <br>
+                <!-- <div class="row leavereq" *ngIf="ID!=undefined">
+                    <div class="col-md-3">
+                        Selected De-minimis <h6>{{deniminimis}}</h6>
+                        De-minimis Amount <h6>{{deniminimis_amount}}</h6>
                     </div>
-                    <div class="col-lg-3">
-                        <p>{{deniminimis}}</p>
+                    <div class="col-md-3">
+
+                    </div>
+                </div> -->
+                <!-- <br>
+                <div class="row leavereq" *ngIf="ID!=undefined">
+                    <div class=" col-md-3">
+                        <label>New Salary<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Effective Date<span style="color: red;">*</span></label>
                     </div>
                 </div>
                 <br>
-                <br>
+                <div class="row leavereq" *ngIf="ID!=undefined">
+                    <div class="col-md-3">
+                        <input type="number" id="NewSalary" name="NewSalary" [(ngModel)]="NewSalary"
+                            class="form-control" placeholder="New Salary">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" id="effectivedate" name="effectivedate" [(ngModel)]="effectivedate"
+                            class="form-control" placeholder="New Salary">
+                    </div>
+                </div>
+                <br> -->
                 <div class="row">
-                    <div class="col-lg-10"></div>
-                    <div class="col-lg-1">
-                        <button class="form-control EditDelteBTN" (click)="cancel()">Cancel</button>
+                    <div class="col-lg-12">
+                        <div *ngIf="ID==undefined">
+                            <button class="button" (click)="Save()">Submit</button>
+                        </div>
+
+                        <div *ngIf="ID!=undefined">
+                            <button class="button" (click)="Update()">Update</button>
+                        </div>
+                        <div>
+                            <button class="button" (click)="cancel()">Cancel</button>
+                        </div>
+
                     </div>
-                    <div class="col-lg-1" *ngIf="ID==undefined">
-                        <button class="form-control EditDelteBTN" (click)="Save()">Submit</button>
-                    </div>
-                    <div class="col-lg-1" *ngIf="ID!=undefined">
-                        <button class="form-control EditDelteBTN" (click)="Update()">Update</button>
-                    </div>
+
+
+
+
                 </div>
             </div>
+
         </div>
     </div>
 </div>
-
 <br>
 <br>
 <br>

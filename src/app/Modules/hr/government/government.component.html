@@ -121,6 +121,178 @@
             </div>
             </div>
             </div>
+           
+              
+
+                <!-- 
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-2">
+                        <p class="text1">SBR/OR Number</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <p class="text1">Attachment</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <p class="text1"> Date Paid </p>
+                    </div>
+                    <div class="col-lg-3"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2 text">
+                        <p class="sideheading">SSS</p>                       
+                    </div>
+                    <div class="col-lg-2">
+                       <input class="form-control input" [(ngModel)]="ssS_Number"><br>
+                    </div>
+                    <div class="col-lg-2">
+                        <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                     </div>
+                    <div class="col-lg-3">
+                        <input class="form-control input"  type="date" [(ngModel)]="ssS_DatePaid"><br>
+                    </div>
+                    <div class="col-lg-3"></div>
+                  </div>
+                    
+                   <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2 text">
+                        <p class="sideheading">SSS Loan</p>       
+                      
+                    </div>
+                    <div class="col-lg-2">
+                       <input class="form-control input" [(ngModel)]="sssLoan_Number"><br>
+                    </div>
+                    <div class="col-lg-2">
+                        <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                     </div>
+                    <div class="col-lg-3 ">
+                        <input class="form-control input" type="date" [(ngModel)]="sssLoan_DatePaid"><br>
+                    </div>
+                    <div class="col-lg-3"></div>
+                   </div>                
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2 text">
+                            <p class="sideheading"> SSS Calamity Loan</p>                             
+                        </div>
+                        <div class="col-lg-2">
+                           <input class="form-control input" [(ngModel)]="sssCalamityLoan_Number"><br>
+                        </div>
+                        <div class="col-lg-2">
+                            <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                                <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                </ngx-dropzone-preview>
+                            </ngx-dropzone>
+                         </div>
+                        <div class="col-lg-3">
+                            <input class="form-control input" type="date" [(ngModel)]="sssCalamityLoan_DatePaid"><br>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div><br>
+                   <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2 text">
+                        <p class="sideheading">PhilHealth</p>                      
+                    </div>
+                    <div class="col-lg-2">
+                       <input class="form-control input" [(ngModel)]="philHealth_Number"> <br>
+                    </div>
+                    <div class="col-lg-2">
+                        <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                     </div>
+                    <div class="col-lg-3">
+                        <input class="form-control input"  type="date" [(ngModel)]="philHealth_DatePaid"><br>
+                    </div>
+                    <div class="col-lg-3"></div>
+                   </div> <br>
+                   <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2 text">
+                        <p class="sideheading">HDMF</p>
+                     
+                    </div>
+                    <div class="col-lg-2">
+                       <input class="form-control input" [(ngModel)]="hdmF_Number"><br>
+                    </div>
+                    <div class="col-lg-2">
+                        <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                     </div>
+                    <div class="col-lg-3">
+                        <input class="form-control input"  type="date" [(ngModel)]="hdmF_DatePaid"><br>
+                    </div>
+                    <div class="col-lg-3"></div>
+                   </div> <br>
+                
+                  <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2 text">
+                        <p class="sideheading"> HDMF Loan</p>     
+                    </div>
+                    <div class="col-lg-2">
+                       <input class="form-control input" [(ngModel)]="hdmfLoan_Number"><br>
+                    </div>
+                    <div class="col-lg-2">
+                        <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                            <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                     </div>
+                    <div class="col-lg-3">
+                        <input class="form-control input"  type="date" [(ngModel)]="hdmfLoan_DatePaid"><br>
+                    </div>
+                    <div class="col-lg-3"></div>
+                  </div>                  
+               <br>
+               <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2 text">
+                    <p class="sideheading"> Hdmp Calamity Loan</p>                  
+                </div>
+                <div class="col-lg-2">
+                   <input class="form-control input" [(ngModel)]="hdmpCalamityLoan_Number"><br>
+                </div>
+                <div class="col-lg-2">
+                    <ngx-dropzone (change)="onSelect($event)" style="height: 60px;">
+                        <ngx-dropzone-label>Drop it here!</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                 </div>
+                <div class="col-lg-3">
+                    <input class="form-control input"  type="date" [(ngModel)]="hdmpCalamityLoan_DatePaid"><br>
+                </div>
+                <div class="col-lg-3"></div>
+               </div>                  -->
                 <br>
                 <div class="row">
                     <div class="col-lg-5"></div>
@@ -149,10 +321,10 @@
            <input type="text" class="form-control" placeholder="Search" [(ngModel)]="Search" />
          </div>
          <div class="col-lg-2">
-            <p>Role
+            <p>Position
                 <br> <select class="form-control" id="RoleType" name="RoleType"
                     [(ngModel)]="RoleType" (change)="FilterRoleType($event)">
-                    <option value="">Select Role</option>
+                    <option value="">Select Position</option>
                     <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
                     </option>
                 </select>
@@ -218,10 +390,48 @@
         <div class="col-lg-12">
             <table class="table table-bordered fonttxt">
                 <thead>
+                    <!-- <tr class="newFont">
+                            <th class="SelectData">Select</th>
+                          
+                            <th>SSS SBR/OR Number</th>
+                           <th><img></th> -->
+                    <!-- <th>SSS Date Paid</th>
+
+                            <th>SSS Loan SBR/OR Number</th>
+                         <th><img></th> 
+                            <th>SSS Loan Date Paid</th>
+
+                            <th>SSS Calamity Loan SBR/OR Number</th>
+                      <th><img></th> 
+                            <th>SSS Calamity Loan Date Paid</th>
+
+                            <th>
+                                PhilHealth SBR/OR Number</th>
+                      <th><img></th> 
+                            <th>
+                                PhilHealth Date Paid</th>
+
+                            <th>
+                                HDMF SBR/OR Number</th>
+                          <th><img></th> 
+                            <th>
+                                HDMF Date Paid</th>
+
+                            <th>HDMF Loan SBR/OR Number</th>
+                           <th><img></th> 
+                            <th>HDMF Loan Date Paid</th>
+
+                            <th>
+                                Hdmp Calamity Loan SBR/OR Number</th>
+                             <th><img></th> 
+                            <th>
+                                Hdmp Calamity Loan Date Paid</th>
+                            <th>Action</th>
+                        <tr>  -->
                     <tr>
                         <!-- <th class="SelectData"><input type="checkbox">&nbsp; Select</th> -->
                         <th>Staff Name</th>
-                        <th>Role</th>
+                        <th>Position</th>
                         <th>Department</th>
                         <th>Type</th>
                         <th>SBR/OR Number</th>
@@ -250,6 +460,21 @@
                         <td ><img src="assets/images/pdf.png" style="width: 30px;"
                         (click)="GetOfferLetter(application.attachment)"> </td>
                         <td><img class="imgcancel" src="assets/cancel (1).png" (click)="delete(application.sbrorNumber)"></td>
+
+                        <!-- <td>{{application.ssS_Number}}</td>
+                            <td>{{application.ssS_DatePaid}}</td>
+                            <td>{{application.sssLoan_Number}}</td>
+                            <td>{{application.sssLoan_DatePaid}}</td>
+                            <td>{{application.sssCalamityLoan_Number}}</td>
+                            <td>{{application.sssCalamityLoan_DatePaid}}</td>
+                            <td>{{application.philHealth_Number}}</td>
+                            <td>{{application.philHealth_DatePaid}}</td>
+                            <td>{{application.hdmF_Number}}</td>
+                            <td>{{application.hdmF_DatePaid}}</td>
+                            <td>{{application.hdmfLoan_Number}}</td>
+                            <td>{{application.hdmfLoan_DatePaid}}</td>
+                            <td>{{application.hdmpCalamityLoan_Number}}</td>
+                            <td>{{application.hdmpCalamityLoan_DatePaid}}</td> -->
                     </tr>
                 </tbody>
             </table>
@@ -263,3 +488,156 @@
         <div class="col-lg-1"></div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2 text">
+            SSS
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control input"><br>
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control input" type="date"><br>
+        </div>
+        <div class="col-lg-3"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="row">
+                <p class="taxtable"> Government OR Records</p>
+            </div>
+            <div class="card"><br>
+                <div class="row leavereq">
+                    <div class="col-md-6">
+                        <p class="newFont">SSS:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="newFont"> SSS Loan:</p>
+                    </div>
+                </div>
+                <div class="row leavereq">
+                    <div class="col-lg-3">
+                        <p class="sidetext">SBR/OR NUMBER</p>
+                        <input class="form-control input" placeholder="SBR Number">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">Date Paid</p>
+                        <input class="form-control input" type="date">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">SBR/OR NUMBER</p>
+                        <input class="form-control input" placeholder="SBR Number">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">Date Paid</p>
+                        <input class="form-control input" type="date">
+                    </div>
+                </div><br>
+                <div class="row leavereq">
+                    <div class="col-md-6">
+                        <p class="newFont">SSS Calamity Loan:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="newFont"> Phill Health:</p>
+                    </div>
+                </div>
+                <div class="row leavereq">
+                    <div class="col-lg-3">
+                        <p class="sidetext">SBR/OR NUMBER</p>
+                        <input class="form-control input" placeholder="SBR Number">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">Date Paid</p>
+                        <input class="form-control input" type="date">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">SBR/OR NUMBER</p>
+                        <input class="form-control input" placeholder="SBR Number">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">Date Paid</p>
+                        <input class="form-control input" type="date">
+                    </div>
+                </div><br>
+                <div class="row leavereq">
+                    <div class="col-md-6">
+                        <p class="newFont">HDMF:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="newFont">HDMF Loan:</p>
+                    </div>
+                </div>
+                <div class="row leavereq">
+                    <div class="col-lg-3">
+                        <p class="sidetext">SBR/OR NUMBER</p>
+                        <input class="form-control input" placeholder="SBR Number">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">Date Paid</p>
+                        <input class="form-control input" type="date">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">SBR/OR NUMBER</p>
+                        <input class="form-control input" placeholder="SBR Number">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">Date Paid</p>
+                        <input class="form-control input" type="date">
+                    </div>
+                </div><br>
+                <div class="row leavereq">
+                    <div class="col-md-6">
+                        <p class="newFont">Hdmp Calamity :</p>
+                    </div>
+                </div>
+                <div class="row leavereq">
+                    <div class="col-lg-3">
+                        <p class="sidetext">SBR/OR NUMBER</p>
+                        <input class="form-control input" placeholder="SBR Number">
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="sidetext">Date Paid</p>
+                        <input class="form-control input" type="date">
+                    </div>
+                </div><br>
+            </div> <br>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <button class="Edit">Save</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="button2">Cancel</button>
+                </div> 
+                <div class="col-md-3"></div> 
+             </div><br>
+
+        </div>
+    </div>
+
+    <div class="col-lg-1"></div>
+</div> -->

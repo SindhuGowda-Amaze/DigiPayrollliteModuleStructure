@@ -24,142 +24,158 @@ export class BarangayMasterComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
-      // this.StateID = "";
-      // this.CountryID="";
-      // this.CityID="";
-      this.GetCountryType()
+    this.GetBarangayMaster();
+    this.StateID = "0";
+    this.CountryID="0";
+    this.CityID="0";
+    this.GetCountryType()
     this.GetStateType();
     this.ActivatedRoute.params.subscribe(params => {
       debugger;
       this.ID = params['id'];
       if (this.ID == undefined) {
-
-
       }
       else {
 
         this.DigipayrollserviceService.GetBarangayMaster().subscribe(
           data => {
             debugger
-
             this.leavelist = data.filter(x => x.id == this.ID);
             this.CountryID = this.leavelist[0].countryID
             this.StateID = this.leavelist[0].provinceID
-            this.GetStateID1( this.StateID)
+            this.GetStateID1(this.StateID)
             this.CityID = this.leavelist[0].cityID
             this.Name = this.leavelist[0].name
           },
         );
       }
-    }
-    )
+    })
+  }
+  public GetBarangayMaster() {
+    this.DigipayrollserviceService.GetBarangayMaster()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.leavelist = data.filter(x => x.id == this.ID);
+          this.CountryID = this.leavelist[0].countryID
+          this.StateID = this.leavelist[0].provinceID
+          this.GetStateID1(this.StateID)
+          this.CityID = this.leavelist[0].cityID
+          this.Name = this.leavelist[0].name
+        }, error: (err) => {
+          Swal.fire('Issue in Getting City Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
+
+  }
+
+  public GetCountryType() {
+    this.DigipayrollserviceService.GetCountryType()
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.Countrylist = data
+        }, error: (err) => {
+          Swal.fire('Issue in GetCountryType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
 
-  public GetCountryType()
-  {
-    this.DigipayrollserviceService.GetCountryType()
-    
-    .subscribe({
-      next: data => {
-        debugger
-        this.Countrylist = data
-      }, error: (err) => {
-        Swal.fire('Issue in GetCountryType');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )}
-    })
-        
-    
-}
-
-
- 
   public GetStateID(evene: any) {
     debugger
     this.DigipayrollserviceService.GetCityType()
-    
-    .subscribe({
-      next: data => {
-        debugger
-        this.Citylist = data.filter(x => x.stateID == evene.target.value)
-      }, error: (err) => {
-        Swal.fire('Issue in GetCityType');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          this.Citylist = data.filter(x => x.stateID == evene.target.value)
+        }, error: (err) => {
+          Swal.fire('Issue in GetCityType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )}
-    })
-    
-    
-    
+      })
   }
 
-  
+
   public GetStateID1(stateid: any) {
     debugger
     this.DigipayrollserviceService.GetCityType()
-    
-    .subscribe({
-      next: data => {
-        debugger
-        this.Citylist = data.filter(x => x.stateID == stateid)
-      }, error: (err) => {
-        Swal.fire('Issue in GetCityType');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )}
-    })
-    
-    
-    
 
+      .subscribe({
+        next: data => {
+          debugger
+          this.Citylist = data.filter(x => x.stateID == stateid)
+        }, error: (err) => {
+          Swal.fire('Issue in GetCityType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
 
   public GetStateType() {
     debugger
     this.DigipayrollserviceService.GetStateType()
-    .subscribe({
-      next: data => {
-        debugger
-        this.leavelist = data
-      }, error: (err) => {
-        Swal.fire('Issue in GetStateType');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          this.leavelist = data
+        }, error: (err) => {
+          Swal.fire('Issue in GetStateType');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )}
-    })
-    
-    
+      })
   }
 
 
@@ -169,9 +185,10 @@ export class BarangayMasterComponent implements OnInit {
   }
 
 
-  public InsertCityType() {
+  public InsertBarangayMaster() {
     debugger;
-    if (this.StateID == undefined || this.Name == undefined || this.CityID == undefined) {
+    if (this.StateID == undefined|| this.StateID=="0" || this.Name == undefined ||this.Name ==""
+    || this.CityID == undefined||this.CityID=="0") {
       Swal.fire('Please Fill All Fields');
     } else {
       var entity = {
@@ -183,30 +200,18 @@ export class BarangayMasterComponent implements OnInit {
 
       }
       this.DigipayrollserviceService.InsertBarangayMaster(entity)
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      .subscribe(data => {
-        if (data != 0) {
-          Swal.fire("Saved Successfully");
-          location.href = "#/admin/BarangayDash";
-        }
+        .subscribe(data => {
+          if (data != 0) {
+            Swal.fire("Saved Successfully");
+            location.href = "#/admin/BarangayDash";
+          }
 
-      })
+        })
     }
   }
 
 
-  public UpdateCityType() {
+  public UpdateBarangayMaster() {
     debugger;
     var entity = {
       ID: this.ID,
@@ -218,25 +223,26 @@ export class BarangayMasterComponent implements OnInit {
 
     }
     this.DigipayrollserviceService.UpdateBarangayMaster(entity)
-    
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire("Updated Successfully");
-      location.href = "#/admin/Barangaymaster";
-      }, error: (err) => {
-        Swal.fire('Issue in UpdateBarangayMaster');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+
+      .subscribe({
+        next: data => {
+          debugger
+          Swal.fire("Updated Successfully");
+          location.href = "#/admin/Barangaymaster";
+        }, error: (err) => {
+          Swal.fire('Issue in UpdateBarangayMaster');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )}
-    })
-    
+      })
+
   }
 }

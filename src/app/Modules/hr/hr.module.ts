@@ -162,11 +162,10 @@ const ngWizardConfig: NgWizardConfig = {
     SharedModule,
     FormsModule,
     NgxPaginationModule,
-    NgMultiSelectDropDownModule.forRoot(),
-    Ng2SearchPipeModule,
-    GaugeModule.forRoot(),
-    NgxDropzoneModule,
     NgWizardModule.forRoot(ngWizardConfig),
+   // NgMultiSelectDropDownModule.forRoot(),
+  //  Ng2SearchPipeModule,
+
   ]
 })
 export class HrModule { }

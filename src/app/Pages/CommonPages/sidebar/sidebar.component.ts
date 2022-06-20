@@ -44,7 +44,7 @@ export class SidebarComponent implements OnInit {
 
   public Adminhelp() {
     localStorage.setItem('clickname', 'PROFILE')
-    this.router.navigate(['#/shared/HelpMenu']);
+    this.router.navigate(['/shared/AdminHelpMenu']);
     this.active = 'Admin';
 
     // location.href='https://digipayrolllite.amazeone.co/DigiPayrollliteapi/Images/ProjectAttachments/USER MANUAL-digiPayroll-Lite-Admin_V1.0_200322.docx'
@@ -101,7 +101,7 @@ export class SidebarComponent implements OnInit {
     debugger
     this.active = 'SUPPORT';
     localStorage.setItem('clickname', 'SUPPORT')
-    this.router.navigate(['#/shared/SupportTicketDashboard']);
+    this.router.navigate(['/shared/SupportTicketDashboard']);
   }
 
 

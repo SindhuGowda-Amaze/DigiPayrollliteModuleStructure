@@ -103,8 +103,11 @@ stafflist1:any;
 
   public GetMyDetails(){
 
-    this.DigipayrollserviceService.GetMyDetails().subscribe(data => {
-      debugger
+    this.DigipayrollserviceService.GetMyDetails()
+    
+    .subscribe({
+      next: data => {
+        debugger
       this.currentDate = new Date();
       this.myDate = formatDate(this.currentDate, 'yyyy-MM-dd', 'en-US');
       this.mydate1=String(this.myDate).charAt(0)
@@ -121,7 +124,19 @@ stafflist1:any;
 
       this.uniquelist1  = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
       [(item[key]), item])).values()]
-    });
+      }, error: (err) => {
+        Swal.fire('Issue in GetMyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
+    })
 
 
 
@@ -142,72 +157,85 @@ stafflist1:any;
   
   .subscribe({
     next: data => {
-      debugger
-    this.employeelist = data.filter(x=>x.monthstaffid==id && String(x.emplyeeYear==this.year) );
-    
-    this.DigipayrollserviceService.GetCompanyProfile().subscribe(data => {
-      debugger
-      this.companylist = data
-      this.companyid = this.companylist[0].id,
-      this.companyname = this.companylist[0].company_Name,
-      this.Address = this.companylist[0].address1 + this.companylist[0].address2
-      this.Phone = this.companylist[0].phone
-      this.email= this.companylist[0].email
-      this.zipcode = this.companylist[0].zipcode
-      this.tin = this.companylist[0].tin
-
-
-
-    })
-
-
-    const key = 'monthstaffid'
-
-    this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
-      [(item[key]), item])).values()]
-      this.SubDistrictPostcode = this.uniquelist[0].subDistrictPostcode,
-     this.empAddress=this.uniquelist[0].addressLine1,
-    this.grosssalary = this.uniquelist[0].yearGrossSal
-    this.staffname = this.uniquelist[0].staffname
-    this.yearsalary = this.uniquelist[0].yearsalary
-    this.yearlybasesalary = this.uniquelist[0].yearlybasesalary
-    this.yeartax = this.uniquelist[0].yeartax
-    this.totalsss = this.uniquelist[0].yearSSSRate+this.uniquelist[0].yearPagibigRate+this.uniquelist[0].yearPhilihealth
-    this.yearlydeminims = this.uniquelist[0].yearlydeminims 
-    this.employeeaddress = this.uniquelist[0].address 
-    this.employeetin = this.uniquelist[0].employeE_TIN 
-    this.tin1 = this.employeetin.charAt(0)
-    this.tin2 = this.employeetin.charAt(1)
-    this.tin3 = this.employeetin.charAt(2)
-    this.tin4 = this.employeetin.charAt(3)
-    this.tin5 = this.employeetin.charAt(4)
-    this.tin6 = this.employeetin.charAt(5)
-    this.tin7 = this.employeetin.charAt(6)
-    this.tin8 = this.employeetin.charAt(7)
-    this.tin9 = this.employeetin.charAt(8)
-    this.tin10 = this.employeetin.charAt(9)
-    this.tin11 = this.employeetin.charAt(10)
-    this.tin12 = this.employeetin.charAt(11)
-
-    this.dob = this.uniquelist[0].birthday
-    this.dob1 = this.dob.charAt(0)
-    this.dob2 = this.dob.charAt(1)
-    this.dob3 = this.dob.charAt(2)
-    this.dob4 = this.dob.charAt(3)
-    this.dob5 = this.dob.charAt(5)
-    this.dob6 = this.dob.charAt(6)
-    this.dob7 = this.dob.charAt(8)
-    this.dob8 = this.dob.charAt(9)
-    this.year1= String(this.year)
-    this.year01 =  this.year1.charAt(0)
-    this.year02 =  this.year1.charAt(1)
-    this.year03 =  this.year1.charAt(2)
-    this.year04 =  this.year1.charAt(3)
-    this.previoussalary = this.uniquelist[0].prevoussalary
-    this.previoustax = this.uniquelist[0].previoustax
-    this.totalnontax =   this.uniquelist[0].yearotamount+this.yearlydeminims+this.totalsss
-    this.yearotamount = this.uniquelist[0].yearotamount.toFixed(2)
+      {
+        debugger
+      this.employeelist = data.filter(x=>x.monthstaffid==id && String(x.emplyeeYear==this.year) );
+      
+      this.DigipayrollserviceService.GetCompanyProfile().subscribe(data => {
+        debugger
+        this.companylist = data
+        this.companyid = this.companylist[0].id,
+        this.companyname = this.companylist[0].company_Name,
+        this.Address = this.companylist[0].address1 + this.companylist[0].address2
+        this.Phone = this.companylist[0].phone
+        this.email= this.companylist[0].email
+        this.zipcode = this.companylist[0].zipcode
+        this.tin = this.companylist[0].tin
   
+  
+  
+      })
+  
+  
+      const key = 'monthstaffid'
+  
+      this.uniquelist  = [...new Map(this.employeelist.map((item: { [x: string]: any; }) =>
+        [(item[key]), item])).values()]
+        this.SubDistrictPostcode = this.uniquelist[0].subDistrictPostcode,
+       this.empAddress=this.uniquelist[0].addressLine1,
+      this.grosssalary = this.uniquelist[0].yearGrossSal
+      this.staffname = this.uniquelist[0].staffname
+      this.yearsalary = this.uniquelist[0].yearsalary
+      this.yearlybasesalary = this.uniquelist[0].yearlybasesalary
+      this.yeartax = this.uniquelist[0].yeartax
+      this.totalsss = this.uniquelist[0].yearSSSRate+this.uniquelist[0].yearPagibigRate+this.uniquelist[0].yearPhilihealth
+      this.yearlydeminims = this.uniquelist[0].yearlydeminims 
+      this.employeeaddress = this.uniquelist[0].address 
+      this.employeetin = this.uniquelist[0].employeE_TIN 
+      this.tin1 = this.employeetin.charAt(0)
+      this.tin2 = this.employeetin.charAt(1)
+      this.tin3 = this.employeetin.charAt(2)
+      this.tin4 = this.employeetin.charAt(3)
+      this.tin5 = this.employeetin.charAt(4)
+      this.tin6 = this.employeetin.charAt(5)
+      this.tin7 = this.employeetin.charAt(6)
+      this.tin8 = this.employeetin.charAt(7)
+      this.tin9 = this.employeetin.charAt(8)
+      this.tin10 = this.employeetin.charAt(9)
+      this.tin11 = this.employeetin.charAt(10)
+      this.tin12 = this.employeetin.charAt(11)
+  
+      this.dob = this.uniquelist[0].birthday
+      this.dob1 = this.dob.charAt(0)
+      this.dob2 = this.dob.charAt(1)
+      this.dob3 = this.dob.charAt(2)
+      this.dob4 = this.dob.charAt(3)
+      this.dob5 = this.dob.charAt(5)
+      this.dob6 = this.dob.charAt(6)
+      this.dob7 = this.dob.charAt(8)
+      this.dob8 = this.dob.charAt(9)
+      this.year1= String(this.year)
+      this.year01 =  this.year1.charAt(0)
+      this.year02 =  this.year1.charAt(1)
+      this.year03 =  this.year1.charAt(2)
+      this.year04 =  this.year1.charAt(3)
+      this.previoussalary = this.uniquelist[0].prevoussalary
+      this.previoustax = this.uniquelist[0].previoustax
+      this.totalnontax =   this.uniquelist[0].yearotamount+this.yearlydeminims+this.totalsss
+      this.yearotamount = this.uniquelist[0].yearotamount.toFixed(2)
+    
+      } error: (err: { error: { message: any; }; }) => {
+        Swal.fire('Issue in GetEmployeeSalaryMonthly');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     }, error: (err) => {
       Swal.fire('Issue in GetEmployeeSalaryMonthly');
       // Insert error in Db Here//
@@ -221,7 +249,7 @@ stafflist1:any;
         },
       )}
   })
-  
+
 
 
 }
@@ -231,11 +259,25 @@ stafflist1:any;
 public getsign(){
   this.DigipayrollserviceService.GetMyDetails()
   
+ 
   .subscribe({
     next: data => {
-      debugger
-      this.stafflist1 = data.filter(x => x.department_name == this.sign);
-      this.signname = this.stafflist1[0].fullname
+      {
+        debugger
+        this.stafflist1 = data.filter(x => x.department_name == this.sign);
+        this.signname = this.stafflist1[0].fullname
+      } error: (err: { error: { message: any; }; }) => {
+        Swal.fire('Issue in GetMyDetails');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigipayrollserviceService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )}
     }, error: (err) => {
       Swal.fire('Issue in GetMyDetails');
       // Insert error in Db Here//

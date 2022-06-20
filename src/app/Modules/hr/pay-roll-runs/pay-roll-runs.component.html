@@ -8,13 +8,22 @@
 
         </div>
         <div class="col-lg-4">
-            <p class="Heading1">Payroll Runs </p>
+            <!-- <p class="Heading1">Payroll Runs </p> -->
         </div>
 
         <div class="col-lg-3">
             <br />
-             <button routerLink='/hr/PayRollRunsForm' class="form-control CancelBTN" style="width: 70%;" type="button" id="btn_button"
-               >New Payroll</button>
+               
+          
+            <button class="form-control  CancelBTN" style="width:80%;" (click)="swal()" *ngIf="selectrun==1" >New Payroll</button>
+
+            <!-- <button class="form-control  CancelBTN" style="width:80%;" *ngIf="thirteenthrunpayroll2==1" routerLink='/ThirtheenMonthPayroll'>13th Payroll</button> -->
+
+            <button class="form-control  CancelBTN" style="width:80%;" *ngIf="finalpayroll==1" routerLink='/FinalPayroll'>Final Payroll</button>
+       
+<!-- 
+             <button (click)="swal()"  class="form-control CancelBTN" style="width: 70%;" type="button" id="btn_button"
+               >New Payroll</button> -->
         </div>
     </div>
     <br/>
@@ -33,13 +42,34 @@
     </div>
 
     <div class="row">
+        <br />
+        <div class="col-lg-12 dashbutton bttn">
+            <div class="tab-slider--nav">
+                <ul class="tab-slider--tabs">
+                    <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
+                        (click)="viewMode ='tab1'" (click)="runpayroll()">
+                        Normal Payroll</li>
+                    <!-- <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
+                        (click)="viewMode ='tab2'" (click)="thirteenthrunpayroll()">13th Month Payroll</li> -->
+                    <li class="tab-slider--trigger" [class.active]="viewMode == 'tab3'" rel="tab3"
+                        (click)="viewMode ='tab3'" (click)="FinalPayroll()">Final Payroll</li>
+                </ul>
+
+            </div>
+        </div>
+        
+
+    </div>
+
+    <div class="row">
         <div class="col-lg-8 View">
             <!-- <ul>
                         <li><a class="active">View</a></li>
                     </ul> -->
         </div>
     </div> <br>
-
+    <div class="tab-slider--container" [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'tab1'" id="tab1">
     <div class="row">
         <div class="col-lg-12">
             <table class="table">
@@ -72,10 +102,185 @@
 
                 </tbody>
             </table>
+            <!-- <table class="table">
+                            <thead>
+                                <tr class="newFont">
+                                    <th class="SelectData">Select</th>
+                                    <th>Year</th>
+                                    <th>Month</th>
+                                    <th>Period</th>
+                                    <th>Payroll Run Type</th>
+                                    <th>Description</th>
+                                <tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of uniquelist">
+                                    <td class="SelectData"><input type="checkbox" (change)="getemployeelist(item.startdate,item.enddate,item.payrolltype)" data-toggle="collapse"
+                                        data-target="#demo"></td>
+                                    <td>{{item.endyear}}</td>
+                                    <td>{{item.month}}</td>
+                                    <td>{{item.payrolltype}}</td>
+                                    <td>Normal</td>
+                                    <td>Payroll For {{item.startdate|date}} - {{item.enddate|date}}({{item.paygroup}}) </td>
+                                    
+                                </tr>
+
+                               
+                            </tbody>
+                        </table> -->
         </div>
         <div class="text-right">
             <br>
             <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
         </div>  
     </div><br>
+    </div>
+        <div *ngSwitchCase="'tab2'" id="tab2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+                        <thead>
+                            <tr class="newFont">
+                              
+                                <th>Year</th>
+                               
+                                <th>Payroll Run Type</th>
+                                <th>Description</th>
+                                <th>Execution Date</th>
+                                <!-- <th>uniquelist</th> -->
+                                <!-- <td>Total Salary Paid</td> -->
+                            <tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of uniquelist3| paginate: { itemsPerPage: count1, currentPage: p }">
+                               
+                                <td style="color:#0C275A">{{item.year}}</td>
+                         
+                                <td style="color:#0C275A">Thiteenth Month</td>
+                                <td style="color:#0C275A">Thiteenth Month Payroll For {{item.year}} </td>
+                                <td>{{item.modifiedDate|date}}</td>
+                                <!-- <td>{{uniquelist.length}}</td> -->
+                                 
+                            </tr>
+        
+                        </tbody>
+                    </table>
+                    <!-- <table class="table">
+                                    <thead>
+                                        <tr class="newFont">
+                                            <th class="SelectData">Select</th>
+                                            <th>Year</th>
+                                            <th>Month</th>
+                                            <th>Period</th>
+                                            <th>Payroll Run Type</th>
+                                            <th>Description</th>
+                                        <tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of uniquelist">
+                                            <td class="SelectData"><input type="checkbox" (change)="getemployeelist(item.startdate,item.enddate,item.payrolltype)" data-toggle="collapse"
+                                                data-target="#demo"></td>
+                                            <td>{{item.endyear}}</td>
+                                            <td>{{item.month}}</td>
+                                            <td>{{item.payrolltype}}</td>
+                                            <td>Normal</td>
+                                            <td>Payroll For {{item.startdate|date}} - {{item.enddate|date}}({{item.paygroup}}) </td>
+                                            
+                                        </tr>
+        
+                                       
+                                    </tbody>
+                                </table> -->
+                </div>
+                <div class="text-right">
+                    <br>
+                    <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                </div>  
+            </div><br>
+    </div>
+    <div *ngSwitchCase="'tab3'" id="tab3">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table">
+                    <thead>
+                        <tr class="newFont">
+                          
+                            <th>Name</th>
+                            <th>Role</th>
+                    
+                            <th>Payroll Run Type</th>
+                        
+                            <!-- <th>uniquelist</th> -->
+                            <!-- <td>Total Salary Paid</td> -->
+                        <tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of uniquelistfinal| paginate: { itemsPerPage: count1, currentPage: p }">
+                           
+                            <td style="color:#0C275A">{{item.name}}</td>
+                            <td style="color:#0C275A">{{item.emprole}}</td>
+                          
+                            <td style="color:#0C275A">Final Payroll</td>
+                          
+                           
+                            <!-- <td>{{uniquelist.length}}</td> -->
+                             
+                        </tr>
+    
+                    </tbody>
+                </table>
+                <!-- <table class="table">
+                                <thead>
+                                    <tr class="newFont">
+                                        <th class="SelectData">Select</th>
+                                        <th>Year</th>
+                                        <th>Month</th>
+                                        <th>Period</th>
+                                        <th>Payroll Run Type</th>
+                                        <th>Description</th>
+                                    <tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of uniquelist">
+                                        <td class="SelectData"><input type="checkbox" (change)="getemployeelist(item.startdate,item.enddate,item.payrolltype)" data-toggle="collapse"
+                                            data-target="#demo"></td>
+                                        <td>{{item.endyear}}</td>
+                                        <td>{{item.month}}</td>
+                                        <td>{{item.payrolltype}}</td>
+                                        <td>Normal</td>
+                                        <td>Payroll For {{item.startdate|date}} - {{item.enddate|date}}({{item.paygroup}}) </td>
+                                        
+                                    </tr>
+    
+                                   
+                                </tbody>
+                            </table> -->
+            </div>
+            <div class="text-right">
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+            </div>  
+        </div><br>
+        </div>
+    </div>
+    
+
+
+
+
+    <!-- <div class="row" id="paygroup" class="collapse" >
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3"  style="    margin-left: 938px;">
+            <button class="Edit" (click)="convetToPDF1()">Convert To PDF </button> &nbsp;&nbsp;
+            <button class="Edit" (click)="exportexcel()">Export to Excel</button>       
+        </div> 
+    </div> <br> -->
+
+    
+
+
+
+  
 </div>

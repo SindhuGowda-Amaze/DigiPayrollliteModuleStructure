@@ -5,7 +5,7 @@
             <p class="Heading1"> Payroll </p>
         </div>
     </div>
-    <div class="card">
+    <div class="card" *ngIf="selectrun==1">
 
         <div class="row FilterClass fontheading" style="color:#0C275A">
 
@@ -34,12 +34,59 @@
             </div>
             <div class="col-lg-3" style="color:#0C275A">
                 <input class="form-control search" type="search" [(ngModel)]="Search" (ngModelChange)="Filterjobs()"
-                    placeholder="Search for date , Type or Code">
+                    placeholder="Search">
             </div>
+            
+                <div class="col-lg-2">
+                    
+                        <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                            (change)="filterByDepartment()">
+                            <option value="">Select Department</option>
+                            <option value="{{item.department_name}}" *ngFor="let item of Departmentlist">
+                                {{item.department_name}}
+                            </option>
+                        </select>
+                   
+                </div>
+                <!-- <button class="form-control CancelBTN" type="button" (click)="currentmonth()">Current Month
+                </button> -->
+           
             <div class="col-md-3">
-                <button class="form-control CancelBTN" type="button" (click)="currentmonth()">Current Month
+                <button class="form-control CancelBTN" type="button" (click)="exportexcel()">Export To Excel
                 </button>
             </div>
+
+
+        </div>
+    </div>
+    <div class="card"  *ngIf="finalpayroll==1" >
+
+        <div class="row FilterClass fontheading" style="color:#0C275A">
+
+            <div class="col-lg-1">
+                <p>Filter By</p>
+            </div>
+
+           
+            <div class="col-lg-3" style="color:#0C275A">
+                <input class="form-control search" type="search" [(ngModel)]="Search" (ngModelChange)="Filterjobs()"
+                    placeholder="Search">
+            </div>
+            
+                <div class="col-lg-2">
+                    
+                        <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                            (change)="filterByDepartmentFinal()">
+                            <option value="">Select Department</option>
+                            <option value="{{item.department_name}}" *ngFor="let item of Departmentlist">
+                                {{item.department_name}}
+                            </option>
+                        </select>
+                   
+                </div>
+                <!-- <button class="form-control CancelBTN" type="button" (click)="currentmonth()">Current Month
+                </button> -->
+           
             <div class="col-md-3">
                 <button class="form-control CancelBTN" type="button" (click)="exportexcel()">Export To Excel
                 </button>
@@ -95,8 +142,8 @@
                     <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
                         (click)="viewMode ='tab1'" (click)="runpayroll()">
                         Normal Payroll</li>
-                    <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
-                        (click)="viewMode ='tab2'" (click)="thirteenthrunpayroll()">13th Month Payroll</li>
+                    <!-- <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
+                        (click)="viewMode ='tab2'" (click)="thirteenthrunpayroll()">13th Month Payroll</li> -->
                     <li class="tab-slider--trigger" [class.active]="viewMode == 'tab3'" rel="tab3"
                         (click)="viewMode ='tab3'" (click)="FinalPayroll()">Final Payroll</li>
                 </ul>
@@ -128,8 +175,9 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Employee Name</th>
+                                <th>Department</th>
                                 <th>Gross Salary</th>
-                                <th>Deminimis</th>
+                                <!-- <th>Deminimis</th> -->
                                 <th>Gross Salary For Period</th>
                                 <th>SSS Rate</th>
                                 <th>Pag-IBIG Rate</th>
@@ -138,6 +186,7 @@
                                 <th>Lop Days</th>
                                 <th>Lop Amount</th>
                                 <th>Loan Payout</th>
+                                <th>OT Amount</th>
                                 <th>Net Pay</th>
                             </tr>
                         </thead>
@@ -147,8 +196,9 @@
                                 <td style="color:#0C275A">{{item.startdate|date}}</td>
                                 <td style="color:#0C275A">{{item.enddate|date}}</td>
                                 <td style="color:#0C275A">{{item.staffname}}</td>
+                                <td style="color:#0C275A">{{item.department_name}}</td>
                                 <td style="color:#0C275A">{{item.grossSalary}}</td>
-                                <td style="color:#0C275A"> {{item.deniminimis_amount}}</td>
+                                <!-- <td style="color:#0C275A"> {{item.deniminimis_amount}}</td> -->
                                 <td style="color:#0C275A"> {{item.monthlysalaryperperiod}}</td>
                                 <td style="color:#0C275A">{{item.contribution}}</td>
                                 <td style="color:#0C275A">{{item.pagBig}}</td>
@@ -159,6 +209,10 @@
                                 <td style="color:#0C275A">
                                     <p *ngIf="item.loanpayout!=null">{{item.loanpayout}}</p>
                                     <p *ngIf="item.loanpayout==null">0</p>
+                                </td>
+                                <td style="color:#0C275A">
+                                    <p *ngIf="item.otamount!=null">{{item.otamount}}</p>
+                                    <p *ngIf="item.otamount==null">0</p>
                                 </td>
                                 <td style="color:#0C275A">{{item.netMonthSalary}}</td>
 
@@ -201,7 +255,8 @@
                                 <th>Year</th>
                                 <th>Basic Salary</th>
                                 <th *ngIf="ComputationDeminimis==true">Deminimis Amount</th>
-                                
+                                <th>Leave Encashment</th>
+                                <th>13th Month Bonus</th>
                                 <th>Net Pay</th>
                             </tr>
                         </thead>
@@ -213,9 +268,12 @@
                                <td>{{item.year}}</td>
                                <td>{{item.basicsalary}}</td>
                                <td *ngIf="ComputationDeminimis==true" >{{item.deminimsamount}}</td>
-                              <td><p *ngIf="ComputationDeminimis==true">
+                              <td>{{item.Leaveencashpayout}}</td>
+                               <td>{{item.christmasbonus}}</td>
+                               <td><p *ngIf="ComputationDeminimis==true">
                                 {{item.monthlysalary}}
                               </p>
+
                               <p *ngIf="ComputationDeminimis==false">
                                 {{item.basicsalary}}
                               </p>
@@ -256,35 +314,38 @@
                                 <th>Employee Name</th>
                                <th>Department</th>
                                <th>Role</th>
-                                <th>Gross Salary</th>
+                                <th>Gross Salary </th>
                                 <th>Deminimis</th>
                                 
                                 <th>SSS Rate</th>
                                 <th>Pag-IBIG Rate</th>
                                 <th>PhilHealth Contribution</th>
                                 <th>Tax</th>
-                                <th>Leave-EncashPayout</th>
+                               
                                 <th>Benefits</th>
-                                
+                                <th>Leave Encashment</th>
+                                <th>13th Month Bonus</th>
                                 <th>Net Pay</th>
                                
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of finalist">
+                            <tr *ngFor="let item of finalist|filter:Search">
                                
                                 <td style="color:#0C275A">{{item.name}}</td>
                                 <td style="color:#0C275A">{{item.department_name}}</td>
                                 <td style="color:#0C275A">{{item.emprole}}</td>
-                                <td style="color:#0C275A">{{item.grossSal}}</td>
+                                <td style="color:#0C275A">{{item.monthlysalaryperperiod}}</td>
                                 <td style="color:#0C275A"> {{item.deminimsamount}}</td>
                                
                                 <td style="color:#0C275A">{{item.contribution}}</td>
                                 <td style="color:#0C275A">{{item.pagBig}}</td>
                                 <td style="color:#0C275A">{{item.philHealthContribution}}</td>
                                 <td style="color:#0C275A">{{item.tax}}</td>
-                                <td style="color:#0C275A">{{item.leaveencashpayout}} </td>
+                               
                                 <td style="color:#0C275A">{{item.benefits}} </td>
+                                <td>{{item.leaveencashpayout}}</td>
+                                <td>{{item.christmasbonus|number:'1.2-2'}}</td>
                                 <td style="color:#0C275A">{{item.netSalary}}</td>
                                
 

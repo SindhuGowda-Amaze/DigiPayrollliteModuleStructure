@@ -122,20 +122,34 @@ export class BIR1604CFReportComponent implements OnInit {
 
       this.DigipayrollServiceService.GetCompanyProfile()
       
+    
       .subscribe({
         next: data => {
-          debugger
-          this.companylist = data
-          this.companyid = this.companylist[0].id,
-          this.companyname = this.companylist[0].company_Name,
-          this.Address = this.companylist[0].address1 + this.companylist[0].address2
-          this.Phone = this.companylist[0].phone
-          this.email= this.companylist[0].email
-          this.zipcode = this.companylist[0].zipcode
-          this.tin = this.companylist[0].tin
-    
+          {
+            debugger
+            this.companylist = data
+            this.companyid = this.companylist[0].id,
+            this.companyname = this.companylist[0].company_Name,
+            this.Address = this.companylist[0].address1 + this.companylist[0].address2
+            this.Phone = this.companylist[0].phone
+            this.email= this.companylist[0].email
+            this.zipcode = this.companylist[0].zipcode
+            this.tin = this.companylist[0].tin
+      
+          } error: (err: { error: { message: any; }; }) => {
+            Swal.fire('Issue in GetCompanyProfile');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigipayrollServiceService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )}
         }, error: (err) => {
-          Swal.fire('Issue in GetCompanyProfile');
+          Swal.fire('Issue in Deleting Hoilday');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -147,6 +161,8 @@ export class BIR1604CFReportComponent implements OnInit {
             },
           )}
       })
+
+    
 
      
 
