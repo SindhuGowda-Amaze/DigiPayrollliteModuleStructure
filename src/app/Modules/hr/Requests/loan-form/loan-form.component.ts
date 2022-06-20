@@ -159,24 +159,15 @@ export class LoanFormComponent implements OnInit {
           debugger
           Swal.fire('Saved Successfully.');
           this.getpassword();
-          this.router.navigate(['/Appliedloans']);
-        }, 
-        error: (err) => {
-          Swal.fire('Issue in Inserting Employee Loans ');
-          // Insert error in Db Here//
-          var obj = {
-            'PageName': this.currentUrl,
-            'ErrorMessage': err.error.message
-          }
-          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-            data => {
-              debugger
-            },
-          )
+          this.router.navigate(['/employee/loans']);
+
         }
+
       })
+    
       
     }
+  
    
 
 

@@ -1,23 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-weekly-shift',
-  templateUrl: './weekly-shift.component.html',
-  styleUrls: ['./weekly-shift.component.css']
+  selector: 'app-my-team-weekly-shift',
+  templateUrl: './my-team-weekly-shift.component.html',
+  styleUrls: ['./my-team-weekly-shift.component.css']
 })
-export class WeeklyShiftComponent implements OnInit {
+export class MyTeamWeeklyShiftComponent implements OnInit {
+
   constructor(public DigiofficeService: DigipayrollserviceService) { }
+  date: any;
+  edate:any;
   roleid: any;
+  todaydate: any;
+  staffid:any;
   firstdayofcurrentweek: any;
   lastdayofcurrentweek: any;
-  todaydate: any;
   ngOnInit(): void {
-    this.GetAnnouncements();
     this.roleid = sessionStorage.getItem('roledid');
+    this.staffid= sessionStorage.getItem('staffid');
+    this.GetAnnouncements();
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
@@ -35,23 +40,35 @@ export class WeeklyShiftComponent implements OnInit {
   }
   term: any;
   workplaceList: any;
-  public GetAnnouncements() {
+  public filterdate() {
     debugger
     this.DigiofficeService.GetStaffShiftDetails().subscribe(data => {
       debugger
-      this.workplaceList = data.filter(x => x.staffID == sessionStorage.getItem('staffid') )
+     // this.workplaceList = data.filter(x => (x.filterdate >= this.firstdayofcurrentweek && x.filterdate <= this.lastdayofcurrentweek));
+     if(this.roleid==2){
+      this.workplaceList = data.filter(x=>x.supervisor==this.staffid && (x.filterdate >= this.date && x.filterdate <= this.edate));
+     }
+     else{
+      this.workplaceList = data.filter(x=> (x.filterdate >= this.date && x.filterdate <= this.edate))
+     }
+     
     })
 
-  }
-  sdate: any;
-  edate: any
 
-  public Getdate() {
-    debugger
+  }
+
+  public GetAnnouncements(){
     this.DigiofficeService.GetStaffShiftDetails().subscribe(data => {
       debugger
-      this.workplaceList = data.filter(x => (x.filterdate >= this.sdate && x.filterdate <= this.edate))
+     // this.workplaceList = data.filter(x => (x.filterdate >= this.firstdayofcurrentweek && x.filterdate <= this.lastdayofcurrentweek));
+     if(this.roleid==2){
+      this.workplaceList = data.filter(x=>x.supervisor==this.staffid );
+     }
+     else{
+      this.workplaceList = data
+     }
+     
     })
-
   }
+
 }

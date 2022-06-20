@@ -1,0 +1,113 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    color: #3247d5;
+   
+    font-weight: bold;
+    font-size: 20px !important;
+    padding-left: 5px;
+  }
+  
+  li a:hover {
+    text-decoration: 3px solid rgb(28, 32, 94) underline;
+  }
+  
+  .requestbtn{
+      background-color: #4282be;
+      color: white;
+    
+      font-weight: bold;
+      border-left: solid 1px #f5f5f5;
+      font-size: 15px;
+      line-height: 12px;
+      text-align: center;
+      white-space: nowrap;
+  }
+  
+  .leavelist{
+    padding: 0px 20px;
+  }
+  .container-fluid{
+    font-family: 'DIN Bold';
+    padding: 0px;
+    margin: 0px;
+  }
+  th{
+      background-color: #e4e5e6;
+  }
+  td{
+      background-color: white;
+      color: #494949;
+  }
+  .show3res{
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5;
+    color: #777;
+    text-transform: uppercase;
+    padding: 10px 0 5px;
+  }
+  .leavebalance{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #404040;
+    font-size: 20px;
+  }
+  .table{
+    padding: 10px;
+  }
+  
+  .inputfield{
+    background-color: rgb(238, 234, 234);
+    border: none;
+    height: 34px;
+    width: 217px;
+  }
+  
+  .new-fieldui4{
+    text-align: left !important;
+    float: left;
+    margin-bottom: 3px;
+    font-weight: 100 !important;
+    color: #000;
+  
+    word-break: break-word;
+    font-size:13px;
+  }
+  
+  
+  .img{
+  width: 25px;
+  height: 10%;
+  }
+  
+  .imgcancel{
+  width: 25px;
+  height: 10%;
+  }
+  
+  .upload{
+  margin-left: -19px;
+  border-radius: 6px;
+  height: 28px;
+  background-color: #36acdd;
+  color:white
+  }
+  
+  u {
+        text-decoration-color: #2F87CC;
+        text-decoration-thickness: 0.1em;
+        text-decoration-thickness: 12px;
+        
+      }

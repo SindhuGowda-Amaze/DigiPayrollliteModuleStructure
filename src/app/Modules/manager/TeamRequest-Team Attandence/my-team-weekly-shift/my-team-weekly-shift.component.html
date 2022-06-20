@@ -1,0 +1,99 @@
+<div class="container-fluid">
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div>
+                <div>
+                    <ul>
+                        <li><a class="active" routerLink="/manager/WeeklyShift"> My Weekly Shift</a></li>
+                        <li *ngIf="roleid==2"><a class="leavelist" routerLink="/manager/MyTeamWeeklyShift"
+                                style="margin-left: 10px;"><u>My Team Weekly Shift</u></a></li>
+                        <li *ngIf="roleid==9"><a class="leavelist" routerLink="/manager/MyTeamWeeklyShift"
+                                style="margin-left: 10px;"><u>Company Weekly Shift</u></a></li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="card filtercard">
+                <div class="row">
+                    <div class="col-md-1">
+                        <p> Filter By </p>
+                    </div>
+                    <div class="col-md-2">
+                        <p> Start Date</p>
+                        <input class="form-control" type="date" style="font-family: 'Poppins'" placeholder="Duration" id="date" name="date"
+                            [(ngModel)]="date">
+                    </div>
+                    <div class="col-md-2">
+                        <p>End Date</p>
+                        <input class="form-control"  style="font-family: 'Poppins'" type="date" placeholder="Duration" id="edate" name="edate"
+                            [(ngModel)]="edate" (change)="filterdate()">
+                    </div>
+                    <div class="col-md-3">
+                       
+                        <p>Search</p>
+                        <input class="form-control" type="search" id="term" name="term" [(ngModel)]="term"
+                            placeholder="Search  ">
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+
+            <div class="row">
+                <div class="col-md-10">
+                    <!-- <p class="show3res">SHOWING <span> {{workplaceList.length}} </span>RESULTS</p> -->
+                    <p class="show3res">SHOWING <span> {{(workplaceList | filter:term).length}}
+                        </span>RESULTS</p>
+                </div>
+                <div class="col-md-2">
+                    <a *ngIf="roleid==2" routerLink="/manager/StaffShiftMasterForm">
+                        <button class="button" style="width: 165px;">Add Shift Details</button>
+                    </a>
+                </div>
+            </div><br>
+            <!-- <div class="row">
+                <div class="col-lg-12">
+                    <label>SHIFT DETAIL</label>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table" *ngIf="(workplaceList | filter:term).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>EMPLOYEE NAME</th>
+                                <th>START DATE</th>
+                                <th>END DATE</th>
+                                <th>SHIFT NAME</th>
+                                <th>START TIME</th>
+                                <th>END TIME</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of workplaceList|filter:term">
+                                <td>{{project.name}}</td>
+                                <td>{{project.shiftDate|date}}</td>
+                                <td>{{project.endDate|date}}</td>
+                                <td>{{project.shiftName}}</td>
+                                <td>{{project.startTime|date:'hh:mm'}}</td>
+                                <td>{{project.endTime|date:'hh:mm'}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found </p>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    </div>
+</div>

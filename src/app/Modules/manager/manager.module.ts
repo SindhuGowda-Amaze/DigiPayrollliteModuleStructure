@@ -17,6 +17,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MyTeamWeeklyShiftComponent } from './TeamRequest-Team Attandence/my-team-weekly-shift/my-team-weekly-shift.component';
+import { StaffShiftMasterFormComponent } from './TeamRequest-Team Attandence/staff-shift-master-form/staff-shift-master-form.component';
 @NgModule({
   declarations: [
     ManagerComponent,
@@ -28,7 +30,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     TeamVaccinationDetailsComponent,
     TeamExpenseListComponent,
     WeeklyShiftComponent,
-    MyTeamSalaryAdjustmentComponent
+    MyTeamSalaryAdjustmentComponent,
+    MyTeamWeeklyShiftComponent,
+    StaffShiftMasterFormComponent
   ],
   imports: [
     CommonModule,

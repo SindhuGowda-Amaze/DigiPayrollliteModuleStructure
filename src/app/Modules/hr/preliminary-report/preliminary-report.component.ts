@@ -195,12 +195,10 @@ export class PreliminaryReportComponent implements OnInit {
         )
       }
     })
-
-
-
-
   }
+
   alluniquelist1: any
+
   public getnewlist(key: any) {
     debugger
 
@@ -266,51 +264,80 @@ export class PreliminaryReportComponent implements OnInit {
             this.ID1.push(this.uniquelist[i].id);
             //this.EmployeeID =
             this.ID1[i];
-            this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i]).subscribe(
-              res => {
-                debugger;
-                if (res.length == 0) {
+            this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i])
+            .subscribe({
+              next: data => {
+                debugger
+                if (data.length == 0) {
                   this.LOPDays = 0;
-                  this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                    res => {
-
-                      debugger;
-                      this.StaffSalaryReports = res;
+                  this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate)
+                  .subscribe({
+                    next: data => {
+                      debugger
+                      this.StaffSalaryReports = data;
 
                       this.ID1 = [];
-
-
-                      // location.href = '#/PayRoll'
+                    }, error: (err) => {
+                      Swal.fire('Issue in Getting Preliminary Report');
+                      // Insert error in Db Here//
+                      var obj = {
+                        'PageName': this.currentUrl,
+                        'ErrorMessage': err.error.message
+                      }
+                      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                        data => {
+                          debugger
+                        },
+                      )
                     }
-                  )
-
+                  })
                 } else {
-                  this.LOPDays = res[0].noOfDays;
+                  this.LOPDays = data[0].noOfDays;
                   if (this.LOPDays <= 2) {
                     this.LOPDays = this.LOPDays;
                   }
                   else {
                     this.LOPDays = this.LOPDays - 2;
                   }
-                  this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                    res => {
-                      debugger;
+                  this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate)
+                  .subscribe({
+                    next: data => {
+                      debugger
                       this.loader = true
-                      this.StaffSalaryReports = res;
+                      this.StaffSalaryReports = data;
 
                       this.ID1 = [];
                       this.loader = false
-
-                      // location.href = '#/PayRoll'
+                    }, error: (err) => {
+                      Swal.fire('Issue in Getting Preliminary Report');
+                      // Insert error in Db Here//
+                      var obj = {
+                        'PageName': this.currentUrl,
+                        'ErrorMessage': err.error.message
+                      }
+                      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                        data => {
+                          debugger
+                        },
+                      )
                     }
-                  )
+                  })
                 }
                 this.loader = false
+              }, error: (err) => {
+                Swal.fire('Issue in Getting Staff Leaves For Payroll By Date');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
               }
-
-
-            )
-
+            })
           }
 
 
@@ -353,51 +380,77 @@ export class PreliminaryReportComponent implements OnInit {
             this.ID1.push(this.uniquelist[i].id);
             //this.EmployeeID =
             this.ID1[i];
-            this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i]).subscribe(
-              res => {
-
-                debugger;
-                if (res.length == 0) {
+            this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i])
+            .subscribe({
+              next: data => {
+                debugger
+                if (data.length == 0) {
                   this.LOPDays = 0;
-                  this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                    res => {
-                      debugger;
-                      this.StaffSalaryReports = res;
+                  this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate)
+                  .subscribe({
+                    next: data => {
+                      debugger
+                      this.StaffSalaryReports = data;
 
                       this.ID1 = [];
-
-
-                      // location.href = '#/PayRoll'
+                    }, error: (err) => {
+                      Swal.fire('Issue in Getting Preliminary Report');
+                      // Insert error in Db Here//
+                      var obj = {
+                        'PageName': this.currentUrl,
+                        'ErrorMessage': err.error.message
+                      }
+                      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                        data => {
+                          debugger
+                        },
+                      )
                     }
-                  )
-
+                  })
                 } else {
-                  this.LOPDays = res[0].noOfDays;
+                  this.LOPDays = data[0].noOfDays;
                   if (this.LOPDays <= 2) {
                     this.LOPDays = this.LOPDays;
                   }
                   else {
                     this.LOPDays = this.LOPDays - 2;
                   }
-                  this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                    res => {
-
-                      debugger;
-                      this.StaffSalaryReports = res;
+                  this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate)
+                  .subscribe({
+                    next: data => {
+                      debugger
+                      this.StaffSalaryReports = data;
 
                       this.ID1 = [];
-
-
-                      // location.href = '#/PayRoll'
+                    }, error: (err) => {
+                      Swal.fire('Issue in Getting Preliminary Report');
+                      // Insert error in Db Here//
+                      var obj = {
+                        'PageName': this.currentUrl,
+                        'ErrorMessage': err.error.message
+                      }
+                      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                        data => {
+                          debugger
+                        },
+                      )
                     }
-                  )
+                  })
                 }
-
+              }, error: (err) => {
+                Swal.fire('Issue in Getting Staff Leaves For Payroll By Date');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
               }
-
-
-            )
-
+            })
           }
 
 
@@ -611,15 +664,17 @@ export class PreliminaryReportComponent implements OnInit {
       for (let i = 0; i < this.ID.length; i++) {
         debugger;
         this.EmployeeID = this.ID[i];
-        this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i]).subscribe(
-          res => {
-            debugger;
-            if (res.length == 0) {
+        this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i])
+        .subscribe({
+          next: data => {
+            debugger
+            if (data.length == 0) {
               this.LOPDays = 0;
-              this.DigiofficeService.Get_PreliminaryReport(this.ID[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                res => {
-                  debugger;
-                  this.StaffSalaryReports = res;
+              this.DigiofficeService.Get_PreliminaryReport(this.ID[i], this.LOPDays, this.startdate, this.enddate)
+              .subscribe({
+                next: data => {
+                  debugger
+                  this.StaffSalaryReports = data;
                   Array.prototype.push.apply(this.StaffSalaryReports1, this.StaffSalaryReports);
 
                   const key = 'empid';
@@ -638,47 +693,82 @@ export class PreliminaryReportComponent implements OnInit {
 
                   this.Showpayroll = 1
                   this.Payrollvis = true
-
+                }, error: (err) => {
+                  Swal.fire('Issue in Getting Preliminary Report');
+                  // Insert error in Db Here//
+                  var obj = {
+                    'PageName': this.currentUrl,
+                    'ErrorMessage': err.error.message
+                  }
+                  this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                    data => {
+                      debugger
+                    },
+                  )
                 }
-              )
-
+              })
             } else {
 
-              this.LOPDays = res[0].noOfDays;
-              this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i]).subscribe(
-                res1 => {
-                  debugger;
-                  this.PrevLOPDays = res1[0].noOfDays;
+              this.LOPDays = data[0].noOfDays;
+              this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i])
+              .subscribe({
+                next: data => {
+                  debugger
+                  this.PrevLOPDays = data[0].noOfDays;
                   if (this.LOPDays > 2) {
                     if (this.PrevLOPDays == 0) {
                       this.LOPDays = this.LOPDays;
-                      this.DigiofficeService.Get_PreliminaryReport(this.ID[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                        res => {
-                          debugger;
-                          this.StaffSalaryReports = res;
+                      this.DigiofficeService.Get_PreliminaryReport(this.ID[i], this.LOPDays, this.startdate, this.enddate)
+                      .subscribe({
+                        next: data => {
+                          debugger
+                          this.StaffSalaryReports = data;
                           this.loader = false;
                           this.Showpayroll = 1
                           this.ID = [];
                           this.Payrollvis = true;
-
+                        }, error: (err) => {
+                          Swal.fire('Issue in Getting Preliminary Report');
+                          // Insert error in Db Here//
+                          var obj = {
+                            'PageName': this.currentUrl,
+                            'ErrorMessage': err.error.message
+                          }
+                          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                            data => {
+                              debugger
+                            },
+                          )
                         }
-                      )
+                      })
                     }
                     else if (this.PrevLOPDays != 0) {
                       let ActualLOPDays = Number(this.LOPDays) + Number(this.PrevLOPDays);
                       if (ActualLOPDays > 4) {
                         this.LOPDays = Number(ActualLOPDays) - 4;
-                        this.DigiofficeService.Get_PreliminaryReport(this.ID[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                          res => {
-                            debugger;
-                            this.StaffSalaryReports = res;
+                        this.DigiofficeService.Get_PreliminaryReport(this.ID[i], this.LOPDays, this.startdate, this.enddate)
+                        .subscribe({
+                          next: data => {
+                            debugger
+                            this.StaffSalaryReports = data;
                             this.loader = false;
                             this.Showpayroll = 1
                             this.ID = [];
                             this.Payrollvis = true;
-
+                          }, error: (err) => {
+                            Swal.fire('Issue in Getting Preliminary Report');
+                            // Insert error in Db Here//
+                            var obj = {
+                              'PageName': this.currentUrl,
+                              'ErrorMessage': err.error.message
+                            }
+                            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                              data => {
+                                debugger
+                              },
+                            )
                           }
-                        )
+                        })
                       }
                     }
                   }
@@ -686,28 +776,60 @@ export class PreliminaryReportComponent implements OnInit {
                   else {
                     if (this.LOPDays <= 2 || this.PrevLOPDays == 0) {
                       this.LOPDays = 0;
-                      this.DigiofficeService.Get_PreliminaryReport(this.ID[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                        res => {
-                          debugger;
-                          this.StaffSalaryReports = res;
+                      this.DigiofficeService.Get_PreliminaryReport(this.ID[i], this.LOPDays, this.startdate, this.enddate)
+                      .subscribe({
+                        next: data => {
+                          debugger
+                          this.StaffSalaryReports = data;
                           this.loader = false;
                           this.Showpayroll = 1
                           this.ID = [];
                           this.Payrollvis = true
-
+                        }, error: (err) => {
+                          Swal.fire('Issue in Getting Preliminary Report');
+                          // Insert error in Db Here//
+                          var obj = {
+                            'PageName': this.currentUrl,
+                            'ErrorMessage': err.error.message
+                          }
+                          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                            data => {
+                              debugger
+                            },
+                          )
                         }
-                      )
+                      })
                     }
                   }
-
+                }, error: (err) => {
+                  Swal.fire('Issue in Getting Staff Leaves For Payroll By Date');
+                  // Insert error in Db Here//
+                  var obj = {
+                    'PageName': this.currentUrl,
+                    'ErrorMessage': err.error.message
+                  }
+                  this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                    data => {
+                      debugger
+                    },
+                  )
                 }
-              )
-
+              })
             }
-
+          }, error: (err) => {
+            Swal.fire('Issue in Getting Staff Leaves For Payroll By Date');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
           }
-
-        )
+        })
       }
 
 
@@ -885,42 +1007,77 @@ export class PreliminaryReportComponent implements OnInit {
                 this.ID1.push(this.stafflist[i].id);
                 //this.EmployeeID =
                 this.ID1[i];
-                this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i]).subscribe(
-                  res => {
-                    debugger;
-                    if (res.length == 0) {
+                this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i])
+                .subscribe({
+                  next: data => {
+                    debugger
+                    if (data.length == 0) {
                       this.LOPDays = 0;
-                      this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                        res => {
-                          debugger;
-                          this.StaffSalaryReports = res;
+                      this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate)
+                      .subscribe({
+                        next: data => {
+                          debugger
+                          this.StaffSalaryReports = data;
                           this.ID1 = [];
                           location.href = '#/PayRoll'
+                        }, error: (err) => {
+                          Swal.fire('Issue in Getting Preliminary Report');
+                          // Insert error in Db Here//
+                          var obj = {
+                            'PageName': this.currentUrl,
+                            'ErrorMessage': err.error.message
+                          }
+                          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                            data => {
+                              debugger
+                            },
+                          )
                         }
-                      )
-
+                      })
                     } else {
-                      this.LOPDays = res[0].noOfDays;
+                      this.LOPDays = data[0].noOfDays;
                       if (this.LOPDays <= 2) {
                         this.LOPDays = this.LOPDays;
                       }
                       else {
                         this.LOPDays = this.LOPDays - 2;
                       }
-                      this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                        res => {
-                          debugger;
-                          this.StaffSalaryReports = res;
+                      this.DigiofficeService.Get_PreliminaryReport(this.ID1[i], this.LOPDays, this.startdate, this.enddate)
+                      .subscribe({
+                        next: data => {
+                          debugger
+                          this.StaffSalaryReports = data;
                           this.ID1 = [];
                           location.href = '#/PayRoll'
+                        }, error: (err) => {
+                          Swal.fire('Issue in Getting Preliminary Report');
+                          // Insert error in Db Here//
+                          var obj = {
+                            'PageName': this.currentUrl,
+                            'ErrorMessage': err.error.message
+                          }
+                          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                            data => {
+                              debugger
+                            },
+                          )
                         }
-                      )
+                      })
                     }
-
+                  }, error: (err) => {
+                    Swal.fire('Issue in Getting Staff Leaves For Payroll By Date');
+                    // Insert error in Db Here//
+                    var obj = {
+                      'PageName': this.currentUrl,
+                      'ErrorMessage': err.error.message
+                    }
+                    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                      data => {
+                        debugger
+                      },
+                    )
                   }
-
-
-                )
+                })
 
               }
 
@@ -951,29 +1108,43 @@ export class PreliminaryReportComponent implements OnInit {
                 this.ID1.push(this.stafflist[i].id);
                 //this.EmployeeID =
                 this.ID1[i];
-                this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i]).subscribe(
-                  res => {
-                    debugger;
-                    if (res.length == 0) {
+                this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i])
+                .subscribe({
+                  next: data => {
+                    debugger
+                    if (data.length == 0) {
                       this.LOPDays = 0;
-                      this.DigiofficeService.Get_Salary_Splits(this.ID1[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-                        res => {
-                          debugger;
-                          this.StaffSalaryReports = res;
+                      this.DigiofficeService.Get_Salary_Splits(this.ID1[i], this.LOPDays, this.startdate, this.enddate)
+                      .subscribe({
+                        next: data => {
+                          debugger
+                          this.StaffSalaryReports = data;
                           this.ID1 = [];
                           location.href = '#/PayRoll'
+                        }, error: (err) => {
+                          Swal.fire('Issue in Getting Salary Splits');
+                          // Insert error in Db Here//
+                          var obj = {
+                            'PageName': this.currentUrl,
+                            'ErrorMessage': err.error.message
+                          }
+                          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                            data => {
+                              debugger
+                            },
+                          )
                         }
-                      )
-
+                      })
                     } else {
-                      this.LOPDays = res[0].noOfDays;
+                      this.LOPDays = data[0].noOfDays;
                       if (this.LOPDays <= 2) {
                         this.LOPDays = this.LOPDays;
                       }
                       else {
                         this.LOPDays = this.LOPDays - 2;
                       }
-                      this.DigiofficeService.Get_Salary_Splits(this.ID1[i], this.LOPDays, this.startdate, this.enddate).subscribe(
+                      this.DigiofficeService.Get_Salary_Splits(this.ID1[i], this.LOPDays, this.startdate, this.enddate)
+                      .subscribe(
                         res => {
                           debugger;
                           this.StaffSalaryReports = res;
@@ -982,10 +1153,20 @@ export class PreliminaryReportComponent implements OnInit {
                         }
                       )
                     }
-
+                  }, error: (err) => {
+                    Swal.fire('Issue in Getting Salary Splits');
+                    // Insert error in Db Here//
+                    var obj = {
+                      'PageName': this.currentUrl,
+                      'ErrorMessage': err.error.message
+                    }
+                    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                      data => {
+                        debugger
+                      },
+                    )
                   }
-                )
-
+                })
               }
 
 
@@ -1078,52 +1259,59 @@ export class PreliminaryReportComponent implements OnInit {
   hdmfsalaryloan: any;
   benefits: any;
   public getpayslip(id: any) {
-    this.DigiofficeService.GetPreliminarySalary().subscribe(data => {
-      debugger
-      this.id = id;
-      this.employeelist2 = data.filter(x => x.staffID == id && x.startdate1 == this.startdate && x.enddate1 == this.enddate);
-
-      this.fullname = this.employeelist2[0].staffname + this.employeelist2[0].lastName,
-        this.payrolldate = this.employeelist2[0].enddate,
-        this.startdate = this.employeelist2[0].startdate;
-      this.enddate = this.employeelist2[0].enddate,
-        this.department = this.employeelist2[0].department_name,
-        this.role = this.employeelist2[0].role,
-        this.tin = this.employeelist2[0].tiNNo,
-        this.SSS = this.employeelist2[0].ssSRate,
-        this.PhilHealth = this.employeelist2[0].philiHealth,
-        this.hdmf = this.employeelist2[0].pagiBigAccountNo,
-        this.BaseSalary = this.employeelist2[0].baseSalary,
-        this.deniminimis_amount = this.employeelist2[0].deniminimis_amount
-      this.deminimisamount = this.employeelist2[0].deMINIMIS,
+    this.DigiofficeService.GetPreliminarySalary()
+    .subscribe({
+      next: data => {
+        debugger
+        this.id = id;
+        this.employeelist2 = data.filter(x => x.staffID == id && x.startdate1 == this.startdate && x.enddate1 == this.enddate);
+  
+        this.fullname = this.employeelist2[0].staffname + this.employeelist2[0].lastName,
+          this.payrolldate = this.employeelist2[0].enddate,
+          this.startdate = this.employeelist2[0].startdate;
+        this.enddate = this.employeelist2[0].enddate,
+          this.department = this.employeelist2[0].department_name,
+          this.role = this.employeelist2[0].role,
+          this.tin = this.employeelist2[0].tiNNo,
+          this.SSS = this.employeelist2[0].ssSRate,
+          this.PhilHealth = this.employeelist2[0].philiHealth,
+          this.hdmf = this.employeelist2[0].pagiBigAccountNo,
+          this.BaseSalary = this.employeelist2[0].baseSalary,
+          this.deniminimis_amount = this.employeelist2[0].deniminimis_amount
+        this.deminimisamount = this.employeelist2[0].deMINIMIS,
+          this.lopamount = this.employeelist2[0].lopamount,
+          this.sssamount = this.employeelist2[0].contribution,
+          this.philHealthContribution = this.employeelist2[0].philHealthContribution,
+          this.pagBig = this.employeelist2[0].pagBig,
+          this.tax = this.employeelist2[0].tax,
+          this.netMonthSalary = this.employeelist2[0].netMonthSalary,
+  
+          this.GrossSalary = this.employeelist2[0].grossSalary,
+          this.semimonthly = Number(this.employeelist2[0].grossSalary) / 2
+        this.deductions = (this.employeelist2[0].pagBig + this.employeelist2[0].philiHealth + this.employeelist2[0].contribution + this.employeelist2[0].tax),
+          this.basicday = (Math.round((this.employeelist2[0].grossSalary / 30) * 100) / 100).toFixed(2);
+        this.basichour = (Math.round((this.basicday / 8) * 100) / 100).toFixed(2);
+        this.ssssalaryloan = this.employeelist2[0].ssssalaryloan,
+          this.ssscalamity = this.employeelist2[0].ssscalamity,
+          this.hdmfcalamityloan = this.employeelist2[0].hdmfcalamityloan,
+          this.hdmfsalaryloan = this.employeelist2[0].hdmfsalaryloan,
+          this.companyloan = this.employeelist2[0].companyloan
         this.lopamount = this.employeelist2[0].lopamount,
-        this.sssamount = this.employeelist2[0].contribution,
-        this.philHealthContribution = this.employeelist2[0].philHealthContribution,
-        this.pagBig = this.employeelist2[0].pagBig,
-        this.tax = this.employeelist2[0].tax,
-        this.netMonthSalary = this.employeelist2[0].netMonthSalary,
-
-        this.GrossSalary = this.employeelist2[0].grossSalary,
-        this.semimonthly = Number(this.employeelist2[0].grossSalary) / 2
-      this.deductions = (this.employeelist2[0].pagBig + this.employeelist2[0].philiHealth + this.employeelist2[0].contribution + this.employeelist2[0].tax),
-        this.basicday = (Math.round((this.employeelist2[0].grossSalary / 30) * 100) / 100).toFixed(2);
-      this.basichour = (Math.round((this.basicday / 8) * 100) / 100).toFixed(2);
-      this.ssssalaryloan = this.employeelist2[0].ssssalaryloan,
-        this.ssscalamity = this.employeelist2[0].ssscalamity,
-        this.hdmfcalamityloan = this.employeelist2[0].hdmfcalamityloan,
-        this.hdmfsalaryloan = this.employeelist2[0].hdmfsalaryloan,
-        this.companyloan = this.employeelist2[0].companyloan
-      this.lopamount = this.employeelist2[0].lopamount,
-        this.benefits = this.employeelist2[0].benefits
-
-
-
-
-
-
-    }
-    )
-
+          this.benefits = this.employeelist2[0].benefits
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Preliminary Salary');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
   }
 
 
@@ -1135,28 +1323,38 @@ export class PreliminaryReportComponent implements OnInit {
   public FilterRoleType() {
     debugger
     debugger
-    this.DigiofficeService.Get_Employees_For_Payroll(this.startdate, this.enddate).subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x => x.daysworked > 0);
+    this.DigiofficeService.Get_Employees_For_Payroll(this.startdate, this.enddate)
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist = data.filter(x => x.daysworked > 0);
 
-      const key = 'id';
-      const key1 = 'month'
-
-      this.uniquelist2 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-
-      this.uniquelist = this.uniquelist2.filter((x: { role: any; }) => x.role == this.RoleType);
-
-
-      this.count = this.uniquelist.length;
-      this.uniquelistcopy = this.uniquelist;
-      this.loader = false
-      //  this.uniquelist = [...new Set(data.map(item => item))];
-
-
-
-    });
-
+        const key = 'id';
+        const key1 = 'month'
+  
+        this.uniquelist2 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+          [(item[key]), item])).values()]
+  
+        this.uniquelist = this.uniquelist2.filter((x: { role: any; }) => x.role == this.RoleType);
+  
+  
+        this.count = this.uniquelist.length;
+        this.uniquelistcopy = this.uniquelist;
+        this.loader = false
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Employees For Payroll');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
     // this.DigiofficeService.GetMyDetails().subscribe(data => {
     //   debugger
     //   this.uniquelist = data.filter(x => x.roleType == this.RoleType);
@@ -1167,28 +1365,38 @@ export class PreliminaryReportComponent implements OnInit {
   uniquelist2: any;
   public filterByDepartment() {
     debugger
-    this.DigiofficeService.Get_Employees_For_Payroll(this.startdate, this.enddate).subscribe(data => {
-      debugger
-      this.stafflist = data.filter(x => x.daysworked > 0);
+    this.DigiofficeService.Get_Employees_For_Payroll(this.startdate, this.enddate)
+    .subscribe({
+      next: data => {
+        debugger
+        this.stafflist = data.filter(x => x.daysworked > 0);
 
-      const key = 'id';
-      const key1 = 'month'
-
-      this.uniquelist2 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
-        [(item[key]), item])).values()]
-
-      this.uniquelist = this.uniquelist2.filter((x: { department_name: any; }) => x.department_name == this.Department);
-
-
-      this.count = this.uniquelist.length;
-      this.uniquelistcopy = this.uniquelist;
-      this.loader = false
-      //  this.uniquelist = [...new Set(data.map(item => item))];
-
-
-
-    });
-
+        const key = 'id';
+        const key1 = 'month'
+  
+        this.uniquelist2 = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
+          [(item[key]), item])).values()]
+  
+        this.uniquelist = this.uniquelist2.filter((x: { department_name: any; }) => x.department_name == this.Department);
+  
+  
+        this.count = this.uniquelist.length;
+        this.uniquelistcopy = this.uniquelist;
+        this.loader = false
+      }, error: (err) => {
+        Swal.fire('Issue in Getting Employees For Payroll');
+        // Insert error in Db Here//
+        var obj = {
+          'PageName': this.currentUrl,
+          'ErrorMessage': err.error.message
+        }
+        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+          data => {
+            debugger
+          },
+        )
+      }
+    })
     // this.DigiofficeService.GetMyDetails().subscribe(data => {
     //   debugger
     //   this.uniquelist = data.filter(x => x.department == this.Department);

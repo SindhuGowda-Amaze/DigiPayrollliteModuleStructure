@@ -1,0 +1,110 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5">
+            <p class="Heading">Add Shift Details</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10"></div>
+    </div>
+    <br>
+    <div class="card">
+        <br>
+        <div class="row leavereq">
+            <div class="col-md-2">
+                <label>Start Date<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>End Date<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>Staff<span class="span">*</span></label>
+            </div>
+
+            <div class="col-md-2">
+                <label>Shift Name<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>Start Time<span class="span">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <label>End Time<span class="span">*</span></label>
+            </div>
+        </div>
+        <div class="row leavereq">
+            <!-- <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Test">
+            </div> -->
+            <div class="col-md-2"> <input type="date" class="form-control" placeholder="Leave Code" name="startdate"
+                    [(ngModel)]="startdate" id="startdate"></div>
+            <div class="col-md-2">
+                <input type="date" class="form-control" placeholder="Leave Code" name="enddate" [(ngModel)]="enddate"
+                    id="enddate">
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <ng-multiselect-dropdown [placeholder]="'Select Staff'" [settings]="dropdownSettings"
+                        [data]="Stafflist" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)">
+                    </ng-multiselect-dropdown>
+                    <!-- <select class="dropdown form-control" [(ngModel)]="Staffid1" id="Staffid1" name="Staffid1" required>
+                        <option value="">Select Staff</option>
+                        <option *ngFor="let Staff of Stafflist" value="{{Staff.id}}">{{Staff.name}}
+                        </option>
+                    </select> -->
+                    <!-- <select class="form-control inputfield">
+                        <option value="Select">Expenses Type</option>
+                        <option value="1">Cab Allowance</option>
+                        <option value="2">Currency Allowance</option>
+                        <option value="3">Fuel Allowance</option>
+                        <option value="4">Medical Allowance</option>
+                        <option value="4">Food Allowance</option>
+                    </select> -->
+                </div>
+            </div>
+            <!-- <div class="col-md-2">
+                <input type="date" class="form-control" name="ShiftDate" id="ShiftDate" [(ngModel)]="ShiftDate">
+            </div> -->
+            <div class="col-md-2">
+                <select class="dropdown form-control" [(ngModel)]="ShiftName" id="ShiftName" name="ShiftName" (change)="ChangeShiftMaster()" required>
+                    <option value="">Select Shift</option>
+                    <option *ngFor="let Staff of leavelist" value="{{Staff.shiftTimeings}}">{{Staff.shiftTimeings}}
+                    </option>
+                </select>
+
+            </div>
+
+            <div class="col-md-2">
+                <input type="text" disabled="true" class="form-control" [(ngModel)]="StartTime" placeholder="Start Time"
+                    name="StartTime" id="StartTime">
+            </div>
+            <div class="col-md-2">
+                <input type="text" disabled="true" class="form-control" [(ngModel)]="EndTime" placeholder="End Time" name="EndTime"
+                    id="EndTime">
+            </div>
+        </div>
+        <br>
+
+
+        <br>
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-2">
+                <button class="button" (click)="Cancel()">Cancel</button>
+            </div>
+            <div class="col-lg-2">
+                <button class="button" (click)="save()">Save</button>
+            </div>
+
+
+        </div>
+        <br>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
