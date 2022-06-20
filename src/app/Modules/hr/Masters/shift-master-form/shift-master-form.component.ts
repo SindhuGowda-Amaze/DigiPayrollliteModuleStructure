@@ -46,7 +46,7 @@ export class ShiftMasterFormComponent implements OnInit {
             this.ShiftTimeings = this.shiftmasterlist[0].shiftTimeings;
             this.Grace = this.shiftmasterlist[0].grace;
           }, error: (err) => {
-            Swal.fire('Issue in Getting City Type');
+            Swal.fire('Issue in Getting Shift Master');
             // Insert error in Db Here//
             var obj = {
               'PageName': this.currentUrl,
@@ -72,7 +72,7 @@ public GetShiftMaster(){
       debugger
       this.shiftmasterlist = data;
     }, error: (err) => {
-      Swal.fire('Issue in Getting Expenses List Web');
+      Swal.fire('Issue in Getting Shift Master');
       // Insert error in Db Here//
       var obj = {
         'PageName': this.currentUrl,
@@ -108,14 +108,14 @@ public GetShiftMaster(){
         debugger
         if (data != 0) {
           Swal.fire("Saved Successfully");
-          location.href = "#/Shiftmasterdash";
+          location.href = "#/hr/ShiftMasterDash";
   
   
         }
   
        
       }, error: (err) => {
-        Swal.fire('Issue in Inserting ShiftMaster  ');
+        Swal.fire('Issue in Inserting Shift Master  ');
         // Insert error in Db Here//
         var obj = {
           'PageName': this.currentUrl,
@@ -155,7 +155,7 @@ public GetShiftMaster(){
     this.DigiofficeService.UpdateShiftMaster(entity).subscribe(data => {
 
       Swal.fire("Updated Successfully");
-      location.href = "#/Shiftmasterdash";
+      location.href = "#/hr/ShiftMasterDash";
 
 
 

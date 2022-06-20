@@ -37,7 +37,9 @@
                         <td style="color:#0C275A">{{item.endyear}}</td>
                         <td style="color:#0C275A">{{item.month}}</td>
                         <td style="color:#0C275A">{{item.payrolltype}}</td>
+                        
                         <td style="color:#0C275A">Normal</td>
+                       
                         <td style="color:#0C275A">Payroll For {{item.startdate|date}} -
                             {{item.enddate|date}} </td>
 
@@ -104,7 +106,7 @@
                         <tr *ngFor="let item of employeelist1|paginate: { itemsPerPage: count1, currentPage: p }">
                             <td class="SelectData"><input type="checkbox" value="item.value" [(ngModel)]="item.checked"
                                     (click)="getpayslip(item.id,item.startdate,item.enddate,$event,item)" ></td>
-                                    <td>{{item.id}}</td>
+                                    <td>{{item.employeeid1}}</td>
                                     <td>{{item.staffname}}</td>
                            
                             <td>Active</td>
@@ -134,7 +136,7 @@
         </div> 
     </div> <br> -->
 
-    <div class="row" id="paygroup" class="collapse">
+    <div class="row" *ngIf="showleaseforprint==1">
         <div class="col-lg-8">
         </div>
         <div class="col-lg-4" style="margin-left: 800px;">
@@ -154,36 +156,50 @@
                                 <th>Employee Name</th>
                                 <th>Tax Status</th>
                                 <th>Semi MonthlyBasic Salary </th>
-                                <th> Semi Monthly Deminimis Benifits </th>
+                                <!-- <th> Semi Monthly Deminimis Benifits </th> -->
                                 <th>OT Amount</th>
-                                <th>Loan Payout</th>
+                                <th>SSS Salary Loan</th>
+                                <th>Pagibig Multipurpose Loan</th>
+                                <th>Pagibig Housing Loan</th>
+                                <th>Pagibig Calamity Loan</th>
+                                <th>Reimbursement</th> 
                                 <th>Total Semi Monthly Salary</th>
                                 
                                 <!-- <th>Basic/Day</th>
                                 <th>Basic/Hr</th>
                                 <th>ECOLA</th> -->
                                
-                               
+                                <th>13th Month Bonus</th>
                                 <th>Tax</th>
                                 <th>SSS</th>
                                 <th>PHIL</th>
                                 <th>HDMF</th>
                                 <th>LOP Amount</th>
-                                <th>Adjustment</th>
+                                <th>SSS Salary Loan Adjustment</th>
+                                <th>Pagibig Multipurpose Loan Adjutment</th>
+                                <th>Pagibig Housing Loan Adjustment</th>
+                                <th>Pagibig Calamity Loan Adjustment</th>
                                 <th> Deductions Total</th>
-                                <!-- <th>Benefits</th> -->
+                                <th>Undertime</th>
+                                <th>Salary Dispute</th>
+                               
+                               
                                 <th>Net Pay</th>
                             </tr>
                             <tr *ngFor="let item of employeelist2">
-                                <td>{{item.id}}</td>
+                                <td>{{item.employeeid1}}</td>
                                 <td>{{item.staffname}}</td>
                                 <td>ME 1</td>
                                 <td>{{item.monthlysalaryperperiod}}</td>
-                                <td>{{item.deniminimis_amount}}</td>
+                                <!-- <td>{{item.deniminimis_amount}}</td> -->
                                 <td>{{item.otamount|number:'1.2-2'}}</td>
-                                <td>{{item.loanpayout|number:'1.2-2'}}</td>
+                                <td>{{item.sssSalaryLoan|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigMultiPurposeLoanPayout|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigCalamityLoanPayout|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigHouseLoanPayout|number:'1.2-2'}}</td>
+                                  <td>{{item.benefits}}</td> 
                                 <td>{{item.compensation|number:'1.2-2'}}</td>
-                              
+                                <td>{{item.christmasBonus}}</td>
                                 <!-- <td>{{item.basicperday}}</td>
                                 <td>{{item.basichour}}</td>
                                 <td>0</td> -->
@@ -194,10 +210,16 @@
                                 <td>{{item.philHealthContribution}}</td>
                                 <td>{{item.pagBig}}</td>
                                 <td>{{item.lopamount}}</td>
-                                <td>{{item.semiadjustment}}</td>
+                                <td>{{item.sssSalaryLoanAdjustment|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigMultiPurposeLoanAdjustment|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigCalamityLoanAdjustment|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigHouseLoanAdjustment|number:'1.2-2'}}</td>
 
-                                <td>{{item.deductions-item.semiadjustment|number:'1.2-2'}}</td>
-                                <!-- <td>{{item.benefits}}</td> -->
+                                <td>{{item.deductions|number:'1.2-2'}}</td>
+                                <td> {{item.undertimeamount|number:'1.2-2'}}</td>
+                                
+                               
+                                <td>{{item.salaryDisputeAmount}}</td> 
                                 <td>{{item.netMonthSalary}}</td>
                             </tr>
 
@@ -210,6 +232,14 @@
     </div>
 
     <div class="row" *ngIf="showleaseforprint==2">
+        <div class="col-lg-8">
+        </div>
+        <div class="col-lg-4" style="margin-left: 800px;">
+            <button class="AddButton" (click)="convetToPDF1()">Convert To PDF </button> &nbsp;&nbsp;
+            <button class="AddButton" (click)="exportexcel()">Export to Excel</button>
+        </div>
+    </div> <br>
+    <div class="row" *ngIf="showleaseforprint==2">
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12" style="overflow:auto;">
@@ -219,58 +249,84 @@
                                 <th>Employee Id</th>
                                 <th>Employee Name</th>
                                 <th>Tax Status</th>
-                                <th>Basic Salary</th>
-                                <th>Monthly Deminimis Benifits </th>
-                                <th>Total Monthly Salary</th>
-                                <th>Semi Monthly Basic Salary </th>
-                                <th>Basic/Day</th>
-                                <th>Basic/Hr</th>
-                                <th>ECOLA</th>
+                                <th>Semi MonthlyBasic Salary </th>
+                                <!-- <th> Semi Monthly Deminimis Benifits </th> -->
                                 <th>OT Amount</th>
-                                <th>Total Salary</th>
+                                <th>SSS Salary Loan</th>
+                                <th>Pagibig Multipurpose Loan</th>
+                                <th>Pagibig Housing Loan</th>
+                                <th>Pagibig Calamity Loan</th>
+                                <th>Reimbursement</th> 
+                                <th>Total Semi Monthly Salary</th>
+                                
+                                <!-- <th>Basic/Day</th>
+                                <th>Basic/Hr</th>
+                                <th>ECOLA</th> -->
+                               
+                                <th>13th Month Bonus</th>
                                 <th>Tax</th>
                                 <th>SSS</th>
                                 <th>PHIL</th>
                                 <th>HDMF</th>
                                 <th>LOP Amount</th>
-
-                                <th>Total Deduction</th>
-                                <th>Benefits</th>
+                                <th>SSS Salary Loan Adjustment</th>
+                                <th>Pagibig Multipurpose Loan Adjutment</th>
+                                <th>Pagibig Housing Loan Adjustment</th>
+                                <th>Pagibig Calamity Loan Adjustment</th>
+                                <th> Deductions Total</th>
+                                <th>Undertime</th>
+                                <th>Salary Dispute</th>
+                               
+                                <!-- <th>Benefits</th> -->
                                 <th>Net Pay</th>
                             </tr>
                             <tr *ngFor="let item of employeelist2">
-                                <td>{{item.id}}</td>
+                                <td>{{item.employeeid1}}</td>
                                 <td>{{item.staffname}}</td>
                                 <td>ME 1</td>
-                                <td>{{item.baseSalary}}</td>
-                                <td>{{item.deniminimis_amount}}</td>
-                                <td>{{item.grossSalary}}</td>
-                                <td>{{item.semimonthly}}</td>
-                                <td>{{item.basicperday}}</td>
-                                <td>{{item.basichour}}</td>
-                                <td>0</td>
+                                <td>{{item.monthlysalaryperperiod}}</td>
+                                <!-- <td>{{item.deniminimis_amount}}</td> -->
                                 <td>{{item.otamount|number:'1.2-2'}}</td>
-
-                                <td>{{item.semimonthly}}</td>
+                                <td>{{item.sssSalaryLoan|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigMultiPurposeLoanPayout|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigCalamityLoanPayout|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigHouseLoanPayout|number:'1.2-2'}}</td>
+                                 <td>{{item.benefits}}</td> 
+                                <td>{{item.compensation|number:'1.2-2'}}</td>
+                                <td>{{item.christmasBonus}}</td>
+                                <!-- <td>{{item.basicperday}}</td>
+                                <td>{{item.basichour}}</td>
+                                <td>0</td> -->
+                              
+                               
                                 <td>{{item.tax}}</td>
                                 <td>{{item.contribution}}</td>
                                 <td>{{item.philHealthContribution}}</td>
                                 <td>{{item.pagBig}}</td>
                                 <td>{{item.lopamount}}</td>
-
+                                <td>{{item.sssSalaryLoanAdjustment|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigMultiPurposeLoanAdjustment|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigCalamityLoanAdjustment|number:'1.2-2'}}</td>
+                                 <td>{{item.pagiBigHouseLoanAdjustment|number:'1.2-2'}}</td>
 
                                 <td>{{item.deductions|number:'1.2-2'}}</td>
-                                <td>{{item.benefits}}</td>
+                                <td> {{item.undertimeamount|number:'1.2-2'}}</td>
+                                
+                                <!-- <td>{{item.benefits}}</td> -->
+                                <td>{{item.salaryDisputeAmount}}</td> 
                                 <td>{{item.netMonthSalary}}</td>
                             </tr>
 
                         </thead>
                     </table>
                 </div>
+                </div>
             </div>
 
         </div>
-    </div>
+
+        
+   
 
 
 

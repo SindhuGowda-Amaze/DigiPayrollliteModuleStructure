@@ -68,10 +68,10 @@
                             placeholder="Search for Staff...">
                 </div>
                 <div class="col-lg-2">
-                    <p>Role
+                    <p>Position
                         <br> <select class="form-control" id="RoleType" name="RoleType" 
                             [(ngModel)]="RoleType" (change)="FilterRoleType()">
-                            <option value="">Select Role</option>
+                            <option value="">Select Position</option>
                             <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
                             </option>
                         </select>
@@ -103,7 +103,7 @@
                             <th>Employee Id</th>
                             <th>Employee Name</th>
                             <th>Department</th>
-                            <th>Role</th>
+                            <th>Position</th>
                             <th>Phone Number</th>
                             <th>Email</th>
                             <th>Date Of Joining</th>
@@ -166,7 +166,7 @@
                     <tr class="newFont">
                         <th>Employee ID*</th>
                         <th>Fullname</th>
-                        <th>Role</th>
+                        <th>Position</th>
                         <th>Department</th>
                         <th>Level</th>
                         <th>Date Hired</th>
@@ -174,7 +174,10 @@
                         <th>Bank Account Number</th>
                         <th>Work Days Per year</th> -->
                         <th>Basic Monthly Salary</th>
-                        <th>De Minimis Benefits(Monthy)</th>
+                        <!-- <th>De Minimis Benefits(Monthy)</th> -->
+                        <th>OT Amount</th>
+                        <th>Loan Payout</th>
+                        <th>Benefits</th>
                         <th>Total Monthly Salary</th>
                         <!-- <th>Basic Salary (Semi-Monthly)</th>
                         <th>Gross/Day</th>
@@ -220,8 +223,11 @@
                         <td>{{item.bankAccountNumber}}</td>
                         <td>251</td> -->
                         <td>{{item.baseSalary}}</td>
-                        <td>{{item.staffdeminims}}</td>
-                        <td>{{item.baseplusdeminimis}}</td>
+                        <!-- <td>{{item.staffdeminims}}</td> -->
+                        <td>{{item.monthlyotamount}}</td>
+                        <td>{{item.monthlyloan}}</td>
+                        <td>{{item.monthlyBenefits}}</td>
+                        <td>{{item.monthlyFullSalary}}</td>
                         <!-- <td>{{item.baseSalary/2}}</td>
                         <td>{{item.basicperday}}</td>
                         <td>{{item.basichour}}</td>

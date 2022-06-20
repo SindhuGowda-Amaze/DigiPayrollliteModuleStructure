@@ -315,6 +315,10 @@ export class MyTeamAttendenceComponent implements OnInit {
       })
   }
 
+  public GetAttendanceConfiguration(){
+    
+  }
+
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
     this.selecallbtn = true;
     var inputs = document.getElementsByTagName("input");
