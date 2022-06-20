@@ -46,8 +46,8 @@
                         <select class="form-control inputfield" id="LeaveType" name="LeaveType" [(ngModel)]="LeaveType"
                             (change)="CheckLeave()">
                             <option value="">Select Leave type</option>
-                            <option value="{{leavetype.id}}" *ngFor="let leavetype of LeaveTypeList">
-                                {{leavetype.description}} </option>
+                            <option value="{{leavetype.id}}" *ngFor="let leavetype of newLeaveTypeList">
+                                {{leavetype.short}} </option>
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -63,7 +63,12 @@
                             class="form-control inputfield" placeholder="End Date">
                     </div>
                     <div class="col-md-1">
-                        <input type="checkbox" id="halfday" name="halfday" value="0" [(ngModel)]="halfday">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                        id="HalfDayBit" name="HalfDayBit" [(ngModel)]="HalfDayBit"
+                        onkeypress="return /[A-Z]/i.test(event.key)">
+                       <label class="form-check-label" for="flexCheckDefault">
+                        Half Day
+                    </label>
                     </div>
                     <div class="col-md-2" *ngIf="halfday">
                         <select class="form-control inputfield" id="slot" name="slot">
@@ -83,7 +88,7 @@
                     </div>
                    
                     <div class="col-md-2">
-                        <p>Covering Staff<span style="color: red;">*</span></p>
+                        <p>Covering Staff<span style="color: red;"></span></p>
                     </div>
                     
                     <div class="col-md-1"></div>
@@ -132,56 +137,65 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>Leave Type</th>
                                         <th>Annual Quota</th>
-                                        <th>Entitlement Till Date</th>
                                         <th>Availed Till Date</th>
                                         <th>Current Balance</th>
 
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let item of Staffleaveenitilment">
+                                <tbody *ngFor="let item of Staffleaveenitilment; let i=index">
                                     <tr>
-                                        <td>1</td>
-                                        <td>Medical Leave</td>
-                                        <td>{{item.medicalLeaveEntitlement}}</td>
-                                        <td>{{item.medicalLeaveEntitlement-item.medicalLeaveTaken}}</td>
-                                        <td>{{item.medicalLeaveTaken}}</td>
-                                        <td>{{item.medicalLeaveEntitlement-item.medicalLeaveTaken}}</td>
+                                        <td>Vacation Leave</td>
+                                        <td>{{item.vacationLeaveEntitlement}}</td>
+                                        <td>{{item.vacationLeaveTaken}}</td>
+                                        <td>{{item.vacationLeaveremaining}}</td>
                                     </tr>
                                     <tr>
-                                        <td>2</td>
-                                        <td>Marriage Leave</td>
-                                        <td>{{item.marriageLeaveEntitlement}}</td>
-                                        <td>{{item.marriageLeaveEntitlement-item.marriageLeaveTaken}}</td>
-                                        <td>{{item.marriageLeaveTaken}}</td>
-                                        <td>{{item.marriageLeaveEntitlement-item.marriageLeaveTaken}}</td>
+                                        <td>Sick Leave</td>
+                                        <td>{{item.sickLeaveEntitlement}}</td>
+                                        <td>{{item.sickLeaveTaken}}</td>
+                                        <td>{{item.sickLeaveremaining}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Emergency leave</td>
-                                        <td>{{item.emergencyLeave}}</td>
-                                        <td>{{item.emergencyLeave-item.emergencyLeaveTaken}}</td>
-                                        <td>{{item.emergencyLeaveTaken}}</td>
-                                        <td>{{item.emergencyLeave-item.emergencyLeaveTaken}}</td>
+                                    <tr *ngIf="item.awardname != 'No Award'">
+                                        <td>Service Incentive Leave</td>
+                                        <td>{{item.serviceIncentiveLeaveEntitlement}}</td>
+                                        <td>{{item.serviceIncentiveLeaveTaken}}</td>
+                                        <td>{{item.serviceIncentiveLeaveremaining}}
+                                        </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <td>4</td>
-                                        <td>Casual leave</td>
-                                        <td>{{item.compassionateLeaveEntitlement}}</td>
-                                        <td>{{item.compassionateLeaveEntitlement-item.compassionateLeaveTaken}}</td>
-                                        <td>{{item.compassionateLeaveTaken}}</td>
-                                        <td>{{item.compassionateLeaveEntitlement-item.compassionateLeaveTaken}}</td>
+                                    <tr *ngIf="item.gender == 'Female' && item.status == 'Married'">
+                                        <td>Maternity Leave</td>
+                                        <td>{{item.maternitityLeaveEntitlement}}</td>
+                                        <td>{{item.maternitityLeaveTaken}}</td>
+                                        <td>{{item.maternitityLeaveremaining}}
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>LOP</td>
-                                        <td>30</td>
-                                        <td>30</td>
-                                        <td>{{item.lopleavetaken}}</td>
-                                        <td>{{30-item.lopleavetaken}}</td>
-                                    </tr> -->
+                                    <tr *ngIf="item.gender == 'Male' && item.status == 'Married'">
+                                        <td>Paternity Leave</td>
+                                        <td>{{item.paternitityLeaveEntitlement}}</td>
+                                        <td>{{item.paternitityLeaveTaken}}</td>
+                                        <td>{{item.paternitityLeaveremaining}}</td>
+                                    </tr>
+                                    <tr *ngIf="item.is_Solo_Parent==1">
+                                        <td>Solo Parent Leave</td>
+                                        <td>{{item.soloParentLeaveEntitlement}}</td>
+                                        <td>{{item.soloParentLeaveTaken}}</td>
+                                        <td>{{item.soloParentLeaveremaining}}</td>
+                                    </tr>
+                                    <tr *ngIf="item.gender == 'Female'">
+                                        <td>Violence Against Women and Children </td>
+                                        <td>{{item.violenceLeaveEntitlement}}</td>
+                                        <td>{{item.violenceLeaveTaken}}</td>
+                                        <td>{{item.violenceLeaveremaining}}</td>
+                                    </tr>
+                                    <tr *ngIf="item.gender == 'Female'">
+                                        <td>Gynecological leave</td>
+                                        <td>{{item.gynecologicalLeaveEntitlement}}</td>
+                                        <td>{{item.gynecologicalLeaveTaken}}</td>
+                                        <td>{{item.gynecologicalLeaveremaining}}</td>
+                                    </tr>
+
                                 </tbody>
 
 
