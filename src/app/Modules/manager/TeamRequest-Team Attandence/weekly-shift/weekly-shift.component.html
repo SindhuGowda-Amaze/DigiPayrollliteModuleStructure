@@ -1,22 +1,23 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-10">
-            <!-- <div>
+
+        <div class="col-md-12">
+            <div>
                 <ul>
-                    <li><a class="active" routerLink="/WeeklyShift"> <u>My Weekly Shift</u></a></li>
-                    <li *ngIf="roleid==2"><a class="leavelist" routerLink="/MyTeamWeeklyShift">My Team Weekly Shift</a>
+                    <li><a class="" routerLink="/manager/WeeklyShift"><u> My Weekly Shift </u></a></li>
+                    <li *ngIf="roleid==2" style="margin-left: 10px;"><a class="leavelist" routerLink="/manager/MyTeamWeeklyShift">My Team Weekly
+                            Shift</a>
                     </li>
+                    <li *ngIf="roleid==9" style="margin-left: 10px;"><a class="leavelist" routerLink="/manager/MyTeamWeeklyShift">Company Weekly
+                        Shift</a>
+                </li>
                 </ul>
-            </div> -->
+
+            </div>
             <br>
-            <div class="card">
-                <div>
-                    <label class="leavebalance">Period</label>
-                </div>
-                <hr>
+            <div class="card filtercard">
+
                 <div class="row leavereq">
                     <div class="col-md-3">
                         <p>START DATE<span style="color: red;">*</span></p>
@@ -24,51 +25,52 @@
                     <div class="col-md-3">
                         <p>END DATE<span style="color: red;">*</span></p>
                     </div>
-
                 </div>
                 <div class="row leavereq">
                     <div class="col-md-3">
-                        <input type="date" class="form-control">
+                        <input type="date" id="sdate"  style="font-family: 'Poppins'" name="sdate" [(ngModel)]="sdate" class="form-control">
                     </div>
                     <div class="col-md-3">
-                        <input type="date" class="form-control">
+                        <input type="date" id="edate"  style="font-family: 'Poppins'" name="edate" [(ngModel)]="edate" (change)='Getdate()'
+                            class="form-control">
                     </div>
-                    <div class="col-md-2">
-                        <button class=" form-control submitbtn leavelist">Refresh</button>
-                    </div>
+
                 </div>
-                <br>
             </div>
             <br>
             <div class="row">
-                <div class="col-lg-12">
-                    <label>SHIFT DETAIL</label>
-                </div>
+                <!-- <div class="col-lg-12">
+                    <label>SHIFT DETAILS</label>
+                </div> -->
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>SHIFT DATE</th>
+                                <th>START DATE</th>
+                                <th>END DATE</th>
                                 <th>SHIFT NAME</th>
                                 <th>START TIME</th>
                                 <th>END TIME</th>
                             </tr>
                         </thead>
-                       
-                            <tbody>
-                                <tr *ngFor="let project of workplaceList">
-                                  
-                                    <td>{{project.shiftDate|date}}</td>
-                                    <td>{{project.shiftName}}</td>
-                                    <td>{{project.startTime|date:'hh:mm'}}</td>
-                                    <td>{{project.endTime|date:'hh:mm'}}</td>
-                                </tr>
+
+                        <tbody>
+                            <tr *ngFor="let project of workplaceList|filter:term">
+
                                
-                            </tbody>
-                       
+                                <td>{{project.shiftDate|date}}</td>
+                                <td>{{project.endDate|date}}</td>
+                                <td>{{project.shiftName}}</td>
+                                <td>{{project.startTime|date:'hh:mm'}}</td>
+                                <td>{{project.endTime|date:'hh:mm'}}</td>
+                            </tr>
+
+                        </tbody>
+
                     </table>
+                    <span *ngIf="workplaceList.length==0"><b>No Data Found!!</b></span>
                 </div>
             </div>
             <div class="col-md-1">

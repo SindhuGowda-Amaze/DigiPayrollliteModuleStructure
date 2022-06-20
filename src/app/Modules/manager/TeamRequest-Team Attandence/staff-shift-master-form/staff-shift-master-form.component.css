@@ -1,0 +1,107 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    text-decoration: 3px solid rgb(28, 32, 94) underline;
+  }
+  
+  .requestbtn{
+      background-color: #4282be;
+      color: white;
+      font-family: 'DIN Bold';
+      font-weight: bold;
+      border-left: solid 1px #f5f5f5;
+      font-size: 15px;
+      line-height: 12px;
+      text-align: center;
+      white-space: nowrap;
+  }
+  
+  .leavelist{
+    padding: 0px 20px;
+  }
+  .btnhover{
+      background-color: #2F87CC;
+      color: white;
+  }
+  .applyleavetxt{
+    padding: 0px 10px;
+    font-family: 'DIN Bold';
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  /* .container-fluid{
+    font-family: 'DIN Bold';
+    padding: 0px;
+    margin: 0px;
+  } */
+  th{
+      background-color: #e4e5e6;
+  }
+  td{
+      background-color: white;
+      color: #494949;
+  }
+  .show3res{
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5;
+    color: #777;
+    text-transform: uppercase;
+    padding: 10px 0 5px;
+  }
+  .leavebalance{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #404040;
+    font-size: 20px;
+  }
+  .leavereq{
+    padding-left: 10px;
+  }
+  .inputfield{
+    background-color: rgb(238, 234, 234);
+    border: none;
+    height: 34px;
+    width: 217px;
+  }
+  
+  .new-fieldui4{
+    text-align: left !important;
+    float: left;
+    margin-bottom: 3px;
+    font-weight: 100 !important;
+    color: #000;
+    font-family: 'Poppins' !important;
+    word-break: break-word;
+    font-size:13px;
+  }
+  
+  u {
+  text-decoration-color: #2F87CC;
+  text-decoration-thickness: 0.1em;
+  text-decoration-thickness: 6px;
+  
+  }
+  .span{
+    color:red;
+  }

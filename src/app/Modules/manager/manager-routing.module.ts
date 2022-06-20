@@ -7,6 +7,8 @@ import { MyTeamOvertimedetailsComponent } from './ManagerRequest/my-team-overtim
 import { TeamExpenseListComponent } from './ManagerRequest/team-expense-list/team-expense-list.component';
 import { MyTeamAttendenceComponent } from './TeamRequest-Team Attandence/my-team-attendence/my-team-attendence.component';
 import { MyTeamSalaryAdjustmentComponent } from './TeamRequest-Team Attandence/my-team-salary-adjustment/my-team-salary-adjustment.component';
+import { MyTeamWeeklyShiftComponent } from './TeamRequest-Team Attandence/my-team-weekly-shift/my-team-weekly-shift.component';
+import { StaffShiftMasterFormComponent } from './TeamRequest-Team Attandence/staff-shift-master-form/staff-shift-master-form.component';
 import { TeamVaccinationDetailsComponent } from './TeamRequest-Team Attandence/team-vaccination-details/team-vaccination-details.component';
 import { UploadAttendenceComponent } from './TeamRequest-Team Attandence/upload-attendence/upload-attendence.component';
 import { WeeklyShiftComponent } from './TeamRequest-Team Attandence/weekly-shift/weekly-shift.component';
@@ -25,7 +27,9 @@ const routes: Routes = [{ path: '', component: ManagerComponent },
 {path:'MyTeamAttendence',component:MyTeamAttendenceComponent},
 {path:'TeamVaccinationDetails',component:TeamVaccinationDetailsComponent},
 {path:'UploadAttendence',component:UploadAttendenceComponent},
-{path:'WeeklyShift',component:WeeklyShiftComponent}
+{path:'WeeklyShift',component:WeeklyShiftComponent},
+{path:'MyTeamWeeklyShift',component:MyTeamWeeklyShiftComponent},
+{path:'StaffShiftMasterForm',component:StaffShiftMasterFormComponent}
 
 
 
