@@ -141,6 +141,8 @@
                              {{staffleaves.length}}
                             
                             </li>
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab3'" rel="tab3"
+                            (click)="viewMode ='tab3'">Rejected</li>
                         </ul>
         
                     </div>
@@ -259,6 +261,61 @@
                             </tbody>
                         </table>
                     </div>
+                    </div>
+                    <div *ngSwitchCase="'tab3'" id="tab3">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>Select All <input type="checkbox" name="select-all" id="select-all"
+                                                (click)="selectALL(true)" /></th> -->
+                                        <th>Employee Name</th>
+                                        <th>From Date</th>
+                                        <th>To Date</th>
+                                        <th>Leave Type</th>
+                                        <th>Leave Reason</th>
+                                        <th>Leave Days Count</th>
+                                        <th>Attachment</th>
+                                        <th>Stage & Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let list of staffleaves3|filter: term">
+                                        <!-- <td><input *ngIf="list.status=='Manager Pending HR Pending'|| list.status==null"
+                                                type="checkbox" (click)="getCheckbocdetails(list)">
+         -->
+                                        <td>{{list.staffName}}</td>
+                                        <td>{{list.sDateOfLeave}} </td>
+                                        <td>{{list.eDateOfLeave}} </td>
+                                        <td>{{list.leavetype}}</td>
+                                        <td>{{list.leaveReason}}</td>
+                                        <td>{{list.noOfDays}}</td>
+                                        <td>
+                                            <p *ngIf="list.medicalUrl==null">No Attachment</p>
+                                            <a *ngIf="list.filetype=='pdf' && list.medicalUrl!=null" href="{{list.medicalUrl}}"
+                                                target="_blank"> <img src="assets/images/pdf.png" alt="pdf.img" class="image"
+                                                   ></a>
+                                            <img *ngIf="list.medicalUrl!=null && list.filetype!='pdf'" src="{{list.medicalUrl}}"
+                                                (click)="getmedicalUrl(list.medicalUrl)" alt="medical.img" data-toggle="modal"
+                                                data-target="#Allocate" style=" width: 50px;">
+                                        </td>
+                                        <td>
+                                            <p *ngIf="list.status==null">Manager Rejected</p>
+                                            <p *ngIf="list.status!=null">{{list.status}}</p>
+                                        </td>
+                                        <td>
+                                            <img *ngIf="list.status=='Manager Rejected'|| list.status==null"
+                                                class="img" (click)="ManagerLeaveApprove(list)"
+                                                src="assets/images/check-mark.png">
+                                            <img *ngIf="list.status=='Manager Rejected'|| list.status==null"
+                                                class="imgcancel" (click)="GetRejectID(list)" data-toggle="modal"
+                                                data-target="#Reject" src="assets/images/cancel (1).png">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
             </div>
             </div>
