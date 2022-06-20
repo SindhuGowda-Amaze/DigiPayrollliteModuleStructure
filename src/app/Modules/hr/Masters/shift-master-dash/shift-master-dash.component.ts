@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class ShiftMasterDashComponent implements OnInit {
   currentUrl: any;
+  shiftmasterlist: any
 
   constructor(public DigiofficeService: DigipayrollserviceService) { }
 
@@ -18,10 +19,11 @@ export class ShiftMasterDashComponent implements OnInit {
     this.GetShiftMaster();
   }
 
-  shiftmasterlist: any
+  
   public GetShiftMaster() {
     debugger
-    this.DigiofficeService.GetShiftMaster().subscribe({
+    this.DigiofficeService.GetShiftMaster()
+    .subscribe({
       next: data => {
         debugger
         this.shiftmasterlist = data
@@ -43,7 +45,8 @@ export class ShiftMasterDashComponent implements OnInit {
 
   public delete(id: any) {
     debugger
-    this.DigiofficeService.DeleteShiftMaster(id).subscribe(data => {
+    this.DigiofficeService.DeleteShiftMaster(id)
+    .subscribe(data => {
       debugger
       Swal.fire('Deleted Successfully');
       this.ngOnInit();

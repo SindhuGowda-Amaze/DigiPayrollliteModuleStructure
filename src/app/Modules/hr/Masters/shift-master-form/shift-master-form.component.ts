@@ -9,15 +9,18 @@ import Swal from 'sweetalert2';
   styleUrls: ['./shift-master-form.component.css']
 })
 export class ShiftMasterFormComponent implements OnInit {
-  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+  currentUrl:any
+
   ID: any;
   shiftmasterlist: any;
   Short: any;
   Description: any;
   ShiftTimeings: any
   Grace: any
-  currentUrl:any
+ 
 
+  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
+  
 
 
   ngOnInit(): void {
@@ -33,17 +36,32 @@ export class ShiftMasterFormComponent implements OnInit {
       }
       else {
 
-        this.DigiofficeService.GetShiftMaster().subscribe(
-          data => {
+        this.DigiofficeService.GetShiftMaster()
+        .subscribe({
+          next: data => {
             debugger
-
             this.shiftmasterlist = data;
             this.Short = this.shiftmasterlist[0].short;
             this.Description = this.shiftmasterlist[0].description;
             this.ShiftTimeings = this.shiftmasterlist[0].shiftTimeings;
             this.Grace = this.shiftmasterlist[0].grace;
-          },
-        );
+          }, error: (err) => {
+            Swal.fire('Issue in Getting City Type');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+        
+        
+       
       }
     }
     )

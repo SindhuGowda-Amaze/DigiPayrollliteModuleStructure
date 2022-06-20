@@ -9,16 +9,26 @@ import Swal from 'sweetalert2';
   styleUrls: ['./leave-type-dashboard.component.css']
 })
 export class LeaveTypeDashboardComponent implements OnInit {
+  currentUrl: any;
+  loader:any;
+  term: any;
+  leavelist: any;
+  ID: any;
+
+
+
+
+
+
   constructor(public DigiofficeService: DigipayrollserviceService) { }
-  currentUrl:any;
+  
   ngOnInit(): void {
+    this.currentUrl = window.location.href;
     this.currentUrl = window.location.href;
     this.loader=true;
     this.GetLeaveType();
   }
-  loader:any;
-  term: any;
-  leavelist: any
+  
   public GetLeaveType() {
     debugger
     this.DigiofficeService.GetLeaveType()
@@ -43,7 +53,7 @@ export class LeaveTypeDashboardComponent implements OnInit {
     })
   }
 
-  ID: any;
+ 
   GetId(id: any) {
     this.ID = id
   }
