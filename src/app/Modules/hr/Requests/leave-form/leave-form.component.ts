@@ -236,8 +236,6 @@ export class LeaveFormComponent implements OnInit {
         debugger
       })
     }
-
-
   }
 
   public CheckLeave() {

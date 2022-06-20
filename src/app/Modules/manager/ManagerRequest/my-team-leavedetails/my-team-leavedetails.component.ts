@@ -142,7 +142,7 @@ export class MyTeamLeavedetailsComponent implements OnInit {
     for (var i = 0; i < this.ID.length; i++) {
       var entity = {
         'ID': this.ID[i].id,
-        'Status1': 'Manager Approved HR Pending',
+        'Status1': 'Manager Approved',
         'UserID': this.ID[i].staffID,
         'LeaveTypeID': this.ID[i].leaveTypeID,
         'NoOfDays': this.ID[i].noOfDays
@@ -222,7 +222,7 @@ export class MyTeamLeavedetailsComponent implements OnInit {
     else if (id.status == 'Cancellation Pending') {
       var entity = {
         'ID': id.id,
-        'Status1': 'Manager Approved HR Pending',
+        'Status1': 'Manager Approved',
         'StaffName': id.staffID,
         'LeaveTypeID': id.leaveTypeID,
         'NoOfDays': id.noOfDays,

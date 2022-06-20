@@ -96,9 +96,6 @@ export class LeavesComponent implements OnInit {
 
         this.cutofflist = data.filter(x => x.month == this.month && x.payperiod == this.payperiod)
         this.CutOffDate = this.cutofflist[0].filterdate
-
-
-
       },
     );
 
@@ -120,18 +117,12 @@ export class LeavesComponent implements OnInit {
         this.results = this.holidaylist.map((val: { staffID: any; }) => {
           return Object.assign({}, val, this.leavetypelist.filter((v: { keys: any; }) => v.keys === val.staffID)[0]);
         });
-
-
       });
-
     })
-
   }
 
   public GetPayrollCutOffDate() {
     this.DigiofficeService.GetPayrollCutOffDate()
-
-
       .subscribe({
         next: data => {
           debugger
@@ -151,15 +142,11 @@ export class LeavesComponent implements OnInit {
           )
         }
       })
-
-
   }
 
 
   public GetMyDetails() {
     this.DigiofficeService.GetMyDetails()
-
-
       .subscribe({
         next: data => {
           debugger
@@ -191,18 +178,10 @@ export class LeavesComponent implements OnInit {
           this.DigiofficeService.GetMyDetails().subscribe(data => {
             debugger
             this.leavetypelist = data.filter(x => x.id == sessionStorage.getItem('staffid')).keys;
-
-
             this.results = this.holidaylist.map((val: { staffID: any; }) => {
               return Object.assign({}, val, this.leavetypelist.filter((v: { keys: any; }) => v.keys === val.staffID)[0]);
             });
-
-
           });
-
-
-
-
         }, error: (err) => {
           Swal.fire('Issue in Getting LeaveConfiguration');
           // Insert error in Db Here//
@@ -255,7 +234,6 @@ export class LeavesComponent implements OnInit {
     }
     else {
       this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
-
 
         .subscribe({
           next: data => {
