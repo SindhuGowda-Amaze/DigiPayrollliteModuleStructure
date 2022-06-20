@@ -7,7 +7,7 @@
                 <div>
                     <ul>
                         <li><a class="active" routerLink="/employee/attendence"> My Attendance Details</a></li>
-                        <li><a class="leavelist" *ngIf="roleid==6||roleid==2" routerLink="/manager/MyTeamAttendence"><u>My Team Attendance Details</u></a></li>
+                        <li><a class="leavelist" *ngIf="roleid==2" routerLink="/manager/MyTeamAttendence"><u>My Team Attendance Details</u></a></li>
                         <li><a class="leavelist" *ngIf="roleid==9" routerLink="/manager/MyTeamAttendence"><u>All Staff Attendance Details</u></a></li>
                     </ul>
                 </div>
@@ -29,10 +29,10 @@
                         </p>
                     </div>
                     <div class="col-lg-2">
-                        <p>Role
+                        <p>Position
                             <br> <select class="form-control" id="RoleType" name="RoleType"
                                 (change)='getRoleType($event)' [(ngModel)]="RoleType" (change)="FilterRoleType()">
-                                <option value="">Select Role</option>
+                                <option value="">Select Position</option>
                                 <option *ngFor="let item of RoleTypeList" value="{{item.short}}">{{item.short}}
                                 </option>
                             </select>
@@ -76,7 +76,7 @@
 
                 </div>
             </div>
-            <div class="row" style="width: 1300px; overflow-x: scroll;">
+            <div class="row" style="    width: 1384px; overflow-x: scroll;">
                 <div class="col-md-12">
                     <table class="table" id="lvs" 
                         *ngIf="(attendancelist |paginate: { itemsPerPage: count1, currentPage: p}).length > 0; else noResults">
@@ -84,7 +84,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Staff Name</th>
-                                <th>Role</th>
+                                <th>Position</th>
                                 <th>Department</th>
                                 <th>Sign In Type</th>
                                 <th>Expected In Time</th>
@@ -95,6 +95,7 @@
                                 <th>Punch Out Time</th>
                                 <th>Punch Out Location/IP Address</th>
                                 <th>Work Hours(HH:MM) </th>
+                                <th>Overtime </th>
                                 <th>UnderTime </th>
                                 <th>Late </th>
                             </tr>
@@ -118,7 +119,7 @@
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
                                     {{attendance.signInType}}</td>
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
-                                    {{startingTime1}}</td>
+                                    {{attendance.expectedIn|date:'HH:mm'}}</td>
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
                                     {{attendance.signinDate|date:'HH:mm'}}</td>
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
@@ -129,7 +130,7 @@
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
                                     {{attendance.signInType}}</td>
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
-                                    {{endTime1}}</td>
+                                    {{attendance.expectedOut|date:'HH:mm'}}</td>
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
                                     {{attendance.signoutDate|date:'HH:mm'}}</td>
 
@@ -140,6 +141,10 @@
                                 </td>
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
                                     {{attendance.hr1}}</td>
+                                    
+                                
+                                 <td [ngClass]="{'bgred':attendance.latepunchin=='Yes'||attendance.undertime=='Yes'  }">
+                                    {{attendance.overtime}}</td>
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
                                     {{attendance.undertime}}</td>
                                 <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">

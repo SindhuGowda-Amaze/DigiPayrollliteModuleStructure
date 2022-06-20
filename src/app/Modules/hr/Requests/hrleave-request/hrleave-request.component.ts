@@ -12,24 +12,15 @@ import { FullCalendarOptions, EventObject } from 'ngx-fullcalendar';
 })
 export class HRLeaveRequestComponent implements OnInit {
 
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router, public datePipe: DatePipe) { }
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router,public datePipe: DatePipe) { }
   public selecallbtn: any;
-  loader: any;
+  loader:any;
   roledid: any;
   p: any = 1;
   RoleType: any;
   count1: any = 10;
   Departmentlist: any;
   RoleTypeList: any;
-
-  term: any;
-  staffleaves: any;
-  staffListCopy: any;
-  stafflist: any;
-  count: any;
-  Department: any;
-  sdate: any;
-  edate: any;
 
   public filtereddate: any;
 
@@ -54,14 +45,13 @@ export class HRLeaveRequestComponent implements OnInit {
   options: FullCalendarOptions | undefined;
   events: EventObject[] | undefined;
   roleid: any;
-
-  currentUrl: any;
   public selectedlanguage: any;
   public selectedlanguage1: any;
   public callenderyear: any;
   public callenderMonth: any;
   public callenderstartday: any;
   public callenderendday: any;
+  currentUrl:any
   public callenderdaysdount: any = [];
   public callenderBindData = new Date();
 
@@ -70,8 +60,8 @@ export class HRLeaveRequestComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
-
-    this.loader = true
+   
+    this.loader=true
     this.RoleType = "";
     this.Department = "";
     this.selecallbtn = false;
@@ -97,36 +87,99 @@ export class HRLeaveRequestComponent implements OnInit {
     this.firstdayofcurrentyear = new Date(new Date().getFullYear(), 0, 1);
 
     this.firstdayofcurrentyear = formatDate(this.firstdayofcurrentyear, format, locale);
-
-    this.loader = false
+   
+    this.loader=false
     this.roledid = sessionStorage.getItem('roledid');
 
-    this.DigiofficeService.GetDepartment().subscribe(data => {
-      debugger
-      this.Departmentlist = data;
-    });
+    this.DigiofficeService.GetDepartment()
+.subscribe({
+  next: data => {
+    debugger
+    this.Departmentlist = data;
+  }, error: (err) => {
+    Swal.fire('Issue in Getting Department');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
 
-    this.DigiofficeService.GetRoleType().subscribe(data => {
-      debugger
-      this.RoleTypeList = data;
-    });
+
+
+    this.DigiofficeService.GetRoleType()
+    
+    
+    
+
+.subscribe({
+  next: data => {
+    debugger
+    this.RoleTypeList = data;
+  }, error: (err) => {
+    Swal.fire('Issue in Getting Role Type');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
+
+
+
 
     this.getstaffleaves();
   }
 
-
+  term: any;
+  staffleaves: any;
+  staffListCopy: any;
+  stafflist: any;
+  count: any;
+  Department: any;
+  sdate: any;
+  edate: any;
   public Getendate() {
     debugger
-    if (this.sdate > this.edate) {
+    if(this.sdate>this.edate){
       Swal.fire('Start date must be less than End Date')
-    } else {
-      this.DigiofficeService.GetStaffLeaves(10331, 1, this.sdate, this.edate).subscribe((data: any) => {
-        debugger
-        this.staffleaves = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved HR Pending' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved')
-        this.buildcallender(this.staffleaves);
+    }else{
+      this.DigiofficeService.GetStaffLeaves(10331, 1, this.sdate, this.edate)
+      
+
+      .subscribe({
+        next: data => {
+          debugger
+          this.staffleaves = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved')
+          this.buildcallender(this.staffleaves);
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Staff Leaves');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
       })
     }
-
+ 
   }
 
   changeStatus1() {
@@ -149,7 +202,7 @@ export class HRLeaveRequestComponent implements OnInit {
   }
 
 
-
+ 
   public alldates: any = [];
 
   public buildcallender(MaintainanceList: string | any[]) {
@@ -205,10 +258,10 @@ export class HRLeaveRequestComponent implements OnInit {
           this.callenderdaysdount[currenteventlist[0].date - 1]['EndTime'] = MaintainanceList[j].endTime;
           this.callenderdaysdount[currenteventlist[0].date - 1]['mantainenceHtml'] =
             // "<span class='event_PendingBookCommunity'> Leave ID : " + MaintainanceList[j].id +
-            "<br>  Staff Name  :" + MaintainanceList[j].staffName + " <br>  "
-
-          // "<br>  Reason : " + MaintainanceList[j].leaveReason +
-          "</span>";
+            "<br>  Staff Name  :" + MaintainanceList[j].staffName + " <br>  " 
+          
+            // "<br>  Reason : " + MaintainanceList[j].leaveReason +
+            "</span>";
         }
       }
 
@@ -261,50 +314,18 @@ export class HRLeaveRequestComponent implements OnInit {
 
   public getstaffleaves() {
     debugger
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
-
-      .subscribe({
-        next: data => {
-          debugger
-          this.staffleaves = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved HR Pending' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved' || x.status == 'HR Pending' || x.status == 'HR Approved')
-          this.staffListCopy = this.staffleaves;
-          this.buildcallender(this.staffleaves);
-        }, error: (err) => {
-          Swal.fire('Issue in Getting StaffLeaves');
-          // Insert error in Db Here//
-          var obj = {
-            'PageName': this.currentUrl,
-            'ErrorMessage': err.error.message
-          }
-          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-            data => {
-              debugger
-            },
-          )
-        }
-      })
-
-
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
-
-      .subscribe({
-        next: data => {
-          this.staffleaves1 = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved HR Pending' || x.supervisor == null)
-        }, error: (err) => {
-          Swal.fire('Issue in Getting StaffLeaves');
-          // Insert error in Db Here//
-          var obj = {
-            'PageName': this.currentUrl,
-            'ErrorMessage': err.error.message
-          }
-          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-            data => {
-              debugger
-            },
-          )
-        }
-      })
-    this.loader = false
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
+      debugger
+      this.staffleaves = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved HR Pending' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved' || x.status == 'HR Pending' ||  x.status == 'HR Approved' )
+    this.staffListCopy=this.staffleaves ;
+    this.buildcallender(this.staffleaves);
+    })
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
+      debugger
+      this.staffleaves1 = data.filter((x: { status: string; supervisor: string }) => x.status == 'Manager Approved HR Pending' || x.supervisor == null)
+     
+    })
+    this.loader=false
   }
   staffleaves1: any;
   public newlevae() {
@@ -333,135 +354,61 @@ export class HRLeaveRequestComponent implements OnInit {
 
   public FilterRoleType() {
     debugger
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
-
-      .subscribe({
-        next: data => {
-          debugger
-          this.staffleaves = data.filter((x: { status: string; supervisor: string; roleType: string }) => (x.status == 'Manager Approved HR Pending' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved') && x.roleType == this.RoleType)
-          this.count = this.staffleaves.length;
-        }, error: (err) => {
-          Swal.fire('Issue in Getting StaffLeaves');
-          // Insert error in Db Here//
-          var obj = {
-            'PageName': this.currentUrl,
-            'ErrorMessage': err.error.message
-          }
-          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-            data => {
-              debugger
-            },
-          )
-        }
-      })
-
-
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
+      debugger
+      this.staffleaves = data.filter((x: { status: string; supervisor: string; roleType: string }) => (x.status == 'Manager Approved HR Pending' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved') && x.roleType == this.RoleType)
+      this.count = this.staffleaves.length;
+    })
   }
 
   public filterByDepartment() {
     debugger
-    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
-
-      .subscribe({
-        next: data => {
-          debugger
-          this.staffleaves = data.filter((x: { status: string; supervisor: string; department: string }) => (x.status == 'Manager Approved HR Pending' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved') && x.department == this.Department)
-          this.count = this.staffleaves.length;
-        }, error: (err) => {
-          Swal.fire('Issue in Getting StaffLeave');
-          // Insert error in Db Here//
-          var obj = {
-            'PageName': this.currentUrl,
-            'ErrorMessage': err.error.message
-          }
-          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-            data => {
-              debugger
-            },
-          )
-        }
-      })
-
+    this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025").subscribe((data: any) => {
+      debugger
+      this.staffleaves = data.filter((x: { status: string; supervisor: string; department: string }) => (x.status == 'Manager Approved HR Pending' || x.supervisor == null || x.status == 'Manager Approved HR Rejected' || x.status == 'Manager Pending HR Rejected' || x.status == 'Manager Approved HR Approved') && x.department == this.Department)
+      this.count = this.staffleaves.length;
+    })
   }
 
 
   public ManagerLeaveApprove(id: any) {
     debugger
-    if (id.status == 'HR Pending') {
+    if(id.status=='HR Pending'){
       var entity = {
         'ID': id.id,
         'Status1': 'HR Approved',
         'StaffName': id.staffID,
         'LeaveTypeID': id.leaveTypeID,
         'NoOfDays': id.noOfDays,
-
+  
       }
-      this.DigiofficeService.ApproveStaffLeavesNewForHR(entity)
-
-        .subscribe({
-          next: data => {
-            if (data != 0) {
-              Swal.fire("Approved Successfully");
-              this.ngOnInit();
-
-            } debugger
-
-          }, error: (err) => {
-            Swal.fire('Issue in Getting StaffLeavesNewForHR');
-            // Insert error in Db Here//
-            var obj = {
-              'PageName': this.currentUrl,
-              'ErrorMessage': err.error.message
-            }
-            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-              data => {
-                debugger
-              },
-            )
-          }
-        })
-
-
-
+      this.DigiofficeService.ApproveStaffLeavesNewForHR(entity).subscribe(data => {
+        if (data != 0) {
+          Swal.fire("Approved Successfully");
+          this.ngOnInit();
+  
+        }
+  
+      })
+    }
+  else{
+    var entity = {
+      'ID': id.id,
+      'Status1': 'Manager Approved HR Approved',
+      'StaffName': id.staffID,
+      'LeaveTypeID': id.leaveTypeID,
+      'NoOfDays': id.noOfDays,
 
     }
-    else {
-      var entity = {
-        'ID': id.id,
-        'Status1': 'Manager Approved HR Approved',
-        'StaffName': id.staffID,
-        'LeaveTypeID': id.leaveTypeID,
-        'NoOfDays': id.noOfDays,
+    this.DigiofficeService.ApproveStaffLeavesNewForHR(entity).subscribe(data => {
+      if (data != 0) {
+        Swal.fire("Approved Successfully");
+        this.ngOnInit();
 
       }
-      this.DigiofficeService.ApproveStaffLeavesNewForHR(entity)
 
-
-        .subscribe({
-          next: data => {
-            debugger
-            if (data != 0) {
-              Swal.fire("Approved Successfully");
-              this.ngOnInit();
-
-            }
-          }, error: (err) => {
-            Swal.fire('Issue in Getting StaffLeavesNewForHR');
-            // Insert error in Db Here//
-            var obj = {
-              'PageName': this.currentUrl,
-              'ErrorMessage': err.error.message
-            }
-            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-              data => {
-                debugger
-              },
-            )
-          }
-        })
-
-
-    }
+    })
+  }
 
 
   }
@@ -476,29 +423,30 @@ export class HRLeaveRequestComponent implements OnInit {
 
     }
     this.DigiofficeService.UpdateStaffLeaves(entity)
+.subscribe({
+  next: data => {
+    debugger
+    if (data != 0) {
+      Swal.fire("Rejected Successfully");
+      location.reload();
 
-      .subscribe({
-        next: data => {
-          debugger
-          if (data != 0) {
-            Swal.fire("Rejected Successfully");
-            location.reload();
+    }
 
-          }
-        }, error: (err) => {
-          Swal.fire('Issue in Getting StaffLeaves');
-          // Insert error in Db Here//
-          var obj = {
-            'PageName': this.currentUrl,
-            'ErrorMessage': err.error.message
-          }
-          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-            data => {
-              debugger
-            },
-          )
-        }
-      })
+  }, error: (err) => {
+    Swal.fire('Issue in Updateing Staff Leaves');
+    // Insert error in Db Here//
+    var obj = {
+      'PageName': this.currentUrl,
+      'ErrorMessage': err.error.message
+    }
+    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+      data => {
+        debugger
+      },
+    )
+  }
+})
+
 
 
 
@@ -589,29 +537,29 @@ export class HRLeaveRequestComponent implements OnInit {
 
       }
       this.DigiofficeService.ApproveStaffLeavesNewForHR(entity)
-
-
-        .subscribe({
-          next: data => {
-            debugger
-            if (data != 0) {
-              Swal.fire("Approved Successfully");
-            }
-
-          }, error: (err) => {
-            Swal.fire('Issue in Getting City Type');
-            // Insert error in Db Here//
-            var obj = {
-              'PageName': this.currentUrl,
-              'ErrorMessage': err.error.message
-            }
-            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-              data => {
-                debugger
-              },
-            )
+      
+      .subscribe({
+        next: data => {
+          debugger
+          if (data != 0) {
+            Swal.fire("Approved Successfully");
           }
-        })
+        }, error: (err) => {
+          Swal.fire('Issue in Approve Staff Leaves New For HR ');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
+
+
 
 
     }

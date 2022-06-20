@@ -34,7 +34,7 @@
                         </p>
                     </div>
                     <div class="col-lg-2">
-                        <p>Role
+                        <p>Position
                             <br> <select class="form-control" id="RoleType" name="RoleType"
                                 (change)='getRoleType($event)' [(ngModel)]="RoleType" (change)="FilterRoleType()">
                                 <option value="">Select Role</option>
@@ -146,7 +146,7 @@
                                 <th>Select All <input type="checkbox" name="select-all" id="select-all"
                                         (click)="selectALL(true)" /></th>
                                 <th>Employee Name</th>
-                                <th>Role</th>
+                                <th>Position</th>
                                 <th>Department</th>
                                 <th>From Date</th>
                                 <th>To Date</th>
@@ -155,7 +155,7 @@
                                 <th>Leave Days Count</th>
                                 <th>Attachment</th>
                                 <th>Stage & Status</th>
-                                <th>Actions</th>
+                                <!-- <th>Actions</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -181,14 +181,14 @@
                                         data-target="#Allocate" style=" width: 50px;">
                                 </td>
                                 <td>{{list.status}}</td>
-                                <td>
-                                    <img *ngIf="(list.status=='Manager Approved HR Pending' || list.supervisor==null || list.status=='HR Pending')&& list.status!='Manager Approved HR Approved' "
+                                <!-- <td>
+                                    <img *ngIf="(list.status=='Manager Approved HR Pending' || list.supervisor==null || list.status=='HR Pending')&& list.status!='Manager Approved HR Approved' && list.status!='Manager Pending'"
                                         class="img" (click)="ManagerLeaveApprove(list)"
                                         src="assets/images/check-mark.png">
-                                    <img *ngIf="(list.status=='Manager Approved HR Pending'|| list.supervisor==null || list.status=='HR Pending')&& list.status!='Manager Approved HR Approved'"
+                                    <img *ngIf="(list.status=='Manager Approved HR Pending'|| list.supervisor==null || list.status=='HR Pending')&& list.status!='Manager Approved HR Approved' && list.status!='Manager Pending'"
                                         class="imgcancel" (click)="GetRejectID(list)" data-toggle="modal"
                                         data-target="#Reject" src="assets/images/cancel (1).png">
-                                </td>
+                                </td> -->
                             </tr>
                         </tbody>
                     </table>

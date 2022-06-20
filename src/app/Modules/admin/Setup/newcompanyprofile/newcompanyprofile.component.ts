@@ -978,7 +978,7 @@ AdminSignature:any;
           debugger
           let result = data;
           Swal.fire("Updated Sucessfully");
-        location.href="#/CompanyDashboard";
+        location.href="#/admin/CompanyDashboard";
         }, error: (err) => {
           Swal.fire('Issue in UpdateCompanyWorkPolicyy');
           // Insert error in Db Here//

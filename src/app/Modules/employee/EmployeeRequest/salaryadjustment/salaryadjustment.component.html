@@ -21,13 +21,14 @@
             <div class="col-md-1">
                 Filter By
             </div>
+            <!-- 
             <div class="col-md-3">
                 <input class="form-control" id="date" name="date" (change)="getdate($event)" type="date"
                     placeholder="Duration">
-            </div>
+            </div> -->
             <div class="col-md-6">
                 <input class="form-control" type="search" id="search" name="search" [(ngModel)]="search"
-                    placeholder="Search for date , Expense or Status">
+                    placeholder="Search for Expense or Status">
             </div>
         </div>
 
@@ -147,7 +148,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let project of projectlist1|filter:search">
+                            <tr *ngFor="let project of projectlist|filter:search">
                                 <td>{{project.salaryAdjustmentType}}</td>
                                 <td>{{project.month}}</td>
                                 <td>{{project.payPeriod}}</td>
@@ -156,7 +157,7 @@
                                
                               
                                 <td>
-                                    <p *ngIf="project.approvalStatus==null">Manager Pending Hr Pending</p>
+                                    <p *ngIf="project.approvalStatus==null">Manager Approved</p>
                                     <p *ngIf="project.approvalStatus!=null"> {{project.status}}</p>
         
                                 </td>

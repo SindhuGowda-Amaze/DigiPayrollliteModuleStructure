@@ -29,6 +29,7 @@ export class MyTeamLeavedetailsComponent implements OnInit {
   edate: any;
   sdte: any;
   Notes: any;
+  staffleaves3:any;
 
 
   constructor(public DigiofficeService: DigipayrollserviceService, public router: Router, public datePipe: DatePipe) { }
@@ -71,6 +72,7 @@ export class MyTeamLeavedetailsComponent implements OnInit {
           debugger
           this.staffleaves = data.filter((x: { supervisor: string | null; status: string }) => x.supervisor == sessionStorage.getItem('staffid') && x.status != 'Manager Pending HR Pending' && x.status != 'Manager Pending');
           this.staffleaves1 = data.filter((x: { supervisor: string | null; status: any }) => x.supervisor == sessionStorage.getItem('staffid') && (x.status == 'Manager Pending HR Pending' || x.status == 'Manager Pending' || x.status == 'Cancellation Pending'));
+          this.staffleaves3 = data.filter((x: { supervisor: string | null; status: string }) =>  x.supervisor ==sessionStorage.getItem('staffid') && x.status == 'Manager Rejected');
           this.buildcallender(this.staffleaves);
         }, error: (err) => {
           Swal.fire('Issue in Getting StaffLeaves');
@@ -142,7 +144,7 @@ export class MyTeamLeavedetailsComponent implements OnInit {
     for (var i = 0; i < this.ID.length; i++) {
       var entity = {
         'ID': this.ID[i].id,
-        'Status1': 'Manager Approved HR Pending',
+        'Status1': 'Manager Approved',
         'UserID': this.ID[i].staffID,
         'LeaveTypeID': this.ID[i].leaveTypeID,
         'NoOfDays': this.ID[i].noOfDays
@@ -222,7 +224,7 @@ export class MyTeamLeavedetailsComponent implements OnInit {
     else if (id.status == 'Cancellation Pending') {
       var entity = {
         'ID': id.id,
-        'Status1': 'Manager Approved HR Pending',
+        'Status1': 'Manager Approved',
         'StaffName': id.staffID,
         'LeaveTypeID': id.leaveTypeID,
         'NoOfDays': id.noOfDays,
