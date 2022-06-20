@@ -16,7 +16,7 @@
             </div> -->
       <div class="col-lg-5">
         <input type="text" placeholder="Search by barangay.." id="term" [(ngModel)]="term" class="form-control"
-        (ngModelChange)="FilterBarabgay()"/>
+          (ngModelChange)="FilterBarabgay()" />
       </div>
       <!-- <div class="col-lg-3">
                 <div class="dropdown">
@@ -48,8 +48,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="container-fluid">
-        <table
-          class="table"
+        <table class="table"
           *ngIf="(leavelist | paginate: { itemsPerPage: count1, currentPage: p }).length > 0;else noResults">
           <thead>
             <tr>
@@ -61,20 +60,23 @@
             </tr>
           </thead>
 
-          <tr
-            *ngFor="let holiday of leavelist| paginate: { itemsPerPage: count1, currentPage: p }">
+          <tr *ngFor="let holiday of leavelist| paginate: { itemsPerPage: count1, currentPage: p }">
             <td>{{ holiday.countryname }}</td>
             <td>{{ holiday.statename }}</td>
             <td>{{ holiday.cityname }}</td>
             <td>{{ holiday.name }}</td>
-            <td>
-              <button class="button"[routerLink]="['/admin/BarangayMaster', holiday.id]">Edit</button>
-              <br/><br>
-              <button
-                class="button"
-                (click)="DeleteCityType(holiday.id)">Delete</button>
+
+            <td> <button class="EditBTN" style="width: 25%;"
+                [routerLink]="['/admin/BarangayMaster',holiday.id]">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="DeleteBTN" style="width: 25%;" (click)="DeleteCityType(holiday.id)">Delete</button>
             </td>
-          </tr>
+
+            <!-- <td>
+              <button class="button" [routerLink]="['/admin/BarangayMaster', holiday.id]">Edit</button>
+              <br /><br>
+              <button class="button" (click)="DeleteCityType(holiday.id)">Delete</button>
+            </td>
+          </tr> -->
         </table>
         <ng-template #noResults>
           <div class="card">

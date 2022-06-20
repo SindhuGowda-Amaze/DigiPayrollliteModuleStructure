@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./shift-master-form.component.css']
 })
 export class ShiftMasterFormComponent implements OnInit {
-  currentUrl: any;
+  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
   ID: any;
   shiftmasterlist: any;
   Short: any;
@@ -17,13 +17,9 @@ export class ShiftMasterFormComponent implements OnInit {
   ShiftTimeings: any
   Grace: any
 
-  constructor(public DigiofficeService: DigipayrollserviceService, private activatedroute: ActivatedRoute) { }
- 
 
 
   ngOnInit(): void {
-    this.currentUrl = window.location.href;
-
     // this.Grace="";
     // this.Short="";
     this.GetShiftMaster();
@@ -51,27 +47,12 @@ export class ShiftMasterFormComponent implements OnInit {
     )
   }
 public GetShiftMaster(){
-  this.DigiofficeService.GetShiftMaster()
-
-  .subscribe({
-    next: data => {
+  this.DigiofficeService.GetShiftMaster().subscribe(
+    data => {
       debugger
       this.shiftmasterlist = data;
-    }, error: (err) => {
-      Swal.fire('Issue in Getting ShiftMaster');
-      // Insert error in Db Here//
-      var obj = {
-        'PageName': this.currentUrl,
-        'ErrorMessage': err.error.message
-      }
-      this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-        data => {
-          debugger
-        },
-      )
-    }
-  })
-
+    },
+  );
 }
 
   
@@ -90,33 +71,15 @@ public GetShiftMaster(){
       Grace : this.Grace
 
     }
-    this.DigiofficeService.InsertShiftMaster(entity)
+    this.DigiofficeService.InsertShiftMaster(entity).subscribe(data => {
+      if (data != 0) {
+        Swal.fire("Saved Successfully");
+        location.href = "#/Shiftmasterdash";
 
 
-    .subscribe({
-      next: data => {
-        debugger
-        if (data != 0) {
-          Swal.fire("Saved Successfully");
-          location.href = "#/Shiftmasterdash";
-  
-  
-        }
-      }, error: (err) => {
-        Swal.fire('Issue in Getting ShiftMaster');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
       }
-    })
 
+    })
 
   }
 
@@ -141,27 +104,14 @@ public GetShiftMaster(){
       Grace : this.Grace
 
     }
-    this.DigiofficeService.UpdateShiftMaster(entity)
+    this.DigiofficeService.UpdateShiftMaster(entity).subscribe(data => {
+
+      Swal.fire("Updated Successfully");
+      location.href = "#/Shiftmasterdash";
 
 
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire("Updated Successfully");
-        location.href = "#/Shiftmasterdash";
-      }, error: (err) => {
-        Swal.fire('Issue in Getting ShiftMaster');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
+
+
     })
 
   }
