@@ -568,7 +568,7 @@ input:checked+.slider:before {
 
 .inputclass {
   color: #3247D5;
-  Font: 'Poppins';
+ /* Font : 'Poppins'; */
   background-color: transparent;
   border: none;
 
