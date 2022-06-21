@@ -1,310 +1,311 @@
 <div class="container-fluid">
-    <div class="card">
-        <div class="row">
-
-            <div class="col-lg-12">
-                <br>
-                <p class="taxtable">R-5</p>
-                <hr><br>
-                <div class="row FilterClass data">
-                    <div class="col-lg-2">
-
+        <div class="card">
+            <div class="row">
+    
+                <div class="col-lg-12">
+                    <br>
+                    <p class="taxtable">R-5</p>
+                    <hr><br>
+                    <div class="row FilterClass data">
+                        <div class="col-lg-2">
+    
+                        </div>
+                        <div class="col-lg-2">
+                            <p style="color:#0C275A"> Select Date Coverage:</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="dropdown">
+                                <select class="form-control inputfield" id="Month" name="Month" [(ngModel)]="Month"><br />
+                                    <option style="color:#0C275A" value="">Select Month </option>
+                                    <option style="color:#0C275A" value="1">January </option>
+                                    <option style="color:#0C275A" value="2">February </option>
+                                    <option style="color:#0C275A" value="3">March </option>
+                                    <option style="color:#0C275A" value="4">April </option>
+                                    <option style="color:#0C275A" value="5">May </option>
+                                    <option style="color:#0C275A" value="6">June </option>
+                                    <option style="color:#0C275A" value="7">July</option>
+                                    <option style="color:#0C275A" value="8">August </option>
+                                    <option style="color:#0C275A" value="9">September </option>
+                                    <option style="color:#0C275A" value="10">October </option>
+                                    <option style="color:#0C275A" value="11">November </option>
+                                    <option style="color:#0C275A" value="12">December </option>
+    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="dropdown">
+                                <select class="form-control inputfield" id="Year" name="Year" [(ngModel)]="Year"><br />
+                                    <option style="color:#0C275A" value="Select">Select Year </option>
+                                    <option style="color:#0C275A" value="2022">2022</option>
+                                    <option style="color:#0C275A" value="2021">2021</option>
+                                    <option style="color:#0C275A" value="2020">2020</option>
+                                </select>
+                            </div>
+                        </div>
+    
                     </div>
-                    <div class="col-lg-2">
-                        <p style="color:#0C275A"> Select Date Coverage:</p>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="dropdown">
-                            <select class="form-control inputfield" id="Month" name="Month" [(ngModel)]="Month"><br />
-                                <option style="color:#0C275A" value="">Select Month </option>
-                                <option style="color:#0C275A" value="1">January </option>
-                                <option style="color:#0C275A" value="2">February </option>
-                                <option style="color:#0C275A" value="3">March </option>
-                                <option style="color:#0C275A" value="4">April </option>
-                                <option style="color:#0C275A" value="5">May </option>
-                                <option style="color:#0C275A" value="6">June </option>
-                                <option style="color:#0C275A" value="7">July</option>
-                                <option style="color:#0C275A" value="8">August </option>
-                                <option style="color:#0C275A" value="9">September </option>
-                                <option style="color:#0C275A" value="10">October </option>
-                                <option style="color:#0C275A" value="11">November </option>
-                                <option style="color:#0C275A" value="12">December </option>
-
-                            </select>
+                    <br />
+                    <div class="row FilterClass fontheading data">
+                        <div class="col-lg-2">
+    
+                        </div>
+                        <div class="col-lg-2">
+                            <p>Signatory Person:</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="dropdown">
+                                <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
+                                    <option value="">Select</option>
+                                    <!-- <option value="Admin">Admin</option> -->
+                                    <option value="HR">HR</option>
+                                    <!-- <option value="Finance">Finance</option> -->
+                                </select>
+                            </div>
+                        </div>
+                    </div> <br>
+    
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
+                            <button class="AddButton" (click)="showpdf()">GENERATE</button>
                         </div>
                     </div>
-                    <div class="col-lg-2">
-                        <div class="dropdown">
-                            <select class="form-control inputfield" id="Year" name="Year" [(ngModel)]="Year"><br />
-                                <option style="color:#0C275A" value="Select">Select Year </option>
-                                <option style="color:#0C275A" value="2022">2022</option>
-                                <option style="color:#0C275A" value="2021">2021</option>
-                                <option style="color:#0C275A" value="2020">2020</option>
-                            </select>
-                        </div>
-                    </div>
-
+    
+                    <br>
+    
                 </div>
-                <br />
-                <div class="row FilterClass fontheading data">
-                    <div class="col-lg-2">
-
-                    </div>
-                    <div class="col-lg-2">
-                        <p>Signatory Person:</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="dropdown">
-                            <select name="cars" id="Month" class="form-control" [(ngModel)]="sign" (change)="getsign()">
-                                <option value="">Select</option>
-                                <!-- <option value="Admin">Admin</option> -->
-                                <option value="HR">HR</option>
-                                <!-- <option value="Finance">Finance</option> -->
-                            </select>
-                        </div>
-                    </div>
-                </div> <br>
-
-                <br />
-                <div class="row">
-                    <div class="col-lg-3">
-                    </div>
-                    <div class="col-lg-4">
-                        <!-- <button class="generate" (click)="showpdf()">GENERATE</button> -->
-                        <button class="AddButton" (click)="showpdf()">GENERATE</button>
-                    </div>
+            </div>
+        </div>
+    
+    </div>
+    <br><br>
+    
+    <div class="row" *ngIf="showleaseforprint==1">
+        <!-- <div class="col-lg-5">
+        </div>
+        <div class="col-lg-4">
+            <button class="button1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
+                    aria-hidden="true"></i></button>
+        </div> -->
+    
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-4">
+            <button class="AddButton" (click)="convetToPDF1()">EXPORT TO PDF <i class="fa fa-download"
+                    aria-hidden="true"></i></button>
+    
+        </div>
+    
+        <div id="downloadaplication"
+            style="position:absolute;left:50%;margin-left:-306px;top:50px;width:612px;height:1008px;border-style:outset;overflow:hidden;margin-top:400px;">
+            <div style="position:absolute;left:0px;top:0px">
+                <img src="assets/images/background1.jpg" width=612 height=1008>
+            </div>
+            <div style="position:absolute;left:38.49px;top:211.42px" class="cls_002"><span
+                    class="cls_002">{{companyid}}</span></div>
+    
+            <div style="position:absolute;left:34.55px;top:233.73px" class="cls_003"><span class="cls_003">{{companyname}}
+                </span></div>
+            <div style="position:absolute;left:115.20px;top:269.02px" class="cls_003"><span
+                    class="cls_003">{{Address}}</span></div>
+            <div style="position:absolute;left:331.20px;top:294.93px" class="cls_003"><span
+                    class="cls_003">{{zipcode}}</span>
+            </div>
+            <div style="position:absolute;left:431.20px;top:294.93px" class="cls_003"><span class="cls_003">{{tin}}</span>
+            </div>
+            <div style="position:absolute;left:36.00px;top:319.42px" class="cls_003"><span class="cls_003">{{Phone}}</span>
+            </div>
+            <div style="position:absolute;left: 354px;;top:319.42px" class="cls_003"><span class="cls_003">{{email}}</span>
+            </div>
+            <div *ngIf="Month==1">
+                <div style="position:absolute;left:111.27px;top:374.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
                 </div>
-
-                <br>
-
+                <div style="position:absolute;left:205.99px;top:374.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:374.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:374.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==2">
+                <div style="position:absolute;left:111.27px;top:385.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:385.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:385.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:385.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==3">
+                <div style="position:absolute;left:111.27px;top:400.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:400.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:400.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:400.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==4">
+                <div style="position:absolute;left:111.27px;top:415.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:415.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:415.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:415.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==5">
+                <div style="position:absolute;left:111.27px;top:425.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:425.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:425.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:425.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==6">
+                <div style="position:absolute;left:111.27px;top:440.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:440.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:440.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:440.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==7">
+                <div style="position:absolute;left:111.27px;top:455.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:455.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:455.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:455.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==8">
+                <div style="position:absolute;left:111.27px;top:465.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:465.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:465.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:465.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==9">
+                <div style="position:absolute;left:111.27px;top:480.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:480.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:480.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:480.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==10">
+                <div style="position:absolute;left:111.27px;top:495.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:495.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:495.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:495.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==11">
+                <div style="position:absolute;left:111.27px;top:505.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:505.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:505.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:505.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div *ngIf="Month==12">
+                <div style="position:absolute;left:111.27px;top:520.20px" class="cls_004"><span
+                        class="cls_004">{{Year}}</span>
+                </div>
+                <div style="position:absolute;left:205.99px;top:520.20px" class="cls_004"><span
+                        class="cls_004">{{ss_er}}</span>
+                </div>
+                <div style="position:absolute;left:355.49px;top:520.20px" class="cls_004"><span
+                        class="cls_004">{{sssec}}</span>
+                </div>
+                <div style="position:absolute;left:488.95px;top:520.20px" class="cls_004"><span
+                        class="cls_004">{{sum}}</span>
+                </div>
+            </div>
+            <div style="position:absolute;left:205.99px;top:560.65px" class="cls_004"><span class="cls_004">{{ss_er}}</span>
+            </div>
+            <div style="position:absolute;left:355.49px;top:560.65px" class="cls_004"><span class="cls_004">{{sssec}}</span>
+            </div>
+            <div style="position:absolute;left:485.35px;top:560.65px" class="cls_004"><span class="cls_004"> {{sum}}</span>
+            </div>
+            <!-- <div style="position:absolute;left:324.00px;top:614.18px" class="cls_005"><span class="cls_005">( {{sum |
+                    amountToWord}})</span></div> -->
+            <div style="position:absolute;left:361.71px;top:657.38px" class="cls_005"><span
+                    class="cls_005">{{signname}}</span></div>
+            <div style="position:absolute;left:450px;top:657.38px" class="cls_005"><span class="cls_005"><img
+                        src="{{Signature}}" class="signature" /></span></div>
+            <div style="position: absolute;
+            left: 247.89px;
+            top: 599.65px;" class="cls_004"><span class="cls_004">{{sum}}</span>
+            </div>
+            <div style="position:absolute;left:257.89px;top:668.65px" class="cls_004"><span class="cls_004">{{sum}}</span>
             </div>
         </div>
     </div>
-
-</div>
-<br><br>
-
-<div class="row" *ngIf="showleaseforprint==1">
-    <!-- <div class="col-lg-5">
-    </div>
-    <div class="col-lg-4">
-        <button class="button1" (click)="convetToPDF1()">Export to PDF <i class="fa fa-download"
-                aria-hidden="true"></i></button>
-    </div> -->
-
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-4">
-        <button class="AddButton" (click)="convetToPDF1()">EXPORT TO PDF <i class="fa fa-download"
-                aria-hidden="true"></i></button>
-
-    </div>
-
-    <div id="downloadaplication"
-        style="position:absolute;left:50%;margin-left:-306px;top:50px;width:612px;height:1008px;border-style:outset;overflow:hidden;margin-top:400px;">
-        <div style="position:absolute;left:0px;top:0px">
-            <img src="assets/images/background1.jpg" width=612 height=1008>
-        </div>
-        <div style="position:absolute;left:38.49px;top:211.42px" class="cls_002"><span
-                class="cls_002">{{companyid}}</span></div>
-
-        <div style="position:absolute;left:34.55px;top:233.73px" class="cls_003"><span class="cls_003">{{companyname}}
-            </span></div>
-        <div style="position:absolute;left:115.20px;top:269.02px" class="cls_003"><span
-                class="cls_003">{{Address}}</span></div>
-        <div style="position:absolute;left:331.20px;top:294.93px" class="cls_003"><span
-                class="cls_003">{{zipcode}}</span>
-        </div>
-        <div style="position:absolute;left:431.20px;top:294.93px" class="cls_003"><span class="cls_003">{{tin}}</span>
-        </div>
-        <div style="position:absolute;left:36.00px;top:319.42px" class="cls_003"><span class="cls_003">{{Phone}}</span>
-        </div>
-        <div style="position:absolute;left: 354px;;top:319.42px" class="cls_003"><span class="cls_003">{{email}}</span>
-        </div>
-        <div *ngIf="Month==1">
-            <div style="position:absolute;left:111.27px;top:374.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:374.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:374.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:374.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==2">
-            <div style="position:absolute;left:111.27px;top:385.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:385.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:385.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:385.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==3">
-            <div style="position:absolute;left:111.27px;top:400.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:400.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:400.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:400.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==4">
-            <div style="position:absolute;left:111.27px;top:415.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:415.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:415.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:415.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==5">
-            <div style="position:absolute;left:111.27px;top:425.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:425.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:425.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:425.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==6">
-            <div style="position:absolute;left:111.27px;top:440.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:440.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:440.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:440.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==7">
-            <div style="position:absolute;left:111.27px;top:455.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:455.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:455.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:455.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==8">
-            <div style="position:absolute;left:111.27px;top:465.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:465.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:465.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:465.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==9">
-            <div style="position:absolute;left:111.27px;top:480.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:480.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:480.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:480.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==10">
-            <div style="position:absolute;left:111.27px;top:495.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:495.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:495.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:495.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==11">
-            <div style="position:absolute;left:111.27px;top:505.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:505.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:505.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:505.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div *ngIf="Month==12">
-            <div style="position:absolute;left:111.27px;top:520.20px" class="cls_004"><span
-                    class="cls_004">{{Year}}</span>
-            </div>
-            <div style="position:absolute;left:205.99px;top:520.20px" class="cls_004"><span
-                    class="cls_004">{{ss_er}}</span>
-            </div>
-            <div style="position:absolute;left:355.49px;top:520.20px" class="cls_004"><span
-                    class="cls_004">{{sssec}}</span>
-            </div>
-            <div style="position:absolute;left:488.95px;top:520.20px" class="cls_004"><span
-                    class="cls_004">{{sum}}</span>
-            </div>
-        </div>
-        <div style="position:absolute;left:205.99px;top:560.65px" class="cls_004"><span class="cls_004">{{ss_er}}</span>
-        </div>
-        <div style="position:absolute;left:355.49px;top:560.65px" class="cls_004"><span class="cls_004">{{sssec}}</span>
-        </div>
-        <div style="position:absolute;left:485.35px;top:560.65px" class="cls_004"><span class="cls_004"> {{sum}}</span>
-        </div>
-        <!-- <div style="position:absolute;left:324.00px;top:614.18px" class="cls_005"><span class="cls_005">( {{sum | amountToWord}})</span></div> -->
-        <div style="position:absolute;left:361.71px;top:657.38px" class="cls_005"><span
-                class="cls_005">{{signname}}</span></div>
-        <div style="position:absolute;left:450px;top:657.38px" class="cls_005"><span class="cls_005"><img
-                    src="{{Signature}}" class="signature" /></span></div>
-        <div style="position: absolute;
-        left: 247.89px;
-        top: 599.65px;" class="cls_004"><span class="cls_004">{{sum}}</span>
-        </div>
-        <div style="position:absolute;left:257.89px;top:668.65px" class="cls_004"><span class="cls_004">{{sum}}</span>
-        </div>
-    </div>
-</div>
