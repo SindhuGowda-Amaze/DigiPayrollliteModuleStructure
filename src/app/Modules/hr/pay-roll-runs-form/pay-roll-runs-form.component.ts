@@ -5,21 +5,20 @@ import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollser
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { DatePipe, formatDate } from '@angular/common';
-
 @Component({
   selector: 'app-pay-roll-runs-form',
   templateUrl: './pay-roll-runs-form.component.html',
   styleUrls: ['./pay-roll-runs-form.component.css']
 })
-export class PayRollRunsFormComponent implements OnInit {
 
-  viewMode = 'tab1';
+export class PayRollRunsFormComponent implements OnInit {
 
   constructor(public DigiofficeService: DigipayrollserviceService, public router: Router, private datePipe: DatePipe) {
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate() + 7);
     this.bsRangeValue = [this.bsValue, this.maxDate];
   }
+  viewMode = 'tab1';
   loader: any;
   Role: any;
   stafflist: any;
@@ -39,6 +38,71 @@ export class PayRollRunsFormComponent implements OnInit {
   latestdate: any;
   cutofflist: any;
   currentUrl: any;
+  ID1: any = [];
+  enddate: any;
+  department_name: any;
+  totalamount: any;
+  employeelistCopy: any;
+  thirteenthmonthpayroll: any;
+  uniquelist: any;
+  Search: any;
+  LOPDays: any;
+  NoOfDays: any;
+  EmployeeID: any
+  temp: any;
+  IntID: any
+  PrevLOPDays: any;
+  StaffSalaryReports: any;
+  public ID: any = [];
+  sssrate: any;
+  ss_ec: any;
+  ss_er: any;
+  startmonth: any;
+  endmonth: any;
+  startyear: any;
+  endyear: any;
+  myDate: any;
+  companylist: any;
+  companyname: any;
+  Address: any;
+  paginigec: any;
+  dob: any;
+  PhilHealthEC: any;
+  joiningdate: any;
+  seleconebtn: any;
+  selecallbtn: any;
+  fullname: any;
+  payrolldate: any;
+  datecovered: any;
+  department: any;
+  role: any;
+  tin: any;
+  PhilHealth: any;
+  SSS: any;
+  hdmf: any;
+  deminimisamount: any;
+  BaseSalary: any;
+  lopamount: any;
+  sssamount: any;
+  philHealthContribution: any;
+  pagBig: any;
+  tax: any;
+  netMonthSalary: any;
+  deductions: any;
+  startdate: any;
+  id: any;
+  GrossSalary: any;
+  deniminimis_amount: any;
+  semimonthly: any;
+  basicday: any;
+  basichour: any;
+  employeelist2: any;
+  companyloan: any;
+  ssssalaryloan: any;
+  ssscalamity: any;
+  hdmfcalamityloan: any;
+  hdmfsalaryloan: any;
+  benefits: any;
 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
@@ -122,12 +186,9 @@ export class PayRollRunsFormComponent implements OnInit {
       })
   }
 
-  enddate: any;
-
   public getdate(event: any) {
     debugger
     this.enddate = event.target.value;
-
   }
 
   public GetDepartment() {
@@ -154,8 +215,6 @@ export class PayRollRunsFormComponent implements OnInit {
       })
   }
 
-  department_name: any;
-
   public Departmentfilter() {
     if (this.startdate == undefined || this.enddate == undefined) {
       Swal.fire('Please Select Start Date and End Date')
@@ -166,11 +225,8 @@ export class PayRollRunsFormComponent implements OnInit {
           next: data => {
             debugger
             this.stafflist = data.filter(x => x.department_name == this.department_name && x.daysworked > 0);
-            // this.stafflist = data.filter(x => x.department_name == this.department_name);
-
             const key = 'id';
             const key1 = 'month'
-
             this.uniquelist = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
               [(item[key]), item])).values()]
           }, error: (err) => {
@@ -190,9 +246,6 @@ export class PayRollRunsFormComponent implements OnInit {
     }
   }
 
-
-  totalamount: any;
-
   public Rolefilter() {
     if (this.startdate == undefined || this.enddate == undefined) {
       Swal.fire('Please Select Start Date and End Date')
@@ -203,15 +256,11 @@ export class PayRollRunsFormComponent implements OnInit {
           next: data => {
             debugger
             this.stafflist = data.filter(x => x.role == this.Role && x.daysworked > 0);
-
             const key = 'id';
             const key1 = 'month'
-
             this.uniquelist = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
               [(item[key]), item])).values()]
-
             this.totalamount = 0;
-
             for (let i = 0; i < this.uniquelist.length; i++) {
               this.totalamount += this.uniquelist[i].netMonthSalary;
             }
@@ -233,12 +282,9 @@ export class PayRollRunsFormComponent implements OnInit {
     }
   }
 
-
-
   public selectALL1(event: any) { // pass true or false to check or uncheck all
     debugger;
     this.selecallbtn = true;
-
     var inputs = document.getElementsByTagName("input");
     for (var i = 0; i < inputs.length; i++) {
       if (inputs[i].type == "checkbox") {
@@ -246,30 +292,20 @@ export class PayRollRunsFormComponent implements OnInit {
         // This way it won't flip flop them and will set them all to the same value which is passed into the function
       }
     }
-
   }
 
-  employeelistCopy: any;
-
   public FilterPayroll() {
-
     this.DigiofficeService.Get_Employees_For_Payroll(this.startdate, this.enddate)
       .subscribe({
         next: data => {
           debugger
           this.stafflist = data;
-
           const key = 'id';
           const key1 = 'month'
-
           this.uniquelist = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
             [(item[key]), item])).values()]
           this.employeelistCopy = this.uniquelist
-          //  this.uniquelist = [...new Set(data.map(item => item))];
-
-
           let searchCopy = this.Search.toLowerCase();
-          // this.employeelist = this.employeelistCopy.filter((x: { jobRefernceID: string,jobTitle: string; }) => x.jobRefernceID.toString().includes(searchCopy)||x.jobTitle.toLowerCase().includes(searchCopy));
           this.uniquelist = this.employeelistCopy.filter((x: { name: string, mobile: Number, emailID: string }) =>
             x.name.toLowerCase().includes(searchCopy) ||
             x.emailID.toString().includes(searchCopy));
@@ -288,18 +324,10 @@ export class PayRollRunsFormComponent implements OnInit {
           )
         }
       })
-
-
   }
 
-
-  thirteenthmonthpayroll: any;
-  uniquelist: any;
-  Search: any;
   public getemployeedetails() {
-
     if (this.startdate == undefined || this.enddate == undefined) {
-
       Swal.fire('Please Select Start Date and End Date')
     }
     else {
@@ -313,10 +341,8 @@ export class PayRollRunsFormComponent implements OnInit {
             next: data => {
               debugger
               this.stafflist = data.filter(x => x.daysworked > 0);
-
               const key = 'id';
               const key1 = 'month'
-
               this.uniquelist = [...new Map(this.stafflist.map((item: { [x: string]: any; }) =>
                 [(item[key]), item])).values()]
               this.loader = false
@@ -335,26 +361,14 @@ export class PayRollRunsFormComponent implements OnInit {
             }
           })
       }
-
     }
-
   }
 
-
-
-
-  ID1: any = [];
-
-  LOPDays: any;
-  NoOfDays: any
   public SelectAll() {
     this.seleconebtn = 0
     debugger;
-
-    // if( this.cutofflist.length!=0){
     var date1 = new Date(this.startdate);
     var date2 = new Date(this.enddate);
-
     var Time = date2.getTime() - date1.getTime();
     let days: any = Time / (1000 * 3600 * 24);
     if (days >= 15) {
@@ -363,8 +377,6 @@ export class PayRollRunsFormComponent implements OnInit {
     else {
       this.NoOfDays = days + 1;
     }
-
-
     if (this.startdate == undefined || this.enddate == undefined) {
       Swal.fire('Please Select Start Date and End Date')
     }
@@ -381,9 +393,7 @@ export class PayRollRunsFormComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.NoOfDays == 15 || this.NoOfDays == 30 || this.NoOfDays == 31 || this.NoOfDays == 28) {
-
           if (this.NoOfDays == 15) {
-
             if (this.uniquelist.every((val: { checked: boolean; }) => val.checked == true)) {
               this.IntID = false;
               this.ID = [];
@@ -399,9 +409,7 @@ export class PayRollRunsFormComponent implements OnInit {
               for (let i = 0; i < this.uniquelist.length; i++) {
                 debugger;
                 this.ID1.push(this.uniquelist[i].id);
-                //this.EmployeeID =
                 this.ID1[i];
-
                 const format = 'yyyy-MM-dd';
                 const myDate = this.startdate;
                 const locale = 'en-US';
@@ -479,18 +487,9 @@ export class PayRollRunsFormComponent implements OnInit {
                     }
                   })
               }
-
-
-              // for (let i = 0; i < this.ID1.length; i++) {
-              //   debugger;
-
-              // }
-
             }
-
           }
           else {
-
             if (this.uniquelist.every((val: { checked: boolean; }) => val.checked == true)) {
               this.IntID = false;
               this.ID = [];
@@ -506,7 +505,6 @@ export class PayRollRunsFormComponent implements OnInit {
               for (let i = 0; i < this.uniquelist.length; i++) {
                 debugger;
                 this.ID1.push(this.uniquelist[i].id);
-                //this.EmployeeID =
                 this.ID1[i];
                 this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i])
                   .subscribe({
@@ -581,48 +579,18 @@ export class PayRollRunsFormComponent implements OnInit {
                     }
                   })
               }
-
-
-              // for (let i = 0; i < this.ID1.length; i++) {
-              //   debugger;
-
-              // }
-
             }
-
           }
-
-
         }
         else {
-
           Swal.fire('Range for Payroll either 15 days or 30 days')
         }
       }
     })
-
-
-
-
-    // }
-    // else{
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Oops...',
-    //     text: 'You Have Missed The Payroll CutOff Date!',
-    //     footer: 'Please Changed The Configuration To Run Payroll'
-    //   })
-    // }
-
-
-
-
   }
-
 
   public InsertNotification() {
     debugger
-
     var entity = {
       'Date': new Date(),
       'Event': 'Payroll Run',
@@ -634,8 +602,6 @@ export class PayRollRunsFormComponent implements OnInit {
       'UserID': sessionStorage.getItem('staffid'),
       'NotificationTypeID': 16,
       'VendorID': 0
-
-
     }
     this.DigiofficeService.InsertNotification(entity)
       .subscribe({
@@ -658,33 +624,6 @@ export class PayRollRunsFormComponent implements OnInit {
       })
   }
 
-
-  EmployeeID: any
-  temp: any;
-  IntID: any
-  PrevLOPDays: any;
-  StaffSalaryReports: any;
-  public ID: any = [];
-
-
-
-  sssrate: any;
-  ss_ec: any;
-  ss_er: any;
-  startmonth: any;
-  endmonth: any;
-  startyear: any;
-  endyear: any;
-  myDate: any;
-  companylist: any;
-  companyname: any;
-  Address: any;
-
-  paginigec: any;
-  dob: any;
-  PhilHealthEC: any;
-  joiningdate: any;
-
   public getempdetails(evn: any) {
     this.DigiofficeService.GetEmployeeSalary()
       .subscribe({
@@ -705,12 +644,27 @@ export class PayRollRunsFormComponent implements OnInit {
             this.joiningdate = this.employeelist[0].joiningDate,
             this.PhilHealth = this.employeelist[0].philHealth,
             this.PhilHealthEC = this.employeelist[0].philHealthContribution / 2,
-            this.DigiofficeService.GetCompanyDetails().subscribe(data => {
-              debugger
-              this.companylist = data
-              this.companyname = this.companylist[0].companyName,
-                this.Address = this.companylist[0].address
-            })
+            this.DigiofficeService.GetCompanyDetails()
+              .subscribe({
+                next: data => {
+                  debugger
+                  this.companylist = data
+                  this.companyname = this.companylist[0].companyName,
+                    this.Address = this.companylist[0].address
+                }, error: (err) => {
+                  Swal.fire('Issue in Getting Company Details');
+                  // Insert error in Db Here//
+                  var obj = {
+                    'PageName': this.currentUrl,
+                    'ErrorMessage': err.error.message
+                  }
+                  this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                    data => {
+                      debugger
+                    },
+                  )
+                }
+              })
         }, error: (err) => {
           Swal.fire('Issue in Getting Employee Salary');
           // Insert error in Db Here//
@@ -727,13 +681,6 @@ export class PayRollRunsFormComponent implements OnInit {
       })
   }
 
-
-
-
-
-
-
-  seleconebtn: any;
   public getCheckbocdetails(evn: any) {
     debugger
     this.seleconebtn = true;
@@ -748,25 +695,15 @@ export class PayRollRunsFormComponent implements OnInit {
     }
     else {
       debugger;
-
-      //  this.ID = [];
       debugger
       this.temp.forEach((val: { checked: boolean; }) => { val.checked = true });
       this.IntID = true;
       this.ID.push(evn.id);
-
-
-
     }
-
-
   }
-
 
   public Accept() {
     debugger;
-
-    // if(this.cutofflist.length!=0){
     for (let i = 0; i < this.ID.length; i++) {
       debugger;
       this.EmployeeID = this.ID[i];
@@ -832,7 +769,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                     }
                                   })
                               } else {
-
                                 this.LOPDays = data[0].noOfDays;
                                 this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i])
                                   .subscribe({
@@ -852,7 +788,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                                   'Payroll run has been Completed',
                                                   'success'
                                                 )
-
                                                 this.ID = [];
                                                 this.Payrollvis = true;
                                                 this.InsertNotification();
@@ -887,7 +822,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                                     'success'
                                                   )
                                                   this.ID = [];
-
                                                   this.Payrollvis = true;
                                                   this.InsertNotification();
                                                   location.href = '#/PayRoll'
@@ -908,7 +842,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                           }
                                         }
                                       }
-
                                       else {
                                         if (this.LOPDays <= 2 || this.PrevLOPDays == 0) {
                                           this.LOPDays = 0;
@@ -972,12 +905,6 @@ export class PayRollRunsFormComponent implements OnInit {
                             }
                           })
                       }
-
-
-
-
-
-
                       // For more information about handling dismissals please visit
                       // https://sweetalert2.github.io/#handling-dismissals
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -988,8 +915,6 @@ export class PayRollRunsFormComponent implements OnInit {
                       )
                     }
                   })
-
-
                 }
               })
             }
@@ -1041,7 +966,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                 }
                               })
                           } else {
-
                             this.LOPDays = data[0].noOfDays;
                             this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i])
                               .subscribe({
@@ -1061,7 +985,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                               'Payroll run has been Completed',
                                               'success'
                                             )
-
                                             this.ID = [];
                                             this.Payrollvis = true;
                                             this.InsertNotification();
@@ -1116,7 +1039,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                       }
                                     }
                                   }
-
                                   else {
                                     if (this.LOPDays <= 2 || this.PrevLOPDays == 0) {
                                       this.LOPDays = 0;
@@ -1181,12 +1103,6 @@ export class PayRollRunsFormComponent implements OnInit {
                         }
                       })
                   }
-
-
-
-
-
-
                   // For more information about handling dismissals please visit
                   // https://sweetalert2.github.io/#handling-dismissals
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -1213,30 +1129,12 @@ export class PayRollRunsFormComponent implements OnInit {
           }
         })
     }
-    // }
-    // else{
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Oops...',
-    //     text: 'You Have Missed The Payroll CutOff Date!',
-    //     footer: 'Please Changed The Configuration To Re Run Payroll'
-    //   })
-    // }
-
-
-
-
-
   }
-
 
   public SinglePreliminary() {
     for (let i = 0; i < this.ID.length; i++) {
       debugger;
       this.EmployeeID = this.ID[i];
-
-
-
       Swal.fire({
         title: 'Are you sure?',
         text: 'Your Not Punched in Days will be considered  as LOP Days , If You Have Not Applied Leave!',
@@ -1261,8 +1159,6 @@ export class PayRollRunsFormComponent implements OnInit {
                         next: data => {
                           debugger
                           this.StaffSalaryReports = data;
-
-
                           this.Showpayroll = 1
                           this.Payrollvis = true
                         }, error: (err) => {
@@ -1280,7 +1176,6 @@ export class PayRollRunsFormComponent implements OnInit {
                         }
                       })
                   } else {
-
                     this.LOPDays = data[0].noOfDays;
                     this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i])
                       .subscribe({
@@ -1295,7 +1190,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                   next: data => {
                                     debugger
                                     this.StaffSalaryReports = data;
-
                                     this.Showpayroll = 1
                                     this.ID = [];
                                     this.Payrollvis = true;
@@ -1323,7 +1217,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                     next: data => {
                                       debugger
                                       this.StaffSalaryReports = data;
-
                                       this.Showpayroll = 1
                                       this.ID = [];
                                       this.Payrollvis = true;
@@ -1344,7 +1237,6 @@ export class PayRollRunsFormComponent implements OnInit {
                               }
                             }
                           }
-
                           else {
                             if (this.LOPDays <= 2 || this.PrevLOPDays == 0) {
                               this.LOPDays = 0;
@@ -1373,7 +1265,6 @@ export class PayRollRunsFormComponent implements OnInit {
                                 })
                             }
                           }
-
                         }, error: (err) => {
                           Swal.fire('Issue in Getting Staff Leaves For Payroll By Date');
                           // Insert error in Db Here//
@@ -1404,12 +1295,6 @@ export class PayRollRunsFormComponent implements OnInit {
                 }
               })
           }
-
-
-
-
-
-
           // For more information about handling dismissals please visit
           // https://sweetalert2.github.io/#handling-dismissals
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -1420,26 +1305,13 @@ export class PayRollRunsFormComponent implements OnInit {
           )
         }
       })
-
-
-
-
-
-
-
     }
-
-
-
-
   }
-
 
   public SelectAllPreliminary() {
     debugger
     var date1 = new Date(this.startdate);
     var date2 = new Date(this.enddate);
-
     var Time = date2.getTime() - date1.getTime();
     let days: any = Time / (1000 * 3600 * 24);
     if (days >= 15) {
@@ -1448,8 +1320,6 @@ export class PayRollRunsFormComponent implements OnInit {
     else {
       this.NoOfDays = days + 1;
     }
-
-
     if (this.startdate == undefined || this.enddate == undefined) {
       Swal.fire('Please Select Start Date and End Date')
     }
@@ -1542,7 +1412,6 @@ export class PayRollRunsFormComponent implements OnInit {
                             }
                           })
                       }
-
                     }, error: (err) => {
                       Swal.fire('Issue in Getting Staff Leaves For Payroll By Date');
                       // Insert error in Db Here//
@@ -1558,18 +1427,9 @@ export class PayRollRunsFormComponent implements OnInit {
                     }
                   })
               }
-
-
-              // for (let i = 0; i < this.ID1.length; i++) {
-              //   debugger;
-
-              // }
-
             }
-
           }
           else {
-
             if (this.stafflist.every((val: { checked: boolean; }) => val.checked == true)) {
               this.IntID = false;
               this.ID = [];
@@ -1584,7 +1444,6 @@ export class PayRollRunsFormComponent implements OnInit {
               for (let i = 0; i < this.stafflist.length; i++) {
                 debugger;
                 this.ID1.push(this.stafflist[i].id);
-                //this.EmployeeID =
                 this.ID1[i];
                 this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID1[i])
                   .subscribe({
@@ -1658,123 +1517,16 @@ export class PayRollRunsFormComponent implements OnInit {
                     }
                   })
               }
-
-
-              // for (let i = 0; i < this.ID1.length; i++) {
-              //   debugger;
-
-              // }
-
             }
-
           }
-
-
         }
         else {
-
           Swal.fire('Range for Payroll either 15 days or 30 days')
         }
       }
     })
-
-
-
-
-
-
   }
 
-
-
-  // public singlepayroll(){
-  //   for (let i = 0; i < this.ID.length; i++) {
-  //     debugger;
-  //     this.EmployeeID = this.ID[i];
-  //     this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i]).subscribe(
-  //       res => {
-  //         debugger;
-  //         if (res.length == 0) {
-  //           this.LOPDays = 0;
-  //           this.DigiofficeService.Get_Salary_Splitsfor15days(this.ID[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-  //             res => {
-  //               debugger;
-  //               this.StaffSalaryReports = res;
-  //               Swal.fire("Payroll Processing Completed");
-  //               this.Payrollvis = true
-  //               location.href = '#/PayRoll'
-  //             }
-  //           )
-
-  //         } else {
-
-  //           this.LOPDays = res[0].noOfDays;
-  //           this.DigiofficeService.GetStaffLeavesForPayrollByDate(this.startdate, this.enddate, this.ID[i]).subscribe(
-  //             res1 => {
-  //               debugger;
-  //               this.PrevLOPDays = res1[0].noOfDays;
-  //               if (this.LOPDays > 2) {
-  //                 if (this.PrevLOPDays == 0) {
-  //                   this.LOPDays = this.LOPDays;
-  //                   this.DigiofficeService.Get_Salary_Splitsfor15days(this.ID[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-  //                     res => {
-  //                       debugger;
-  //                       this.StaffSalaryReports = res;
-  //                       Swal.fire("Payroll Processing Completed");
-
-  //                       this.ID = [];
-  //                       this.Payrollvis = true;
-  //                       location.href = '#/PayRoll'
-  //                     }
-  //                   )
-  //                 }
-  //                 else if (this.PrevLOPDays != 0) {
-  //                   let ActualLOPDays = Number(this.LOPDays) + Number(this.PrevLOPDays);
-  //                   if (ActualLOPDays > 4) {
-  //                     this.LOPDays = Number(ActualLOPDays) - 4;
-  //                     this.DigiofficeService.Get_Salary_Splitsfor15days(this.ID[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-  //                       res => {
-  //                         debugger;
-  //                         this.StaffSalaryReports = res;
-  //                         Swal.fire("Payroll Processing Completed");
-  //                         this.ID = [];
-  //                         this.Payrollvis = true;
-  //                         location.href = '#/PayRoll'
-  //                       }
-  //                     )
-  //                   }
-  //                 }
-  //               }
-
-  //               else {
-  //                 if (this.LOPDays <= 2 || this.PrevLOPDays == 0) {
-  //                   this.LOPDays = 0;
-  //                   this.DigiofficeService.Get_Salary_Splitsfor15days(this.ID[i], this.LOPDays, this.startdate, this.enddate).subscribe(
-  //                     res => {
-  //                       debugger;
-  //                       this.StaffSalaryReports = res;
-  //                       Swal.fire("Payroll Processing Completed");
-  //                       this.ID = [];
-  //                       this.Payrollvis = true
-  //                       location.href = '#/PayRoll'
-  //                     }
-  //                   )
-  //                 }
-  //               }
-
-  //             }
-  //           )
-
-  //         }
-
-  //       }
-
-  //     )
-  //   }
-  // }
-
-
-  selecallbtn: any;
   selectALL(checked: boolean) { // pass true or false to check or uncheck all
     this.selecallbtn = true;
     var inputs = document.getElementsByTagName("input");
@@ -1784,43 +1536,8 @@ export class PayRollRunsFormComponent implements OnInit {
         // This way it won't flip flop them and will set them all to the same value which is passed into the function
       }
     }
-
-
   }
 
-  fullname: any;
-  payrolldate: any;
-  datecovered: any;
-  department: any;
-  role: any;
-  tin: any;
-  PhilHealth: any;
-  SSS: any;
-  hdmf: any;
-  deminimisamount: any;
-  BaseSalary: any;
-  lopamount: any;
-  sssamount: any;
-  philHealthContribution: any;
-  pagBig: any;
-  tax: any;
-  netMonthSalary: any;
-  deductions: any;
-  startdate: any;
-
-  id: any;
-  GrossSalary: any;
-  deniminimis_amount: any;
-  semimonthly: any;
-  basicday: any;
-  basichour: any;
-  employeelist2: any;
-  companyloan: any;
-  ssssalaryloan: any;
-  ssscalamity: any;
-  hdmfcalamityloan: any;
-  hdmfsalaryloan: any;
-  benefits: any;
   public getpayslip(id: any) {
     this.DigiofficeService.GetPreliminarySalary()
       .subscribe({
@@ -1828,7 +1545,6 @@ export class PayRollRunsFormComponent implements OnInit {
           debugger
           this.id = id;
           this.employeelist2 = data.filter(x => x.staffID == id && x.startdate1 == this.startdate && x.enddate1 == this.enddate);
-
           this.fullname = this.employeelist2[0].staffname + this.employeelist2[0].lastName,
             this.payrolldate = this.employeelist2[0].enddate,
             this.startdate = this.employeelist2[0].startdate;
@@ -1848,7 +1564,6 @@ export class PayRollRunsFormComponent implements OnInit {
             this.pagBig = this.employeelist2[0].pagBig,
             this.tax = this.employeelist2[0].tax,
             this.netMonthSalary = this.employeelist2[0].netMonthSalary,
-
             this.GrossSalary = this.employeelist2[0].grossSalary,
             this.semimonthly = Number(this.employeelist2[0].grossSalary) / 2
           this.deductions = (this.employeelist2[0].pagBig + this.employeelist2[0].philiHealth + this.employeelist2[0].contribution + this.employeelist2[0].tax),
@@ -1876,6 +1591,5 @@ export class PayRollRunsFormComponent implements OnInit {
         }
       })
   }
-
 
 }

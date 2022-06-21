@@ -170,7 +170,6 @@ export class BankAdviceListComponent implements OnInit {
     html2canvas(data).then(canvas => {
       var margin = 5;
       var imgWidth = 208
-      // var pageHeight = 295 - 10 * margin;
       var pageHeight = 295;
       var imgHeight = canvas.height * imgWidth / canvas.width;
       var heightLeft = imgHeight;

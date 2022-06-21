@@ -83,70 +83,70 @@ export class StaffSalaryFormComponent implements OnInit {
       }
       else {
         this.DigiofficeService.GetMyDetails()
-        .subscribe({
-          next: data => {
-            debugger
-            this.leavelist = data.filter(x => x.id == this.ID);
-            this.BaseSal = this.leavelist[0].baseSal,
-              this.EmployeeId = this.ID;
-            this.RoleID = this.leavelist[0].type
-            this.deniminimis = this.leavelist[0].deniminimis.split(",");
-            this.deniminimis_amount = this.leavelist[0].christmasBonus
-            this.DigiofficeService.GetMyDetails()
-            .subscribe({
-              next: data => {
-                debugger
-                this.dropdownList123 = data.filter(x => x.id == this.ID);
-              this.selectedItems = this.dropdownList123
-              }, error: (err) => {
-                Swal.fire('Issue in Getting My Details');
-                // Insert error in Db Here//
-                var obj = {
-                  'PageName': this.currentUrl,
-                  'ErrorMessage': err.error.message
-                }
-                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-                  data => {
+          .subscribe({
+            next: data => {
+              debugger
+              this.leavelist = data.filter(x => x.id == this.ID);
+              this.BaseSal = this.leavelist[0].baseSal,
+                this.EmployeeId = this.ID;
+              this.RoleID = this.leavelist[0].type
+              this.deniminimis = this.leavelist[0].deniminimis.split(",");
+              this.deniminimis_amount = this.leavelist[0].christmasBonus
+              this.DigiofficeService.GetMyDetails()
+                .subscribe({
+                  next: data => {
                     debugger
-                  },
-                )
-              }
-            })
-            this.DigiofficeService.GetDe_minimis_Master()
-            .subscribe({
-              next: data => {
-                debugger
-                let temp1: any = data.filter(x => x.item != this.deniminimis[0]);
-                this.deniminimislist123 = temp1;
-                this.dropdownList1 = this.deniminimislist123
-              }, error: (err) => {
-                Swal.fire('Issue in Getting DeMinimis Master');
-                // Insert error in Db Here//
-                var obj = {
-                  'PageName': this.currentUrl,
-                  'ErrorMessage': err.error.message
-                }
-                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-                  data => {
+                    this.dropdownList123 = data.filter(x => x.id == this.ID);
+                    this.selectedItems = this.dropdownList123
+                  }, error: (err) => {
+                    Swal.fire('Issue in Getting My Details');
+                    // Insert error in Db Here//
+                    var obj = {
+                      'PageName': this.currentUrl,
+                      'ErrorMessage': err.error.message
+                    }
+                    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                      data => {
+                        debugger
+                      },
+                    )
+                  }
+                })
+              this.DigiofficeService.GetDe_minimis_Master()
+                .subscribe({
+                  next: data => {
                     debugger
-                  },
-                )
+                    let temp1: any = data.filter(x => x.item != this.deniminimis[0]);
+                    this.deniminimislist123 = temp1;
+                    this.dropdownList1 = this.deniminimislist123
+                  }, error: (err) => {
+                    Swal.fire('Issue in Getting DeMinimis Master');
+                    // Insert error in Db Here//
+                    var obj = {
+                      'PageName': this.currentUrl,
+                      'ErrorMessage': err.error.message
+                    }
+                    this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                      data => {
+                        debugger
+                      },
+                    )
+                  }
+                })
+            }, error: (err) => {
+              Swal.fire('Issue in Getting My Details');
+              // Insert error in Db Here//
+              var obj = {
+                'PageName': this.currentUrl,
+                'ErrorMessage': err.error.message
               }
-            })
-          }, error: (err) => {
-            Swal.fire('Issue in Getting My Details');
-            // Insert error in Db Here//
-            var obj = {
-              'PageName': this.currentUrl,
-              'ErrorMessage': err.error.message
+              this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                data => {
+                  debugger
+                },
+              )
             }
-            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-              data => {
-                debugger
-              },
-            )
-          }
-        })
+          })
       }
     }
     )
@@ -154,68 +154,68 @@ export class StaffSalaryFormComponent implements OnInit {
 
   public GetMyDetails() {
     this.DigiofficeService.GetMyDetails()
-    .subscribe({
-      next: data => {
-        debugger
-        this.dropdownList = data;
-      }, error: (err) => {
-        Swal.fire('Issue in Getting My Details');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          this.dropdownList = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting My Details');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
 
   public GetRoleType() {
     this.DigiofficeService.GetRoleType()
-    .subscribe({
-      next: data => {
-        debugger
-        this.RoleTypeList = data;
-      }, error: (err) => {
-        Swal.fire('Issue in Getting Role Type');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          this.RoleTypeList = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting Role Type');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
 
   public GetDe_minimis_Master() {
     this.DigiofficeService.GetDe_minimis_Master()
-    .subscribe({
-      next: data => {
-        debugger
-        this.dropdownList1 = data;
-      }, error: (err) => {
-        Swal.fire('Issue in Getting DeMinimis Master');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+      .subscribe({
+        next: data => {
+          debugger
+          this.dropdownList1 = data;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting DeMinimis Master');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
 
   onItemSelect(item: any) {
@@ -223,48 +223,48 @@ export class StaffSalaryFormComponent implements OnInit {
     console.log(item);
     this.EmployeeId = item.id;
     this.DigiofficeService.GetMyDetails()
-    .subscribe({
-      next: data => {
-        debugger
-        let temp: any = data.filter(x => x.id == this.EmployeeId);
-        this.EmployeeName = temp[0].name;
-        this.DigiofficeService.GetDeMinimisMapping()
-        .subscribe({
-          next: data => {
-            debugger
-            let temp1: any = data.filter(x => x.roleID == temp[0].roleType);
-            this.deniminimislist = temp1[0].deMinimis;
-            this.Amount = temp1[0].amount;
-          }, error: (err) => {
-            Swal.fire('Issue in Getting DeMinimis Mapping');
-            // Insert error in Db Here//
-            var obj = {
-              'PageName': this.currentUrl,
-              'ErrorMessage': err.error.message
-            }
-            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-              data => {
+      .subscribe({
+        next: data => {
+          debugger
+          let temp: any = data.filter(x => x.id == this.EmployeeId);
+          this.EmployeeName = temp[0].name;
+          this.DigiofficeService.GetDeMinimisMapping()
+            .subscribe({
+              next: data => {
                 debugger
-              },
-            )
+                let temp1: any = data.filter(x => x.roleID == temp[0].roleType);
+                this.deniminimislist = temp1[0].deMinimis;
+                this.Amount = temp1[0].amount;
+              }, error: (err) => {
+                Swal.fire('Issue in Getting DeMinimis Mapping');
+                // Insert error in Db Here//
+                var obj = {
+                  'PageName': this.currentUrl,
+                  'ErrorMessage': err.error.message
+                }
+                this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                  data => {
+                    debugger
+                  },
+                )
+              }
+            })
+        }, error: (err) => {
+          Swal.fire('Issue in Getting My Details');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
           }
-        })
-      }, error: (err) => {
-        Swal.fire('Issue in Getting My Details');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
         }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
+      })
   }
- 
+
   onRemove21(event: any) {
     debugger
     console.log(event);
@@ -276,7 +276,7 @@ export class StaffSalaryFormComponent implements OnInit {
     console.log(event);
     this.attachments21.push(...event.addedFiles);
   }
- 
+
   onItemSelect1(item: any) {
     debugger
     console.log(item);
@@ -287,7 +287,7 @@ export class StaffSalaryFormComponent implements OnInit {
       this.deniminimis = this.deniminimis + this.selectedItems1[i].item + ','
     }
   }
-  
+
   onRemove211(event: any) {
     debugger
     console.log(event);
@@ -300,7 +300,7 @@ export class StaffSalaryFormComponent implements OnInit {
     console.log(event);
     this.attachments211.push(...event.addedFiles);
   }
-  
+
   public Save() {
     debugger
     if (this.BaseSal == undefined) {
@@ -314,10 +314,43 @@ export class StaffSalaryFormComponent implements OnInit {
         'deniminimis_amount': this.deniminimis_amount
       }
       this.DigiofficeService.UpdateDe_minimis_Detailsforstaff(eb)
+        .subscribe({
+          next: data => {
+            debugger
+            Swal.fire('Saved Successfully.');
+            this.router.navigate(['/Salarydetailsdash']);
+          }, error: (err) => {
+            Swal.fire('Issue in Updating DeMinimis Details For Staff');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+    }
+  }
+
+  public Update() {
+    debugger
+    var eb = {
+      'ID': this.EmployeeId,
+      'BaseSal': this.BaseSal,
+      'deniminimis': 'Test',
+      'deniminimis_amount': this.deniminimis_amount,
+      'NewSalary': this.NewSalary,
+      'effectivedate': this.effectivedate,
+    }
+    this.DigiofficeService.UpdateDe_minimis_Detailsforstaff(eb)
       .subscribe({
         next: data => {
           debugger
-          Swal.fire('Saved Successfully.');
+          Swal.fire('Updated Successfully.');
           this.router.navigate(['/Salarydetailsdash']);
         }, error: (err) => {
           Swal.fire('Issue in Updating DeMinimis Details For Staff');
@@ -333,46 +366,13 @@ export class StaffSalaryFormComponent implements OnInit {
           )
         }
       })
-    }
-  }
-
-  public Update() {
-    debugger
-    var eb = {
-      'ID': this.EmployeeId,
-      'BaseSal': this.BaseSal,
-      'deniminimis': 'Test',
-      'deniminimis_amount': this.deniminimis_amount,
-      'NewSalary': this.NewSalary,
-      'effectivedate': this.effectivedate,
-    }
-    this.DigiofficeService.UpdateDe_minimis_Detailsforstaff(eb)
-    .subscribe({
-      next: data => {
-        debugger
-        Swal.fire('Updated Successfully.');
-        this.router.navigate(['/Salarydetailsdash']);
-      }, error: (err) => {
-        Swal.fire('Issue in Updating DeMinimis Details For Staff');
-        // Insert error in Db Here//
-        var obj = {
-          'PageName': this.currentUrl,
-          'ErrorMessage': err.error.message
-        }
-        this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-          data => {
-            debugger
-          },
-        )
-      }
-    })
   }
 
   public cancel() {
     debugger
     this.router.navigate(['/hr/SalaryDetailsDash']);
   }
- 
+
   public GetRoleID(event: any) {
     debugger
     this.RoleID = event.target.value;
@@ -380,7 +380,7 @@ export class StaffSalaryFormComponent implements OnInit {
     this.Amount = '';
     this.selectedItems1 = [];
     this.DigiofficeService.GetMyDetails()
-    .subscribe({
+      .subscribe({
         next: data => {
           debugger
           this.dropdownList = data.filter(x => x.roleType == this.RoleID);

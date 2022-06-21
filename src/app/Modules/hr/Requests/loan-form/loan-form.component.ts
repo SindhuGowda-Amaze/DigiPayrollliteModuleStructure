@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { DigipayrollserviceService } from 'src/app/Pages/Services/digipayrollservice.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-loan-form',
   templateUrl: './loan-form.component.html',
   styleUrls: ['./loan-form.component.css']
 })
+
 export class LoanFormComponent implements OnInit {
+
+  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
   EmployeeId: any;
   password1: any;
   supervisoremail: any;
@@ -48,70 +50,16 @@ export class LoanFormComponent implements OnInit {
   roledid: any;
   Netsalary: any;
   staffID: any;
-
-  res: any
-  constructor(public DigiofficeService: DigipayrollserviceService, public router: Router) { }
-
-
+  res: any;
+  public Attactments = [];
+  public attachmentsurl: any = [];
 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
     this.LoanType = "";
     this.roledid = sessionStorage.getItem('roledid');
     this.staffID = sessionStorage.getItem('staffid')
-
-
-    if (this.roledid == 6) {
-      this.DigiofficeService.GetLoanConfiguration()
-        .subscribe({
-          next: data => {
-            debugger
-            this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable: boolean }) => x.employeeApply == true && x.enable_Disable == false)
-
-          }, error: (err) => {
-            Swal.fire('Issue in Getting Loan Configuration');
-            // Insert error in Db Here//
-            var obj = {
-              'PageName': this.currentUrl,
-              'ErrorMessage': err.error.message
-            }
-            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-              data => {
-                debugger
-              },
-            )
-          }
-        })
-
-
-
-    }
-    else {
-      this.DigiofficeService.GetLoanConfiguration()
-        .subscribe({
-          next: data => {
-            debugger
-            this.loanslist = data.filter((x: { managerApply: boolean; enable_Disable: boolean }) => x.managerApply == true && x.enable_Disable == false)
-
-          }, error: (err) => {
-            Swal.fire('Issue in Getting Loan Configuration');
-            // Insert error in Db Here//
-            var obj = {
-              'PageName': this.currentUrl,
-              'ErrorMessage': err.error.message
-            }
-            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
-              data => {
-                debugger
-              },
-            )
-          }
-        })
-
-    }
-
-
-
+    this.GetLoanConfiguration();
     this.DigiofficeService.Get_Salary_For_Loans(this.staffID).subscribe({
       next: data => {
         debugger
@@ -130,16 +78,52 @@ export class LoanFormComponent implements OnInit {
         )
       }
     })
-
-
-
-
-
   }
 
-
-  public attachmentsurl: any = [];
-
+  public GetLoanConfiguration() {
+    if (this.roledid == 6) {
+      this.DigiofficeService.GetLoanConfiguration()
+        .subscribe({
+          next: data => {
+            debugger
+            this.loanslist = data.filter((x: { employeeApply: boolean; enable_Disable: boolean }) => x.employeeApply == true && x.enable_Disable == false)
+          }, error: (err) => {
+            Swal.fire('Issue in Getting Loan Configuration');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+    }
+    else {
+      this.DigiofficeService.GetLoanConfiguration()
+        .subscribe({
+          next: data => {
+            debugger
+            this.loanslist = data.filter((x: { managerApply: boolean; enable_Disable: boolean }) => x.managerApply == true && x.enable_Disable == false)
+          }, error: (err) => {
+            Swal.fire('Issue in Getting Loan Configuration');
+            // Insert error in Db Here//
+            var obj = {
+              'PageName': this.currentUrl,
+              'ErrorMessage': err.error.message
+            }
+            this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+              data => {
+                debugger
+              },
+            )
+          }
+        })
+    }
+  }
 
   public Save() {
     debugger
@@ -153,11 +137,9 @@ export class LoanFormComponent implements OnInit {
         Swal.fire({
           title: 'Sorry!',
           text: 'You Are Not Eligible To Apply The Loan Because Your Take Home NetSalary Will Be Lesser Than 20% Threshold ',
-
         })
       }
       else {
-
         var eb = {
           'StaffID': sessionStorage.getItem('staffid'),
           'LoanType': this.LoanType,
@@ -166,8 +148,6 @@ export class LoanFormComponent implements OnInit {
           'Status': 'HR Pending',
           'period': this.Tenure
         }
-
-
         this.DigiofficeService.InsertEmployeeLoans(eb)
           .subscribe({
             next: data => {
@@ -175,23 +155,31 @@ export class LoanFormComponent implements OnInit {
               Swal.fire('Saved Successfully.');
               this.getpassword();
               this.router.navigate(['/employee/loans']);
-
+            }, error: (err) => {
+              Swal.fire('Issue in Inserting Employee Loans');
+              // Insert error in Db Here//
+              var obj = {
+                'PageName': this.currentUrl,
+                'ErrorMessage': err.error.message
+              }
+              this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+                data => {
+                  debugger
+                },
+              )
             }
-
           })
-
-
       }
-
     }
   }
+
   public TenureCalculate() {
     debugger;
     if (this.Tenure != "") {
       this.EMIAmount = (this.LoanAmount / this.Tenure).toFixed(2)
     }
-
   }
+
   getpassword() {
     this.DigiofficeService.GetMyDetails()
       .subscribe({
@@ -202,10 +190,8 @@ export class LoanFormComponent implements OnInit {
           if (temp.length != 0) {
             this.supervisoremail = temp[0].emailID;
             this.employeename = temp1[0].name
-
             this.sendemail();
           }
-
           this.sendemail();
         }, error: (err) => {
           Swal.fire('Issue in Getting MyDetails');
@@ -221,13 +207,8 @@ export class LoanFormComponent implements OnInit {
           )
         }
       })
-
-
-
-
   }
 
-  public Attactments = [];
   public sendemail() {
     var entity1 = {
       'emailto': this.supervisoremail,
@@ -243,7 +224,7 @@ export class LoanFormComponent implements OnInit {
           debugger
           this.Attactments = [];
         }, error: (err) => {
-          Swal.fire('Issue in send email1');
+          Swal.fire('Issue in Send Email');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -256,14 +237,11 @@ export class LoanFormComponent implements OnInit {
           )
         }
       })
-
-
   }
 
   public cancel() {
     debugger
     location.reload();
-
   }
 
 }

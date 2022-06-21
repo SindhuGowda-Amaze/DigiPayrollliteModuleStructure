@@ -12,15 +12,6 @@ import { HttpClient } from '@angular/common/http';
 
 export class HRDashboardComponent implements OnInit {
 
-  showback: any;
-  showfront: any;
-  myDate: any;
-  CancelledCount: any;
-  staffID: any;
-  Rejectedotcount: any;
-  profilepercentage: any
-  myleaves: any;
-  public number: number = 1000;
   constructor(public router: Router, private datePipe: DatePipe, public DigiofficeService: DigipayrollserviceService, private http: HttpClient) { }
   username: any;
   email: any;
@@ -42,10 +33,66 @@ export class HRDashboardComponent implements OnInit {
   roleid: any;
   loader: any;
   currentUrl: any;
+  showback: any;
+  showfront: any;
+  myDate: any;
+  CancelledCount: any;
+  staffID: any;
+  Rejectedotcount: any;
+  profilepercentage: any
+  myleaves: any;
+  ipAddress: any;
+  pendingteamexpensecount: any;
+  Rejectedteamexpnesecount: any;
+  approvedteamexpnescount: any;
+  pendingreg: any;
+  approevedreg: any;
+  term: any;
+  staffleaves1: any;
+  pendingcount: any;
+  Rejectedcount: any;
+  approvedcount: any;
+  pendingcount1: any;
+  Rejectedcount1: any;
+  approvedcount1: any;
+  projectlist: any;
+  Anniversery: any
+  Birthday: any;
+  NewJoinee: any;
+  Anniverserylist1: any;
+  Anniverserylist2: any;
+  count: any;
+  attendancelist: any;
+  staffleaves: any;
+  annnounecemnetlist: any;
+  search: any;
+  FirstDoseDate: any;
+  EmployeeVaccinationDetail: any;
+  certificate_url: any;
+  SecondDoseDate: any;
+  BoosterName: any;
+  BoosterDoseDate: any;
+  topholidayname: any;
+  topholidaydate: any
+  holidaylist: any;
+  holidaylist1: any
+  UserID: any;
+  SigninDate: any;
+  SigninLocation: any;
+  StatusID: any;
+  tpholidayattachment: any;
+  public number: number = 1000;
+  punchintime: any;
+  punchouttime: any;
+  punchinId: any;
+  ipaddress: any;
+  punchoutid: any;
+  announcmentdescription: any;
+  Anniverserylist: any;
 
   ngOnInit(): void {
     this.currentUrl = window.location.href;
-    this.loader = true
+    this.loader = true;
     this.getDetails();
     this.GetHolidays();
     var dateObj = new Date();
@@ -65,11 +112,7 @@ export class HRDashboardComponent implements OnInit {
     this.username = sessionStorage.getItem('UserName');
     this.email = sessionStorage.getItem('email');
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-    this.DigiofficeService.GetMyDetails().subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.id == this.staffID);
-      this.profilepercentage = temp[0].profilepercentage * 9
-    })
+    this.GetMyDetails();
     this.getipaddress();
     this.GetAttendanceRoute();
     this.GetAttendance1();
@@ -82,6 +125,29 @@ export class HRDashboardComponent implements OnInit {
     this.GetExpensesListwebRoute1();
     this.GetAttendance2();
     this.loader = true;
+  }
+
+  public GetMyDetails() {
+    this.DigiofficeService.GetMyDetails()
+      .subscribe({
+        next: data => {
+          debugger
+          let temp: any = data.filter(x => x.id == this.staffID);
+          this.profilepercentage = temp[0].profilepercentage * 9;
+        }, error: (err) => {
+          Swal.fire('Issue in Getting My Details');
+          // Insert error in Db Here//
+          var obj = {
+            'PageName': this.currentUrl,
+            'ErrorMessage': err.error.message
+          }
+          this.DigiofficeService.InsertExceptionLogs(obj).subscribe(
+            data => {
+              debugger
+            },
+          )
+        }
+      })
   }
 
   public GetAttendance2() {
@@ -159,13 +225,6 @@ export class HRDashboardComponent implements OnInit {
       })
   }
 
-  ipAddress: any;
-  pendingteamexpensecount: any;
-  Rejectedteamexpnesecount: any;
-  approvedteamexpnescount: any;
-  pendingreg: any;
-  approevedreg: any;
-
   public getipaddress() {
     debugger
     this.DigiofficeService.getIPAddress()
@@ -200,7 +259,6 @@ export class HRDashboardComponent implements OnInit {
             this.stafflistnewrequest = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status == 'Manager Pending' && x.supervisor == sessionStorage.getItem('staffid'))
             this.newrquestloancount = this.stafflistnewrequest.length;
             this.stafflistapproved = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status != 'Manager Pending' && x.status != 'Manager Rejected,HR Pending,Payroll Pending,Finance Pending' && x.supervisor == sessionStorage.getItem('staffid'))
-            // this.stafflistapproved=this.stafflist.filter((x:{supervisor: string,status: string})=> x.supervisor==sessionStorage.getItem('staffid') || x.status!='Manager Pending,HR Pending,Payroll Pending,Finance Pending'  )
             this.approvedloancount = this.stafflistapproved.length;
             this.stafflistrejected = this.stafflist.filter((x: { status: string, supervisor: string }) => x.status == 'Manager Rejected' && x.supervisor == sessionStorage.getItem('staffid'))
             this.rejectedloancount = this.stafflistrejected.length
@@ -209,7 +267,6 @@ export class HRDashboardComponent implements OnInit {
             this.stafflistnewrequest = this.stafflist.filter((x: { status: string }) => x.status == 'HR Approved')
             this.newrquestloancount = this.stafflistnewrequest.length;
             this.stafflistapproved = this.stafflist.filter((x: { status: string }) => x.status != 'HR Approved' && x.status != 'HR Approved')
-            // this.stafflistapproved=this.stafflist.filter((x:{supervisor: string,status: string})=> x.supervisor==sessionStorage.getItem('staffid') || x.status!='Manager Pending,HR Pending,Payroll Pending,Finance Pending'  )
             this.approvedloancount = this.stafflistapproved.length;
             this.stafflistrejected = this.stafflist.filter((x: { status: string }) => x.status == 'HR Approved')
             this.rejectedloancount = this.stafflistrejected.length
@@ -328,15 +385,6 @@ export class HRDashboardComponent implements OnInit {
       })
   }
 
-  term: any;
-  staffleaves1: any;
-  pendingcount: any;
-  Rejectedcount: any;
-  approvedcount: any;
-  pendingcount1: any;
-  Rejectedcount1: any;
-  approvedcount1: any;
-
   public getstaffleaves1() {
     debugger
     if (this.roleid == 2) {
@@ -393,8 +441,6 @@ export class HRDashboardComponent implements OnInit {
     }
   }
 
-  projectlist: any
-
   public GetExpensesListweb() {
     debugger
     this.DigiofficeService.GetExpensesListweb()
@@ -421,12 +467,6 @@ export class HRDashboardComponent implements OnInit {
   public holidays() {
     this.router.navigate(['/HolidayDashboard'])
   }
-
-  Anniversery: any
-  Birthday: any;
-  NewJoinee: any;
-  Anniverserylist1: any;
-  Anniverserylist2: any;
 
   public changebirthday() {
     debugger;
@@ -536,9 +576,6 @@ export class HRDashboardComponent implements OnInit {
     this.router.navigate(['/EmployeeProfileView']);
   }
 
-  count: any;
-  attendancelist: any;
-
   public GetAttendance() {
     debugger
     this.DigiofficeService.GetAttendance()
@@ -563,8 +600,6 @@ export class HRDashboardComponent implements OnInit {
       })
   }
 
-  staffleaves: any;
-
   public getstaffleaves() {
     debugger
     this.DigiofficeService.GetStaffLeaves(10331, 1, "01-01-2020", "01-01-2025")
@@ -588,8 +623,6 @@ export class HRDashboardComponent implements OnInit {
       })
   }
 
-  annnounecemnetlist: any;
-
   public GetAnnouncements() {
     debugger
     this.DigiofficeService.GetAnnouncementsByBuildingID(56)
@@ -598,7 +631,7 @@ export class HRDashboardComponent implements OnInit {
           debugger
           this.annnounecemnetlist = data;
         }, error: (err) => {
-          Swal.fire('Issue in Getting Announcements');
+          Swal.fire('Issue in Getting Announcements By Building ID');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
@@ -612,14 +645,6 @@ export class HRDashboardComponent implements OnInit {
         }
       })
   }
-
-  search: any;
-  FirstDoseDate: any;
-  EmployeeVaccinationDetail: any;
-  certificate_url: any;
-  SecondDoseDate: any;
-  BoosterName: any;
-  BoosterDoseDate: any;
 
   public getDetails() {
     debugger
@@ -649,12 +674,6 @@ export class HRDashboardComponent implements OnInit {
       })
   }
 
-  topholidayname: any;
-  topholidaydate: any
-  holidaylist: any;
-  holidaylist1: any
-  tpholidayattachment: any;
-
   public GetHolidays() {
     debugger
     this.DigiofficeService.GetHolidays()
@@ -681,11 +700,6 @@ export class HRDashboardComponent implements OnInit {
         }
       })
   }
-
-  UserID: any;
-  SigninDate: any;
-  SigninLocation: any;
-  StatusID: any;
 
   public punchin() {
     debugger
@@ -753,25 +767,18 @@ export class HRDashboardComponent implements OnInit {
         })
     }
   }
+
   public formatDate(date: any) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
-
-  punchintime: any;
-  punchouttime: any;
-  punchinId: any;
-  ipaddress: any;
-  punchoutid: any;
 
   public punchout() {
     if (this.punchouttime != undefined) {
@@ -854,8 +861,6 @@ export class HRDashboardComponent implements OnInit {
     }
   }
 
-  Anniverserylist: any;
-
   public changeAnniversary() {
     debugger;
     this.Anniversery = true;
@@ -903,8 +908,6 @@ export class HRDashboardComponent implements OnInit {
         }
       })
   }
-
-  announcmentdescription: any;
 
   public changeannoun(id: any) {
     this.DigiofficeService.GetAnnouncementsByBuildingID(56)
